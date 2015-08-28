@@ -29,9 +29,9 @@ public class DeviceFoundListener {
 		L2CAPConnection output = (L2CAPConnection) Connector.open(baseAddress + ":11",
 				Connector.WRITE, true);
 
-		WiimoteIoHandlingThread wiimoteIoHandlingThread = new WiimoteIoHandlingThread(input, output);
-		wiimoteIoHandlingThread.turnLedOn(0);
-		wiimoteIoHandlingThread.start();
+		WiimoteIoHandlingThread handler = new WiimoteIoHandlingThread(input, output);
+		handler.turnLedOn(0);
+		handler.start();
 	}
 
 }
