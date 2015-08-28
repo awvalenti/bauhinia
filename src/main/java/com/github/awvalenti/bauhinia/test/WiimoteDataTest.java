@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauinia.test;
+package com.github.awvalenti.bauhinia.test;
 
 import java.io.IOException;
 import java.util.Arrays;
