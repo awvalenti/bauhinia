@@ -27,7 +27,9 @@ public class BlueCoveLibrary {
 					}
 
 					public void inquiryCompleted(int discType) {
-						lock.notify();
+						synchronized (lock) {
+							lock.notify();
+						}
 					}
 
 					public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
