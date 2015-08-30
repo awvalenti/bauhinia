@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.test;
+package com.github.awvalenti.bauhinia.bluecovelibrary;
 
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
@@ -8,6 +8,7 @@ import javax.bluetooth.LocalDevice;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
+import com.github.awvalenti.bauhinia.test.DeviceFoundListener;
 import com.intel.bluetooth.BlueCoveConfigProperties;
 
 public class BlueCoveLibrary {
@@ -20,18 +21,22 @@ public class BlueCoveLibrary {
 			throws BluetoothStateException {
 		LocalDevice.getLocalDevice().getDiscoveryAgent()
 				.startInquiry(DiscoveryAgent.GIAC, new DiscoveryListener() {
+					@Override
 					public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
 					}
 
+					@Override
 					public void serviceSearchCompleted(int transID, int respCode) {
 					}
 
+					@Override
 					public void inquiryCompleted(int discType) {
 						synchronized (lock) {
 							lock.notify();
 						}
 					}
 
+					@Override
 					public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
 						listener.deviceFound(btDevice);
 					}
