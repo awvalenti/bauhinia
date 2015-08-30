@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.forficata.implementation;
+package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
 
 import java.io.IOException;
 
@@ -34,13 +34,13 @@ public class L2capWiimote implements Wiimote {
 	}
 
 	@Override
-	public void setListener(final WiimoteListener listener) {
+	public void addListener(final WiimoteListener listener) {
 		Thread buttonHandler = new Thread() {
-			private byte[] oldState = new byte[4];
-			private byte[] newState = new byte[4];
-
 			@Override
 			public void run() {
+				byte[] oldState = new byte[4];
+				byte[] newState = new byte[4];
+
 				try {
 					input.receive(oldState);
 
