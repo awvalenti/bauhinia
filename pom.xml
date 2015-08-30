@@ -8,16 +8,16 @@
 
 	<groupId>com.github.awvalenti</groupId>
 	<artifactId>bauhinia</artifactId>
-    <packaging>pom</packaging>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<modules>
 		<module>nitida</module>
 		<module>forficata-api</module>
 		<module>forficata-implementation-bluecove</module>
-		<module>forficata-implementation-wiimotej</module>
+		<module>forficata-implementation-wiiusej</module>
 	</modules>
-	
+
 	<build>
 		<plugins>
 			<plugin>
