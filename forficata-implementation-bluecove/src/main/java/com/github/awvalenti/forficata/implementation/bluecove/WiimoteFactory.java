@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.forficata.implementation.bluecove;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import javax.bluetooth.L2CAPConnection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
+import com.github.awvalenti.forficata.api.Wiimote;
 
 public class WiimoteFactory {
 

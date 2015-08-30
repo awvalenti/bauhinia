@@ -9,13 +9,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>bauhinia-application</artifactId>
+	<artifactId>forficata-implementation-bluecove</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti</groupId>
-			<artifactId>forficata-implementation-bluecove</artifactId>
+			<artifactId>forficata-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

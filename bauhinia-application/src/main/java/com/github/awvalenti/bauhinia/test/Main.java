@@ -2,11 +2,11 @@ package com.github.awvalenti.bauhinia.test;
 
 import java.io.IOException;
 
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteListener;
-import com.github.awvalenti.bauhinia.forficata.implementation.bluecove.BlueCoveWiimoteConnector;
+import com.github.awvalenti.forficata.api.Wiimote;
+import com.github.awvalenti.forficata.api.WiimoteButton;
+import com.github.awvalenti.forficata.api.WiimoteConnectedCallback;
+import com.github.awvalenti.forficata.api.WiimoteListener;
+import com.github.awvalenti.forficata.implementation.bluecove.BlueCoveWiimoteConnector;
 
 public class Main {
 

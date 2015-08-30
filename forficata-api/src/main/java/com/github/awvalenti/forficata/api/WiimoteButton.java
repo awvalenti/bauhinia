@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.forficata.api;
+package com.github.awvalenti.forficata.api;
 
 public enum WiimoteButton {
 

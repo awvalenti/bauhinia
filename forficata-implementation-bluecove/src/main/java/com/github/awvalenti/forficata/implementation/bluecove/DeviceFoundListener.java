@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.forficata.implementation.bluecove;
 
 import javax.bluetooth.RemoteDevice;
 

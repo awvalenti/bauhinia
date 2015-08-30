@@ -13,6 +13,8 @@
 
 	<modules>
 		<module>bauhinia-application</module>
+		<module>forficata-api</module>
+		<module>forficata-implementation-bluecove</module>
 	</modules>
 	
 	<build>

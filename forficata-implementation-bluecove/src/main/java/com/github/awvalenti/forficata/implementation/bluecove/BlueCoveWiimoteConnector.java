@@ -1,12 +1,12 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.forficata.implementation.bluecove;
 
 import java.io.IOException;
 
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.RemoteDevice;
 
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
+import com.github.awvalenti.forficata.api.WiimoteConnectedCallback;
+import com.github.awvalenti.forficata.api.WiimoteConnector;
 
 public class BlueCoveWiimoteConnector implements WiimoteConnector {
 
