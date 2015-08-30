@@ -8,10 +8,10 @@
 		<artifactId>bauhinia</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>bauhinia-application</artifactId>
-    <packaging>jar</packaging>
-	
+	<packaging>jar</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.bluecove</groupId>
