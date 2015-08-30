@@ -11,7 +11,7 @@ import com.github.awvalenti.forficata.api.Wiimote;
 public class WiimoteFactory {
 
 	public boolean deviceIsWiimote(RemoteDevice device) throws IOException {
-		return device.getFriendlyName(false).startsWith("Nintendo");
+		return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
 	}
 
 	public Wiimote createWiimote(RemoteDevice device) throws IOException {
