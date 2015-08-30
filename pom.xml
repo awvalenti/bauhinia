@@ -12,7 +12,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<modules>
-		<module>bauhinia-application</module>
+		<module>nitida</module>
 		<module>forficata-api</module>
 		<module>forficata-implementation-bluecove</module>
 		<module>forficata-implementation-wiimotej</module>
