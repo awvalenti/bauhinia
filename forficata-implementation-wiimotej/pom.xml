@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.github.awvalenti</groupId>
+		<artifactId>bauhinia</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>forficata-implementation-wiimotej</artifactId>
+	<packaging>jar</packaging>
+
+	<repositories>
+		<repository>
+			<id>local-maven-repo</id>
+			<name>local-maven-repo</name>
+			<url>file:${project.basedir}/local-maven-repo</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.awvalenti</groupId>
+			<artifactId>forficata-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code</groupId>
+			<artifactId>wiiusej</artifactId>
+			<version>0.12b</version>
+		</dependency>
+	</dependencies>
+
+</project>

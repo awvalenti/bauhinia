@@ -15,6 +15,7 @@
 		<module>bauhinia-application</module>
 		<module>forficata-api</module>
 		<module>forficata-implementation-bluecove</module>
+		<module>forficata-implementation-wiimotej</module>
 	</modules>
 	
 	<build>
