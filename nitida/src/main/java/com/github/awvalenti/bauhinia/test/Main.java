@@ -6,12 +6,12 @@ import com.github.awvalenti.forficata.api.Wiimote;
 import com.github.awvalenti.forficata.api.WiimoteButton;
 import com.github.awvalenti.forficata.api.WiimoteConnectedCallback;
 import com.github.awvalenti.forficata.api.WiimoteListener;
-import com.github.awvalenti.forficata.implementation.bluecove.BlueCoveWiimoteConnector;
+import com.github.awvalenti.forficata.implementation.wiimotej.WiimoteJWiimoteConnector;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new BlueCoveWiimoteConnector().searchAndConnect(new WiimoteConnectedCallback() {
+		new WiimoteJWiimoteConnector().searchAndConnect(new WiimoteConnectedCallback() {
 			@Override
 			public void wiimoteConnected(Wiimote wiimote) {
 				try {
