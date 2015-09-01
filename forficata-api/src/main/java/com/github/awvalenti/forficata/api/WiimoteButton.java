@@ -23,8 +23,8 @@ public enum WiimoteButton {
 		this.byteValue = byteValue;
 	}
 
-	public boolean isPressedAccordingTo(byte[] fourBytes) {
-		return (fourBytes[byteIndex] & byteValue) != 0;
+	public boolean isPressedAccordingTo(byte[] dataReadFromWiimote) {
+		return (dataReadFromWiimote[byteIndex] & byteValue) != 0;
 	}
 
 }
