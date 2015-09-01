@@ -10,7 +10,7 @@ import javax.bluetooth.ServiceRecord;
 
 import com.intel.bluetooth.BlueCoveConfigProperties;
 
-public class BlueCoveLibraryWrapper {
+class BlueCoveLibraryWrapper {
 
 	public BlueCoveLibraryWrapper() {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");

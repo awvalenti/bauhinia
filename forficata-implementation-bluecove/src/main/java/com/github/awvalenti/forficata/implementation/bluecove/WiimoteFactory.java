@@ -8,7 +8,7 @@ import javax.microedition.io.Connector;
 
 import com.github.awvalenti.forficata.api.Wiimote;
 
-public class WiimoteFactory {
+class WiimoteFactory {
 
 	public boolean deviceIsWiimote(RemoteDevice device) throws IOException {
 		return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");

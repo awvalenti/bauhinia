@@ -20,7 +20,7 @@ import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 import com.github.awvalenti.forficata.api.Wiimote;
 import com.github.awvalenti.forficata.api.WiimoteListener;
 
-public class WiimoteJWiimoteAdapter implements Wiimote {
+class WiimoteJWiimoteAdapter implements Wiimote {
 
 	private final wiiusej.Wiimote wiiusejWiimote;
 

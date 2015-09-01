@@ -8,7 +8,7 @@ import com.github.awvalenti.forficata.api.Wiimote;
 import com.github.awvalenti.forficata.api.WiimoteButton;
 import com.github.awvalenti.forficata.api.WiimoteListener;
 
-public class L2capWiimote implements Wiimote {
+class L2capWiimote implements Wiimote {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
