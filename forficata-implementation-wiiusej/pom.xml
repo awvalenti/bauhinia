@@ -14,9 +14,8 @@
 
 	<repositories>
 		<repository>
-			<id>local-maven-repo</id>
-			<name>local-maven-repo</name>
-			<url>file:${project.basedir}/local-maven-repo</url>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 
@@ -27,9 +26,9 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code</groupId>
+			<groupId>com.github.awvalenti</groupId>
 			<artifactId>wiiusej</artifactId>
-			<version>0.12b</version>
+			<version>f519d328ad</version>
 		</dependency>
 	</dependencies>
 
