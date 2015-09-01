@@ -15,24 +15,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti</groupId>
-			<artifactId>forficata-implementation-bluecove</artifactId>
+			<artifactId>forficata-factory-crossplatform</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.awvalenti</groupId>
-			<artifactId>forficata-implementation-wiiusej</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.bluecove</groupId>
-			<artifactId>bluecove</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.bluecove</groupId>
-			<artifactId>bluecove-gpl</artifactId>
-			<version>2.1.0</version>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

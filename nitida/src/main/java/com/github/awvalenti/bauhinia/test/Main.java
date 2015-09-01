@@ -5,13 +5,15 @@ import java.io.IOException;
 import com.github.awvalenti.forficata.api.Wiimote;
 import com.github.awvalenti.forficata.api.WiimoteButton;
 import com.github.awvalenti.forficata.api.WiimoteConnectedCallback;
+import com.github.awvalenti.forficata.api.WiimoteConnector;
 import com.github.awvalenti.forficata.api.WiimoteListener;
-import com.github.awvalenti.forficata.implementation.wiimotej.WiimoteJWiimoteConnector;
+import com.github.awvalenti.forficata.factory.crossplatform.ForficataFactoryCrossplatform;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new WiimoteJWiimoteConnector().searchAndConnect(new WiimoteConnectedCallback() {
+		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector();
+		connector.searchAndConnect(new WiimoteConnectedCallback() {
 			@Override
 			public void wiimoteConnected(Wiimote wiimote) {
 				try {
