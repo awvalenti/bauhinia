@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.bluetooth.L2CAPConnection;
 
 import com.github.awvalenti.forficata.api.Wiimote;
-import com.github.awvalenti.forficata.api.WiimoteButton;
 import com.github.awvalenti.forficata.api.WiimoteListener;
 
 class L2capWiimote implements Wiimote {
@@ -34,40 +33,8 @@ class L2capWiimote implements Wiimote {
 	}
 
 	@Override
-	public void addListener(final WiimoteListener listener) {
-		Thread buttonHandler = new Thread() {
-			@Override
-			public void run() {
-				byte[] oldState = new byte[4];
-				byte[] newState = new byte[4];
-
-				try {
-					input.receive(oldState);
-
-					for (;;) {
-						input.receive(newState);
-
-						for (WiimoteButton b : WiimoteButton.values()) {
-							if (!b.isPressedAccordingTo(oldState) && b.isPressedAccordingTo(newState)) {
-								listener.buttonPressed(b);
-							}
-							if (b.isPressedAccordingTo(oldState) && !b.isPressedAccordingTo(newState)) {
-								listener.buttonReleased(b);
-							}
-						}
-
-						byte[] aux = newState;
-						newState = oldState;
-						oldState = aux;
-					}
-				} catch (IOException e) {
-					listener.wiimoteDisconnected();
-				}
-			}
-
-		};
-		buttonHandler.setDaemon(false);
-		buttonHandler.start();
+	public void addListener(WiimoteListener listener) {
+		new ButtonHandlerThread(input, output, listener).start();
 	}
 
 	private void sendDataToWiimote(byte commandCode, byte[] data) throws IOException {
