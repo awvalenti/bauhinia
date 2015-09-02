@@ -19,7 +19,7 @@ class BlueCoveLibraryWrapper {
 	public void searchSynchronously(final DeviceFoundListener deviceFoundListener)
 			throws BluetoothStateException {
 
-		if (!LocalDevice.isPowerOn()) throw new BluetoothStateException("Bluetooth adapter is off");
+		if (!LocalDevice.isPowerOn()) throw new BluetoothStateException("Error: bluetooth adapter may be off");
 
 		final Object monitor = new Object();
 
