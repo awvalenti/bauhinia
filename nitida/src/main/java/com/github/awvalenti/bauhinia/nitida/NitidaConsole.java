@@ -1,5 +1,7 @@
 package com.github.awvalenti.bauhinia.nitida;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
@@ -15,6 +17,7 @@ public class NitidaConsole {
 	public static void main(String[] args) {
 		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector(1);
 		try {
+			System.out.println("Searching for Wiimote...");
 			connector.searchAndConnect(new WiimoteConnectedCallback() {
 				@Override
 				public void wiimoteConnected(final Wiimote wiimote) {
@@ -23,30 +26,30 @@ public class NitidaConsole {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-					System.out.println("Connected");
-					wiimote.setButtonListener(new WiimoteButtonListener() {
-						int currentLed;
+					System.out.println("Connected to Wiimote!");
 
-						@Override
-						public void buttonPressed(WiimoteButton button) {
-							try {
-								wiimote.turnLedOn(++currentLed);
-							} catch (IOException e) {
-								throw new RuntimeException(e);
+					try {
+						final Robot robot = new Robot();
+						final KeyMapping mapping = new KeyMapping();
+						wiimote.setButtonListener(new WiimoteButtonListener() {
+							@Override
+							public void buttonPressed(WiimoteButton button) {
+								robot.keyPress(mapping.keycodeFor(button));
 							}
-							System.out.printf("Pressed %s\n", button);
-						}
 
-						@Override
-						public void buttonReleased(WiimoteButton button) {
-							System.out.printf("Released %s\n", button);
-						}
+							@Override
+							public void buttonReleased(WiimoteButton button) {
+								robot.keyRelease(mapping.keycodeFor(button));
+							}
 
-						@Override
-						public void wiimoteDisconnected() {
-							System.out.println("Disconnected");
-						}
-					});
+							@Override
+							public void wiimoteDisconnected() {
+								System.out.println("Wiimote disconnected");
+							}
+						});
+					} catch (AWTException e) {
+						throw new RuntimeException(e);
+					}
 				}
 			});
 		} catch (ForficataException e) {
