@@ -9,6 +9,10 @@ public class WiiuseJWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void searchAndConnect(final WiimoteConnectedCallback callback) {
+		connectOneWiimote(callback);
+	}
+
+	private void connectOneWiimote(final WiimoteConnectedCallback callback) {
 		wiiusej.Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, false);
 		if (wiimotes.length > 0) callback.wiimoteConnected(new WiiuseJWiimoteAdapter(wiimotes[0]));
 	}
