@@ -19,7 +19,7 @@ class L2capWiimote implements Wiimote {
 
 	@Override
 	public void turnLedOn(int ledIndex) throws IOException {
-		sendDataToWiimote((byte) 0x11, new byte[] { (byte) (1 << (4 + ledIndex)) });
+		sendDataToWiimote((byte) 0x11, new byte[] { (byte) (1 << (ledIndex % 4 + 4)) });
 	}
 
 	@Override

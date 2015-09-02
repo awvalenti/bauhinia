@@ -30,6 +30,7 @@ class WiimoteJWiimoteAdapter implements Wiimote {
 
 	@Override
 	public void turnLedOn(int ledIndex) throws IOException {
+		ledIndex %= 4;
 		wiiusejWiimote.setLeds(ledIndex == 0, ledIndex == 1, ledIndex == 2, ledIndex == 3);
 	}
 
