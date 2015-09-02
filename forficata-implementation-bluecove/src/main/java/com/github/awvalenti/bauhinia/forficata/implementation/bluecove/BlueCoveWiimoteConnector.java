@@ -13,14 +13,24 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 	private final BlueCoveLibraryWrapper blueCoveLib = new BlueCoveLibraryWrapper();
 	private final WiimoteFactory factory = new WiimoteFactory();
 
+	private final int maximumNumberOfWiimotes;
+	private int numberOfWiimotesFound = 0;
+
+	public BlueCoveWiimoteConnector(int maximumNumberOfWiimotes) {
+		this.maximumNumberOfWiimotes = maximumNumberOfWiimotes;
+	}
+
 	@Override
 	public void searchAndConnect(final WiimoteConnectedCallback callback) throws ForficataException {
-		blueCoveLib.searchSynchronously(new DeviceFoundListener() {
+		blueCoveLib.startSynchronousSearch(new DeviceFoundListener() {
 			@Override
-			public void deviceFound(RemoteDevice device) {
+			public synchronized void deviceFound(RemoteDevice device) {
 				try {
 					if (factory.deviceIsWiimote(device)) {
 						callback.wiimoteConnected(factory.createWiimote(device));
+						if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
+							blueCoveLib.stopSearch();
+						}
 					}
 				} catch (IOException e) {
 					throw new RuntimeException(e);
@@ -31,6 +41,7 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void connectToWiimoteAt(String bluetoothAddress, WiimoteConnectedCallback callback) {
+		// TODO
 	}
 
 }

@@ -13,19 +13,22 @@ import com.intel.bluetooth.BlueCoveConfigProperties;
 
 class BlueCoveLibraryWrapper {
 
+	private DiscoveryAgent agent;
+	private DiscoveryListener discoveryListener;
+
 	public BlueCoveLibraryWrapper() {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");
 	}
 
-	public void searchSynchronously(final DeviceFoundListener deviceFoundListener)
+	public void startSynchronousSearch(final DeviceFoundListener deviceFoundListener)
 			throws ForficataException {
 
 		try {
-			DiscoveryAgent agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
+			agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
 
 			final Object monitor = new Object();
 
-			agent.startInquiry(DiscoveryAgent.GIAC, new DiscoveryListener() {
+			discoveryListener = new DiscoveryListener() {
 				@Override
 				public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
 				}
@@ -45,7 +48,9 @@ class BlueCoveLibraryWrapper {
 				public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
 					deviceFoundListener.deviceFound(btDevice);
 				}
-			});
+			};
+
+			agent.startInquiry(DiscoveryAgent.GIAC, discoveryListener);
 
 			waitForInquiryToFinish(monitor);
 
@@ -62,6 +67,10 @@ class BlueCoveLibraryWrapper {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void stopSearch() {
+		agent.cancelInquiry(discoveryListener);
 	}
 
 }

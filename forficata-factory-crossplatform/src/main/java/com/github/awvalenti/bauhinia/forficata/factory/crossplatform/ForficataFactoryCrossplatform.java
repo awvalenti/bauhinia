@@ -8,9 +8,9 @@ import com.github.awvalenti.bauhinia.forficata.implementation.wiiusej.WiiuseJWii
 public class ForficataFactoryCrossplatform implements ForficataFactory {
 
 	@Override
-	public WiimoteConnector createConnector() {
-		// TODO improve platform discovery mechanism
-		return isWindows() ? new WiiuseJWiimoteConnector() : new BlueCoveWiimoteConnector();
+	public WiimoteConnector createConnector(int maxNumberOfWiimotes) {
+		return isWindows() ? new WiiuseJWiimoteConnector(maxNumberOfWiimotes)
+				: new BlueCoveWiimoteConnector(maxNumberOfWiimotes);
 	}
 
 	private boolean isWindows() {

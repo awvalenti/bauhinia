@@ -13,7 +13,7 @@ import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.ForficataFa
 public class NitidaConsole {
 
 	public static void main(String[] args) {
-		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector();
+		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector(1);
 		try {
 			connector.searchAndConnect(new WiimoteConnectedCallback() {
 				@Override
