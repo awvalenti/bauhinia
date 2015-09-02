@@ -30,7 +30,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>com.github.awvalenti.bauhinia.test.Main</mainClass>
+							<mainClass>com.github.awvalenti.bauhinia.nitida.NitidaConsole</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
