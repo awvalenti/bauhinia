@@ -1,4 +1,4 @@
-package com.github.awvalenti.forficata.implementation.wiimotej;
+package com.github.awvalenti.forficata.implementation.wiiusej;
 
 import static com.github.awvalenti.forficata.api.WiimoteButton.*;
 
@@ -20,11 +20,11 @@ import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 import com.github.awvalenti.forficata.api.Wiimote;
 import com.github.awvalenti.forficata.api.WiimoteListener;
 
-class WiimoteJWiimoteAdapter implements Wiimote {
+class WiiuseJWiimoteAdapter implements Wiimote {
 
 	private final wiiusej.Wiimote wiiusejWiimote;
 
-	public WiimoteJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote) {
+	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote) {
 		this.wiiusejWiimote = wiiusejWiimote;
 	}
 
