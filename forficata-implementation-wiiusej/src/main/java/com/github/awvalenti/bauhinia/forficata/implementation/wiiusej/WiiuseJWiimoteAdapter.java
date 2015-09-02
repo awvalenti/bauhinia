@@ -1,9 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata.implementation.wiiusej;
 
 import static com.github.awvalenti.bauhinia.forficata.api.WiimoteButton.*;
-
-import java.io.IOException;
-
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
 import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
@@ -19,6 +16,7 @@ import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteDisconnectionListener;
 
 class WiiuseJWiimoteAdapter implements Wiimote {
 
@@ -29,18 +27,23 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 	}
 
 	@Override
-	public void turnLedOn(int ledIndex) throws IOException {
+	public void turnLedOn(int ledIndex) {
 		ledIndex %= 4;
 		wiiusejWiimote.setLeds(ledIndex == 0, ledIndex == 1, ledIndex == 2, ledIndex == 3);
 	}
 
 	@Override
-	public void startVibration() throws IOException {
+	public void startVibration() {
 		// TODO
 	}
 
 	@Override
-	public void stopVibration() throws IOException {
+	public void stopVibration() {
+		// TODO
+	}
+
+	@Override
+	public void setDisconnectionListener(WiimoteDisconnectionListener disconnectionListener) {
 		// TODO
 	}
 
@@ -124,4 +127,5 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 		});
 
 	}
+
 }

@@ -6,6 +6,7 @@ import javax.bluetooth.L2CAPConnection;
 
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteDisconnectionListener;
 
 class L2capWiimote implements Wiimote {
 
@@ -38,6 +39,11 @@ class L2capWiimote implements Wiimote {
 		if (listenerIsSet) throw new IllegalStateException("Button listener is already set");
 		listenerIsSet = true;
 		new ButtonHandlerThread(input, output, listener).start();
+	}
+
+	@Override
+	public void setDisconnectionListener(WiimoteDisconnectionListener disconnectionListener) {
+		// TODO
 	}
 
 	private void sendDataToWiimote(byte commandCode, byte[] data) throws IOException {
