@@ -5,12 +5,13 @@ import java.io.IOException;
 import javax.bluetooth.L2CAPConnection;
 
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteListener;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 
 class L2capWiimote implements Wiimote {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
+	private boolean listenerIsSet = false;
 
 	public L2capWiimote(L2CAPConnection input, L2CAPConnection output) {
 		this.input = input;
@@ -33,7 +34,9 @@ class L2capWiimote implements Wiimote {
 	}
 
 	@Override
-	public void addListener(WiimoteListener listener) {
+	public synchronized void setButtonListener(WiimoteButtonListener listener) {
+		if (listenerIsSet) throw new IllegalStateException("Button listener is already set");
+		listenerIsSet = true;
 		new ButtonHandlerThread(input, output, listener).start();
 	}
 

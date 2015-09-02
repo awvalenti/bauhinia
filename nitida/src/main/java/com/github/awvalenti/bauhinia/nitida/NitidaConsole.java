@@ -5,9 +5,9 @@ import java.io.IOException;
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteListener;
 import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.ForficataFactoryCrossplatform;
 
 public class NitidaConsole {
@@ -24,7 +24,7 @@ public class NitidaConsole {
 						throw new RuntimeException(e);
 					}
 					System.out.println("Connected");
-					wiimote.addListener(new WiimoteListener() {
+					wiimote.setButtonListener(new WiimoteButtonListener() {
 						int currentLed;
 
 						@Override

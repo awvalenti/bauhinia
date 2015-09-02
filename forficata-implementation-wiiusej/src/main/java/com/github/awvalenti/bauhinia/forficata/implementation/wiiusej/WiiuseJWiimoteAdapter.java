@@ -18,7 +18,7 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteListener;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 
 class WiiuseJWiimoteAdapter implements Wiimote {
 
@@ -45,7 +45,7 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 	}
 
 	@Override
-	public void addListener(final WiimoteListener listener) {
+	public void setButtonListener(final WiimoteButtonListener listener) {
 		wiiusejWiimote.addWiiMoteEventListeners(new wiiusej.wiiusejevents.utils.WiimoteListener() {
 
 			@Override
