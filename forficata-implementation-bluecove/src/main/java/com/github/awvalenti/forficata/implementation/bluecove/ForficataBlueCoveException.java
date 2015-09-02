@@ -26,14 +26,16 @@ class ForficataBlueCoveException {
 	private static ForficataException problemLoadingLibraries(BluetoothStateException e) {
 		return new ForficataException(e, ""
 				+ "Unable to load required libraries for BlueCove.\n"
-				+ "\tCheck if these requirements were met: http://www.bluecove.org/bluecove-gpl/index.html\n"
-				+ "\tCheck if one of these packages is installed: libbluetooth-dev (Ubuntu), bluez-libs-devel (Fedora), bluez-devel (openSUSE)\n"
+				+ "\tCheck if the requirements described here were met:"
+				+ " http://www.bluecove.org/bluecove-gpl/index.html\n"
+				+ "\tTry installing one of these packages:"
+				+ " libbluetooth-dev (Ubuntu), bluez-libs-devel (Fedora), bluez-devel (openSUSE)\n"
 				+ "");
 	}
 
 	private static ForficataException bluetoothAdapterIsOff(BluetoothStateException e) {
 		return new ForficataException(e, ""
-				+ "Bluetooth adapter seems to be turned off."
+				+ "Bluetooth adapter is unavailable. Check if it is present and turned on."
 				+ "");
 	}
 
