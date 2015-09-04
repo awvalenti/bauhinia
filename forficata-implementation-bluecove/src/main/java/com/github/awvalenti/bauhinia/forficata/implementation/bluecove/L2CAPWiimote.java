@@ -8,13 +8,13 @@ import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteDisconnectionListener;
 
-class L2capWiimote implements Wiimote {
+class L2CAPWiimote implements Wiimote {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
 	private boolean listenerIsSet = false;
 
-	public L2capWiimote(L2CAPConnection input, L2CAPConnection output) {
+	public L2CAPWiimote(L2CAPConnection input, L2CAPConnection output) {
 		this.input = input;
 		this.output = output;
 	}

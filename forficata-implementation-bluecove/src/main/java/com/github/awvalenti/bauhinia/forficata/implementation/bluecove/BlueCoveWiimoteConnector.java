@@ -10,7 +10,7 @@ import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class BlueCoveWiimoteConnector implements WiimoteConnector {
 
-	private final BlueCoveLibraryWrapper blueCoveLib = new BlueCoveLibraryWrapper();
+	private final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
 	private final WiimoteFactory factory = new WiimoteFactory();
 
 	private final int maximumNumberOfWiimotes;

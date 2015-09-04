@@ -20,7 +20,7 @@ class WiimoteFactory {
 				Connector.READ, true);
 		L2CAPConnection output = (L2CAPConnection) Connector.open(baseAddress + ":11",
 				Connector.WRITE, true);
-		return new L2capWiimote(input, output);
+		return new L2CAPWiimote(input, output);
 	}
 
 }
