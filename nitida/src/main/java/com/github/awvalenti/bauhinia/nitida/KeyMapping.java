@@ -19,9 +19,9 @@ public class KeyMapping {
 		mapping.put(RIGHT, VK_RIGHT);
 		mapping.put(A, VK_PAGE_DOWN);
 		mapping.put(B, VK_PAGE_UP);
-		mapping.put(MINUS, VK_MINUS);
+		mapping.put(MINUS, VK_SUBTRACT);
 		mapping.put(HOME, VK_HOME);
-		mapping.put(PLUS, VK_PLUS);
+		mapping.put(PLUS, VK_ADD);
 		mapping.put(ONE, VK_ESCAPE);
 		mapping.put(TWO, VK_F5);
 	}
