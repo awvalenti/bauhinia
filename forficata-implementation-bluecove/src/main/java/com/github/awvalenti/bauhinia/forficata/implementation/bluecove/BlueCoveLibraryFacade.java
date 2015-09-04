@@ -11,12 +11,12 @@ import javax.bluetooth.ServiceRecord;
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.intel.bluetooth.BlueCoveConfigProperties;
 
-class BlueCoveLibraryWrapper {
+class BlueCoveLibraryFacade {
 
 	private DiscoveryAgent agent;
 	private DiscoveryListener discoveryListener;
 
-	public BlueCoveLibraryWrapper() {
+	public BlueCoveLibraryFacade() {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");
 	}
 
@@ -46,6 +46,7 @@ class BlueCoveLibraryWrapper {
 
 				@Override
 				public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
+					System.out.printf("%s, %s\n", btDevice, cod);
 					deviceFoundListener.deviceFound(btDevice);
 				}
 			};
