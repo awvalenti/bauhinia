@@ -54,7 +54,7 @@ public class NitidaConsole {
 			});
 		} catch (ForficataException e) {
 			e.printStackTrace();
-			System.err.println("\n" + e);
+			System.err.println("\n" + e.getMessage());
 		}
 	}
 
