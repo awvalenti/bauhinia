@@ -12,7 +12,11 @@ class L2CAPWiimote implements Wiimote {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
+
 	private boolean listenerIsSet = false;
+	private int litLedIndex = -1;
+
+	private static final byte COMMAND_LED_OR_VIBRATION = 0x11;
 
 	public L2CAPWiimote(L2CAPConnection input, L2CAPConnection output) {
 		this.input = input;
@@ -21,17 +25,18 @@ class L2CAPWiimote implements Wiimote {
 
 	@Override
 	public void turnLedOn(int ledIndex) throws IOException {
-		sendDataToWiimote((byte) 0x11, new byte[] { (byte) (1 << (ledIndex % 4 + 4)) });
+		sendDataToWiimote(COMMAND_LED_OR_VIBRATION, new byte[] { (byte) (1 << (ledIndex % 4 + 4)) });
+		this.litLedIndex = ledIndex;
 	}
 
 	@Override
-	public void startVibration() {
-		// TODO
+	public void startVibration() throws IOException {
+		sendDataToWiimote(COMMAND_LED_OR_VIBRATION, new byte[] { (byte) (0x01 | (1 << (litLedIndex % 4 + 4))) });
 	}
 
 	@Override
-	public void stopVibration() {
-		// TODO
+	public void stopVibration() throws IOException {
+		turnLedOn(litLedIndex);
 	}
 
 	@Override

@@ -10,8 +10,8 @@ public interface Wiimote {
 
 	void turnLedOn(int ledIndex) throws IOException;
 
-	void startVibration();
+	void startVibration() throws IOException;
 
-	void stopVibration();
+	void stopVibration() throws IOException;
 
 }
