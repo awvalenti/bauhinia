@@ -46,7 +46,6 @@ class BlueCoveLibraryFacade {
 
 				@Override
 				public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
-					System.out.printf("%s, %s\n", btDevice, cod);
 					deviceFoundListener.deviceFound(btDevice);
 				}
 			};
