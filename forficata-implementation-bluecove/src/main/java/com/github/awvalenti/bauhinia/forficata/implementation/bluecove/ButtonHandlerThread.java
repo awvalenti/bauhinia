@@ -37,8 +37,12 @@ class ButtonHandlerThread extends Thread {
 				swapBuffers();
 			}
 		} catch (IOException e) {
-			// Happens when wiimote is disconnected. Handled in finally block below.
+			// Happens when Wiimote is disconnected. Handled on finally block below.
+
 		} finally {
+			// Gets here when either:
+			// - an IOException has occurred (see above)
+			// - buttonPressed or buttonReleased has thrown an unchecked exception
 			wiimoteDisconnected();
 		}
 	}
