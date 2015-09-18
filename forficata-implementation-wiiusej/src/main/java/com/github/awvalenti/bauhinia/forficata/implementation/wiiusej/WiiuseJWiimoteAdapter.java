@@ -34,12 +34,12 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 
 	@Override
 	public void startVibration() {
-		// TODO
+		wiiusejWiimote.activateRumble();
 	}
 
 	@Override
 	public void stopVibration() {
-		// TODO
+		wiiusejWiimote.deactivateRumble();
 	}
 
 	@Override
