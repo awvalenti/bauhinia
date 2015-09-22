@@ -1,10 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,33 +20,18 @@ public class NitidaWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		StateLabel[] stateLabels = { new StateLabel("Idle", Color.RED),
-				new StateLabel("Connecting", Color.YELLOW), new StateLabel("Active", Color.GREEN) };
-
-		JPanel pnlState = new JPanel();
-		pnlState.setBorder(BorderFactory.createTitledBorder("State"));
-		pnlState.setLayout(new GridLayout(stateLabels.length, 1));
-		for (StateLabel sl : stateLabels) {
-			pnlState.add(sl);
-			sl.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					((StateLabel) e.getSource()).setEnabled(!((StateLabel) e.getSource()).isEnabled());
-				}
-			});
-		}
-		frame.add(pnlState, BorderLayout.NORTH);
+		frame.add(new StatePanel(), BorderLayout.NORTH);
 
 		JPanel log = new JPanel(new BorderLayout());
 		log.setBorder(BorderFactory.createTitledBorder("Log"));
 		frame.add(log, BorderLayout.CENTER);
 
-		JButton reconnect = new JButton("Reconnect");
-		reconnect.setEnabled(false);
+		JButton connect = new JButton("Connect");
+		connect.setEnabled(false);
 
 		JPanel actions = new JPanel();
 		actions.setBorder(BorderFactory.createTitledBorder("Actions"));
-		actions.add(reconnect);
+		actions.add(connect);
 		frame.add(actions, BorderLayout.SOUTH);
 	}
 
