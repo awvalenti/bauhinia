@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-class StateLabel extends JLabel {
+public class StateLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 

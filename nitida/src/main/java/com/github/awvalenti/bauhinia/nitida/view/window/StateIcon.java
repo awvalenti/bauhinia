@@ -8,7 +8,8 @@ import java.awt.RenderingHints;
 
 import javax.swing.Icon;
 
-class StateIcon implements Icon {
+public class StateIcon implements Icon {
+
 	private final Color color;
 
 	public StateIcon(Color color) {
