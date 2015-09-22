@@ -39,9 +39,4 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 		});
 	}
 
-	@Override
-	public void connectToWiimoteAt(String bluetoothAddress, WiimoteConnectedCallback callback) {
-		// TODO
-	}
-
 }
