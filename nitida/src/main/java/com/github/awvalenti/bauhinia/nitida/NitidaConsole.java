@@ -14,7 +14,15 @@ import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.ForficataFa
 
 public class NitidaConsole {
 
-	public static void main(String[] args) {
+	private final ProjectProperties projectProperties;
+
+	public NitidaConsole(ProjectProperties projectProperties) {
+		this.projectProperties = projectProperties;
+	}
+
+	public void run() {
+		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
+
 		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector(1);
 		try {
 			System.out.println("Searching for Wiimote...");
