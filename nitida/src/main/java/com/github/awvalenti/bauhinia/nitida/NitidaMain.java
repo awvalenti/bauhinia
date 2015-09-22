@@ -1,5 +1,9 @@
 package com.github.awvalenti.bauhinia.nitida;
 
+import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
+import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
+import com.github.awvalenti.bauhinia.nitida.view.window.NitidaWindow;
+
 public class NitidaMain {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida;
+package com.github.awvalenti.bauhinia.nitida.view.console;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -11,6 +11,8 @@ import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.ForficataFactoryCrossplatform;
+import com.github.awvalenti.bauhinia.nitida.model.KeyMapping;
+import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
 public class NitidaConsole {
 

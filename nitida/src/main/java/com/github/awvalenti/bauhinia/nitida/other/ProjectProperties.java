@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida;
+package com.github.awvalenti.bauhinia.nitida.other;
 
 import java.io.IOException;
 import java.io.InputStream;

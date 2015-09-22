@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida;
+package com.github.awvalenti.bauhinia.nitida.model;
 
 import static com.github.awvalenti.bauhinia.forficata.api.WiimoteButton.*;
 import static java.awt.event.KeyEvent.*;
