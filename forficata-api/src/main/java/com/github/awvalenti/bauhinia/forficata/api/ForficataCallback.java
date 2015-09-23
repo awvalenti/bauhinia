@@ -12,4 +12,8 @@ public interface ForficataCallback {
 
 	void searchFinished();
 
+	void wiimoteFound();
+
+	void notWiimote();
+
 }

@@ -4,13 +4,17 @@ public interface NitidaOutput {
 
 	void run();
 
-	void enteredIdleState();
+	void idle();
 
-	void enteredSearchingStarted();
-
-	void enteredActiveState();
+	void searching();
 
 	void bluetoothDeviceFound(String bluetoothAddress, String deviceClass);
+
+	void identifying();
+
+	void notWiimote();
+
+	void active();
 
 	void unexpectedException(Exception e);
 

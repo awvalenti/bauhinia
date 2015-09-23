@@ -7,6 +7,7 @@ import javax.bluetooth.DeviceClass;
 import javax.bluetooth.RemoteDevice;
 
 import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
+import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class BlueCoveWiimoteConnector implements WiimoteConnector {
@@ -51,22 +52,18 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		@Override
 		public synchronized void deviceFound(RemoteDevice device, DeviceClass deviceClass) {
-			System.out.println("0)");
 			callback.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) deviceClass).toString());
 			try {
-				System.out.println("1) Will try to identify bluetooth device");
-				if (factory.deviceIsWiimote(device)) {
-					System.out.println("2) Wiimote found. Will connect...");
-					callback.wiimoteConnected(factory.createWiimote(device));
-					System.out.println("3) Connected!");
-					if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
-						System.out.println("4) Will stop search");
-						blueCoveLib.stopSearch();
-						System.out.println("5) Search stopped");
-					}
+				if (!factory.deviceIsWiimote(device)) {
+					callback.notWiimote();
 				} else {
-					System.out.println("6) Identified as not wiimote");
+					callback.wiimoteFound();
+					Wiimote wiimote = factory.createWiimote(device);
+					callback.wiimoteConnected(wiimote);
+					if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
+						blueCoveLib.stopSearch();
+					}
 				}
 			} catch (IOException e) {
 				throw new RuntimeException(e);

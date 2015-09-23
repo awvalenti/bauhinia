@@ -9,18 +9,20 @@ import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
-import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.Forficata;
+import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class NitidaModel implements ForficataCallback {
 
-	private final NitidaOutput listener;
+	private final NitidaOutput output;
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private NitidaState state;
+	private WiimoteConnector connector;
 
-	public NitidaModel(NitidaOutput listener) {
+	public NitidaModel(NitidaOutput output, WiimoteConnector connector) {
 		try {
-			this.listener = listener;
+			this.output = output;
+			this.connector = connector;
 			robot = new Robot();
 			mapping = new KeyMapping();
 			state = NitidaState.IDLE;
@@ -30,18 +32,28 @@ public class NitidaModel implements ForficataCallback {
 	}
 
 	public void run() {
-		Forficata.asyncConnector().run(this);
+		connector.run(this);
 	}
 
 	@Override
 	public void searchStarted() {
 		state = NitidaState.SEARCHING;
-		listener.enteredSearchingStarted();
+		output.searching();
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-		listener.bluetoothDeviceFound(bluetoothAddress, deviceClass);
+		output.bluetoothDeviceFound(bluetoothAddress, deviceClass);
+	}
+
+	@Override
+	public void wiimoteFound() {
+		output.identifying();
+	}
+
+	@Override
+	public void notWiimote() {
+		output.notWiimote();
 	}
 
 	@Override
@@ -65,25 +77,25 @@ public class NitidaModel implements ForficataCallback {
 
 			@Override
 			public void wiimoteDisconnected() {
-				listener.enteredIdleState();
+				output.idle();
 			}
 		});
 
 		state = NitidaState.ACTIVE;
-		listener.enteredActiveState();
+		output.active();
 	}
 
 	@Override
 	public void searchFinished() {
 		if (state != NitidaState.ACTIVE) {
 			state = NitidaState.IDLE;
-			listener.enteredIdleState();
+			output.idle();
 		}
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
-		listener.enteredIdleState();
+		output.idle();
 		e.printStackTrace();
 		System.err.println("\n" + e.getMessage());
 	}

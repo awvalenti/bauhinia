@@ -8,4 +8,8 @@ public abstract class Forficata {
 		return new ForficataFactoryCrossplatform().createConnector(1);
 	}
 
+	public static WiimoteConnector syncConnector() {
+		return new ForficataFactoryCrossplatform().createConnector(1);
+	}
+
 }

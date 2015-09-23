@@ -17,23 +17,33 @@ public class NitidaConsole implements NitidaOutput {
 	}
 
 	@Override
-	public void enteredIdleState() {
+	public void idle() {
 		System.out.println("Wiimote disconnected");
 	}
 
 	@Override
-	public void enteredSearchingStarted() {
+	public void searching() {
 		System.out.println("Searching for Wiimote...");
 	}
 
 	@Override
-	public void enteredActiveState() {
-		System.out.println("Connected to Wiimote!");
+	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
+		System.out.printf("Bluetooth device found: %s - %s\n", bluetoothAddress, deviceClass);
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-		System.out.printf("A Bluetooth device was found: %s - %s\n", bluetoothAddress, deviceClass);
+	public void identifying() {
+		System.out.println("Identifying Bluetooth device...");
+	}
+
+	@Override
+	public void notWiimote() {
+		System.out.println("Not a Wiimote");
+	}
+
+	@Override
+	public void active() {
+		System.out.println("Connected to Wiimote!");
 	}
 
 	@Override

@@ -54,19 +54,19 @@ public class NitidaWindow implements NitidaOutput {
 	}
 
 	@Override
-	public void enteredIdleState() {
+	public void idle() {
 		statePanel.setIdleState();
 		connectButton.setEnabled(true);
 	}
 
 	@Override
-	public void enteredSearchingStarted() {
+	public void searching() {
 		statePanel.setSearchingState();
 		connectButton.setEnabled(false);
 	}
 
 	@Override
-	public void enteredActiveState() {
+	public void active() {
 		statePanel.setActiveState();
 		connectButton.setEnabled(false);
 	}
@@ -88,6 +88,14 @@ public class NitidaWindow implements NitidaOutput {
 		} catch (BadLocationException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void identifying() {
+	}
+
+	@Override
+	public void notWiimote() {
 	}
 
 }
