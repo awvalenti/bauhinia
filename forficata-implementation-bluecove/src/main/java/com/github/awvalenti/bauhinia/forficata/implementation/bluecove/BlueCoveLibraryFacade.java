@@ -19,11 +19,8 @@ class BlueCoveLibraryFacade {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");
 	}
 
-	public void startSynchronousSearch(final DeviceFoundListener deviceFoundListener) throws BluetoothStateException {
-
+	public void startAsynchronousSearch(final BlueCoveListener blueCoveListener) throws BluetoothStateException {
 		agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
-
-		final Object monitor = new Object();
 
 		discoveryListener = new DiscoveryListener() {
 			@Override
@@ -35,32 +32,17 @@ class BlueCoveLibraryFacade {
 			}
 
 			@Override
-			public void inquiryCompleted(int discType) {
-				synchronized (monitor) {
-					monitor.notify();
-				}
+			public void inquiryCompleted(int reason) {
+				blueCoveListener.searchFinished();
 			}
 
 			@Override
 			public void deviceDiscovered(RemoteDevice device, DeviceClass deviceClass) {
-				deviceFoundListener.deviceFound(device, deviceClass);
+				blueCoveListener.deviceFound(device, deviceClass);
 			}
 		};
 
 		agent.startInquiry(DiscoveryAgent.GIAC, discoveryListener);
-
-		waitForInquiryToFinish(monitor);
-
-	}
-
-	private void waitForInquiryToFinish(final Object monitor) {
-		try {
-			synchronized (monitor) {
-				monitor.wait();
-			}
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public void stopSearch() {

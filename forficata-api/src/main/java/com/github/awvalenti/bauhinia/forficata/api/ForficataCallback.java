@@ -10,4 +10,6 @@ public interface ForficataCallback {
 
 	void searchStarted();
 
+	void searchFinished();
+
 }

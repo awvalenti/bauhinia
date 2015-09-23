@@ -23,27 +23,59 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void run(final ForficataCallback callback) {
-		try {
-			blueCoveLib.startSynchronousSearch(new DeviceFoundListener() {
-				@Override
-				public synchronized void deviceFound(RemoteDevice device, DeviceClass deviceClass) {
-					callback.bluetoothDeviceFound(device.getBluetoothAddress(), ((Object) deviceClass).toString());
-					try {
-						if (factory.deviceIsWiimote(device)) {
-							callback.wiimoteConnected(factory.createWiimote(device));
-							if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
-								blueCoveLib.stopSearch();
-							}
-						}
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				}
-			});
-			callback.searchStarted();
+		asyncSearch(callback);
+	}
 
+	public void syncSearch(final ForficataCallback callback) {
+		asyncSearch(callback);
+//		synchronized (monitor) {
+//			monitor.notify();
+//		}
+	}
+
+	private void asyncSearch(final ForficataCallback callback) {
+		try {
+			blueCoveLib.startAsynchronousSearch(new Listener(callback));
+			callback.searchStarted();
 		} catch (BluetoothStateException e) {
 			callback.errorOccurred(ForficataBlueCoveException.correspondingTo(e));
+		}
+	}
+
+	private class Listener implements BlueCoveListener {
+		private final ForficataCallback callback;
+
+		private Listener(ForficataCallback callback) {
+			this.callback = callback;
+		}
+
+		@Override
+		public synchronized void deviceFound(RemoteDevice device, DeviceClass deviceClass) {
+			System.out.println("0)");
+			callback.bluetoothDeviceFound(device.getBluetoothAddress(),
+					((Object) deviceClass).toString());
+			try {
+				System.out.println("1) Will try to identify bluetooth device");
+				if (factory.deviceIsWiimote(device)) {
+					System.out.println("2) Wiimote found. Will connect...");
+					callback.wiimoteConnected(factory.createWiimote(device));
+					System.out.println("3) Connected!");
+					if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
+						System.out.println("4) Will stop search");
+						blueCoveLib.stopSearch();
+						System.out.println("5) Search stopped");
+					}
+				} else {
+					System.out.println("6) Identified as not wiimote");
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		@Override
+		public void searchFinished() {
+			callback.searchFinished();
 		}
 	}
 

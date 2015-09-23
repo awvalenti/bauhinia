@@ -16,12 +16,14 @@ public class NitidaModel implements ForficataCallback {
 	private final NitidaOutput listener;
 	private final Robot robot;
 	private final KeyMapping mapping;
+	private NitidaState state;
 
 	public NitidaModel(NitidaOutput listener) {
 		try {
-			this.robot = new Robot();
-			this.mapping = new KeyMapping();
 			this.listener = listener;
+			robot = new Robot();
+			mapping = new KeyMapping();
+			state = NitidaState.IDLE;
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
@@ -33,6 +35,7 @@ public class NitidaModel implements ForficataCallback {
 
 	@Override
 	public void searchStarted() {
+		state = NitidaState.SEARCHING;
 		listener.enteredSearchingStarted();
 	}
 
@@ -66,7 +69,16 @@ public class NitidaModel implements ForficataCallback {
 			}
 		});
 
+		state = NitidaState.ACTIVE;
 		listener.enteredActiveState();
+	}
+
+	@Override
+	public void searchFinished() {
+		if (state != NitidaState.ACTIVE) {
+			state = NitidaState.IDLE;
+			listener.enteredIdleState();
+		}
 	}
 
 	@Override
