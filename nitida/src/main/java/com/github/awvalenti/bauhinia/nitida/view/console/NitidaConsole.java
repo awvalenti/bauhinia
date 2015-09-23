@@ -1,20 +1,10 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.io.IOException;
-
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.ForficataFactoryCrossplatform;
-import com.github.awvalenti.bauhinia.nitida.model.KeyMapping;
+import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
+import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaConsole {
+public class NitidaConsole implements NitidaOutput {
 
 	private final ProjectProperties projectProperties;
 
@@ -24,48 +14,33 @@ public class NitidaConsole {
 
 	public void run() {
 		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
+		new NitidaModel(this).run();
+	}
 
-		WiimoteConnector connector = new ForficataFactoryCrossplatform().createConnector(1);
-		try {
-			System.out.println("Searching for Wiimote...");
-			connector.searchAndConnect(new WiimoteConnectedCallback() {
-				@Override
-				public void wiimoteConnected(final Wiimote wiimote) {
-					try {
-						wiimote.turnLedOn(0);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-					System.out.println("Connected to Wiimote!");
+	@Override
+	public void enteredIdleState() {
+		System.out.println("Wiimote disconnected");
+	}
 
-					try {
-						final Robot robot = new Robot();
-						final KeyMapping mapping = new KeyMapping();
-						wiimote.setButtonListener(new WiimoteButtonListener() {
-							@Override
-							public void buttonPressed(WiimoteButton button) {
-								robot.keyPress(mapping.keycodeFor(button));
-							}
+	@Override
+	public void enteredSearchingStarted() {
+		System.out.println("Searching for Wiimote...");
+	}
 
-							@Override
-							public void buttonReleased(WiimoteButton button) {
-								robot.keyRelease(mapping.keycodeFor(button));
-							}
+	@Override
+	public void enteredActiveState() {
+		System.out.println("Connected to Wiimote!");
+	}
 
-							@Override
-							public void wiimoteDisconnected() {
-								System.out.println("Wiimote disconnected");
-							}
-						});
-					} catch (AWTException e) {
-						throw new RuntimeException(e);
-					}
-				}
-			});
-		} catch (ForficataException e) {
-			e.printStackTrace();
-			System.err.println("\n" + e.getMessage());
-		}
+	@Override
+	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
+		System.out.printf("A Bluetooth device was found: %s - %s\n", bluetoothAddress, deviceClass);
+	}
+
+	@Override
+	public void unexpectedException(Exception e) {
+		e.printStackTrace();
+		System.err.println("\n" + e.getMessage());
 	}
 
 }

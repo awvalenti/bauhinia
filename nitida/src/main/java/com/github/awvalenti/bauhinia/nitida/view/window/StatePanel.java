@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataAsyncListener;
+import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 
-public class StatePanel extends JPanel implements ForficataAsyncListener {
+public class StatePanel extends JPanel implements NitidaOutput {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,18 +35,26 @@ public class StatePanel extends JPanel implements ForficataAsyncListener {
 	}
 
 	@Override
-	public void setIdleState() {
+	public void enteredIdleState() {
 		setEnabledLabel(0);
 	}
 
 	@Override
-	public void setSearchingState() {
+	public void enteredSearchingStarted() {
 		setEnabledLabel(1);
 	}
 
 	@Override
-	public void setConnectedState() {
+	public void enteredActiveState() {
 		setEnabledLabel(2);
+	}
+
+	@Override
+	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
+	}
+
+	@Override
+	public void unexpectedException(Exception e) {
 	}
 
 }

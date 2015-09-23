@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.forficata.implementation.wiiusej;
 
 import wiiusej.WiiUseApiManager;
 
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class WiiuseJWiimoteConnector implements WiimoteConnector {
@@ -14,7 +14,7 @@ public class WiiuseJWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void searchAndConnect(final WiimoteConnectedCallback callback) {
+	public void run(final ForficataCallback callback) {
 		wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(maximumNumberOfWiimotes, false);
 		for (wiiusej.Wiimote w : wiimotesFound) {
 			callback.wiimoteConnected(new WiiuseJWiimoteAdapter(w));

@@ -8,7 +8,6 @@ import javax.bluetooth.LocalDevice;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.intel.bluetooth.BlueCoveConfigProperties;
 
 class BlueCoveLibraryFacade {
@@ -20,43 +19,38 @@ class BlueCoveLibraryFacade {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");
 	}
 
-	public void startSynchronousSearch(final DeviceFoundListener deviceFoundListener)
-			throws ForficataException {
+	public void startSynchronousSearch(final DeviceFoundListener deviceFoundListener) throws BluetoothStateException {
 
-		try {
-			agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
+		agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
 
-			final Object monitor = new Object();
+		final Object monitor = new Object();
 
-			discoveryListener = new DiscoveryListener() {
-				@Override
-				public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
+		discoveryListener = new DiscoveryListener() {
+			@Override
+			public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
+			}
+
+			@Override
+			public void serviceSearchCompleted(int transID, int respCode) {
+			}
+
+			@Override
+			public void inquiryCompleted(int discType) {
+				synchronized (monitor) {
+					monitor.notify();
 				}
+			}
 
-				@Override
-				public void serviceSearchCompleted(int transID, int respCode) {
-				}
+			@Override
+			public void deviceDiscovered(RemoteDevice device, DeviceClass deviceClass) {
+				deviceFoundListener.deviceFound(device, deviceClass);
+			}
+		};
 
-				@Override
-				public void inquiryCompleted(int discType) {
-					synchronized (monitor) {
-						monitor.notify();
-					}
-				}
+		agent.startInquiry(DiscoveryAgent.GIAC, discoveryListener);
 
-				@Override
-				public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
-					deviceFoundListener.deviceFound(btDevice);
-				}
-			};
+		waitForInquiryToFinish(monitor);
 
-			agent.startInquiry(DiscoveryAgent.GIAC, discoveryListener);
-
-			waitForInquiryToFinish(monitor);
-
-		} catch (BluetoothStateException e) {
-			throw ForficataBlueCoveException.correspondingTo(e);
-		}
 	}
 
 	private void waitForInquiryToFinish(final Object monitor) {

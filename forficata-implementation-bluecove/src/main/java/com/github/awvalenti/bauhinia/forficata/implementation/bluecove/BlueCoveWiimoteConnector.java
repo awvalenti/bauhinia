@@ -2,10 +2,11 @@ package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
 
 import java.io.IOException;
 
+import javax.bluetooth.BluetoothStateException;
+import javax.bluetooth.DeviceClass;
 import javax.bluetooth.RemoteDevice;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnectedCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class BlueCoveWiimoteConnector implements WiimoteConnector {
@@ -21,22 +22,29 @@ public class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void searchAndConnect(final WiimoteConnectedCallback callback) throws ForficataException {
-		blueCoveLib.startSynchronousSearch(new DeviceFoundListener() {
-			@Override
-			public synchronized void deviceFound(RemoteDevice device) {
-				try {
-					if (factory.deviceIsWiimote(device)) {
-						callback.wiimoteConnected(factory.createWiimote(device));
-						if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
-							blueCoveLib.stopSearch();
+	public void run(final ForficataCallback callback) {
+		try {
+			blueCoveLib.startSynchronousSearch(new DeviceFoundListener() {
+				@Override
+				public synchronized void deviceFound(RemoteDevice device, DeviceClass deviceClass) {
+					callback.bluetoothDeviceFound(device.getBluetoothAddress(), ((Object) deviceClass).toString());
+					try {
+						if (factory.deviceIsWiimote(device)) {
+							callback.wiimoteConnected(factory.createWiimote(device));
+							if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
+								blueCoveLib.stopSearch();
+							}
 						}
+					} catch (IOException e) {
+						throw new RuntimeException(e);
 					}
-				} catch (IOException e) {
-					throw new RuntimeException(e);
 				}
-			}
-		});
+			});
+			callback.searchStarted();
+
+		} catch (BluetoothStateException e) {
+			callback.errorOccurred(ForficataBlueCoveException.correspondingTo(e));
+		}
 	}
 
 }
