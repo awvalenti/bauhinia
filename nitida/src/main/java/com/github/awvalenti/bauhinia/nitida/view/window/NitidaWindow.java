@@ -20,8 +20,8 @@ public class NitidaWindow implements NitidaOutput {
 	private final JButton connectButton;
 	private final JEditorPane logText;
 
-	public NitidaWindow(ProjectProperties projectProperties, StatePanel statePanel) {
-		this.statePanel = statePanel;
+	public NitidaWindow(ProjectProperties projectProperties) {
+		statePanel = new StatePanel();
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
@@ -48,34 +48,26 @@ public class NitidaWindow implements NitidaOutput {
 		frame.add(actions, BorderLayout.SOUTH);
 	}
 
-	private void appendToLog(String content) {
-		Document doc = logText.getDocument();
-		try {
-			doc.insertString(doc.getLength(), content, null);
-		} catch (BadLocationException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public void show() {
+	@Override
+	public void run() {
 		frame.setVisible(true);
 	}
 
 	@Override
 	public void enteredIdleState() {
-		statePanel.enteredIdleState();
+		statePanel.setIdleState();
 		connectButton.setEnabled(true);
 	}
 
 	@Override
 	public void enteredSearchingStarted() {
-		statePanel.enteredSearchingStarted();
+		statePanel.setSearchingState();
 		connectButton.setEnabled(false);
 	}
 
 	@Override
 	public void enteredActiveState() {
-		statePanel.enteredActiveState();
+		statePanel.setActiveState();
 		connectButton.setEnabled(false);
 	}
 
@@ -87,6 +79,15 @@ public class NitidaWindow implements NitidaOutput {
 	@Override
 	public void unexpectedException(Exception e) {
 		appendToLog(String.format("An unexpected exception occurred: %s", e));
+	}
+
+	private void appendToLog(String content) {
+		Document doc = logText.getDocument();
+		try {
+			doc.insertString(doc.getLength(), content, null);
+		} catch (BadLocationException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

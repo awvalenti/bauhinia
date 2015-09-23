@@ -2,6 +2,8 @@ package com.github.awvalenti.bauhinia.nitida.model;
 
 public interface NitidaOutput {
 
+	void run();
+
 	void enteredIdleState();
 
 	void enteredSearchingStarted();

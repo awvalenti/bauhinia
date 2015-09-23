@@ -6,17 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
-
-public class StatePanel extends JPanel implements NitidaOutput {
+public class StatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final StateLabel[] labels = {
-			new StateLabel("Idle", Color.RED),
-			new StateLabel("Connecting", Color.YELLOW),
-			new StateLabel("Active", Color.GREEN),
-			};
+	private final StateLabel[] labels = { new StateLabel("Idle", Color.RED),
+			new StateLabel("Connecting", Color.YELLOW), new StateLabel("Active", Color.GREEN), };
 
 	public StatePanel() {
 		setBorder(BorderFactory.createTitledBorder("State"));
@@ -34,27 +29,16 @@ public class StatePanel extends JPanel implements NitidaOutput {
 		labels[enabledLabelIndex].setEnabled(true);
 	}
 
-	@Override
-	public void enteredIdleState() {
+	public void setIdleState() {
 		setEnabledLabel(0);
 	}
 
-	@Override
-	public void enteredSearchingStarted() {
+	public void setSearchingState() {
 		setEnabledLabel(1);
 	}
 
-	@Override
-	public void enteredActiveState() {
+	public void setActiveState() {
 		setEnabledLabel(2);
-	}
-
-	@Override
-	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-	}
-
-	@Override
-	public void unexpectedException(Exception e) {
 	}
 
 }

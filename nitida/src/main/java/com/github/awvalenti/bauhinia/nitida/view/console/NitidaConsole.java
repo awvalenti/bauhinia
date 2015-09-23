@@ -1,6 +1,5 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
-import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
@@ -12,9 +11,9 @@ public class NitidaConsole implements NitidaOutput {
 		this.projectProperties = projectProperties;
 	}
 
+	@Override
 	public void run() {
 		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
-		new NitidaModel(this).run();
 	}
 
 	@Override
