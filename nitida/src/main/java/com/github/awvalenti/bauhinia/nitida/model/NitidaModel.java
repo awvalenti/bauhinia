@@ -13,16 +13,16 @@ import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
 public class NitidaModel implements ForficataCallback {
 
+	private final WiimoteConnector connector;
 	private final NitidaOutput output;
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private NitidaState state;
-	private WiimoteConnector connector;
 
-	public NitidaModel(NitidaOutput output, WiimoteConnector connector) {
+	public NitidaModel(WiimoteConnector connector, NitidaOutput output) {
 		try {
-			this.output = output;
 			this.connector = connector;
+			this.output = output;
 			robot = new Robot();
 			mapping = new KeyMapping();
 			state = NitidaState.IDLE;

@@ -17,10 +17,10 @@ public class NitidaMain {
 
 		if (args.length > 0 && args[0].equals("--console")) {
 			view = new NitidaConsole(projectProperties);
-			model = new NitidaModel(view, Forficata.syncConnector(1));
+			model = new NitidaModel(Forficata.syncConnector(1), view);
 		} else {
 			view = new NitidaWindow(projectProperties);
-			model = new NitidaModel(view, Forficata.asyncConnector(1));
+			model = new NitidaModel(Forficata.asyncConnector(1), view);
 		}
 
 		view.run();
