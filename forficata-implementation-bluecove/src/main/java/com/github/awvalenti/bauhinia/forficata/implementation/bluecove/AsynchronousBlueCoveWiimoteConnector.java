@@ -4,7 +4,7 @@ import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
 
 public class AsynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 
-	private static final Runnable NOOP = new Runnable() {
+	private static final Runnable NULL_OPERATION = new Runnable() {
 		@Override
 		public void run() {
 		}
@@ -16,7 +16,7 @@ public class AsynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnect
 
 	@Override
 	public void run(final ForficataCallback callback) {
-		runAsyncSearch(callback, NOOP);
+		runAsyncSearch(callback, NULL_OPERATION);
 	}
 
 }

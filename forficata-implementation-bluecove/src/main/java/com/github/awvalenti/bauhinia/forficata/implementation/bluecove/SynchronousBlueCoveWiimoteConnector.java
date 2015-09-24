@@ -11,7 +11,6 @@ public class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnecto
 	@Override
 	public void run(final ForficataCallback callback) {
 		try {
-
 			final Object monitor = new Object();
 
 			runAsyncSearch(callback, new Runnable() {
