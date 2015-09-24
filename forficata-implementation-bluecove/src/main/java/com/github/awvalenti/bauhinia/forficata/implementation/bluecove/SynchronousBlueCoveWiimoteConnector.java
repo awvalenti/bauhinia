@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
 
 public class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 
@@ -9,11 +9,11 @@ public class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnecto
 	}
 
 	@Override
-	public void run(final ForficataCallback callback) {
+	public void run(final ForficataListener listener) {
 		try {
 			final Object monitor = new Object();
 
-			runAsyncSearch(callback, new Runnable() {
+			runAsyncSearch(listener, new Runnable() {
 				@Override
 				public void run() {
 					synchronized (monitor) {

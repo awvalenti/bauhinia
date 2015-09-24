@@ -4,14 +4,14 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.IOException;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
-public class NitidaModel implements ForficataCallback {
+public class NitidaModel implements ForficataListener {
 
 	private final WiimoteConnector connector;
 	private final NitidaOutput output;

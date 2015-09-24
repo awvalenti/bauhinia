@@ -8,7 +8,7 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
@@ -25,47 +25,47 @@ public abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public abstract void run(final ForficataCallback callback);
+	public abstract void run(final ForficataListener listener);
 
-	protected final void runAsyncSearch(final ForficataCallback callback, Runnable onFinish) {
+	protected final void runAsyncSearch(final ForficataListener listener, Runnable onFinish) {
 		try {
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(callback, onFinish));
-			callback.searchStarted();
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(listener, onFinish));
+			listener.searchStarted();
 		} catch (BluetoothStateException e) {
-			callback.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
+			listener.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
 		}
 	}
 
 	private class BlueCoveListener implements DiscoveryListener {
-		private final ForficataCallback callback;
+		private final ForficataListener listener;
 		private final Runnable additionalActionOnFinish;
 
-		public BlueCoveListener(ForficataCallback callback, Runnable additionalActionOnFinish) {
-			this.callback = callback;
+		public BlueCoveListener(ForficataListener listener, Runnable additionalActionOnFinish) {
+			this.listener = listener;
 			this.additionalActionOnFinish = additionalActionOnFinish;
 		}
 
 		@Override
 		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-			callback.identifyingBluetoothDevice(device.getBluetoothAddress(),
+			listener.identifyingBluetoothDevice(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 			try {
 				if (factory.deviceIsWiimote(device)) {
-					callback.wiimoteFound();
+					listener.wiimoteFound();
 					Wiimote wiimote = factory.createWiimote(device);
-					callback.wiimoteConnected(wiimote);
+					listener.wiimoteConnected(wiimote);
 					if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
 						blueCoveLib.stopSearch();
 					}
 				}
 			} catch (IOException e) {
-				callback.errorOccurred(ForficataExceptionFactory.unknownError(e));
+				listener.errorOccurred(ForficataExceptionFactory.unknownError(e));
 			}
 		}
 
 		@Override
 		public void inquiryCompleted(int reason) {
-			callback.searchFinished();
+			listener.searchFinished();
 			additionalActionOnFinish.run();
 		}
 

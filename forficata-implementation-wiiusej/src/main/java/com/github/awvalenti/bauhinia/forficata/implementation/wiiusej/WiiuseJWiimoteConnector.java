@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.forficata.implementation.wiiusej;
 
 import wiiusej.WiiUseApiManager;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataCallback;
+import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
 
@@ -15,18 +15,18 @@ public class WiiuseJWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void run(final ForficataCallback callback) {
+	public void run(final ForficataListener listener) {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
 
-			callback.searchStarted();
+			listener.searchStarted();
 			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(maximumNumberOfWiimotes,
 					false);
 			for (wiiusej.Wiimote w : wiimotesFound) {
-				callback.wiimoteConnected(new WiiuseJWiimoteAdapter(w));
+				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w));
 			}
-			callback.searchFinished();
+			listener.searchFinished();
 
 		} catch (ExceptionInInitializerError e) {
 			// This happens when WiiuseJ fails to load native libraries.
@@ -35,7 +35,7 @@ public class WiiuseJWiimoteConnector implements WiimoteConnector {
 			// libraries.
 
 			// TODO Use exception factory
-			callback.errorOccurred(new ForficataException(e, "Error loading native libraries"));
+			listener.errorOccurred(new ForficataException(e, "Error loading native libraries"));
 		}
 	}
 

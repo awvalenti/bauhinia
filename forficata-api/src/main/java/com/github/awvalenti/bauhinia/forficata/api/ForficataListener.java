@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata.api;
 
-public interface ForficataCallback {
+public interface ForficataListener {
 
 	void searchStarted();
 
