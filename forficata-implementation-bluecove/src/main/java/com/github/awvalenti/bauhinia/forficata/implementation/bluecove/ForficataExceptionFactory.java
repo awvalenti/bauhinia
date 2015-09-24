@@ -4,7 +4,13 @@ import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 
-class ForficataBlueCoveException {
+class ForficataExceptionFactory {
+
+	public static ForficataException unknownError(Exception e) {
+		return new ForficataException(e, ""
+				+ "An unknown error occured. Please check the stack trace for details."
+				+ "");
+	}
 
 	public static ForficataException correspondingTo(BluetoothStateException e) {
 		String errorMsg = e.getMessage().toLowerCase();
@@ -42,12 +48,6 @@ class ForficataBlueCoveException {
 	private static ForficataException deviceNotReady(BluetoothStateException e) {
 		return new ForficataException(e, ""
 				+ "Bluetooth adapter is not ready. Try turning it off and on again."
-				+ "");
-	}
-
-	private static ForficataException unknownError(BluetoothStateException e) {
-		return new ForficataException(e, ""
-				+ "An unknown error occured. Please check the stack trace for details."
 				+ "");
 	}
 
