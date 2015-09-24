@@ -38,22 +38,17 @@ public class NitidaModel implements ForficataCallback {
 	@Override
 	public void searchStarted() {
 		state = NitidaState.SEARCHING;
-		output.searching();
+		output.searchStarted();
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-		output.bluetoothDeviceFound(bluetoothAddress, deviceClass);
+	public void identifyingBluetoothDevice(String bluetoothAddress, String deviceClass) {
+		output.identifyingBluetoothDevice(bluetoothAddress, deviceClass);
 	}
 
 	@Override
 	public void wiimoteFound() {
-		output.identifying();
-	}
-
-	@Override
-	public void notWiimote() {
-		output.notWiimote();
+		output.wiimoteFound();
 	}
 
 	@Override
@@ -77,27 +72,26 @@ public class NitidaModel implements ForficataCallback {
 
 			@Override
 			public void wiimoteDisconnected() {
-				output.idle();
+				state = NitidaState.IDLE;
+				output.unableToFindWiimote();
 			}
 		});
 
 		state = NitidaState.ACTIVE;
-		output.active();
+		output.robotActivated();
 	}
 
 	@Override
 	public void searchFinished() {
 		if (state != NitidaState.ACTIVE) {
 			state = NitidaState.IDLE;
-			output.idle();
+			output.unableToFindWiimote();
 		}
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
-		output.idle();
-		e.printStackTrace();
-		System.err.println("\n" + e.getMessage());
+		output.errorOccurred(e);
 	}
 
 }

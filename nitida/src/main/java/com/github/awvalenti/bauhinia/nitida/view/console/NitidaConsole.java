@@ -1,5 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
+import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
@@ -17,37 +18,32 @@ public class NitidaConsole implements NitidaOutput {
 	}
 
 	@Override
-	public void idle() {
-		System.out.println("Wiimote disconnected");
-	}
-
-	@Override
-	public void searching() {
+	public void searchStarted() {
 		System.out.println("Searching for Wiimote...");
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-		System.out.printf("Bluetooth device found: %s - %s\n", bluetoothAddress, deviceClass);
+	public void identifyingBluetoothDevice(String deviceAddress, String deviceClass) {
+		System.out.printf("Found a Bluetooth device at %s: %s\n", deviceAddress, deviceClass);
 	}
 
 	@Override
-	public void identifying() {
-		System.out.println("Identifying Bluetooth device...");
+	public void wiimoteFound() {
+		System.out.println("Found Wiimote. Connecting...");
 	}
 
 	@Override
-	public void notWiimote() {
-		System.out.println("Not a Wiimote");
+	public void robotActivated() {
+		System.out.println("Connected to Wiimote. Robot activated!");
 	}
 
 	@Override
-	public void active() {
-		System.out.println("Connected to Wiimote!");
+	public void unableToFindWiimote() {
+		System.out.println("Unable to find a Wiimote");
 	}
 
 	@Override
-	public void unexpectedException(Exception e) {
+	public void errorOccurred(ForficataException e) {
 		e.printStackTrace();
 		System.err.println("\n" + e.getMessage());
 	}

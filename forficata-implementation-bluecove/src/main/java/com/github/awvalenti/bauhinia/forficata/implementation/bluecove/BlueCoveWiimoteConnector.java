@@ -47,12 +47,10 @@ public abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		@Override
 		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-			callback.bluetoothDeviceFound(device.getBluetoothAddress(),
+			callback.identifyingBluetoothDevice(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 			try {
-				if (!factory.deviceIsWiimote(device)) {
-					callback.notWiimote();
-				} else {
+				if (factory.deviceIsWiimote(device)) {
 					callback.wiimoteFound();
 					Wiimote wiimote = factory.createWiimote(device);
 					callback.wiimoteConnected(wiimote);
@@ -78,6 +76,7 @@ public abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 		@Override
 		public void serviceSearchCompleted(int transID, int respCode) {
 		}
+
 	}
 
 }

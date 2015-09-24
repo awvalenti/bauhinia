@@ -1,21 +1,21 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
+import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
+
 public interface NitidaOutput {
 
 	void run();
 
-	void idle();
+	void searchStarted();
 
-	void searching();
+	void identifyingBluetoothDevice(String deviceAddress, String deviceClass);
 
-	void bluetoothDeviceFound(String bluetoothAddress, String deviceClass);
+	void wiimoteFound();
 
-	void identifying();
+	void robotActivated();
 
-	void notWiimote();
+	void unableToFindWiimote();
 
-	void active();
-
-	void unexpectedException(Exception e);
+	void errorOccurred(ForficataException e);
 
 }

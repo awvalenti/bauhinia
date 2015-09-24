@@ -11,7 +11,7 @@ public class StatePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final StateLabel[] labels = { new StateLabel("Idle", Color.RED),
-			new StateLabel("Connecting", Color.YELLOW), new StateLabel("Active", Color.GREEN), };
+			new StateLabel("Searching", Color.YELLOW), new StateLabel("Active", Color.GREEN), };
 
 	public StatePanel() {
 		setBorder(BorderFactory.createTitledBorder("State"));
