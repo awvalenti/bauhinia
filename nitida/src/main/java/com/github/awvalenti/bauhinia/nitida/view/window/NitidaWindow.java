@@ -3,11 +3,8 @@ package com.github.awvalenti.bauhinia.nitida.view.window;
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataException;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
@@ -18,11 +15,12 @@ public class NitidaWindow implements NitidaOutput {
 	private final JFrame frame;
 	private final StatePanel statePanel;
 	private final ConnectButton connectButton;
-	private final JEditorPane logText;
+	private final LogPanel logPanel;
 
 	public NitidaWindow(ProjectProperties projectProperties, ConnectButton connectButton) {
 		this.connectButton = connectButton;
 		this.statePanel = new StatePanel();
+		this.logPanel = new LogPanel();
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
@@ -32,12 +30,6 @@ public class NitidaWindow implements NitidaOutput {
 
 		frame.add(statePanel, BorderLayout.NORTH);
 
-		logText = new JEditorPane();
-		logText.setEditable(false);
-
-		JPanel logPanel = new JPanel(new BorderLayout());
-		logPanel.setBorder(BorderFactory.createTitledBorder("Log"));
-		logPanel.add(logText);
 		frame.add(logPanel, BorderLayout.CENTER);
 
 		JPanel actions = new JPanel();
@@ -59,49 +51,39 @@ public class NitidaWindow implements NitidaOutput {
 
 	@Override
 	public void identifyingBluetoothDevice(String deviceAddress, String deviceClass) {
-		appendToLog(String.format("Device found: %s - %s (TODO: add a state label)",
+		logPanel.appendToLog(String.format("Device found: %s - %s (TODO: add a state label)",
 				deviceAddress, deviceClass));
 	}
 
 	@Override
 	public void wiimoteFound() {
-		appendToLog("Wiimote found. Connecting... (TODO: add a state label)");
+		logPanel.appendToLog("Wiimote found. Connecting... (TODO: add a state label)");
 	}
 
 	@Override
 	public void robotActivated() {
-		appendToLog("Connected. Robot activated!");
+		logPanel.appendToLog("Connected. Robot activated!");
 		statePanel.setActiveState();
 		connectButton.setEnabled(false);
 	}
 
 	@Override
 	public void wiimoteDisconnected() {
-		appendToLog("Wiimote disconnected");
+		logPanel.appendToLog("Wiimote disconnected");
 		statePanel.setIdleState();
 		connectButton.setEnabled(true);
 	}
 
 	@Override
 	public void unableToFindWiimote() {
-		appendToLog("Unable to find Wiimote");
+		logPanel.appendToLog("Unable to find Wiimote");
 		statePanel.setIdleState();
 		connectButton.setEnabled(true);
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
-		appendToLog(String.format("An unexpected exception occurred: %s", e));
-	}
-
-	private void appendToLog(String content) {
-		Document doc = logText.getDocument();
-		try {
-			doc.insertString(doc.getLength(), content, null);
-			doc.insertString(doc.getLength(), "\n", null);
-		} catch (BadLocationException e) {
-			throw new RuntimeException(e);
-		}
+		logPanel.appendToLog(String.format("An unexpected exception occurred: %s", e));
 	}
 
 }
