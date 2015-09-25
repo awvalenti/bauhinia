@@ -6,8 +6,6 @@ public interface Wiimote {
 
 	void setButtonListener(WiimoteButtonListener buttonListener);
 
-	void setDisconnectionListener(WiimoteDisconnectionListener disconnectionListener);
-
 	void turnLedOn(int ledIndex) throws IOException;
 
 	void startVibration() throws IOException;

@@ -14,10 +14,6 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.WiimoteButtonListener;
-import com.github.awvalenti.bauhinia.forficata.WiimoteDisconnectionListener;
-
 class WiiuseJWiimoteAdapter implements Wiimote {
 
 	private final wiiusej.Wiimote wiiusejWiimote;
@@ -40,11 +36,6 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 	@Override
 	public void stopVibration() {
 		wiiusejWiimote.deactivateRumble();
-	}
-
-	@Override
-	public void setDisconnectionListener(WiimoteDisconnectionListener disconnectionListener) {
-		// TODO
 	}
 
 	@Override
