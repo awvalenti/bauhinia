@@ -47,7 +47,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	private class BlueCoveListener implements DiscoveryListener {
-		
+
 		private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
 
 		private final ForficataListener listener;
