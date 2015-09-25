@@ -24,7 +24,7 @@ public class NitidaWindow implements NitidaOutput {
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
-		frame.setSize(300, 400);
+		frame.setSize(320, 480);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
