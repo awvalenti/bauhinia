@@ -1,8 +1,8 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
+import com.github.awvalenti.bauhinia.forficata.ForficataListener;
 
-public class AsynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
+class AsynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 
 	private static final Runnable NULL_OPERATION = new Runnable() {
 		@Override

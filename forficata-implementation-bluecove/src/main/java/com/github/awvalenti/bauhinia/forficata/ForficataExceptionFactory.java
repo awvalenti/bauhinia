@@ -1,8 +1,8 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
 import javax.bluetooth.BluetoothStateException;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
 
 class ForficataExceptionFactory {
 

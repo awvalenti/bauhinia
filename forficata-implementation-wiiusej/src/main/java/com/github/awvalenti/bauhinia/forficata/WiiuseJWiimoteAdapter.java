@@ -1,6 +1,6 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.wiiusej;
+package com.github.awvalenti.bauhinia.forficata;
 
-import static com.github.awvalenti.bauhinia.forficata.api.WiimoteButton.*;
+import static com.github.awvalenti.bauhinia.forficata.WiimoteButton.*;
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
 import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
@@ -14,9 +14,9 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteDisconnectionListener;
+import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.WiimoteDisconnectionListener;
 
 class WiiuseJWiimoteAdapter implements Wiimote {
 

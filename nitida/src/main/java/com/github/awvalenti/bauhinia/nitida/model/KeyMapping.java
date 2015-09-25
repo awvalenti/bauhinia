@@ -1,12 +1,12 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import static com.github.awvalenti.bauhinia.forficata.api.WiimoteButton.*;
+import static com.github.awvalenti.bauhinia.forficata.WiimoteButton.*;
 import static java.awt.event.KeyEvent.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
+import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
 
 public class KeyMapping {
 

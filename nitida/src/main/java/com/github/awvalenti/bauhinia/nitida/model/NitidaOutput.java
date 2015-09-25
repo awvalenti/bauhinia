@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
 
 public interface NitidaOutput {
 

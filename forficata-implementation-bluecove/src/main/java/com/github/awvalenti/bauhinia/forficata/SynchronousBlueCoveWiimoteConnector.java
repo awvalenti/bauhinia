@@ -1,8 +1,8 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
+import com.github.awvalenti.bauhinia.forficata.ForficataListener;
 
-public class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
+class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 
 	public SynchronousBlueCoveWiimoteConnector(int maximumNumberOfWiimotes) {
 		super(maximumNumberOfWiimotes);

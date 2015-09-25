@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida;
 
-import com.github.awvalenti.bauhinia.forficata.factory.crossplatform.Forficata;
+import com.github.awvalenti.bauhinia.forficata.Forficata;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;

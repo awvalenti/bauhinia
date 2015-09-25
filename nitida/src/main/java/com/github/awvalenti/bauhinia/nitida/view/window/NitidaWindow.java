@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 

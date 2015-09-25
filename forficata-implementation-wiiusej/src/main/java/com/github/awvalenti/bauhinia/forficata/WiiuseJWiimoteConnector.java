@@ -1,12 +1,12 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.wiiusej;
+package com.github.awvalenti.bauhinia.forficata;
 
 import wiiusej.WiiUseApiManager;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
-import com.github.awvalenti.bauhinia.forficata.api.ForficataException;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataListener;
+import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
-public class WiiuseJWiimoteConnector implements WiimoteConnector {
+class WiiuseJWiimoteConnector implements WiimoteConnector {
 
 	private final int maximumNumberOfWiimotes;
 

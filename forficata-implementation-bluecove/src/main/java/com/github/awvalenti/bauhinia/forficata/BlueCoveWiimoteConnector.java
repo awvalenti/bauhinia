@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
 import java.io.IOException;
 
@@ -8,11 +8,11 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.forficata.api.ForficataListener;
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.ForficataListener;
+import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
-public abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
+abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	protected final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
 	protected final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();

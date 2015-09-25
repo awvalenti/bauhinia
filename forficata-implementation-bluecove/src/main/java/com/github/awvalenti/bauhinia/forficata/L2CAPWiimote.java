@@ -1,12 +1,12 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
 import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.forficata.api.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteDisconnectionListener;
+import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.WiimoteDisconnectionListener;
 
 class L2CAPWiimote implements Wiimote {
 

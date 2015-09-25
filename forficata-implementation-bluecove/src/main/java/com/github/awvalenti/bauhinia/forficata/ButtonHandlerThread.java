@@ -1,11 +1,11 @@
-package com.github.awvalenti.bauhinia.forficata.implementation.bluecove;
+package com.github.awvalenti.bauhinia.forficata;
 
 import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
+import com.github.awvalenti.bauhinia.forficata.WiimoteButtonListener;
 
 class ButtonHandlerThread extends Thread {
 

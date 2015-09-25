@@ -1,9 +1,9 @@
-package com.github.awvalenti.bauhinia.forficata.factory.crossplatform;
+package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.api.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.implementation.bluecove.AsynchronousBlueCoveWiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.implementation.bluecove.SynchronousBlueCoveWiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.implementation.wiiusej.WiiuseJWiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.AsynchronousBlueCoveWiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.SynchronousBlueCoveWiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.WiiuseJWiimoteConnector;
 
 public abstract class Forficata {
 
