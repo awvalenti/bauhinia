@@ -9,13 +9,29 @@ import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 class WiiuseJWiimoteConnector implements WiimoteConnector {
 
 	private final int maximumNumberOfWiimotes;
+	private final boolean synchronous;
 
-	public WiiuseJWiimoteConnector(int maximumNumberOfWiimotes) {
+	public WiiuseJWiimoteConnector(int maximumNumberOfWiimotes, boolean synchronous) {
 		this.maximumNumberOfWiimotes = maximumNumberOfWiimotes;
+		this.synchronous = synchronous;
 	}
 
 	@Override
 	public void startSearch(final ForficataListener listener) {
+		if (synchronous) {
+			doSearch(listener);
+
+		} else {
+			new Thread() {
+				@Override
+				public void run() {
+					doSearch(listener);
+				}
+			}.start();
+		}
+	}
+
+	private void doSearch(final ForficataListener listener) {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
