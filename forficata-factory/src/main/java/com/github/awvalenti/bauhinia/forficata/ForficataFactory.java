@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public abstract class Forficata {
+public abstract class ForficataFactory {
 
 	public static WiimoteConnector asyncConnector(int maxNumberOfWiimotes) {
 		return isWindows() ? new WiiuseJWiimoteConnector(maxNumberOfWiimotes)

@@ -16,7 +16,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti</groupId>
-			<artifactId>forficata-factory-crossplatform</artifactId>
+			<artifactId>forficata-factory</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
