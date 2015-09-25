@@ -34,7 +34,7 @@ public class NitidaConsole implements NitidaOutput {
 
 	@Override
 	public void remoteControlActivated() {
-		System.out.println("Connected to Wiimote. Robot activated!");
+		System.out.println("Connected. Remote control is active!");
 	}
 
 	@Override
