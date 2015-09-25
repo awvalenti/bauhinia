@@ -38,6 +38,11 @@ public class NitidaConsole implements NitidaOutput {
 	}
 
 	@Override
+	public void wiimoteDisconnected() {
+		System.out.println("Wiimote disconnected");
+	}
+
+	@Override
 	public void unableToFindWiimote() {
 		System.out.println("Unable to find a Wiimote");
 	}

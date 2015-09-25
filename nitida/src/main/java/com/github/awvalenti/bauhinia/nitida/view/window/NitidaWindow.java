@@ -76,6 +76,13 @@ public class NitidaWindow implements NitidaOutput {
 	}
 
 	@Override
+	public void wiimoteDisconnected() {
+		appendToLog("Wiimote disconnected");
+		statePanel.setIdleState();
+		connectButton.setEnabled(true);
+	}
+
+	@Override
 	public void unableToFindWiimote() {
 		appendToLog("Unable to find Wiimote");
 		statePanel.setIdleState();

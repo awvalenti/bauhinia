@@ -14,6 +14,8 @@ public interface NitidaOutput {
 
 	void robotActivated();
 
+	void wiimoteDisconnected();
+
 	void unableToFindWiimote();
 
 	void errorOccurred(ForficataException e);

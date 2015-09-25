@@ -74,7 +74,7 @@ public class NitidaModel implements NitidaInputHandler, ForficataListener {
 			@Override
 			public void wiimoteDisconnected() {
 				state = NitidaState.IDLE;
-				output.unableToFindWiimote();
+				output.wiimoteDisconnected();
 			}
 		});
 
