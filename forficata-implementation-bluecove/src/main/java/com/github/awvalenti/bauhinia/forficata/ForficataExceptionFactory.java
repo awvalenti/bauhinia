@@ -1,5 +1,7 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import java.io.IOException;
+
 import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataException;
@@ -48,6 +50,12 @@ class ForficataExceptionFactory {
 	private static ForficataException deviceNotReady(BluetoothStateException e) {
 		return new ForficataException(e, ""
 				+ "Bluetooth adapter is not ready. Try turning it off and on again."
+				+ "");
+	}
+
+	public static ForficataException connectionRefused(IOException e) {
+		return new ForficataException(e, ""
+				+ "Connection refused by Wiimote. Details: " + e
 				+ "");
 	}
 

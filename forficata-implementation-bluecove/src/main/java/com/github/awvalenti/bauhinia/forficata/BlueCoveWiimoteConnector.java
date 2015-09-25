@@ -12,37 +12,48 @@ import com.github.awvalenti.bauhinia.forficata.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
-abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
+class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	protected final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
 	protected final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
 
 	private final int maximumNumberOfWiimotes;
+	private final boolean synchronous;
+
 	private int numberOfWiimotesFound = 0;
 
-	public BlueCoveWiimoteConnector(int maximumNumberOfWiimotes) {
+	public BlueCoveWiimoteConnector(int maximumNumberOfWiimotes, boolean synchronous) {
 		this.maximumNumberOfWiimotes = maximumNumberOfWiimotes;
+		this.synchronous = synchronous;
 	}
 
 	@Override
-	public abstract void startSearch(final ForficataListener listener);
-
-	protected final void runAsyncSearch(final ForficataListener listener, Runnable onFinish) {
+	public void startSearch(final ForficataListener forficataListener) {
 		try {
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(listener, onFinish));
-			listener.searchStarted();
+			Object monitor = new Object();
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(forficataListener, monitor));
+			forficataListener.searchStarted();
+			if (synchronous) {
+				synchronized (monitor) {
+					monitor.wait();
+				}
+			}
+
 		} catch (BluetoothStateException e) {
-			listener.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
+			forficataListener.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
+
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
 	private class BlueCoveListener implements DiscoveryListener {
 		private final ForficataListener listener;
-		private final Runnable additionalActionOnFinish;
+		private Object monitor;
 
-		public BlueCoveListener(ForficataListener listener, Runnable additionalActionOnFinish) {
+		public BlueCoveListener(ForficataListener listener, Object monitor) {
 			this.listener = listener;
-			this.additionalActionOnFinish = additionalActionOnFinish;
+			this.monitor = monitor;
 		}
 
 		@Override
@@ -59,14 +70,16 @@ abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 					}
 				}
 			} catch (IOException e) {
-				listener.errorOccurred(ForficataExceptionFactory.unknownError(e));
+				listener.errorOccurred(ForficataExceptionFactory.connectionRefused(e));
 			}
 		}
 
 		@Override
 		public void inquiryCompleted(int reason) {
 			listener.searchFinished();
-			additionalActionOnFinish.run();
+			synchronized (monitor) {
+				monitor.notify();
+			}
 		}
 
 		@Override
