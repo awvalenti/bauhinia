@@ -14,11 +14,11 @@ public class NitidaWindow implements NitidaOutput {
 
 	private final JFrame frame;
 	private final StatePanel statePanel;
-	private final ConnectButton connectButton;
+	private final RetryButton retryButton;
 	private final LogPanel logPanel;
 
-	public NitidaWindow(ProjectProperties projectProperties, ConnectButton connectButton) {
-		this.connectButton = connectButton;
+	public NitidaWindow(ProjectProperties projectProperties, RetryButton retryButton) {
+		this.retryButton = retryButton;
 		this.statePanel = new StatePanel();
 		this.logPanel = new LogPanel();
 
@@ -34,7 +34,7 @@ public class NitidaWindow implements NitidaOutput {
 
 		JPanel actions = new JPanel();
 		actions.setBorder(BorderFactory.createTitledBorder("Actions"));
-		actions.add(connectButton);
+		actions.add(retryButton);
 		frame.add(actions, BorderLayout.SOUTH);
 	}
 
@@ -45,45 +45,47 @@ public class NitidaWindow implements NitidaOutput {
 
 	@Override
 	public void searchStarted() {
+		logPanel.append("Search started");
 		statePanel.setSearchingState();
-		connectButton.setEnabled(false);
+		retryButton.setEnabled(false);
 	}
 
 	@Override
 	public void identifyingBluetoothDevice(String deviceAddress, String deviceClass) {
-		logPanel.appendToLog(String.format("Device found: %s - %s (TODO: add a state label)",
+		logPanel.append(String.format("Device found: %s - %s",
 				deviceAddress, deviceClass));
 	}
 
 	@Override
 	public void wiimoteFound() {
-		logPanel.appendToLog("Wiimote found. Connecting... (TODO: add a state label)");
+		logPanel.append("Wiimote found. Connecting...");
+		statePanel.setConnectingState();
 	}
 
 	@Override
-	public void robotActivated() {
-		logPanel.appendToLog("Connected. Robot activated!");
+	public void remoteControlActivated() {
+		logPanel.append("Connected. Remote control is active!");
 		statePanel.setActiveState();
-		connectButton.setEnabled(false);
 	}
 
 	@Override
 	public void wiimoteDisconnected() {
-		logPanel.appendToLog("Wiimote disconnected");
+		logPanel.append("Wiimote disconnected");
 		statePanel.setIdleState();
-		connectButton.setEnabled(true);
+		retryButton.setEnabled(true);
 	}
 
 	@Override
 	public void unableToFindWiimote() {
-		logPanel.appendToLog("Unable to find Wiimote");
+		logPanel.append("Unable to find Wiimote");
 		statePanel.setIdleState();
-		connectButton.setEnabled(true);
+		retryButton.setEnabled(true);
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
-		logPanel.appendToLog(String.format("An unexpected exception occurred: %s", e));
+		logPanel.append(String.format("An unexpected exception occurred: %s", e));
+		retryButton.setEnabled(true);
 	}
 
 }

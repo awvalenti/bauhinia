@@ -10,12 +10,16 @@ public class StatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final StateLabel[] labels = { new StateLabel("Idle", Color.RED),
-			new StateLabel("Searching", Color.YELLOW), new StateLabel("Active", Color.GREEN), };
+	private final StateLabel[] labels = {
+		new StateLabel("Idle", Color.RED),
+		new StateLabel("Searching", Color.YELLOW),
+		new StateLabel("Connecting", Color.ORANGE),
+		new StateLabel("Active!", Color.GREEN),
+	};
 
 	public StatePanel() {
 		setBorder(BorderFactory.createTitledBorder("State"));
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(labels.length, 1));
 
 		for (StateLabel sl : labels) {
 			add(sl);
@@ -37,8 +41,12 @@ public class StatePanel extends JPanel {
 		setEnabledLabel(1);
 	}
 
-	public void setActiveState() {
+	public void setConnectingState() {
 		setEnabledLabel(2);
+	}
+
+	public void setActiveState() {
+		setEnabledLabel(3);
 	}
 
 }

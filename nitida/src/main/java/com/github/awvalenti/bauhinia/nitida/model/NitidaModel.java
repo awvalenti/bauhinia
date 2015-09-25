@@ -79,7 +79,7 @@ public class NitidaModel implements NitidaInputHandler, ForficataListener {
 		});
 
 		state = NitidaState.ACTIVE;
-		output.robotActivated();
+		output.remoteControlActivated();
 	}
 
 	@Override

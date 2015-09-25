@@ -25,7 +25,7 @@ public class LogPanel extends JPanel {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
 	}
 
-	public void appendToLog(String content) {
+	public void append(String content) {
 		Document doc = pane.getDocument();
 		try {
 			doc.insertString(doc.getLength(), content, null);

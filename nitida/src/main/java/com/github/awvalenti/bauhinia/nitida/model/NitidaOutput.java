@@ -12,7 +12,7 @@ public interface NitidaOutput {
 
 	void wiimoteFound();
 
-	void robotActivated();
+	void remoteControlActivated();
 
 	void wiimoteDisconnected();
 
