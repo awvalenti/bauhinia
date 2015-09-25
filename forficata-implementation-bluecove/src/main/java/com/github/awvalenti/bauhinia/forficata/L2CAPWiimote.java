@@ -37,7 +37,7 @@ class L2CAPWiimote implements Wiimote {
 	}
 
 	@Override
-	public synchronized void setButtonListener(WiimoteButtonListener listener) {
+	public synchronized void setButtonListener(WiimoteEventListener listener) {
 		if (listenerIsSet) throw new IllegalStateException("Button listener is already set");
 		listenerIsSet = true;
 		new ButtonHandlerThread(input, output, listener).start();

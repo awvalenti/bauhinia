@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface Wiimote {
 
-	void setButtonListener(WiimoteButtonListener buttonListener);
+	void setButtonListener(WiimoteEventListener buttonListener);
 
 	void turnLedOn(int ledIndex) throws IOException;
 

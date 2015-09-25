@@ -39,7 +39,7 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 	}
 
 	@Override
-	public void setButtonListener(final WiimoteButtonListener listener) {
+	public void setButtonListener(final WiimoteEventListener listener) {
 		wiiusejWiimote.addWiiMoteEventListeners(new wiiusej.wiiusejevents.utils.WiimoteListener() {
 
 			@Override

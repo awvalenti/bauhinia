@@ -8,7 +8,7 @@ import com.github.awvalenti.bauhinia.forficata.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.WiimoteButtonListener;
+import com.github.awvalenti.bauhinia.forficata.WiimoteEventListener;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
 public class NitidaModel implements ForficataListener {
@@ -59,7 +59,7 @@ public class NitidaModel implements ForficataListener {
 			throw new RuntimeException(e);
 		}
 
-		wiimote.setButtonListener(new WiimoteButtonListener() {
+		wiimote.setButtonListener(new WiimoteEventListener() {
 			@Override
 			public void buttonPressed(WiimoteButton button) {
 				robot.keyPress(mapping.keycodeFor(button));
