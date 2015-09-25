@@ -77,7 +77,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 		}
 
 		@Override
-		public void inquiryCompleted(int reason) {
+		public synchronized void inquiryCompleted(int reason) {
 			listener.searchFinished();
 			synchronized (monitor) {
 				monitor.notify();
