@@ -8,10 +8,10 @@ import com.github.awvalenti.bauhinia.forficata.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.ForficataListener;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.WiimoteEventListener;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
+import com.github.awvalenti.bauhinia.forficata.WiimoteEventListener;
 
-public class NitidaModel implements ForficataListener {
+public class NitidaModel implements NitidaInputHandler, ForficataListener {
 
 	private final WiimoteConnector connector;
 	private final NitidaOutput output;
@@ -31,8 +31,9 @@ public class NitidaModel implements ForficataListener {
 		}
 	}
 
-	public void run() {
-		connector.run(this);
+	@Override
+	public void startSearch() {
+		connector.startSearch(this);
 	}
 
 	@Override

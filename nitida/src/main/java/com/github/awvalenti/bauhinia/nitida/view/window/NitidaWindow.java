@@ -3,7 +3,6 @@ package com.github.awvalenti.bauhinia.nitida.view.window;
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,11 +17,12 @@ public class NitidaWindow implements NitidaOutput {
 
 	private final JFrame frame;
 	private final StatePanel statePanel;
-	private final JButton connectButton;
+	private final ConnectButton connectButton;
 	private final JEditorPane logText;
 
-	public NitidaWindow(ProjectProperties projectProperties) {
-		statePanel = new StatePanel();
+	public NitidaWindow(ProjectProperties projectProperties, ConnectButton connectButton) {
+		this.connectButton = connectButton;
+		this.statePanel = new StatePanel();
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
@@ -39,9 +39,6 @@ public class NitidaWindow implements NitidaOutput {
 		logPanel.setBorder(BorderFactory.createTitledBorder("Log"));
 		logPanel.add(logText);
 		frame.add(logPanel, BorderLayout.CENTER);
-
-		connectButton = new JButton("Connect");
-		connectButton.setEnabled(false);
 
 		JPanel actions = new JPanel();
 		actions.setBorder(BorderFactory.createTitledBorder("Actions"));
@@ -73,12 +70,14 @@ public class NitidaWindow implements NitidaOutput {
 
 	@Override
 	public void robotActivated() {
+		appendToLog("Connected. Robot activated!");
 		statePanel.setActiveState();
 		connectButton.setEnabled(false);
 	}
 
 	@Override
 	public void unableToFindWiimote() {
+		appendToLog("Unable to find Wiimote");
 		statePanel.setIdleState();
 		connectButton.setEnabled(true);
 	}

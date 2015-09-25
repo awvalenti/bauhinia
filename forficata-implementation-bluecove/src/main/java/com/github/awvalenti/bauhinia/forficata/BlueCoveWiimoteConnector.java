@@ -25,7 +25,7 @@ abstract class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public abstract void run(final ForficataListener listener);
+	public abstract void startSearch(final ForficataListener listener);
 
 	protected final void runAsyncSearch(final ForficataListener listener, Runnable onFinish) {
 		try {

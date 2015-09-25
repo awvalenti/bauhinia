@@ -15,7 +15,7 @@ class AsynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 	}
 
 	@Override
-	public void run(final ForficataListener listener) {
+	public void startSearch(final ForficataListener listener) {
 		runAsyncSearch(listener, NULL_OPERATION);
 	}
 

@@ -9,7 +9,7 @@ class SynchronousBlueCoveWiimoteConnector extends BlueCoveWiimoteConnector {
 	}
 
 	@Override
-	public void run(final ForficataListener listener) {
+	public void startSearch(final ForficataListener listener) {
 		try {
 			final Object monitor = new Object();
 

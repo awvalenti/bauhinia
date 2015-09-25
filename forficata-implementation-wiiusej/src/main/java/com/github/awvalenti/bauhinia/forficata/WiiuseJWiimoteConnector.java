@@ -15,7 +15,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void run(final ForficataListener listener) {
+	public void startSearch(final ForficataListener listener) {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
