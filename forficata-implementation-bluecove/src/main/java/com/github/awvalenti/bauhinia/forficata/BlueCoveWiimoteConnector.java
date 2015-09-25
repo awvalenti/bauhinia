@@ -14,8 +14,7 @@ import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
 class BlueCoveWiimoteConnector implements WiimoteConnector {
 
-	protected final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
-	protected final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
+	private final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
 
 	private final int maximumNumberOfWiimotes;
 	private final boolean synchronous;
@@ -48,6 +47,9 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	private class BlueCoveListener implements DiscoveryListener {
+		
+		private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
+
 		private final ForficataListener listener;
 		private final Object monitor;
 
