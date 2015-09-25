@@ -49,7 +49,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	private class BlueCoveListener implements DiscoveryListener {
 		private final ForficataListener listener;
-		private Object monitor;
+		private final Object monitor;
 
 		public BlueCoveListener(ForficataListener listener, Object monitor) {
 			this.listener = listener;
