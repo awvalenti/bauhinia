@@ -14,10 +14,10 @@ import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 
 class BlueCoveWiimoteConnector implements WiimoteConnector {
 
-	private final BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
-
 	private final int maximumNumberOfWiimotes;
 	private final boolean synchronous;
+
+	private BlueCoveLibraryFacade blueCoveLib;
 
 	private int numberOfWiimotesFound = 0;
 
@@ -29,9 +29,13 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 	@Override
 	public void startSearch(final ForficataListener forficataListener) {
 		try {
+			blueCoveLib = new BlueCoveLibraryFacade();
+			forficataListener.librariesLoaded();
+
 			Object monitor = new Object();
 			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(forficataListener, monitor));
 			forficataListener.searchStarted();
+
 			if (synchronous) {
 				synchronized (monitor) {
 					monitor.wait();

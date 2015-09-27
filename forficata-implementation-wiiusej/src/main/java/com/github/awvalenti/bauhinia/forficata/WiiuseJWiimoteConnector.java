@@ -35,6 +35,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
+			listener.librariesLoaded();
 
 			listener.searchStarted();
 			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(maximumNumberOfWiimotes,

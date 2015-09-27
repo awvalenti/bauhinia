@@ -12,12 +12,12 @@ class BlueCoveLibraryFacade {
 	private DiscoveryAgent agent;
 	private DiscoveryListener discoveryListener;
 
-	public BlueCoveLibraryFacade() {
+	public BlueCoveLibraryFacade() throws BluetoothStateException {
 		System.setProperty(BlueCoveConfigProperties.PROPERTY_JSR_82_PSM_MINIMUM_OFF, "true");
+		agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
 	}
 
 	public void startAsynchronousSearch(DiscoveryListener listener) throws BluetoothStateException {
-		agent = LocalDevice.getLocalDevice().getDiscoveryAgent();
 		discoveryListener = listener;
 		agent.startInquiry(DiscoveryAgent.GIAC, discoveryListener);
 	}
