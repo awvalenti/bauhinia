@@ -37,18 +37,22 @@ public class NitidaModel implements NitidaInputHandler, ForficataListener {
 	}
 
 	@Override
+	public void librariesLoaded() {
+	}
+
+	@Override
 	public void searchStarted() {
 		state = NitidaState.SEARCHING;
 		output.searchStarted();
 	}
 
 	@Override
-	public void identifyingBluetoothDevice(String bluetoothAddress, String deviceClass) {
+	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
 		output.identifyingBluetoothDevice(bluetoothAddress, deviceClass);
 	}
 
 	@Override
-	public void wiimoteFound() {
+	public void wiimoteIdentified() {
 		output.wiimoteFound();
 	}
 

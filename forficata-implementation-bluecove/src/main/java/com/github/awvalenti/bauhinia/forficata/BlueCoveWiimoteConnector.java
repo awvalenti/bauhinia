@@ -60,11 +60,11 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		@Override
 		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-			listener.identifyingBluetoothDevice(device.getBluetoothAddress(),
+			listener.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 			try {
 				if (factory.deviceIsWiimote(device)) {
-					listener.wiimoteFound();
+					listener.wiimoteIdentified();
 					Wiimote wiimote = factory.createWiimote(device);
 					listener.wiimoteConnected(wiimote);
 					if (++numberOfWiimotesFound >= maximumNumberOfWiimotes) {
