@@ -1,6 +1,7 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public class Forficata implements ForficataBuilderStep1, ForficataBuilderStep2, ForficataBuilderStep3, ForficataBuilderStep4 {
+public class Forficata implements ForficataBuilderStep1, ForficataBuilderStep2,
+		ForficataBuilderStep3, ForficataBuilderStep4 {
 
 	private ForficataConfiguration config = new ForficataConfiguration();
 
