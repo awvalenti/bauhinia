@@ -14,12 +14,12 @@ import com.github.awvalenti.bauhinia.forficata.WiimoteEventListener;
 public class NitidaModel implements NitidaInputHandler, ForficataListener {
 
 	private final WiimoteConnector connector;
-	private final NitidaOutput output;
+	private final NitidaOutputListener output;
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private NitidaState state;
 
-	public NitidaModel(WiimoteConnector connector, NitidaOutput output) {
+	public NitidaModel(WiimoteConnector connector, NitidaOutputListener output) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {

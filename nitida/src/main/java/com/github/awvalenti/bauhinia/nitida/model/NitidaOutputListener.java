@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.nitida.model;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataException;
 
-public interface NitidaOutput {
+public interface NitidaOutputListener {
 
 	void run();
 

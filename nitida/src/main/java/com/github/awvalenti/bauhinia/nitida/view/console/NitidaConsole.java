@@ -1,10 +1,10 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataException;
-import com.github.awvalenti.bauhinia.nitida.model.NitidaOutput;
+import com.github.awvalenti.bauhinia.nitida.model.NitidaOutputListener;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaConsole implements NitidaOutput {
+public class NitidaConsole implements NitidaOutputListener {
 
 	private final ProjectProperties projectProperties;
 
