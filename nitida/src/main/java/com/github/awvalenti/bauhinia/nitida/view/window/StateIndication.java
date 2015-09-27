@@ -5,25 +5,22 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-public class StateLabel extends JLabel {
+public class StateIndication extends JLabel {
 
 	private static final long serialVersionUID = 1L;
-
 	private final Color originalBackgroundColor;
 
-	public StateLabel(String text, Color color) {
-		super(text);
+	public StateIndication(String title, Color color) {
+		super(title, new StateIcon(color), JLabel.LEFT);
 		originalBackgroundColor = getBackground();
-
+		setDisabledIcon(new StateIcon(color.darker().darker()));
 		setBorder(BorderFactory.createEtchedBorder());
-		setIcon(new StateIcon(color));
-		setDisabledIcon(new StateIcon(color.darker().darker().darker()));
 		setOpaque(true);
 		setEnabled(false);
 	}
 
 	@Override
-	public void setEnabled(boolean enabled) {
+	public final void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		setBackground(enabled ? Color.WHITE : originalBackgroundColor);
 	}

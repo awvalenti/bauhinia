@@ -29,7 +29,7 @@ public class StateIcon implements Icon {
 
 	@Override
 	public int getIconWidth() {
-		return 32;
+		return 28;
 	}
 
 	@Override
