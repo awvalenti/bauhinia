@@ -1,12 +1,14 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+
 import wiiusej.WiiUseApiManager;
 
 class WiiuseJWiimoteConnector implements WiimoteConnector {
 
-	private final ForficataConfiguration config;
+	private final ReadableForficataConfig config;
 
-	public WiiuseJWiimoteConnector(ForficataConfiguration config) {
+	public WiiuseJWiimoteConnector(ReadableForficataConfig config) {
 		this.config = config;
 	}
 
@@ -19,22 +21,22 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			}
 		};
 
-		if (config.synchronous) task.run();
+		if (config.isSynchronous()) task.run();
 		else new Thread(task).start();
 	}
 
-	private void doSearch(final ForficataEventListener listener) {
+	private void doSearch(final ForficataObserver listener) {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
 			listener.librariesLoaded();
 
 			listener.searchStarted();
-			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.wiimotesExpected,
+			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.getWiimotesExpected(),
 					false);
-			if (wiimotesFound.length == config.wiimotesExpected) listener.wiimoteIdentified();
+			if (wiimotesFound.length == config.getWiimotesExpected()) listener.wiimoteIdentified();
 			for (wiiusej.Wiimote w : wiimotesFound) {
-				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.wiimoteListener));
+				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.getWiimoteListener()));
 			}
 			listener.searchFinished();
 

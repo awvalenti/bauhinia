@@ -8,21 +8,25 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+
 class BlueCoveWiimoteConnector implements WiimoteConnector {
 
-	private final ForficataConfiguration config;
+	private final ReadableForficataConfig config;
 
 	private BlueCoveLibraryFacade blueCoveLib;
 
 	private int numberOfWiimotesFound = 0;
 
-	public BlueCoveWiimoteConnector(ForficataConfiguration config) {
+	public BlueCoveWiimoteConnector(ReadableForficataConfig config) {
 		this.config = config;
 	}
 
 	@Override
 	public void run() {
-		ForficataEventListener listener = config.getForficataEventListener();
+		ForficataObserver listener = config.getForficataEventListener();
+		listener.forficataStarted();
+
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();
 			listener.librariesLoaded();
@@ -31,7 +35,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(listener, monitor));
 			listener.searchStarted();
 
-			if (config.synchronous) {
+			if (config.isSynchronous()) {
 				synchronized (monitor) {
 					monitor.wait();
 				}
@@ -49,10 +53,10 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
 
-		private final ForficataEventListener listener;
+		private final ForficataObserver listener;
 		private final Object monitor;
 
-		public BlueCoveListener(ForficataEventListener listener, Object monitor) {
+		public BlueCoveListener(ForficataObserver listener, Object monitor) {
 			this.listener = listener;
 			this.monitor = monitor;
 		}
@@ -64,9 +68,9 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			try {
 				if (factory.deviceIsWiimote(device)) {
 					listener.wiimoteIdentified();
-					Wiimote wiimote = factory.createWiimote(device, config.wiimoteListener);
+					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
 					listener.wiimoteConnected(wiimote);
-					if (++numberOfWiimotesFound >= config.wiimotesExpected) {
+					if (++numberOfWiimotesFound >= config.getWiimotesExpected()) {
 						blueCoveLib.stopSearch();
 					}
 				}

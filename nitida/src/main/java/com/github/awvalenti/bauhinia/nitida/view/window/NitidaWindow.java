@@ -7,10 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
-import com.github.awvalenti.bauhinia.nitida.model.NitidaOutputListener;
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaWindow implements NitidaOutputListener {
+public class NitidaWindow implements ForficataPhaseObserver {
 
 	private final JFrame frame;
 	private final ApplicationStatePanel statePanel;
@@ -38,10 +38,8 @@ public class NitidaWindow implements NitidaOutputListener {
 		frame.add(actions, BorderLayout.SOUTH);
 	}
 
-	@Override
 	public void run() {
 		frame.setVisible(true);
-		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.RUNNING);
 	}
 
 //	@Override
@@ -110,7 +108,6 @@ public class NitidaWindow implements NitidaOutputListener {
 		retryButton.setEnabled(true);
 	}
 
-	@Override
 	public void wiimoteDisconnected() {
 		statePanel.reset();
 		retryButton.setEnabled(true);

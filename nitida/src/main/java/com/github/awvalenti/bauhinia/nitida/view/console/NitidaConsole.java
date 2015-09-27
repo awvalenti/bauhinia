@@ -1,11 +1,11 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataEventListener;
 import com.github.awvalenti.bauhinia.forficata.ForficataException;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaConsole implements ForficataEventListener {
+public class NitidaConsole implements ForficataObserver {
 
 	private final ProjectProperties projectProperties;
 
@@ -13,7 +13,8 @@ public class NitidaConsole implements ForficataEventListener {
 		this.projectProperties = projectProperties;
 	}
 
-	public void run() {
+	@Override
+	public void forficataStarted() {
 		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
 	}
 

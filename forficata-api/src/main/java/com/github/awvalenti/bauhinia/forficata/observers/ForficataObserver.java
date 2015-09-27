@@ -1,6 +1,11 @@
-package com.github.awvalenti.bauhinia.forficata;
+package com.github.awvalenti.bauhinia.forficata.observers;
 
-public interface ForficataEventListener {
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.Wiimote;
+
+public interface ForficataObserver {
+
+	void forficataStarted();
 
 	void librariesLoaded();
 

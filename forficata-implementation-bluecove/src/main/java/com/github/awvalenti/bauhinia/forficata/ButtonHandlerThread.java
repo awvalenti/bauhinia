@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.bluetooth.L2CAPConnection;
 
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.ForficataWiimoteListener;
 
 class ButtonHandlerThread extends Thread {
 

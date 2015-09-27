@@ -2,26 +2,33 @@ package com.github.awvalenti.bauhinia.forficata;
 
 import static com.github.awvalenti.bauhinia.forficata.Phase.*;
 
-public class EventListenerToPhaseListenerAdapter implements ForficataEventListener {
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
 
-	private final ForficataPhaseListener output;
+class PhaseObserverAdapter implements ForficataObserver {
+
+	private final ForficataPhaseObserver output;
 	private Phase currentPhase;
 	private boolean connected;
 
-	public EventListenerToPhaseListenerAdapter(ForficataPhaseListener output) {
+	public PhaseObserverAdapter(ForficataPhaseObserver output) {
 		this.output = output;
-		setCurrentPhase(LOAD_LIBRARIES);
 	}
 
-	private void setCurrentPhase(Phase phase) {
+	private void moveToPhase(Phase phase) {
 		output.running(phase);
 		currentPhase = phase;
 	}
 
 	@Override
+	public void forficataStarted() {
+		moveToPhase(LOAD_LIBRARIES);
+	}
+
+	@Override
 	public void librariesLoaded() {
 		output.success(LOAD_LIBRARIES);
-		setCurrentPhase(FIND_WIIMOTE);
+		moveToPhase(FIND_WIIMOTE);
 	}
 
 	@Override
@@ -30,30 +37,31 @@ public class EventListenerToPhaseListenerAdapter implements ForficataEventListen
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		setCurrentPhase(IDENTIFY_WIIMOTE);
+		moveToPhase(IDENTIFY_WIIMOTE);
 	}
 
 	@Override
 	public void wiimoteIdentified() {
 		output.success(FIND_WIIMOTE);
 		output.success(IDENTIFY_WIIMOTE);
-		setCurrentPhase(CONNECT_TO_WIIMOTE);
+		moveToPhase(CONNECT_TO_WIIMOTE);
 	}
 
 	@Override
 	public void wiimoteConnected(Wiimote wiimote) {
 		connected = true;
 		output.success(CONNECT_TO_WIIMOTE);
-		output.wiimoteConnected(wiimote);
 	}
 
 	@Override
 	public void searchFinished() {
+		// TODO Provide failure information
 		if (!connected) output.failure(FIND_WIIMOTE, new ForficataFailure(new Exception(), ""));
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
+		// TODO Provide failure information
 		output.failure(currentPhase, new ForficataFailure(e, ""));
 	}
 
