@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public interface WiimoteEventListener {
+public interface ForficataWiimoteListener {
 
 	void buttonPressed(WiimoteButton button);
 

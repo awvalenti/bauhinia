@@ -2,46 +2,38 @@ package com.github.awvalenti.bauhinia.forficata;
 
 import wiiusej.WiiUseApiManager;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
-import com.github.awvalenti.bauhinia.forficata.ForficataListener;
-import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
-
 class WiiuseJWiimoteConnector implements WiimoteConnector {
 
-	private final int maximumNumberOfWiimotes;
-	private final boolean synchronous;
+	private final ForficataConfiguration config;
 
-	public WiiuseJWiimoteConnector(int maximumNumberOfWiimotes, boolean synchronous) {
-		this.maximumNumberOfWiimotes = maximumNumberOfWiimotes;
-		this.synchronous = synchronous;
+	public WiiuseJWiimoteConnector(ForficataConfiguration config) {
+		this.config = config;
 	}
 
 	@Override
-	public void startSearch(final ForficataListener listener) {
-		if (synchronous) {
-			doSearch(listener);
+	public void start() {
+		Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				doSearch(config.forficataEventListener);
+			}
+		};
 
-		} else {
-			new Thread() {
-				@Override
-				public void run() {
-					doSearch(listener);
-				}
-			}.start();
-		}
+		if (config.synchronous) task.run();
+		else new Thread(task).start();
 	}
 
-	private void doSearch(final ForficataListener listener) {
+	private void doSearch(final ForficataEventListener listener) {
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
 			listener.librariesLoaded();
 
 			listener.searchStarted();
-			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(maximumNumberOfWiimotes,
+			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.wiimotesExpected,
 					false);
 			for (wiiusej.Wiimote w : wiimotesFound) {
-				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w));
+				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.wiimoteEventListener));
 			}
 			listener.searchFinished();
 
@@ -55,5 +47,4 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			listener.errorOccurred(new ForficataException(e, "Error loading native libraries"));
 		}
 	}
-
 }

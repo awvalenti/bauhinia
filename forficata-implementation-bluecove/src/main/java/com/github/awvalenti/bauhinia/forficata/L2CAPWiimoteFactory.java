@@ -14,13 +14,14 @@ class L2CAPWiimoteFactory {
 		return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
 	}
 
-	public Wiimote createWiimote(RemoteDevice device) throws IOException {
+	public Wiimote createWiimote(RemoteDevice device, ForficataWiimoteListener listener)
+			throws IOException {
 		String baseAddress = "btl2cap://" + device.getBluetoothAddress();
 		L2CAPConnection input = (L2CAPConnection) Connector.open(baseAddress + ":13",
 				Connector.READ, true);
 		L2CAPConnection output = (L2CAPConnection) Connector.open(baseAddress + ":11",
 				Connector.WRITE, true);
-		return new L2CAPWiimote(input, output);
+		return new L2CAPWiimote(input, output, listener);
 	}
 
 }

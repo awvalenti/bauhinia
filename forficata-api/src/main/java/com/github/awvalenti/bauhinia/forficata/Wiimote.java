@@ -1,15 +1,11 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import java.io.IOException;
-
 public interface Wiimote {
 
-	void setButtonListener(WiimoteEventListener buttonListener);
+	void turnLedOn(int ledIndex);
 
-	void turnLedOn(int ledIndex) throws IOException;
+	void startVibration();
 
-	void startVibration() throws IOException;
-
-	void stopVibration() throws IOException;
+	void stopVibration();
 
 }

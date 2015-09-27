@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public interface ForficataListener {
+public interface ForficataEventListener {
 
 	void librariesLoaded();
 

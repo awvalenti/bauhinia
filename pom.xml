@@ -15,6 +15,7 @@
 		<module>nitida</module>
 		<module>forficata-api</module>
 		<module>forficata-factory</module>
+		<module>forficata-common</module>
 		<module>forficata-implementation-bluecove</module>
 		<module>forficata-implementation-wiiusej</module>
 	</modules>

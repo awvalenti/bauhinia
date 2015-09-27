@@ -22,6 +22,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti</groupId>
+			<artifactId>forficata-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.awvalenti</groupId>
 			<artifactId>forficata-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

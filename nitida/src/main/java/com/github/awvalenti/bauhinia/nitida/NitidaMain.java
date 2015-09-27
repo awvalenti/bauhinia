@@ -1,6 +1,7 @@
 package com.github.awvalenti.bauhinia.nitida;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataFactory;
+import com.github.awvalenti.bauhinia.forficata.Forficata;
+import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep1;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutputListener;
@@ -16,14 +17,16 @@ public class NitidaMain {
 
 		NitidaOutputListener view;
 		NitidaModel model;
+		ForficataBuilderStep1 builder = Forficata.builder();
 
 		if (args.length > 0 && args[0].equals("--console")) {
 			view = new NitidaConsole(projectProperties);
-			model = new NitidaModel(ForficataFactory.syncConnector(1), view);
+			model = new NitidaModel(builder.synchronousConnector(), view);
+
 		} else {
 			RetryButton retryButton = new RetryButton();
 			view = new NitidaWindow(projectProperties, retryButton);
-			model = new NitidaModel(ForficataFactory.asyncConnector(1), view);
+			model = new NitidaModel(builder.asynchronousConnector(), view);
 			new NitidaController(model, retryButton);
 		}
 

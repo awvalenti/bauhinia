@@ -2,101 +2,58 @@ package com.github.awvalenti.bauhinia.nitida.model;
 
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.io.IOException;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
-import com.github.awvalenti.bauhinia.forficata.ForficataListener;
+import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep2;
+import com.github.awvalenti.bauhinia.forficata.ForficataPhaseListener;
+import com.github.awvalenti.bauhinia.forficata.ForficataWiimoteListener;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.WiimoteEventListener;
 
-public class NitidaModel implements NitidaInputHandler, ForficataListener {
+public class NitidaModel implements NitidaInputHandler, ForficataPhaseListener {
 
-	private final WiimoteConnector connector;
-	private final NitidaOutputListener output;
 	private final Robot robot;
+	private final NitidaOutputListener output;
 	private final KeyMapping mapping;
-	private NitidaState state;
+	private final WiimoteConnector connector;
 
-	public NitidaModel(WiimoteConnector connector, NitidaOutputListener output) {
+	public NitidaModel(ForficataBuilderStep2 builder, NitidaOutputListener output) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
-		this.connector = connector;
 		this.output = output;
 		this.mapping = new KeyMapping();
-		this.state = NitidaState.IDLE;
+		this.connector = builder
+				.oneWiimote(new ForficataWiimoteListener() {
+					@Override
+					public void buttonPressed(WiimoteButton button) {
+						robot.keyPress(mapping.keycodeFor(button));
+					}
+
+					@Override
+					public void buttonReleased(WiimoteButton button) {
+						robot.keyRelease(mapping.keycodeFor(button));
+					}
+
+					@Override
+					public void wiimoteDisconnected() {
+						NitidaModel.this.output.wiimoteDisconnected();
+					}
+				})
+				.withPhaseListener(this)
+				.build();
 	}
 
 	@Override
 	public void startSearch() {
-		connector.startSearch(this);
+		connector.start();
 	}
 
-	@Override
-	public void librariesLoaded() {
-	}
-
-	@Override
-	public void searchStarted() {
-		state = NitidaState.SEARCHING;
-		output.searchStarted();
-	}
-
-	@Override
-	public void bluetoothDeviceFound(String bluetoothAddress, String deviceClass) {
-		output.identifyingBluetoothDevice(bluetoothAddress, deviceClass);
-	}
-
-	@Override
-	public void wiimoteIdentified() {
-		output.wiimoteFound();
-	}
-
-	@Override
 	public void wiimoteConnected(final Wiimote wiimote) {
-		try {
-			wiimote.turnLedOn(0);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-		wiimote.setButtonListener(new WiimoteEventListener() {
-			@Override
-			public void buttonPressed(WiimoteButton button) {
-				robot.keyPress(mapping.keycodeFor(button));
-			}
-
-			@Override
-			public void buttonReleased(WiimoteButton button) {
-				robot.keyRelease(mapping.keycodeFor(button));
-			}
-
-			@Override
-			public void wiimoteDisconnected() {
-				state = NitidaState.IDLE;
-				output.wiimoteDisconnected();
-			}
-		});
-
-		state = NitidaState.ACTIVE;
+		wiimote.turnLedOn(0);
 		output.remoteControlActivated();
-	}
-
-	@Override
-	public void searchFinished() {
-		if (state != NitidaState.ACTIVE) {
-			state = NitidaState.IDLE;
-			output.unableToFindWiimote();
-		}
-	}
-
-	@Override
-	public void errorOccurred(ForficataException e) {
-		output.errorOccurred(e);
 	}
 
 }

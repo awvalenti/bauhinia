@@ -18,8 +18,9 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 
 	private final wiiusej.Wiimote wiiusejWiimote;
 
-	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote) {
+	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote, ForficataWiimoteListener listener) {
 		this.wiiusejWiimote = wiiusejWiimote;
+		wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(listener));
 	}
 
 	@Override
@@ -38,84 +39,87 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 		wiiusejWiimote.deactivateRumble();
 	}
 
-	@Override
-	public void setButtonListener(final WiimoteEventListener listener) {
-		wiiusejWiimote.addWiiMoteEventListeners(new wiiusej.wiiusejevents.utils.WiimoteListener() {
+	private static class WiiuseJEventListener implements wiiusej.wiiusejevents.utils.WiimoteListener {
 
-			@Override
-			public void onDisconnectionEvent(DisconnectionEvent arg0) {
-				listener.wiimoteDisconnected();
-			}
+		private final ForficataWiimoteListener listener;
 
-			@Override
-			public void onButtonsEvent(WiimoteButtonsEvent wiiusejEvent) {
-				// We don't have many options here, except to check every button separately
+		private WiiuseJEventListener(ForficataWiimoteListener listener) {
+			this.listener = listener;
+		}
 
-				if (wiiusejEvent.isButtonUpJustPressed()) listener.buttonPressed(UP);
-				if (wiiusejEvent.isButtonDownJustPressed()) listener.buttonPressed(DOWN);
-				if (wiiusejEvent.isButtonLeftJustPressed()) listener.buttonPressed(LEFT);
-				if (wiiusejEvent.isButtonRightJustPressed()) listener.buttonPressed(RIGHT);
-				if (wiiusejEvent.isButtonAJustPressed()) listener.buttonPressed(A);
-				if (wiiusejEvent.isButtonBJustPressed()) listener.buttonPressed(B);
-				if (wiiusejEvent.isButtonMinusJustPressed()) listener.buttonPressed(MINUS);
-				if (wiiusejEvent.isButtonHomeJustPressed()) listener.buttonPressed(HOME);
-				if (wiiusejEvent.isButtonPlusJustPressed()) listener.buttonPressed(PLUS);
-				if (wiiusejEvent.isButtonOneJustPressed()) listener.buttonPressed(ONE);
-				if (wiiusejEvent.isButtonTwoJustPressed()) listener.buttonPressed(TWO);
+		@Override
+		public void onDisconnectionEvent(DisconnectionEvent arg0) {
+			listener.wiimoteDisconnected();
+		}
 
-				if (wiiusejEvent.isButtonUpJustReleased()) listener.buttonReleased(UP);
-				if (wiiusejEvent.isButtonDownJustReleased()) listener.buttonReleased(DOWN);
-				if (wiiusejEvent.isButtonLeftJustReleased()) listener.buttonReleased(LEFT);
-				if (wiiusejEvent.isButtonRightJustReleased()) listener.buttonReleased(RIGHT);
-				if (wiiusejEvent.isButtonAJustReleased()) listener.buttonReleased(A);
-				if (wiiusejEvent.isButtonBJustReleased()) listener.buttonReleased(B);
-				if (wiiusejEvent.isButtonMinusJustReleased()) listener.buttonReleased(MINUS);
-				if (wiiusejEvent.isButtonHomeJustReleased()) listener.buttonReleased(HOME);
-				if (wiiusejEvent.isButtonPlusJustReleased()) listener.buttonReleased(PLUS);
-				if (wiiusejEvent.isButtonOneJustReleased()) listener.buttonReleased(ONE);
-				if (wiiusejEvent.isButtonTwoJustReleased()) listener.buttonReleased(TWO);
-			}
+		@Override
+		public void onButtonsEvent(WiimoteButtonsEvent wiiusejEvent) {
+			// We don't have many options here, except to check every button separately
 
-			@Override
-			public void onClassicControllerRemovedEvent(ClassicControllerRemovedEvent arg0) {
-			}
+			if (wiiusejEvent.isButtonUpJustPressed()) listener.buttonPressed(UP);
+			if (wiiusejEvent.isButtonDownJustPressed()) listener.buttonPressed(DOWN);
+			if (wiiusejEvent.isButtonLeftJustPressed()) listener.buttonPressed(LEFT);
+			if (wiiusejEvent.isButtonRightJustPressed()) listener.buttonPressed(RIGHT);
+			if (wiiusejEvent.isButtonAJustPressed()) listener.buttonPressed(A);
+			if (wiiusejEvent.isButtonBJustPressed()) listener.buttonPressed(B);
+			if (wiiusejEvent.isButtonMinusJustPressed()) listener.buttonPressed(MINUS);
+			if (wiiusejEvent.isButtonHomeJustPressed()) listener.buttonPressed(HOME);
+			if (wiiusejEvent.isButtonPlusJustPressed()) listener.buttonPressed(PLUS);
+			if (wiiusejEvent.isButtonOneJustPressed()) listener.buttonPressed(ONE);
+			if (wiiusejEvent.isButtonTwoJustPressed()) listener.buttonPressed(TWO);
 
-			@Override
-			public void onClassicControllerInsertedEvent(ClassicControllerInsertedEvent arg0) {
-			}
+			if (wiiusejEvent.isButtonUpJustReleased()) listener.buttonReleased(UP);
+			if (wiiusejEvent.isButtonDownJustReleased()) listener.buttonReleased(DOWN);
+			if (wiiusejEvent.isButtonLeftJustReleased()) listener.buttonReleased(LEFT);
+			if (wiiusejEvent.isButtonRightJustReleased()) listener.buttonReleased(RIGHT);
+			if (wiiusejEvent.isButtonAJustReleased()) listener.buttonReleased(A);
+			if (wiiusejEvent.isButtonBJustReleased()) listener.buttonReleased(B);
+			if (wiiusejEvent.isButtonMinusJustReleased()) listener.buttonReleased(MINUS);
+			if (wiiusejEvent.isButtonHomeJustReleased()) listener.buttonReleased(HOME);
+			if (wiiusejEvent.isButtonPlusJustReleased()) listener.buttonReleased(PLUS);
+			if (wiiusejEvent.isButtonOneJustReleased()) listener.buttonReleased(ONE);
+			if (wiiusejEvent.isButtonTwoJustReleased()) listener.buttonReleased(TWO);
+		}
 
-			@Override
-			public void onStatusEvent(StatusEvent arg0) {
-			}
+		@Override
+		public void onClassicControllerRemovedEvent(ClassicControllerRemovedEvent arg0) {
+		}
 
-			@Override
-			public void onNunchukRemovedEvent(NunchukRemovedEvent arg0) {
-			}
+		@Override
+		public void onClassicControllerInsertedEvent(ClassicControllerInsertedEvent arg0) {
+		}
 
-			@Override
-			public void onNunchukInsertedEvent(NunchukInsertedEvent arg0) {
-			}
+		@Override
+		public void onStatusEvent(StatusEvent arg0) {
+		}
 
-			@Override
-			public void onMotionSensingEvent(MotionSensingEvent arg0) {
-			}
+		@Override
+		public void onNunchukRemovedEvent(NunchukRemovedEvent arg0) {
+		}
 
-			@Override
-			public void onIrEvent(IREvent arg0) {
-			}
+		@Override
+		public void onNunchukInsertedEvent(NunchukInsertedEvent arg0) {
+		}
 
-			@Override
-			public void onGuitarHeroRemovedEvent(GuitarHeroRemovedEvent arg0) {
-			}
+		@Override
+		public void onMotionSensingEvent(MotionSensingEvent arg0) {
+		}
 
-			@Override
-			public void onGuitarHeroInsertedEvent(GuitarHeroInsertedEvent arg0) {
-			}
+		@Override
+		public void onIrEvent(IREvent arg0) {
+		}
 
-			@Override
-			public void onExpansionEvent(ExpansionEvent arg0) {
-			}
-		});
+		@Override
+		public void onGuitarHeroRemovedEvent(GuitarHeroRemovedEvent arg0) {
+		}
+
+		@Override
+		public void onGuitarHeroInsertedEvent(GuitarHeroInsertedEvent arg0) {
+		}
+
+		@Override
+		public void onExpansionEvent(ExpansionEvent arg0) {
+		}
 
 	}
 
