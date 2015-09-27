@@ -21,7 +21,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void start() {
+	public void run() {
 		ForficataEventListener listener = config.getForficataEventListener();
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();

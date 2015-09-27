@@ -60,7 +60,7 @@ public class NitidaModel implements NitidaInputHandler, ForficataPhaseListener {
 
 	@Override
 	public void startSearch() {
-		connector.start();
+		connector.run();
 	}
 
 	@Override

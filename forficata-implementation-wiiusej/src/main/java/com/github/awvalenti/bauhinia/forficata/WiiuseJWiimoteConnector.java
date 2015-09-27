@@ -11,7 +11,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 	}
 
 	@Override
-	public void start() {
+	public void run() {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
@@ -48,4 +48,5 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			listener.errorOccurred(new ForficataException(e, "Error loading native libraries"));
 		}
 	}
+
 }
