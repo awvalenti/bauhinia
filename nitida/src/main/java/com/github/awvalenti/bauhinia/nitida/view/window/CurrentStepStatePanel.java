@@ -10,20 +10,20 @@ public class CurrentStepStatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Map<Step, StepIndication> stepsToIndications = new HashMap<Step, StepIndication>();
+	private final Map<Phase, PhaseIndication> stepsToIndications = new HashMap<Phase, PhaseIndication>();
 
-	public CurrentStepStatePanel(Step[] steps) {
+	public CurrentStepStatePanel(Phase[] steps) {
 		super(new GridLayout(steps.length, 1));
 
-		for (Step step : steps) {
-			StepIndication indication = new StepIndication(step.toString());
+		for (Phase phase : steps) {
+			PhaseIndication indication = new PhaseIndication(phase.toString());
 			add(indication);
-			stepsToIndications.put(step, indication);
+			stepsToIndications.put(phase, indication);
 		}
 	}
 
-	public void stateChanged(Step step, StepState state) {
-		stepsToIndications.get(step).setState(state);
+	public void stateChanged(Phase phase, PhaseState state) {
+		stepsToIndications.get(phase).setState(state);
 	}
 
 }

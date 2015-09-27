@@ -11,9 +11,9 @@ public class MacroStatePanel extends JPanel {
 
 	public MacroStatePanel() {
 		super(new GridLayout(1, 3));
-		add(new StateIndication("Idle", Color.RED));
-		add(new StateIndication("Preparing", Color.YELLOW));
-		add(new StateIndication("Active", Color.GREEN));
+		add(new MacroStateIndication("Idle", Color.RED));
+		add(new MacroStateIndication("Preparing", Color.YELLOW));
+		add(new MacroStateIndication("Active", Color.GREEN));
 	}
 
 }

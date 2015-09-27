@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
-public enum Step {
+public enum Phase {
 
 	LOAD_LIBRARIES,
 

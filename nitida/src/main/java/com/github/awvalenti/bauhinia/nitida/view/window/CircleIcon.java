@@ -8,11 +8,11 @@ import java.awt.RenderingHints;
 
 import javax.swing.Icon;
 
-public class StateIcon implements Icon {
+public class CircleIcon implements Icon {
 
 	private final Color color;
 
-	public StateIcon(Color color) {
+	public CircleIcon(Color color) {
 		this.color = color;
 	}
 

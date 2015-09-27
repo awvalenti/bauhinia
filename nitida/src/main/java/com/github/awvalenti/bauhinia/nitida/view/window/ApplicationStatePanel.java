@@ -19,8 +19,8 @@ public class ApplicationStatePanel extends JPanel {
 		add(new MacroStatePanel(), BorderLayout.SOUTH);
 	}
 
-	public void stateChanged(Step step, StepState state) {
-		currentStepStatePanel.stateChanged(step, state);
+	public void stateChanged(Phase phase, PhaseState state) {
+		currentStepStatePanel.stateChanged(phase, state);
 	}
 
 }

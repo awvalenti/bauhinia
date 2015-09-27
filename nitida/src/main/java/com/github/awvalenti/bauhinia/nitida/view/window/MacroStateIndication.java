@@ -5,15 +5,16 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-public class StateIndication extends JLabel {
+public class MacroStateIndication extends JLabel {
 
 	private static final long serialVersionUID = 1L;
+
 	private final Color originalBackgroundColor;
 
-	public StateIndication(String title, Color color) {
-		super(title, new StateIcon(color), JLabel.LEFT);
+	public MacroStateIndication(String title, Color color) {
+		super(title, new CircleIcon(color), JLabel.LEFT);
 		originalBackgroundColor = getBackground();
-		setDisabledIcon(new StateIcon(color.darker().darker()));
+		setDisabledIcon(new CircleIcon(color.darker().darker()));
 		setBorder(BorderFactory.createEtchedBorder());
 		setOpaque(true);
 		setEnabled(false);

@@ -19,7 +19,7 @@ public class NitidaWindow implements NitidaOutput {
 
 	public NitidaWindow(ProjectProperties projectProperties, RetryButton retryButton) {
 		this.retryButton = retryButton;
-		this.applicationStatePanel = new ApplicationStatePanel(new CurrentStepStatePanel(Step.values()));
+		this.applicationStatePanel = new ApplicationStatePanel(new CurrentStepStatePanel(Phase.values()));
 		this.logPanel = new LogPanel();
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
@@ -41,14 +41,14 @@ public class NitidaWindow implements NitidaOutput {
 	@Override
 	public void run() {
 		frame.setVisible(true);
-		applicationStatePanel.stateChanged(Step.LOAD_LIBRARIES, StepState.RUNNING);
+		applicationStatePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.RUNNING);
 	}
 
 	@Override
 	public void searchStarted() {
 		logPanel.append("Search started");
-		applicationStatePanel.stateChanged(Step.LOAD_LIBRARIES, StepState.SUCCESS);
-		applicationStatePanel.stateChanged(Step.FIND_WIIMOTE, StepState.RUNNING);
+		applicationStatePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
+		applicationStatePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.RUNNING);
 		retryButton.setEnabled(false);
 	}
 
@@ -61,28 +61,28 @@ public class NitidaWindow implements NitidaOutput {
 	@Override
 	public void wiimoteFound() {
 		logPanel.append("Wiimote found. Connecting...");
-		applicationStatePanel.stateChanged(Step.FIND_WIIMOTE, StepState.SUCCESS);
-		applicationStatePanel.stateChanged(Step.CONNECT_TO_WIIMOTE, StepState.RUNNING);
+		applicationStatePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
+		applicationStatePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.RUNNING);
 	}
 
 	@Override
 	public void remoteControlActivated() {
 		logPanel.append("Connected. Remote control is active!");
-		applicationStatePanel.stateChanged(Step.FIND_WIIMOTE, StepState.SUCCESS);
-		applicationStatePanel.stateChanged(Step.CONNECT_TO_WIIMOTE, StepState.SUCCESS);
+		applicationStatePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
+		applicationStatePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.SUCCESS);
 	}
 
 	@Override
 	public void wiimoteDisconnected() {
 		logPanel.append("Wiimote disconnected");
-		applicationStatePanel.stateChanged(Step.LOAD_LIBRARIES, StepState.SUCCESS);
+		applicationStatePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
 		retryButton.setEnabled(true);
 	}
 
 	@Override
 	public void unableToFindWiimote() {
 		logPanel.append("Unable to find Wiimote");
-		applicationStatePanel.stateChanged(Step.FIND_WIIMOTE, StepState.FAILURE);
+		applicationStatePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.FAILURE);
 		retryButton.setEnabled(true);
 	}
 
