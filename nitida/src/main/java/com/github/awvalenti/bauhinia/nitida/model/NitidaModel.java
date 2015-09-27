@@ -21,14 +21,14 @@ public class NitidaModel implements NitidaInputHandler, ForficataListener {
 
 	public NitidaModel(WiimoteConnector connector, NitidaOutput output) {
 		try {
-			this.connector = connector;
-			this.output = output;
-			robot = new Robot();
-			mapping = new KeyMapping();
-			state = NitidaState.IDLE;
+			this.robot = new Robot();
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
+		this.connector = connector;
+		this.output = output;
+		this.mapping = new KeyMapping();
+		this.state = NitidaState.IDLE;
 	}
 
 	@Override
