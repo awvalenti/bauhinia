@@ -19,7 +19,7 @@ public class NitidaWindow implements NitidaOutput {
 
 	public NitidaWindow(ProjectProperties projectProperties, RetryButton retryButton) {
 		this.retryButton = retryButton;
-		this.applicationStatePanel = new ApplicationStatePanel(new CurrentStepStatePanel(Phase.values()));
+		this.applicationStatePanel = new ApplicationStatePanel(new PhasePanel(Phase.values()));
 		this.logPanel = new LogPanel();
 
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());

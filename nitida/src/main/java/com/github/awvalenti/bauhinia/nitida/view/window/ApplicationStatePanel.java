@@ -8,19 +8,20 @@ import javax.swing.JPanel;
 public class ApplicationStatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final CurrentStepStatePanel currentStepStatePanel;
 
-	public ApplicationStatePanel(CurrentStepStatePanel currentStepStatePanel) {
+	private final PhasePanel phasePanel;
+
+	public ApplicationStatePanel(PhasePanel phasePanel) {
 		super(new BorderLayout());
-		this.currentStepStatePanel = currentStepStatePanel;
+		this.phasePanel = phasePanel;
 
 		setBorder(BorderFactory.createTitledBorder("Application state"));
-		add(currentStepStatePanel, BorderLayout.CENTER);
-		add(new MacroStatePanel(), BorderLayout.SOUTH);
+		add(phasePanel, BorderLayout.CENTER);
+		add(new MacroStatePanel(MacroState.values()), BorderLayout.SOUTH);
 	}
 
 	public void stateChanged(Phase phase, PhaseState state) {
-		currentStepStatePanel.stateChanged(phase, state);
+		phasePanel.phaseStateChanged(phase, state);
 	}
 
 }
