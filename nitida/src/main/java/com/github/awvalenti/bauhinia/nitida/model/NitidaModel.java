@@ -4,8 +4,11 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep2;
+import com.github.awvalenti.bauhinia.forficata.ForficataEventListener;
+import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
 import com.github.awvalenti.bauhinia.forficata.ForficataPhaseListener;
 import com.github.awvalenti.bauhinia.forficata.ForficataWiimoteListener;
+import com.github.awvalenti.bauhinia.forficata.Phase;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
@@ -18,6 +21,14 @@ public class NitidaModel implements NitidaInputHandler, ForficataPhaseListener {
 	private final WiimoteConnector connector;
 
 	public NitidaModel(ForficataBuilderStep2 builder, NitidaOutputListener output) {
+		this(builder, output, new NullForficataEventListener());
+	}
+
+	public NitidaModel(ForficataBuilderStep2 builder, ForficataEventListener eventListener) {
+		this(builder, new NullNitidaOutputListener(), eventListener);
+	}
+	public NitidaModel(ForficataBuilderStep2 builder, NitidaOutputListener output,
+			ForficataEventListener eventListener) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {
@@ -42,7 +53,8 @@ public class NitidaModel implements NitidaInputHandler, ForficataPhaseListener {
 						NitidaModel.this.output.wiimoteDisconnected();
 					}
 				})
-				.withPhaseListener(this)
+				.eventListener(eventListener)
+				.phaseListener(this)
 				.build();
 	}
 
@@ -51,9 +63,24 @@ public class NitidaModel implements NitidaInputHandler, ForficataPhaseListener {
 		connector.start();
 	}
 
-	public void wiimoteConnected(final Wiimote wiimote) {
+	@Override
+	public void wiimoteConnected(Wiimote wiimote) {
 		wiimote.turnLedOn(0);
-		output.remoteControlActivated();
+	}
+
+	@Override
+	public void running(Phase phase) {
+		output.running(phase);
+	}
+
+	@Override
+	public void success(Phase phase) {
+		output.success(phase);
+	}
+
+	@Override
+	public void failure(Phase phase, ForficataFailure failure) {
+		output.failure(phase, failure);
 	}
 
 }

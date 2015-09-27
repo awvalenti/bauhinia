@@ -15,7 +15,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				doSearch(config.forficataEventListener);
+				doSearch(config.getForficataEventListener());
 			}
 		};
 
@@ -32,8 +32,9 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			listener.searchStarted();
 			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.wiimotesExpected,
 					false);
+			if (wiimotesFound.length == config.wiimotesExpected) listener.wiimoteIdentified();
 			for (wiiusej.Wiimote w : wiimotesFound) {
-				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.wiimoteEventListener));
+				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.wiimoteListener));
 			}
 			listener.searchFinished();
 

@@ -1,7 +1,7 @@
 package com.github.awvalenti.bauhinia.forficata;
 
 public class Forficata implements ForficataBuilderStep1, ForficataBuilderStep2,
-		ForficataBuilderStep3, ForficataBuilderStep4 {
+		ForficataBuilderStep3 {
 
 	private ForficataConfiguration config = new ForficataConfiguration();
 
@@ -27,20 +27,19 @@ public class Forficata implements ForficataBuilderStep1, ForficataBuilderStep2,
 	@Override
 	public ForficataBuilderStep3 oneWiimote(ForficataWiimoteListener listener) {
 		config.wiimotesExpected = 1;
-		config.wiimoteEventListener = listener;
+		config.wiimoteListener = listener;
 		return this;
 	}
 
 	@Override
-	public ForficataBuilderStep4 withPhaseListener(ForficataPhaseListener listener) {
-		config.forficataPhaseListener = listener;
+	public ForficataBuilderStep3 eventListener(ForficataEventListener listener) {
+		config.addForficataEventListener(listener);
 		return this;
 	}
 
 	@Override
-	public ForficataBuilderStep4 withEventListener(ForficataEventListener listener) {
-		config.forficataEventListener = listener;
-		return this;
+	public ForficataBuilderStep3 phaseListener(ForficataPhaseListener listener) {
+		return eventListener(new EventListenerToPhaseListenerAdapter(listener));
 	}
 
 	@Override

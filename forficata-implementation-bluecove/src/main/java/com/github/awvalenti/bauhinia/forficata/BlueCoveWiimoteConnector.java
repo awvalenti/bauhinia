@@ -22,7 +22,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void start() {
-		ForficataEventListener listener = config.forficataEventListener;
+		ForficataEventListener listener = config.getForficataEventListener();
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();
 			listener.librariesLoaded();
@@ -64,7 +64,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			try {
 				if (factory.deviceIsWiimote(device)) {
 					listener.wiimoteIdentified();
-					Wiimote wiimote = factory.createWiimote(device, config.wiimoteEventListener);
+					Wiimote wiimote = factory.createWiimote(device, config.wiimoteListener);
 					listener.wiimoteConnected(wiimote);
 					if (++numberOfWiimotesFound >= config.wiimotesExpected) {
 						blueCoveLib.stopSearch();

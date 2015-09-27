@@ -6,7 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaOutputListener;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
@@ -44,51 +44,75 @@ public class NitidaWindow implements NitidaOutputListener {
 		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.RUNNING);
 	}
 
+//	@Override
+//	public void searchStarted() {
+//		logPanel.append("Search started");
+//		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
+//		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.RUNNING);
+//		retryButton.setEnabled(false);
+//	}
+//
+//	@Override
+//	public void identifyingBluetoothDevice(String deviceAddress, String deviceClass) {
+//		logPanel.append(String.format("Device found: %s - %s",
+//				deviceAddress, deviceClass));
+//	}
+//
+//	@Override
+//	public void wiimoteFound() {
+//		logPanel.append("Wiimote found. Connecting...");
+//		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
+//		statePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.RUNNING);
+//	}
+//
+//	@Override
+//	public void remoteControlActivated() {
+//		logPanel.append("Connected. Remote control is active!");
+//		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
+//		statePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.SUCCESS);
+//	}
+//
+//	@Override
+//	public void wiimoteDisconnected() {
+//		logPanel.append("Wiimote disconnected");
+//		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
+//		retryButton.setEnabled(true);
+//	}
+//
+//	@Override
+//	public void unableToFindWiimote() {
+//		logPanel.append("Unable to find Wiimote");
+//		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.FAILURE);
+//		retryButton.setEnabled(true);
+//	}
+//
+//	@Override
+//	public void errorOccurred(ForficataException e) {
+//		logPanel.append(String.format("An unexpected exception occurred: %s", e));
+//		retryButton.setEnabled(true);
+//	}
+
 	@Override
-	public void searchStarted() {
-		logPanel.append("Search started");
-		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
-		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.RUNNING);
+	public void running(com.github.awvalenti.bauhinia.forficata.Phase phase) {
 		retryButton.setEnabled(false);
+		statePanel.stateChanged(Phase.valueOf(phase.name()), PhaseState.RUNNING);
 	}
 
 	@Override
-	public void identifyingBluetoothDevice(String deviceAddress, String deviceClass) {
-		logPanel.append(String.format("Device found: %s - %s",
-				deviceAddress, deviceClass));
+	public void success(com.github.awvalenti.bauhinia.forficata.Phase phase) {
+		statePanel.stateChanged(Phase.valueOf(phase.name()), PhaseState.SUCCESS);
 	}
 
 	@Override
-	public void wiimoteFound() {
-		logPanel.append("Wiimote found. Connecting...");
-		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
-		statePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.RUNNING);
-	}
-
-	@Override
-	public void remoteControlActivated() {
-		logPanel.append("Connected. Remote control is active!");
-		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.SUCCESS);
-		statePanel.stateChanged(Phase.CONNECT_TO_WIIMOTE, PhaseState.SUCCESS);
+	public void failure(com.github.awvalenti.bauhinia.forficata.Phase phase,
+			ForficataFailure failure) {
+		statePanel.stateChanged(Phase.valueOf(phase.name()), PhaseState.FAILURE);
+		retryButton.setEnabled(true);
 	}
 
 	@Override
 	public void wiimoteDisconnected() {
-		logPanel.append("Wiimote disconnected");
-		statePanel.stateChanged(Phase.LOAD_LIBRARIES, PhaseState.SUCCESS);
-		retryButton.setEnabled(true);
-	}
-
-	@Override
-	public void unableToFindWiimote() {
-		logPanel.append("Unable to find Wiimote");
-		statePanel.stateChanged(Phase.FIND_WIIMOTE, PhaseState.FAILURE);
-		retryButton.setEnabled(true);
-	}
-
-	@Override
-	public void errorOccurred(ForficataException e) {
-		logPanel.append(String.format("An unexpected exception occurred: %s", e));
+		statePanel.reset();
 		retryButton.setEnabled(true);
 	}
 

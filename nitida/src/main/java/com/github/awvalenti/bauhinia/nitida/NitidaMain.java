@@ -20,18 +20,20 @@ public class NitidaMain {
 		ForficataBuilderStep1 builder = Forficata.builder();
 
 		if (args.length > 0 && args[0].equals("--console")) {
-			view = new NitidaConsole(projectProperties);
-			model = new NitidaModel(builder.synchronousConnector(), view);
+			NitidaConsole nitidaConsole = new NitidaConsole(projectProperties);
+			model = new NitidaModel(builder.synchronousConnector(), nitidaConsole);
+			nitidaConsole.run();
+			model.startSearch();
 
 		} else {
 			RetryButton retryButton = new RetryButton();
 			view = new NitidaWindow(projectProperties, retryButton);
 			model = new NitidaModel(builder.asynchronousConnector(), view);
 			new NitidaController(model, retryButton);
+			view.run();
+			model.startSearch();
 		}
 
-		view.run();
-		model.startSearch();
 	}
 
 }

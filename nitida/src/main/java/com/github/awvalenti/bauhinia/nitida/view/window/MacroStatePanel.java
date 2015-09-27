@@ -21,7 +21,7 @@ public class MacroStatePanel extends JPanel {
 		}
 	}
 
-	public void macroStateChanged(MacroState newState) {
+	public void setState(MacroState newState) {
 		for (MacroStateIndication indication : map.values()) {
 			indication.setEnabled(false);
 		}

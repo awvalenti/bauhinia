@@ -5,8 +5,11 @@ import java.awt.Color;
 public enum MacroState {
 
 	IDLE(Color.RED),
+
 	PREPARING(Color.YELLOW),
+
 	ACTIVE(Color.GREEN),
+
 	;
 
 	private final Color color;

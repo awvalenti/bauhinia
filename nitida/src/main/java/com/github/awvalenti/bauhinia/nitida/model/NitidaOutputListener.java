@@ -1,23 +1,18 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
+import com.github.awvalenti.bauhinia.forficata.Phase;
 
 public interface NitidaOutputListener {
 
 	void run();
 
-	void searchStarted();
+	void running(Phase phase);
 
-	void identifyingBluetoothDevice(String deviceAddress, String deviceClass);
+	void success(Phase phase);
 
-	void wiimoteFound();
-
-	void remoteControlActivated();
+	void failure(Phase phase, ForficataFailure failure);
 
 	void wiimoteDisconnected();
-
-	void unableToFindWiimote();
-
-	void errorOccurred(ForficataException e);
 
 }

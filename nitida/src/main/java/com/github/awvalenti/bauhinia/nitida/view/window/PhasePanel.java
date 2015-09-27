@@ -25,4 +25,10 @@ public class PhasePanel extends JPanel {
 		map.get(phase).setState(newState);
 	}
 
+	public void clear() {
+		for (PhaseIndication indication : map.values()) {
+			indication.setState(PhaseState.INACTIVE);
+		}
+	}
+
 }

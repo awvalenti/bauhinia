@@ -2,8 +2,10 @@ package com.github.awvalenti.bauhinia.forficata;
 
 public interface ForficataBuilderStep3 {
 
-	ForficataBuilderStep4 withPhaseListener(ForficataPhaseListener listener);
+	ForficataBuilderStep3 eventListener(ForficataEventListener listener);
 
-	ForficataBuilderStep4 withEventListener(ForficataEventListener listener);
+	ForficataBuilderStep3 phaseListener(ForficataPhaseListener listener);
+
+	WiimoteConnector build();
 
 }
