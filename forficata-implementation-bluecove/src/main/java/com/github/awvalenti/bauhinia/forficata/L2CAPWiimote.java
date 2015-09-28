@@ -46,8 +46,8 @@ class L2CAPWiimote implements Wiimote {
 		try {
 			output.send(dataWithExtraBytes);
 		} catch (IOException e) {
-			// This should happen only if user tries to send data to a disconnected
-			// Wiimote. This request should then be ignored.
+			// This should happen only if user tries to send data to
+			// an already disconnected Wiimote. The exception is ignored.
 		}
 	}
 
