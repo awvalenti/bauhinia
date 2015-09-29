@@ -57,7 +57,7 @@ public class LogPanel extends JPanel implements ForficataObserver {
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		append(String.format("Found a Bluetooth device at %s: %s\n", address, deviceClass));
+		append(String.format("Found a Bluetooth device at %s: %s", address, deviceClass));
 	}
 
 	@Override
