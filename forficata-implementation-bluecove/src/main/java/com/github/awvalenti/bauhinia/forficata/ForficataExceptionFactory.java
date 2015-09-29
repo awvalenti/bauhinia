@@ -53,9 +53,17 @@ class ForficataExceptionFactory {
 				+ "");
 	}
 
-	public static ForficataException connectionRefused(IOException e) {
+	public static ForficataException deviceRejectedIdentification(IOException e) {
+		return connectionRefused(e);
+	}
+
+	public static ForficataException wiimoteRejectedConnection(IOException e) {
+		return connectionRefused(e);
+	}
+
+	private static ForficataException connectionRefused(IOException e) {
 		return new ForficataException(e, ""
-				+ "Connection refused by Wiimote. Details: " + e
+				+ "Connection refused. Details: " + e
 				+ "");
 	}
 

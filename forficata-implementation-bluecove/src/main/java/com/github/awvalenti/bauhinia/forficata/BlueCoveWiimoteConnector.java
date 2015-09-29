@@ -65,17 +65,26 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
 			listener.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) clazz).toString());
+
+			boolean deviceIsWiimote;
 			try {
-				if (factory.deviceIsWiimote(device)) {
-					listener.wiimoteIdentified();
+				deviceIsWiimote = factory.deviceIsWiimote(device);
+			} catch (IOException e) {
+				listener.errorOccurred(ForficataExceptionFactory.deviceRejectedIdentification(e));
+				return;
+			}
+
+			if (deviceIsWiimote) {
+				listener.wiimoteIdentified();
+				try {
 					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
 					listener.wiimoteConnected(wiimote);
 					if (++numberOfWiimotesFound >= config.getWiimotesExpected()) {
 						blueCoveLib.stopSearch();
 					}
+				} catch (IOException e) {
+					listener.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
 				}
-			} catch (IOException e) {
-				listener.errorOccurred(ForficataExceptionFactory.connectionRefused(e));
 			}
 		}
 

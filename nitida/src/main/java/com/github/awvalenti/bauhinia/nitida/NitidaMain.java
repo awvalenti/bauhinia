@@ -1,3 +1,4 @@
+
 package com.github.awvalenti.bauhinia.nitida;
 
 import com.github.awvalenti.bauhinia.forficata.Forficata;
@@ -19,7 +20,7 @@ public class NitidaMain {
 
 		if (args.length > 0 && args[0].equals("--console")) {
 			model = new NitidaModel(builder.synchronousConnector(), new NitidaConsole(projectProperties));
-			model.startSearch();
+			model.connect();
 
 		} else {
 			RetryButton retryButton = new RetryButton();
@@ -27,7 +28,7 @@ public class NitidaMain {
 			model = new NitidaModel(builder.asynchronousConnector());
 			new NitidaController(model, retryButton);
 			nitidaWindow.run();
-			model.startSearch();
+			model.connect();
 		}
 
 	}

@@ -1,11 +1,14 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import com.github.awvalenti.bauhinia.forficata.listeners.ForficataButtonListener;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnectionObserver;
 
 public interface ForficataBuilderStep3 {
+
+	WiimoteConnector build();
 
 	ForficataBuilderStep3 wiimoteConnectionObserver(ForficataWiimoteConnectionObserver o);
 
@@ -17,6 +20,6 @@ public interface ForficataBuilderStep3 {
 
 	ForficataBuilderStep3 observers(ForficataObserver... observers);
 
-	WiimoteConnector build();
+	ForficataBuilderStep3 buttonListener(ForficataButtonListener listener);
 
 }

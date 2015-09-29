@@ -1,5 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import com.github.awvalenti.bauhinia.forficata.listeners.ForficataButtonListener;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
@@ -23,9 +24,14 @@ class ForficataBuilder implements ForficataBuilderStep1, ForficataBuilderStep2,
 	}
 
 	@Override
-	public ForficataBuilderStep3 oneWiimote(ForficataWiimoteListener listener) {
+	public ForficataBuilderStep3 oneWiimote() {
 		config.setWiimotesExpected(1);
-		config.setWiimoteListener(listener);
+		return this;
+	}
+
+	@Override
+	public ForficataBuilderStep3 buttonListener(ForficataButtonListener listener) {
+		config.addButtonListener(new ButtonListenerAdapter(listener));
 		return this;
 	}
 

@@ -1,12 +1,13 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 
 class ForficataConfig implements ReadableForficataConfig {
 
 	private Boolean synchronous;
 	private Integer wiimotesExpected;
-	private ForficataWiimoteListener wiimoteListener;
+	private CompositeListener compositeListener = new CompositeListener();
 	private CompositeObserver compositeObserver = new CompositeObserver();
 
 	@Override
@@ -28,12 +29,12 @@ class ForficataConfig implements ReadableForficataConfig {
 	}
 
 	@Override
-	public ForficataWiimoteListener getWiimoteListener() {
-		return wiimoteListener;
+	public ForficataWiimoteFullListener getWiimoteListener() {
+		return compositeListener;
 	}
 
-	public void setWiimoteListener(ForficataWiimoteListener l) {
-		this.wiimoteListener = l;
+	public void addButtonListener(ForficataWiimoteFullListener l) {
+		compositeListener.addListener(l);
 	}
 
 	public void addObserver(ForficataObserver o) {

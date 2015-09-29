@@ -1,10 +1,11 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 
 interface ReadableForficataConfig {
 
-	ForficataWiimoteListener getWiimoteListener();
+	ForficataWiimoteFullListener getWiimoteListener();
 
 	int getWiimotesExpected();
 

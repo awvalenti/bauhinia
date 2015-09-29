@@ -6,7 +6,7 @@ import javax.bluetooth.L2CAPConnection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
-import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
 
 class L2CAPWiimoteFactory {
 
@@ -14,7 +14,7 @@ class L2CAPWiimoteFactory {
 		return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
 	}
 
-	public Wiimote createWiimote(RemoteDevice device, ForficataWiimoteListener listener)
+	public Wiimote createWiimote(RemoteDevice device, ForficataWiimoteFullListener listener)
 			throws IOException {
 		String baseAddress = "btl2cap://" + device.getBluetoothAddress();
 		L2CAPConnection input = (L2CAPConnection) Connector.open(baseAddress + ":13",
