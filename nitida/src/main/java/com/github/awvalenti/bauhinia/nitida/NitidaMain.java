@@ -1,4 +1,3 @@
-
 package com.github.awvalenti.bauhinia.nitida;
 
 import com.github.awvalenti.bauhinia.forficata.Forficata;
@@ -19,7 +18,8 @@ public class NitidaMain {
 		ForficataBuilderStep1 builder = Forficata.builder();
 
 		if (args.length > 0 && args[0].equals("--console")) {
-			model = new NitidaModel(builder.synchronousConnector(), new NitidaConsole(projectProperties));
+			model = new NitidaModel(builder.synchronousConnector(), new NitidaConsole(
+					projectProperties));
 			model.connect();
 
 		} else {
