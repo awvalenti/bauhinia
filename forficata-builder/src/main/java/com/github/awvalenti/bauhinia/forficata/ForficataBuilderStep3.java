@@ -8,8 +8,6 @@ import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnect
 
 public interface ForficataBuilderStep3 {
 
-	WiimoteConnector build();
-
 	ForficataBuilderStep3 wiimoteConnectionObserver(ForficataWiimoteConnectionObserver o);
 
 	ForficataBuilderStep3 fullObserver(ForficataObserver o);
@@ -21,5 +19,7 @@ public interface ForficataBuilderStep3 {
 	ForficataBuilderStep3 observers(ForficataObserver... observers);
 
 	ForficataBuilderStep3 buttonListener(ForficataButtonListener listener);
+
+	WiimoteConnector build();
 
 }

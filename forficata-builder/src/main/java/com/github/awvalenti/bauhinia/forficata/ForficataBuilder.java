@@ -12,13 +12,13 @@ class ForficataBuilder implements ForficataBuilderStep1, ForficataBuilderStep2,
 	private final ForficataConfig config = new ForficataConfig();
 
 	@Override
-	public ForficataBuilderStep2 synchronousConnector() {
+	public ForficataBuilderStep2 synchronous() {
 		config.setSynchronous(true);
 		return this;
 	}
 
 	@Override
-	public ForficataBuilderStep2 asynchronousConnector() {
+	public ForficataBuilderStep2 asynchronous() {
 		config.setSynchronous(false);
 		return this;
 	}

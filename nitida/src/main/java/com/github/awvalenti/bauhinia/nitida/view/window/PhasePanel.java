@@ -6,7 +6,11 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-public class PhasePanel extends JPanel {
+import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
+import com.github.awvalenti.bauhinia.forficata.Phase;
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
+
+public class PhasePanel extends JPanel implements ForficataPhaseObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,6 +18,7 @@ public class PhasePanel extends JPanel {
 
 	public PhasePanel(Phase[] phases) {
 		super(new GridLayout(phases.length, 1));
+
 		for (Phase phase : phases) {
 			PhaseIndication indication = new PhaseIndication(phase.toString());
 			map.put(phase, indication);
@@ -21,14 +26,26 @@ public class PhasePanel extends JPanel {
 		}
 	}
 
-	public void phaseStateChanged(Phase phase, PhaseState newState) {
-		map.get(phase).setState(newState);
-	}
-
-	public void clear() {
+	@Override
+	public void starting() {
 		for (PhaseIndication indication : map.values()) {
 			indication.setState(PhaseState.INACTIVE);
 		}
+	}
+
+	@Override
+	public void running(Phase phase) {
+		map.get(phase).setState(PhaseState.RUNNING);
+	}
+
+	@Override
+	public void success(Phase phase) {
+		map.get(phase).setState(PhaseState.SUCCESS);
+	}
+
+	@Override
+	public void failure(Phase phase, ForficataFailure failure) {
+		map.get(phase).setState(PhaseState.FAILURE);
 	}
 
 }

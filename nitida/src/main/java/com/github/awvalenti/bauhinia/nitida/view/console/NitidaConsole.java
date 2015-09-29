@@ -45,7 +45,7 @@ public class NitidaConsole implements ForficataObserver {
 
 	@Override
 	public void searchFinished() {
-		System.out.println("Finished search for Wiimote");
+		System.out.println("Finished search");
 	}
 
 	@Override

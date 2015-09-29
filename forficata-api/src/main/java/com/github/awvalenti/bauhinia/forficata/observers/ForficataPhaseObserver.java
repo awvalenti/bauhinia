@@ -5,6 +5,8 @@ import com.github.awvalenti.bauhinia.forficata.Phase;
 
 public interface ForficataPhaseObserver {
 
+	void starting();
+
 	void running(Phase phase);
 
 	void success(Phase phase);

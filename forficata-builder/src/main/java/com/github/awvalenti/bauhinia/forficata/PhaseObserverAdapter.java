@@ -22,6 +22,7 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void forficataStarted() {
+		output.starting();
 		moveToPhase(LOAD_LIBRARIES);
 	}
 

@@ -25,21 +25,13 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		else new Thread(task).start();
 	}
 
-	private void doSearch(final ForficataObserver listener) {
+	private void doSearch(final ForficataObserver observer) {
+		observer.forficataStarted();
+
 		try {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
-			listener.librariesLoaded();
-
-			listener.searchStarted();
-			wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.getWiimotesExpected(),
-					false);
-			if (wiimotesFound.length == config.getWiimotesExpected()) listener.wiimoteIdentified();
-			for (wiiusej.Wiimote w : wiimotesFound) {
-				listener.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.getWiimoteListener()));
-			}
-			listener.searchFinished();
-
+			observer.librariesLoaded();
 		} catch (ExceptionInInitializerError e) {
 			// This happens when WiiuseJ fails to load native libraries.
 			// Although catching this error is not a great thing to do, for current version of
@@ -47,8 +39,19 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			// libraries.
 
 			// TODO Use exception factory
-			listener.errorOccurred(new ForficataException(e, "Error loading native libraries"));
+			observer.errorOccurred(new ForficataException(e, "Error loading native libraries"));
+
+			return;
 		}
+
+		observer.searchStarted();
+		wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(
+				config.getWiimotesExpected(), false);
+		if (wiimotesFound.length > 0) observer.wiimoteIdentified();
+		for (wiiusej.Wiimote w : wiimotesFound) {
+			observer.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.getWiimoteListener()));
+		}
+		observer.searchFinished();
 	}
 
 }

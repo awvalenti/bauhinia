@@ -10,7 +10,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-public class LogPanel extends JPanel {
+import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.Wiimote;
+import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+
+public class LogPanel extends JPanel implements ForficataObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +29,7 @@ public class LogPanel extends JPanel {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
 	}
 
-	public void append(String content) {
+	private void append(String content) {
 		Document doc = pane.getDocument();
 		try {
 			doc.insertString(doc.getLength(), content, null);
@@ -34,6 +38,46 @@ public class LogPanel extends JPanel {
 		} catch (BadLocationException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void forficataStarted() {
+		append("Forficata started");
+	}
+
+	@Override
+	public void librariesLoaded() {
+		append("Libraries loaded successfuly");
+	}
+
+	@Override
+	public void searchStarted() {
+		append("Searching for Wiimote...");
+	}
+
+	@Override
+	public void bluetoothDeviceFound(String address, String deviceClass) {
+		append(String.format("Found a Bluetooth device at %s: %s\n", address, deviceClass));
+	}
+
+	@Override
+	public void wiimoteIdentified() {
+		append("Found Wiimote. Connecting...");
+	}
+
+	@Override
+	public void wiimoteConnected(Wiimote wiimote) {
+		append("Connected. Remote control is active!");
+	}
+
+	@Override
+	public void searchFinished() {
+		append("Finished search");
+	}
+
+	@Override
+	public void errorOccurred(ForficataException e) {
+		append(e.getMessage());
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import static com.github.awvalenti.bauhinia.forficata.ConnectionState.*;
-
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 
@@ -12,12 +10,12 @@ class ConnectionStateObserverAdapter implements ForficataObserver {
 
 	public ConnectionStateObserverAdapter(ForficataConnectionStateObserver output) {
 		this.output = output;
-		output.connectionStateChanged(IDLE);
+		output.enteredIdleState();
 	}
 
 	@Override
 	public void forficataStarted() {
-		output.connectionStateChanged(CONNECTING);
+		output.enteredConnectingState();
 	}
 
 	@Override
@@ -39,16 +37,17 @@ class ConnectionStateObserverAdapter implements ForficataObserver {
 	@Override
 	public void wiimoteConnected(Wiimote wiimote) {
 		connected = true;
+		output.enteredConnectedState();
 	}
 
 	@Override
 	public void searchFinished() {
-		if (connected) output.connectionStateChanged(CONNECTED);
+		if (!connected) output.enteredIdleState();
 	}
 
 	@Override
 	public void errorOccurred(ForficataException e) {
-		output.connectionStateChanged(IDLE);
+		output.enteredIdleState();
 	}
 
 }

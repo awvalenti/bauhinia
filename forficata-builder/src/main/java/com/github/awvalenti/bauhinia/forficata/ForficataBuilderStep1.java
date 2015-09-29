@@ -2,8 +2,8 @@ package com.github.awvalenti.bauhinia.forficata;
 
 public interface ForficataBuilderStep1 {
 
-	ForficataBuilderStep2 synchronousConnector();
+	ForficataBuilderStep2 synchronous();
 
-	ForficataBuilderStep2 asynchronousConnector();
+	ForficataBuilderStep2 asynchronous();
 
 }

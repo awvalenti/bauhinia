@@ -10,16 +10,18 @@ public class NitidaWindow {
 
 	private final JFrame frame;
 
-	public NitidaWindow(ProjectProperties projectProperties) {
+	public NitidaWindow(ProjectProperties projectProperties,
+			ApplicationStatePanel applicationStatePanel,
+			LogPanel logPanel, ActionPanel actionPanel) {
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
 		frame.setSize(320, 480);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.add(new ApplicationStatePanel(new PhasePanel(Phase.values())), BorderLayout.NORTH);
-		frame.add(new LogPanel(), BorderLayout.CENTER);
-		frame.add(new ActionPanel(new RetryButton()), BorderLayout.SOUTH);
+		frame.add(applicationStatePanel, BorderLayout.NORTH);
+		frame.add(logPanel, BorderLayout.CENTER);
+		frame.add(actionPanel, BorderLayout.SOUTH);
 	}
 
 	public void run() {

@@ -3,12 +3,11 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep2;
+import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep3;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
 import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnectionObserver;
 
 public class NitidaModel implements NitidaControllable, ForficataWiimoteConnectionObserver,
@@ -16,21 +15,20 @@ public class NitidaModel implements NitidaControllable, ForficataWiimoteConnecti
 
 	private final Robot robot;
 	private final KeyMapping mapping;
-	private final WiimoteConnector connector;
+	private WiimoteConnector connector;
 
-	public NitidaModel(ForficataBuilderStep2 builder, ForficataObserver... observers) {
+	public NitidaModel(ForficataBuilderStep3 builder) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
 		this.mapping = new KeyMapping();
-		this.connector = builder
-				.oneWiimote()
-				.wiimoteConnectionObserver(this)
-				.observers(observers)
-				.buttonListener(this)
-				.build();
+		builder.wiimoteConnectionObserver(this).buttonListener(this);
+	}
+
+	public void setConnector(WiimoteConnector connector) {
+		this.connector = connector;
 	}
 
 	@Override
