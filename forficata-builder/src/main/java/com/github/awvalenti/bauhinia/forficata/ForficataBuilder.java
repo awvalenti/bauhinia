@@ -9,7 +9,7 @@ import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnect
 class ForficataBuilder implements ForficataBuilderStep1, ForficataBuilderStep2,
 		ForficataBuilderStep3 {
 
-	private ForficataConfig config = new ForficataConfig();
+	private final ForficataConfig config = new ForficataConfig();
 
 	@Override
 	public ForficataBuilderStep2 synchronousConnector() {
