@@ -36,8 +36,8 @@ public class NitidaMain {
 		MacroStatePanel macroStatePanel = new MacroStatePanel();
 
 		builder
-				.connectionStateObserver(retryButton)
 				.connectionStateObserver(macroStatePanel)
+				.connectionStateObserver(retryButton)
 				.phaseStateObserver(phasePanel)
 				.fullObserver(logPanel);
 

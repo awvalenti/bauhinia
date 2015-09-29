@@ -18,7 +18,7 @@ public class RetryButton extends JButton implements ForficataConnectionStateObse
 	}
 
 	@Override
-	public void enteredConnectingState() {
+	public void enteredInProcessState() {
 		setEnabled(false);
 	}
 

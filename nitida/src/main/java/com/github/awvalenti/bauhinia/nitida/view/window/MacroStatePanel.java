@@ -18,7 +18,7 @@ public class MacroStatePanel extends JPanel implements ForficataConnectionStateO
 
 		indications = new MacroStateIndication[] {
 				new MacroStateIndication("Idle", Color.RED),
-				new MacroStateIndication("Connecting", Color.YELLOW),
+				new MacroStateIndication("In process", Color.YELLOW),
 				new MacroStateIndication("Connected", Color.GREEN),
 		};
 
@@ -33,7 +33,7 @@ public class MacroStatePanel extends JPanel implements ForficataConnectionStateO
 	}
 
 	@Override
-	public void enteredConnectingState() {
+	public void enteredInProcessState() {
 		setEnabledState(1);
 	}
 

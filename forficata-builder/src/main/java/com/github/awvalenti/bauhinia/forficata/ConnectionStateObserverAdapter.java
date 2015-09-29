@@ -15,7 +15,7 @@ class ConnectionStateObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void forficataStarted() {
-		output.enteredConnectingState();
+		output.enteredInProcessState();
 	}
 
 	@Override

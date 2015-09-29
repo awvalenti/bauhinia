@@ -4,7 +4,7 @@ public interface ForficataConnectionStateObserver {
 
 	void enteredIdleState();
 
-	void enteredConnectingState();
+	void enteredInProcessState();
 
 	void enteredConnectedState();
 
