@@ -24,7 +24,7 @@ public class NitidaMain {
 
 		} else {
 			RetryButton retryButton = new RetryButton();
-			NitidaWindow nitidaWindow = new NitidaWindow(projectProperties, retryButton);
+			NitidaWindow nitidaWindow = new NitidaWindow(projectProperties);
 			model = new NitidaModel(builder.asynchronousConnector());
 			new NitidaController(model, retryButton);
 			nitidaWindow.run();
