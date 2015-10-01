@@ -10,7 +10,7 @@ import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
 import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ApplicationStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.LogPanel;
-import com.github.awvalenti.bauhinia.nitida.view.window.MacroStatePanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.ConnectionStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.NitidaWindow;
 import com.github.awvalenti.bauhinia.nitida.view.window.PhasePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.RetryButton;
@@ -32,16 +32,16 @@ public class NitidaMain {
 		RetryButton retryButton = new RetryButton();
 		PhasePanel phasePanel = new PhasePanel(Phase.values());
 		LogPanel logPanel = new LogPanel();
-		MacroStatePanel macroStatePanel = new MacroStatePanel();
+		ConnectionStatePanel connectionStatePanel = new ConnectionStatePanel();
 
 		builder
-				.connectionStateObserver(macroStatePanel)
+				.connectionStateObserver(connectionStatePanel)
 				.connectionStateObserver(retryButton)
 				.phaseStateObserver(phasePanel)
 				.fullObserver(logPanel);
 
 		NitidaWindow nitidaWindow = new NitidaWindow(new ProjectProperties(),
-				new ApplicationStatePanel(phasePanel, macroStatePanel), logPanel,
+				new ApplicationStatePanel(phasePanel, connectionStatePanel), logPanel,
 				new ActionPanel(retryButton));
 
 		new NitidaController(model, retryButton);

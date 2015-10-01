@@ -7,22 +7,22 @@ import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
 
-public class MacroStatePanel extends JPanel implements ForficataConnectionStateObserver {
+public class ConnectionStatePanel extends JPanel implements ForficataConnectionStateObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	private final MacroStateIndication[] indications;
+	private final ConnectionStateIndication[] indications;
 
-	public MacroStatePanel() {
+	public ConnectionStatePanel() {
 		super(new GridLayout(1, 3));
 
-		indications = new MacroStateIndication[] {
-				new MacroStateIndication("Idle", Color.RED),
-				new MacroStateIndication("In process", Color.YELLOW),
-				new MacroStateIndication("Connected", Color.GREEN),
+		indications = new ConnectionStateIndication[] {
+				new ConnectionStateIndication("Idle", Color.RED),
+				new ConnectionStateIndication("In process", Color.YELLOW),
+				new ConnectionStateIndication("Connected", Color.GREEN),
 		};
 
-		for (MacroStateIndication i : indications) {
+		for (ConnectionStateIndication i : indications) {
 			add(i);
 		}
 	}
@@ -43,7 +43,7 @@ public class MacroStatePanel extends JPanel implements ForficataConnectionStateO
 	}
 
 	private void setEnabledState(int index) {
-		for (MacroStateIndication indication : indications) {
+		for (ConnectionStateIndication indication : indications) {
 			indication.setEnabled(false);
 		}
 		indications[index].setEnabled(true);

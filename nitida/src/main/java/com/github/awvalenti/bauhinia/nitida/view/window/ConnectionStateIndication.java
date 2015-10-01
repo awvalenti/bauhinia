@@ -10,13 +10,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
-public class MacroStateIndication extends JLabel {
+public class ConnectionStateIndication extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 
 	private final Color originalBackgroundColor;
 
-	public MacroStateIndication(String title, Color color) {
+	public ConnectionStateIndication(String title, Color color) {
 		super(title, new CircleIcon(color), JLabel.LEFT);
 		originalBackgroundColor = getBackground();
 		setDisabledIcon(new CircleIcon(color.darker().darker()));
