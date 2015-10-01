@@ -42,7 +42,7 @@ class ForficataConfig implements ReadableForficataConfig {
 	}
 
 	@Override
-	public ForficataObserver getForficataEventListener() {
+	public ForficataObserver getForficataObserver() {
 		return compositeObserver;
 	}
 

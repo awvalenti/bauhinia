@@ -24,16 +24,16 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void run() {
-		ForficataObserver listener = config.getForficataEventListener();
-		listener.forficataStarted();
+		ForficataObserver observer = config.getForficataObserver();
+		observer.forficataStarted();
 
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();
-			listener.librariesLoaded();
+			observer.librariesLoaded();
 
 			Object monitor = new Object();
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(listener, monitor));
-			listener.searchStarted();
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(observer, monitor));
+			observer.searchStarted();
 
 			if (config.isSynchronous()) {
 				synchronized (monitor) {
@@ -42,7 +42,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			}
 
 		} catch (BluetoothStateException e) {
-			listener.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
+			observer.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
 
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
@@ -53,44 +53,44 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
 
-		private final ForficataObserver listener;
+		private final ForficataObserver observer;
 		private final Object monitor;
 
-		public BlueCoveListener(ForficataObserver listener, Object monitor) {
-			this.listener = listener;
+		public BlueCoveListener(ForficataObserver observer, Object monitor) {
+			this.observer = observer;
 			this.monitor = monitor;
 		}
 
 		@Override
 		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-			listener.bluetoothDeviceFound(device.getBluetoothAddress(),
+			observer.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 
 			boolean deviceIsWiimote;
 			try {
 				deviceIsWiimote = factory.deviceIsWiimote(device);
 			} catch (IOException e) {
-				listener.errorOccurred(ForficataExceptionFactory.deviceRejectedIdentification(e));
+				observer.errorOccurred(ForficataExceptionFactory.deviceRejectedIdentification(e));
 				return;
 			}
 
 			if (deviceIsWiimote) {
-				listener.wiimoteIdentified();
+				observer.wiimoteIdentified();
 				try {
 					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
-					listener.wiimoteConnected(wiimote);
+					observer.wiimoteConnected(wiimote);
 					if (++numberOfWiimotesFound >= config.getWiimotesExpected()) {
 						blueCoveLib.stopSearch();
 					}
 				} catch (IOException e) {
-					listener.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
+					observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
 				}
 			}
 		}
 
 		@Override
 		public synchronized void inquiryCompleted(int reason) {
-			listener.searchFinished();
+			observer.searchFinished();
 			synchronized (monitor) {
 				monitor.notify();
 			}

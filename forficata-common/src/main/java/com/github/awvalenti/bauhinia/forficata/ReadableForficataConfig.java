@@ -11,6 +11,6 @@ interface ReadableForficataConfig {
 
 	boolean isSynchronous();
 
-	ForficataObserver getForficataEventListener();
+	ForficataObserver getForficataObserver();
 
 }

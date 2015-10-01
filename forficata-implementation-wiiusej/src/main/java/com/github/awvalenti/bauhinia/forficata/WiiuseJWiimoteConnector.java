@@ -17,7 +17,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				doSearch(config.getForficataEventListener());
+				doSearch(config.getForficataObserver());
 			}
 		};
 
