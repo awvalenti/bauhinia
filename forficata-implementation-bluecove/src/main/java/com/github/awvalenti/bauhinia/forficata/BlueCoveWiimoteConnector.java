@@ -16,7 +16,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	private int numberOfWiimotesFound = 0;
+	private int numberOfWiimotesConnected = 0;
 
 	public BlueCoveWiimoteConnector(ReadableForficataConfig config) {
 		this.config = config;
@@ -76,14 +76,17 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 			if (deviceIsWiimote) {
 				observer.wiimoteIdentified();
+				Wiimote wiimote;
 				try {
-					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
-					observer.wiimoteConnected(wiimote);
-					if (++numberOfWiimotesFound >= config.getWiimotesExpected()) {
-						blueCoveLib.stopSearch();
-					}
+					wiimote = factory.createWiimote(device, config.getWiimoteListener());
 				} catch (IOException e) {
 					observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
+					return;
+				}
+				++numberOfWiimotesConnected;
+				observer.wiimoteConnected(wiimote);
+				if (numberOfWiimotesConnected >= config.getWiimotesExpected()) {
+					blueCoveLib.stopSearch();
 				}
 			}
 		}
