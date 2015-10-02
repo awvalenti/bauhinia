@@ -38,14 +38,12 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		moveToPhase(IDENTIFY_WIIMOTE);
 	}
 
 	@Override
 	public void wiimoteIdentified() {
 		identified = true;
 		output.success(FIND_WIIMOTE);
-		output.success(IDENTIFY_WIIMOTE);
 		moveToPhase(CONNECT_TO_WIIMOTE);
 	}
 

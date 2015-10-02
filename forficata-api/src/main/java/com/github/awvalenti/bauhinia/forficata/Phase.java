@@ -6,8 +6,6 @@ public enum Phase {
 
 	FIND_WIIMOTE,
 
-	IDENTIFY_WIIMOTE,
-
 	CONNECT_TO_WIIMOTE,
 
 	;
