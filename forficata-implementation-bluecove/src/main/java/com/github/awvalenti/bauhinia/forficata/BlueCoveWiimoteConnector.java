@@ -1,5 +1,7 @@
 package com.github.awvalenti.bauhinia.forficata;
 
+import java.io.IOException;
+
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryListener;
@@ -11,9 +13,7 @@ import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
 class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	private final ReadableForficataConfig config;
-
 	private BlueCoveLibraryFacade blueCoveLib;
-
 	private int numberOfWiimotesConnected = 0;
 
 	public BlueCoveWiimoteConnector(ReadableForficataConfig config) {
@@ -68,19 +68,34 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			observer.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 
+			boolean isWiimote;
 			try {
-				if (deviceIdentifier.isWiimote(device)) {
-					observer.wiimoteIdentified();
-					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
-					++numberOfWiimotesConnected;
-					observer.wiimoteConnected(wiimote);
-					if (numberOfWiimotesConnected >= config.getWiimotesExpected()) {
-						blueCoveLib.stopSearch();
-					}
-				}
-			} catch (ForficataException e) {
-				observer.errorOccurred(e);
+				isWiimote = deviceIdentifier.isWiimote(device);
+			} catch (IOException e) {
+				// TODO
+//				observer.deviceIdentificationFailed();
+				return;
 			}
+
+			if (!isWiimote) {
+				// TODO
+//				observer.nonWiimoteIdentified();
+				return;
+			}
+
+			observer.wiimoteIdentified();
+
+			Wiimote wiimote;
+			try {
+				wiimote = factory.createWiimote(device, config.getWiimoteListener());
+			} catch (IOException e) {
+				observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
+				return;
+			}
+
+			++numberOfWiimotesConnected;
+			observer.wiimoteConnected(wiimote);
+			if (numberOfWiimotesConnected >= config.getWiimotesExpected()) blueCoveLib.stopSearch();
 		}
 
 		@Override
