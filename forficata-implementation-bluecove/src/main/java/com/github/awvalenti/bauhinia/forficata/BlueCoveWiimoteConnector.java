@@ -64,38 +64,43 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 		}
 
 		@Override
-		public synchronized void deviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-			observer.bluetoothDeviceFound(device.getBluetoothAddress(),
-					((Object) clazz).toString());
+		public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
+			new Thread() {
+				@Override
+				public void run() {
+					observer.bluetoothDeviceFound(device.getBluetoothAddress(),
+							((Object) clazz).toString());
 
-			boolean isWiimote;
-			try {
-				isWiimote = deviceIdentifier.isWiimote(device);
-			} catch (IOException e) {
-				// TODO
-//				observer.deviceIdentificationFailed();
-				return;
-			}
+					boolean isWiimote;
+					try {
+						isWiimote = deviceIdentifier.isWiimote(device);
+					} catch (IOException e) {
+						// TODO
+//						observer.deviceIdentificationFailed();
+						return;
+					}
 
-			if (!isWiimote) {
-				// TODO
-//				observer.nonWiimoteIdentified();
-				return;
-			}
+					if (!isWiimote) {
+						// TODO
+//						observer.nonWiimoteIdentified();
+						return;
+					}
 
-			observer.wiimoteIdentified();
+					observer.wiimoteIdentified();
 
-			Wiimote wiimote;
-			try {
-				wiimote = factory.createWiimote(device, config.getWiimoteListener());
-			} catch (IOException e) {
-				observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
-				return;
-			}
+					Wiimote wiimote;
+					try {
+						wiimote = factory.createWiimote(device, config.getWiimoteListener());
+					} catch (IOException e) {
+						observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
+						return;
+					}
 
-			++numberOfWiimotesConnected;
-			observer.wiimoteConnected(wiimote);
-			if (numberOfWiimotesConnected >= config.getWiimotesExpected()) blueCoveLib.stopSearch();
+					++numberOfWiimotesConnected;
+					observer.wiimoteConnected(wiimote);
+					if (numberOfWiimotesConnected >= config.getWiimotesExpected()) blueCoveLib.stopSearch();
+				}
+			}.start();
 		}
 
 		@Override
