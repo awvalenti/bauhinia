@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import java.io.IOException;
-
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryListener;
@@ -32,7 +30,8 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			observer.librariesLoaded();
 
 			Object monitor = new Object();
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(observer, monitor));
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(observer, monitor,
+					new BluetoothDeviceIdentifier()));
 			observer.searchStarted();
 
 			if (config.isSynchronous()) {
@@ -55,10 +54,13 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 		private final ForficataObserver observer;
 		private final Object monitor;
+		private final BluetoothDeviceIdentifier deviceIdentifier;
 
-		public BlueCoveListener(ForficataObserver observer, Object monitor) {
+		public BlueCoveListener(ForficataObserver observer, Object monitor,
+				BluetoothDeviceIdentifier deviceIdentifier) {
 			this.observer = observer;
 			this.monitor = monitor;
+			this.deviceIdentifier = deviceIdentifier;
 		}
 
 		@Override
@@ -66,28 +68,18 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			observer.bluetoothDeviceFound(device.getBluetoothAddress(),
 					((Object) clazz).toString());
 
-			boolean deviceIsWiimote;
 			try {
-				deviceIsWiimote = factory.deviceIsWiimote(device);
-			} catch (IOException e) {
-				observer.errorOccurred(ForficataExceptionFactory.deviceRejectedIdentification(e));
-				return;
-			}
-
-			if (deviceIsWiimote) {
-				observer.wiimoteIdentified();
-				Wiimote wiimote;
-				try {
-					wiimote = factory.createWiimote(device, config.getWiimoteListener());
-				} catch (IOException e) {
-					observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
-					return;
+				if (deviceIdentifier.isWiimote(device)) {
+					observer.wiimoteIdentified();
+					Wiimote wiimote = factory.createWiimote(device, config.getWiimoteListener());
+					++numberOfWiimotesConnected;
+					observer.wiimoteConnected(wiimote);
+					if (numberOfWiimotesConnected >= config.getWiimotesExpected()) {
+						blueCoveLib.stopSearch();
+					}
 				}
-				++numberOfWiimotesConnected;
-				observer.wiimoteConnected(wiimote);
-				if (numberOfWiimotesConnected >= config.getWiimotesExpected()) {
-					blueCoveLib.stopSearch();
-				}
+			} catch (ForficataException e) {
+				observer.errorOccurred(e);
 			}
 		}
 
