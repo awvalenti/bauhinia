@@ -35,10 +35,10 @@ public class NitidaMain {
 		ConnectionStatePanel connectionStatePanel = new ConnectionStatePanel();
 
 		builder
-				.connectionStateObserver(connectionStatePanel)
-				.connectionStateObserver(retryButton)
 				.phaseStateObserver(phasePanel)
-				.fullObserver(logPanel);
+				.fullObserver(logPanel)
+				.connectionStateObserver(connectionStatePanel)
+				.connectionStateObserver(retryButton);
 
 		NitidaWindow nitidaWindow = new NitidaWindow(new ProjectProperties(),
 				new ApplicationStatePanel(phasePanel, connectionStatePanel), logPanel,
