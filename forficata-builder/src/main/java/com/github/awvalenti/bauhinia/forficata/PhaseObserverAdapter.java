@@ -9,7 +9,7 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	private final ForficataPhaseObserver output;
 	private Phase currentPhase;
-	private boolean connected;
+	private boolean identified;
 
 	public PhaseObserverAdapter(ForficataPhaseObserver output) {
 		this.output = output;
@@ -43,6 +43,7 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void wiimoteIdentified() {
+		identified = true;
 		output.success(FIND_WIIMOTE);
 		output.success(IDENTIFY_WIIMOTE);
 		moveToPhase(CONNECT_TO_WIIMOTE);
@@ -50,14 +51,13 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void wiimoteConnected(Wiimote wiimote) {
-		connected = true;
 		output.success(CONNECT_TO_WIIMOTE);
 	}
 
 	@Override
 	public void searchFinished() {
 		// TODO Provide failure information
-		if (!connected) output.failure(FIND_WIIMOTE, new ForficataFailure(new Exception(), ""));
+		if (!identified) output.failure(FIND_WIIMOTE, new ForficataFailure(new Exception(), ""));
 	}
 
 	@Override
