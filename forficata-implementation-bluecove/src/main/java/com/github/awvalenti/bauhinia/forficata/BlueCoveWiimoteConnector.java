@@ -96,9 +96,19 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 						return;
 					}
 
-					++numberOfWiimotesConnected;
-					observer.wiimoteConnected(wiimote);
-					if (numberOfWiimotesConnected >= config.getWiimotesExpected()) blueCoveLib.stopSearch();
+					synchronized (BlueCoveListener.this) {
+						if (numberOfWiimotesConnected >= config.getWiimotesExpected()) {
+							// TODO
+//							observer.extraWiimoteIgnored(wiimote);
+							return;
+						}
+
+						++numberOfWiimotesConnected;
+						observer.wiimoteConnected(wiimote);
+						if (numberOfWiimotesConnected == config.getWiimotesExpected()) {
+							blueCoveLib.stopSearch();
+						}
+					}
 				}
 			}.start();
 		}
