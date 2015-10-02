@@ -76,14 +76,12 @@ class ButtonHandlerThread extends Thread {
 			try {
 				input.close();
 			} finally {
-				try {
-					output.close();
-				} finally {
-					listener.wiimoteDisconnected();
-				}
+				output.close();
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} finally {
+			listener.wiimoteDisconnected();
 		}
 	}
 
