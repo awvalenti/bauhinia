@@ -15,13 +15,13 @@ class BlueCoveListener implements DiscoveryListener {
 
 	private final ForficataObserver observer;
 	private final ForficataWiimoteFullListener wiimoteListener;
-	private final BluetoothDiscoveryManager bluetoothDiscoveryManager;
+	private final JobSynchronizer synchronizer;
 
 	public BlueCoveListener(ForficataWiimoteFullListener wiimoteListener,
 			final ForficataObserver observer, final Object monitor) {
 		this.wiimoteListener = wiimoteListener;
 		this.observer = observer;
-		this.bluetoothDiscoveryManager = new BluetoothDiscoveryManager(new Runnable() {
+		this.synchronizer = new JobSynchronizer(new Runnable() {
 			@Override
 			public void run() {
 				observer.searchFinished();
@@ -34,22 +34,23 @@ class BlueCoveListener implements DiscoveryListener {
 
 	@Override
 	public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
-		bluetoothDiscoveryManager.beginDeviceDiscovered();
-		new Thread() {
+
+		// This method, deviceDiscovered, should return immediatelly, according
+		// to BlueCove documentation. For that reason, we handle the discovery
+		// of a device in a separate thread. However, this requires
+		// synchronization.
+
+		synchronizer.newJob(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					handleDeviceDiscovered(device, clazz);
-				} finally {
-					bluetoothDiscoveryManager.endDeviceDiscovered();
-				}
+				handleDeviceDiscovered(device, clazz);
 			}
-		}.start();
+		});
 	}
 
 	@Override
 	public synchronized void inquiryCompleted(int reason) {
-		bluetoothDiscoveryManager.inquiryCompleted();
+		synchronizer.noMoreJobs();
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
