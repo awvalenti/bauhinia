@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.github.awvalenti</groupId>
+		<groupId>com.github.awvalenti.bauhinia</groupId>
 		<artifactId>bauhinia</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>forficata-implementation-bluecove</artifactId>
@@ -14,14 +14,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.awvalenti</groupId>
+			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>forficata-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.awvalenti</groupId>
+			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>forficata-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.bluecove</groupId>

@@ -6,18 +6,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<groupId>com.github.awvalenti</groupId>
+	<groupId>com.github.awvalenti.bauhinia</groupId>
 	<artifactId>bauhinia</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 
 	<modules>
-		<module>nitida</module>
 		<module>forficata-api</module>
 		<module>forficata-builder</module>
 		<module>forficata-common</module>
 		<module>forficata-implementation-bluecove</module>
 		<module>forficata-implementation-wiiusej</module>
+		<module>nitida</module>
 	</modules>
 
 	<build>
