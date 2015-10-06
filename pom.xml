@@ -9,7 +9,7 @@
 	<version>0.1.0-SNAPSHOT</version>
 
 	<modules>
-		<module>forficata-parent</module>
+		<module>forficata</module>
 		<module>nitida</module>
 	</modules>
 

@@ -5,19 +5,21 @@
 
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
-		<artifactId>forficata-parent</artifactId>
+		<artifactId>forficata</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata-builder</artifactId>
+	<artifactId>forficata-implementation-wiiusej</artifactId>
 	<packaging>jar</packaging>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
-		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>forficata-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>forficata-common</artifactId>
@@ -25,13 +27,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>forficata-implementation-bluecove</artifactId>
+			<artifactId>forficata-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>forficata-implementation-wiiusej</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.github.awvalenti.wiiusej</groupId>
+			<artifactId>wiiusej-core</artifactId>
+			<version>2704cc998bc17631c2a1db085d19605e67018966</version>
 		</dependency>
 	</dependencies>
 

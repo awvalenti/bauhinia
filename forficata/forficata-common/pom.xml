@@ -5,14 +5,19 @@
 
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
-		<artifactId>forficata-parent</artifactId>
+		<artifactId>forficata</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata-api</artifactId>
+	<artifactId>forficata-common</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.github.awvalenti.bauhinia</groupId>
+			<artifactId>forficata-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>
