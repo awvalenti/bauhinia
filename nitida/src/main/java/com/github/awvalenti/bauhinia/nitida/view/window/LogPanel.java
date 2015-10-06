@@ -29,7 +29,7 @@ public class LogPanel extends JPanel implements ForficataObserver {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
 	}
 
-	private void append(String content) {
+	private synchronized void append(String content) {
 		Document doc = pane.getDocument();
 		try {
 			doc.insertString(doc.getLength(), content, null);
