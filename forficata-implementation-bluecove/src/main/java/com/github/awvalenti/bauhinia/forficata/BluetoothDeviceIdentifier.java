@@ -6,8 +6,17 @@ import javax.bluetooth.RemoteDevice;
 
 class BluetoothDeviceIdentifier {
 
-	public boolean isWiimote(RemoteDevice device) throws IOException {
-		return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
+	public void assertDeviceIsWiimote(RemoteDevice device) throws IdentifiedAnotherDevice,
+			DeviceRejectedIdentification {
+		if (!isWiimote(device)) throw new IdentifiedAnotherDevice();
+	}
+
+	private boolean isWiimote(RemoteDevice device) throws DeviceRejectedIdentification {
+		try {
+			return device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
+		} catch (IOException e) {
+			throw new DeviceRejectedIdentification(e);
+		}
 	}
 
 }

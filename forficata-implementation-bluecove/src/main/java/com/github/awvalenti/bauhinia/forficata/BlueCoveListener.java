@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import java.io.IOException;
-
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
@@ -55,35 +53,24 @@ class BlueCoveListener implements DiscoveryListener {
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-		observer.bluetoothDeviceFound(device.getBluetoothAddress(),
-				((Object) clazz).toString());
+		observer.bluetoothDeviceFound(device.getBluetoothAddress(), ((Object) clazz).toString());
 
-		boolean isWiimote;
 		try {
-			isWiimote = deviceIdentifier.isWiimote(device);
-		} catch (IOException e) {
-			// TODO
-			// observer.deviceIdentificationFailed();
-			return;
+			deviceIdentifier.assertDeviceIsWiimote(device);
+			observer.wiimoteIdentified();
+			Wiimote wiimote = factory.createWiimote(device, wiimoteListener);
+			observer.wiimoteConnected(wiimote);
+
+		} catch (DeviceRejectedIdentification e) {
+			// observer.deviceRejectedIdentification();
+
+		} catch (IdentifiedAnotherDevice e) {
+			// observer.identifiedAnotherDevice();
+
+		} catch (WiimoteRejectedConnection e) {
+			observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
 		}
 
-		if (!isWiimote) {
-			// TODO
-			// observer.nonWiimoteIdentified();
-			return;
-		}
-
-		observer.wiimoteIdentified();
-
-		Wiimote wiimote;
-		try {
-			wiimote = factory.createWiimote(device, wiimoteListener);
-		} catch (IOException e) {
-			observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e));
-			return;
-		}
-
-		observer.wiimoteConnected(wiimote);
 	}
 
 	@Override
