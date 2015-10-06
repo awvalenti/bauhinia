@@ -14,6 +14,7 @@
 	<version>0.1.0-SNAPSHOT</version>
 
 	<modules>
+		<module>forficata</module>
 		<module>forficata-api</module>
 		<module>forficata-builder</module>
 		<module>forficata-common</module>
