@@ -11,12 +11,13 @@
 
 	<artifactId>nitida</artifactId>
 	<packaging>jar</packaging>
+	<version>0.1.0-SNAPSHOT</version>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>forficata-builder</artifactId>
-			<version>${project.version}</version>
+			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

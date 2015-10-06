@@ -5,18 +5,34 @@
 
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
-		<artifactId>bauhinia</artifactId>
+		<artifactId>forficata-parent</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata-common</artifactId>
+	<artifactId>forficata-implementation-bluecove</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
+			<artifactId>forficata-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>forficata-api</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.bluecove</groupId>
+			<artifactId>bluecove</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.bluecove</groupId>
+			<artifactId>bluecove-gpl</artifactId>
+			<version>2.1.0</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
