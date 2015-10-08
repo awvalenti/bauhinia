@@ -9,7 +9,7 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata-all</artifactId>
+	<artifactId>forficata-lib</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>

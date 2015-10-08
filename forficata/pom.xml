@@ -14,12 +14,12 @@
 	<version>0.1.0-SNAPSHOT</version>
 
 	<modules>
-		<module>forficata-all</module>
 		<module>forficata-api</module>
 		<module>forficata-builder</module>
 		<module>forficata-common</module>
 		<module>forficata-implementation-bluecove</module>
 		<module>forficata-implementation-wiiusej</module>
+		<module>forficata-lib</module>
 	</modules>
 
 </project>
