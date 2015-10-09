@@ -20,7 +20,7 @@ For Maven, to use forficata in your project, add this to your pom.xml:
 <dependencies>
   <dependency>
     <groupId>com.github.awvalenti.bauhinia</groupId>
-    <artifactId>forficata-all</artifactId>
+    <artifactId>forficata-lib</artifactId>
 
     <!--
       Here goes either a released version, a commit code or the
