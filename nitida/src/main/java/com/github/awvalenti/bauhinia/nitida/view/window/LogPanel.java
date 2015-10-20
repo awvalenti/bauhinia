@@ -42,12 +42,10 @@ public class LogPanel extends JPanel implements ForficataObserver {
 
 	@Override
 	public void forficataStarted() {
-		append("Forficata started");
 	}
 
 	@Override
 	public void librariesLoaded() {
-		append("Libraries loaded successfuly");
 	}
 
 	@Override
@@ -57,7 +55,7 @@ public class LogPanel extends JPanel implements ForficataObserver {
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		append(String.format("Found a Bluetooth device at %s: %s", address, deviceClass));
+		append(String.format("Bluetooth device found at %s: %s", address, deviceClass));
 	}
 
 	@Override
