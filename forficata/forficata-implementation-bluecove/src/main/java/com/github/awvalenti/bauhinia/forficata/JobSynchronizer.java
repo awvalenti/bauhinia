@@ -21,10 +21,12 @@ class JobSynchronizer {
 
 			@Override
 			public void run() {
-				try {
-					job.run();
-				} finally {
-					finishedJob();
+				synchronized (JobSynchronizer.this) {
+					try {
+						job.run();
+					} finally {
+						finishedJob();
+					}
 				}
 			}
 		}.start();
