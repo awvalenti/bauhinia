@@ -2,8 +2,8 @@ package com.github.awvalenti.bauhinia.forficata;
 
 class JobSynchronizer {
 
-	private volatile boolean noMoreJobs = false;
-	private volatile int jobCount = 0;
+	private boolean noMoreJobs = false;
+	private int jobCount = 0;
 
 	private final Runnable onFinish;
 
@@ -22,22 +22,20 @@ class JobSynchronizer {
 			@Override
 			public void run() {
 				synchronized (JobSynchronizer.this) {
+					// Runs jobs one at a time
+
 					try {
 						job.run();
 					} finally {
-						finishedJob();
+						--jobCount;
+						checkFinish();
 					}
 				}
 			}
 		}.start();
 	}
 
-	private synchronized void finishedJob() {
-		--jobCount;
-		checkFinish();
-	}
-
-	public synchronized void noMoreJobs() {
+	public synchronized void end() {
 		noMoreJobs = true;
 		checkFinish();
 	}

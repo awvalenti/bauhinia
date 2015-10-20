@@ -50,7 +50,7 @@ class BlueCoveListener implements DiscoveryListener {
 
 	@Override
 	public synchronized void inquiryCompleted(int reason) {
-		synchronizer.noMoreJobs();
+		synchronizer.end();
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
