@@ -15,6 +15,10 @@ class JobSynchronizer {
 		++jobCount;
 
 		new Thread() {
+			{
+				setDaemon(false);
+			}
+
 			@Override
 			public void run() {
 				try {
