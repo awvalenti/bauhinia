@@ -8,6 +8,7 @@ import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
 class PhaseObserverAdapter implements ForficataObserver {
 
 	private final ForficataPhaseObserver output;
+
 	private Phase currentPhase;
 	private boolean identified;
 
@@ -38,6 +39,14 @@ class PhaseObserverAdapter implements ForficataObserver {
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
+	}
+
+	@Override
+	public void deviceRejectedIdentification(String address, String deviceClass) {
+	}
+
+	@Override
+	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
 	}
 
 	@Override

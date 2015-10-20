@@ -13,6 +13,10 @@ public interface ForficataObserver {
 
 	void bluetoothDeviceFound(String address, String deviceClass);
 
+	void deviceRejectedIdentification(String address, String deviceClass);
+
+	void deviceIdentifiedAsNotWiimote(String address, String deviceClass);
+
 	void wiimoteIdentified();
 
 	void wiimoteConnected(Wiimote wiimote);

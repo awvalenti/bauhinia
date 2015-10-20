@@ -39,6 +39,16 @@ public class NitidaConsole implements ForficataObserver {
 	}
 
 	@Override
+	public void deviceRejectedIdentification(String address, String deviceClass) {
+		System.out.println("Device at " + address + " rejected identification");
+	}
+
+	@Override
+	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
+		System.out.println("Device at " + address + " identified as not Wiimote");
+	}
+
+	@Override
 	public void wiimoteConnected(Wiimote wiimote) {
 		System.out.println("Connected. Remote control is active!");
 	}

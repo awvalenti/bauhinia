@@ -42,6 +42,20 @@ class CompositeObserver implements ForficataObserver {
 	}
 
 	@Override
+	public void deviceRejectedIdentification(String address, String deviceClass) {
+		for (ForficataObserver l : all) {
+			l.deviceRejectedIdentification(address, deviceClass);
+		}
+	}
+
+	@Override
+	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
+		for (ForficataObserver l : all) {
+			l.deviceIdentifiedAsNotWiimote(address, deviceClass);
+		}
+	}
+
+	@Override
 	public void wiimoteIdentified() {
 		for (ForficataObserver l : all) {
 			l.wiimoteIdentified();

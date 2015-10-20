@@ -59,6 +59,16 @@ public class LogPanel extends JPanel implements ForficataObserver {
 	}
 
 	@Override
+	public void deviceRejectedIdentification(String address, String deviceClass) {
+		append("Device at " + address + " rejected identification");
+	}
+
+	@Override
+	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
+		append("Device at " + address + " identified as not Wiimote");
+	}
+
+	@Override
 	public void wiimoteIdentified() {
 		append("Found Wiimote. Connecting...");
 	}

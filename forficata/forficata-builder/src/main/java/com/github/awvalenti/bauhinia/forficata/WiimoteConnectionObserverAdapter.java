@@ -28,6 +28,14 @@ class WiimoteConnectionObserverAdapter implements ForficataObserver {
 	}
 
 	@Override
+	public void deviceRejectedIdentification(String address, String deviceClass) {
+	}
+
+	@Override
+	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
+	}
+
+	@Override
 	public void wiimoteIdentified() {
 	}
 

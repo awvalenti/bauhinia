@@ -54,7 +54,10 @@ class BlueCoveListener implements DiscoveryListener {
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
-		observer.bluetoothDeviceFound(device.getBluetoothAddress(), ((Object) clazz).toString());
+		String address = device.getBluetoothAddress();
+		String deviceClass = ((Object) clazz).toString();
+
+		observer.bluetoothDeviceFound(address, deviceClass);
 
 		try {
 			deviceIdentifier.assertDeviceIsWiimote(device);
@@ -63,10 +66,10 @@ class BlueCoveListener implements DiscoveryListener {
 			observer.wiimoteConnected(wiimote);
 
 		} catch (DeviceRejectedIdentification e) {
-			// observer.deviceRejectedIdentification();
+			observer.deviceRejectedIdentification(address, deviceClass);
 
 		} catch (IdentifiedAnotherDevice e) {
-			// observer.identifiedAnotherDevice();
+			observer.deviceIdentifiedAsNotWiimote(address, deviceClass);
 
 		} catch (WiimoteRejectedConnection e) {
 			observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
