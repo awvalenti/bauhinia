@@ -5,19 +5,14 @@
 
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
-		<artifactId>forficata</artifactId>
+		<artifactId>coronata</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata-lib</artifactId>
+	<artifactId>coronata-api</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>forficata-builder</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 
 </project>

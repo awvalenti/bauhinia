@@ -9,17 +9,17 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>forficata</artifactId>
+	<artifactId>coronata</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1.0-SNAPSHOT</version>
 
 	<modules>
-		<module>forficata-api</module>
-		<module>forficata-builder</module>
-		<module>forficata-common</module>
-		<module>forficata-implementation-bluecove</module>
-		<module>forficata-implementation-wiiusej</module>
-		<module>forficata-lib</module>
+		<module>coronata-api</module>
+		<module>coronata-builder</module>
+		<module>coronata-common</module>
+		<module>coronata-implementation-bluecove</module>
+		<module>coronata-implementation-wiiusej</module>
+		<module>coronata-lib</module>
 	</modules>
 
 </project>
