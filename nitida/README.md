@@ -32,6 +32,7 @@ If the device is already added, remove it and add it again.
 For more information, please check
 [this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
 and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
+The Dolphin parts are not applicable.
 
 Download the JAR file and run it. A window should open and a connection
 attempt will be started. If you're using Linux, press buttons 1 + 2
