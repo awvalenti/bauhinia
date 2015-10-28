@@ -20,7 +20,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				doSearch(config.getForficataObserver());
+				doSearch(config.getCoronataObserver());
 			}
 		};
 
@@ -29,7 +29,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 	}
 
 	private void doSearch(final CoronataObserver observer) {
-		observer.forficataStarted();
+		observer.coronataStarted();
 
 		try {
 			// This loads WiiuseJ classes and libraries

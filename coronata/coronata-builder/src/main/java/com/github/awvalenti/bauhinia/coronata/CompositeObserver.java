@@ -16,9 +16,9 @@ class CompositeObserver implements CoronataObserver {
 	}
 
 	@Override
-	public void forficataStarted() {
+	public void coronataStarted() {
 		for (CoronataObserver l : all) {
-			l.forficataStarted();
+			l.coronataStarted();
 		}
 	}
 

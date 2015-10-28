@@ -17,8 +17,8 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 
 	@Override
 	public void run() {
-		CoronataObserver observer = config.getForficataObserver();
-		observer.forficataStarted();
+		CoronataObserver observer = config.getCoronataObserver();
+		observer.coronataStarted();
 
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();

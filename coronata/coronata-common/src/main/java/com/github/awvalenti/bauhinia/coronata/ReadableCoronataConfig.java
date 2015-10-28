@@ -11,6 +11,6 @@ interface ReadableCoronataConfig {
 
 	boolean isSynchronous();
 
-	CoronataObserver getForficataObserver();
+	CoronataObserver getCoronataObserver();
 
 }

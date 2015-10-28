@@ -5,7 +5,7 @@ import com.github.awvalenti.bauhinia.coronata.Wiimote;
 
 public interface CoronataObserver {
 
-	void forficataStarted();
+	void coronataStarted();
 
 	void librariesLoaded();
 

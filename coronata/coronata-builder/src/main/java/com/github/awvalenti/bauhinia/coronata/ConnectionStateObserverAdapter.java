@@ -16,7 +16,7 @@ class ConnectionStateObserverAdapter implements CoronataObserver {
 	}
 
 	@Override
-	public void forficataStarted() {
+	public void coronataStarted() {
 		output.enteredInProcessState();
 	}
 

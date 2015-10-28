@@ -41,7 +41,7 @@ public class LogPanel extends JPanel implements CoronataObserver {
 	}
 
 	@Override
-	public void forficataStarted() {
+	public void coronataStarted() {
 	}
 
 	@Override

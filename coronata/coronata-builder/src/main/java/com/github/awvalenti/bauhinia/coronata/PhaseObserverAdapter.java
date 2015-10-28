@@ -26,7 +26,7 @@ class PhaseObserverAdapter implements CoronataObserver {
 	}
 
 	@Override
-	public void forficataStarted() {
+	public void coronataStarted() {
 		output.starting();
 		moveToPhase(LOAD_LIBRARIES);
 	}

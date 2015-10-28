@@ -43,7 +43,7 @@ class CoronataConfig implements ReadableCoronataConfig {
 	}
 
 	@Override
-	public CoronataObserver getForficataObserver() {
+	public CoronataObserver getCoronataObserver() {
 		return compositeObserver;
 	}
 

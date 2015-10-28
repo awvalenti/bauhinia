@@ -14,7 +14,7 @@ public class NitidaConsole implements CoronataObserver {
 	}
 
 	@Override
-	public void forficataStarted() {
+	public void coronataStarted() {
 		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
 	}
 
