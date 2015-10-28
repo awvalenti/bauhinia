@@ -10,11 +10,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.CoronataException;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
-public class LogPanel extends JPanel implements ForficataObserver {
+public class LogPanel extends JPanel implements CoronataObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -84,7 +84,7 @@ public class LogPanel extends JPanel implements ForficataObserver {
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
+	public void errorOccurred(CoronataException e) {
 		append(e.getMessage());
 	}
 

@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata.observers;
 
-public interface ForficataConnectionStateObserver {
+public interface CoronataConnectionStateObserver {
 
 	void enteredIdleState();
 

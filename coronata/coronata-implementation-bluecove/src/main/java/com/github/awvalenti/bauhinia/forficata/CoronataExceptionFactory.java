@@ -4,17 +4,17 @@ import java.io.IOException;
 
 import javax.bluetooth.BluetoothStateException;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.CoronataException;
 
-class ForficataExceptionFactory {
+class CoronataExceptionFactory {
 
-	public static ForficataException unknownError(Exception e) {
-		return new ForficataException(e, ""
+	public static CoronataException unknownError(Exception e) {
+		return new CoronataException(e, ""
 				+ "An unknown error occured. Please check the stack trace for details."
 				+ "");
 	}
 
-	public static ForficataException correspondingTo(BluetoothStateException e) {
+	public static CoronataException correspondingTo(BluetoothStateException e) {
 		String errorMsg = e.getMessage().toLowerCase();
 
 		if (errorMsg.contains("librar") && errorMsg.contains("not available")) {
@@ -31,8 +31,8 @@ class ForficataExceptionFactory {
 		}
 	}
 
-	private static ForficataException problemLoadingLibraries(BluetoothStateException e) {
-		return new ForficataException(e, ""
+	private static CoronataException problemLoadingLibraries(BluetoothStateException e) {
+		return new CoronataException(e, ""
 				+ "Unable to load required libraries for BlueCove.\n"
 				+ "\tCheck if the requirements described here were met:"
 				+ " http://www.bluecove.org/bluecove-gpl/index.html\n"
@@ -41,28 +41,28 @@ class ForficataExceptionFactory {
 				+ "");
 	}
 
-	private static ForficataException bluetoothAdapterIsOff(BluetoothStateException e) {
-		return new ForficataException(e, ""
+	private static CoronataException bluetoothAdapterIsOff(BluetoothStateException e) {
+		return new CoronataException(e, ""
 				+ "Bluetooth adapter is unavailable. Check if it is present and turned on."
 				+ "");
 	}
 
-	private static ForficataException deviceNotReady(BluetoothStateException e) {
-		return new ForficataException(e, ""
+	private static CoronataException deviceNotReady(BluetoothStateException e) {
+		return new CoronataException(e, ""
 				+ "Bluetooth adapter is not ready. Try turning it off and on again."
 				+ "");
 	}
 
-	public static ForficataException deviceRejectedIdentification(IOException e) {
+	public static CoronataException deviceRejectedIdentification(IOException e) {
 		return connectionRefused(e);
 	}
 
-	public static ForficataException wiimoteRejectedConnection(IOException e) {
+	public static CoronataException wiimoteRejectedConnection(IOException e) {
 		return connectionRefused(e);
 	}
 
-	private static ForficataException connectionRefused(IOException e) {
-		return new ForficataException(e, ""
+	private static CoronataException connectionRefused(IOException e) {
+		return new CoronataException(e, ""
 				+ "Connection refused. Details: " + e
 				+ "");
 	}

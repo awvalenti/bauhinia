@@ -2,17 +2,17 @@ package com.github.awvalenti.bauhinia.forficata;
 
 import static com.github.awvalenti.bauhinia.forficata.Phase.*;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataPhaseObserver;
 
-class PhaseObserverAdapter implements ForficataObserver {
+class PhaseObserverAdapter implements CoronataObserver {
 
-	private final ForficataPhaseObserver output;
+	private final CoronataPhaseObserver output;
 
 	private Phase currentPhase;
 	private boolean identified;
 
-	public PhaseObserverAdapter(ForficataPhaseObserver output) {
+	public PhaseObserverAdapter(CoronataPhaseObserver output) {
 		this.output = output;
 	}
 
@@ -64,13 +64,13 @@ class PhaseObserverAdapter implements ForficataObserver {
 	@Override
 	public void searchFinished() {
 		// TODO Provide failure information
-		if (!identified) output.failure(FIND_WIIMOTE, new ForficataFailure(new Exception(), ""));
+		if (!identified) output.failure(FIND_WIIMOTE, new CoronataFailure(new Exception(), ""));
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
+	public void errorOccurred(CoronataException e) {
 		// TODO Provide failure information
-		output.failure(currentPhase, new ForficataFailure(e, ""));
+		output.failure(currentPhase, new CoronataFailure(e, ""));
 	}
 
 }

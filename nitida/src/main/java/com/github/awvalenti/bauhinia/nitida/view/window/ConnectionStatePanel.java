@@ -5,9 +5,9 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataConnectionStateObserver;
 
-public class ConnectionStatePanel extends JPanel implements ForficataConnectionStateObserver {
+public class ConnectionStatePanel extends JPanel implements CoronataConnectionStateObserver {
 
 	private static final long serialVersionUID = 1L;
 

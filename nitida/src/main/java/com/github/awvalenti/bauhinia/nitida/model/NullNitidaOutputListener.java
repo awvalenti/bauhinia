@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
+import com.github.awvalenti.bauhinia.forficata.CoronataFailure;
 import com.github.awvalenti.bauhinia.forficata.Phase;
 
 public class NullNitidaOutputListener implements NitidaOutputListener {
@@ -18,7 +18,7 @@ public class NullNitidaOutputListener implements NitidaOutputListener {
 	}
 
 	@Override
-	public void failure(Phase phase, ForficataFailure failure) {
+	public void failure(Phase phase, CoronataFailure failure) {
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnectionObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataWiimoteConnectionObserver;
 
-class WiimoteConnectionObserverAdapter implements ForficataObserver {
+class WiimoteConnectionObserverAdapter implements CoronataObserver {
 
-	private final ForficataWiimoteConnectionObserver output;
+	private final CoronataWiimoteConnectionObserver output;
 
-	public WiimoteConnectionObserverAdapter(ForficataWiimoteConnectionObserver output) {
+	public WiimoteConnectionObserverAdapter(CoronataWiimoteConnectionObserver output) {
 		this.output = output;
 	}
 
@@ -49,7 +49,7 @@ class WiimoteConnectionObserverAdapter implements ForficataObserver {
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
+	public void errorOccurred(CoronataException e) {
 	}
 
 }

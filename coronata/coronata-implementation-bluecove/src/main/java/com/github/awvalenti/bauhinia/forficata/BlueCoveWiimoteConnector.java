@@ -2,20 +2,20 @@ package com.github.awvalenti.bauhinia.forficata;
 
 import javax.bluetooth.BluetoothStateException;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
 class BlueCoveWiimoteConnector implements WiimoteConnector {
 
-	private final ReadableForficataConfig config;
+	private final ReadableCoronataConfig config;
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	public BlueCoveWiimoteConnector(ReadableForficataConfig config) {
+	public BlueCoveWiimoteConnector(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
 	@Override
 	public void run() {
-		ForficataObserver observer = config.getForficataObserver();
+		CoronataObserver observer = config.getForficataObserver();
 		observer.forficataStarted();
 
 		try {
@@ -34,7 +34,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			}
 
 		} catch (BluetoothStateException e) {
-			observer.errorOccurred(ForficataExceptionFactory.correspondingTo(e));
+			observer.errorOccurred(CoronataExceptionFactory.correspondingTo(e));
 
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);

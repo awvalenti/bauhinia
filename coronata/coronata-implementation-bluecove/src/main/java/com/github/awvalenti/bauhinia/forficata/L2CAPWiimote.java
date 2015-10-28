@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
 
 class L2CAPWiimote implements Wiimote {
 
@@ -13,7 +13,7 @@ class L2CAPWiimote implements Wiimote {
 	private byte litLedIndex = -1;
 	private byte vibrationState = 0x00;
 
-	public L2CAPWiimote(L2CAPConnection input, L2CAPConnection output, ForficataWiimoteFullListener listener) {
+	public L2CAPWiimote(L2CAPConnection input, L2CAPConnection output, CoronataWiimoteFullListener listener) {
 		this.output = output;
 		new ButtonHandlerThread(input, output, listener).start();
 	}

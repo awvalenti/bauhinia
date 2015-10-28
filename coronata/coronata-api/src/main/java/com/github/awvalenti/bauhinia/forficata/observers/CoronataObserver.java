@@ -1,9 +1,9 @@
 package com.github.awvalenti.bauhinia.forficata.observers;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.CoronataException;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 
-public interface ForficataObserver {
+public interface CoronataObserver {
 
 	void forficataStarted();
 
@@ -23,6 +23,6 @@ public interface ForficataObserver {
 
 	void searchFinished();
 
-	void errorOccurred(ForficataException e);
+	void errorOccurred(CoronataException e);
 
 }

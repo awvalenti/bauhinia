@@ -3,21 +3,21 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep3;
+import com.github.awvalenti.bauhinia.forficata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
 import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataWiimoteConnectionObserver;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataWiimoteConnectionObserver;
 
-public class NitidaModel implements NitidaControllable, ForficataWiimoteConnectionObserver,
-		ForficataWiimoteFullListener {
+public class NitidaModel implements NitidaControllable, CoronataWiimoteConnectionObserver,
+		CoronataWiimoteFullListener {
 
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private WiimoteConnector connector;
 
-	public NitidaModel(ForficataBuilderStep3 builder) {
+	public NitidaModel(CoronataBuilderStep3 builder) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {

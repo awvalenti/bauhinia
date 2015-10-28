@@ -1,10 +1,10 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public class ForficataFailure extends ForficataException {
+public class CoronataFailure extends CoronataException {
 
 	private static final long serialVersionUID = 1L;
 
-	ForficataFailure(Throwable cause, String detailMessage) {
+	CoronataFailure(Throwable cause, String detailMessage) {
 		super(cause, detailMessage);
 	}
 

@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.forficata.listeners;
 
-public interface ForficataDisconnectionListener {
+public interface CoronataDisconnectionListener {
 
 	void wiimoteDisconnected();
 

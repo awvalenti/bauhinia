@@ -5,19 +5,19 @@ import java.io.IOException;
 import javax.bluetooth.L2CAPConnection;
 
 import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
 
 class ButtonHandlerThread extends Thread {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
-	private final ForficataWiimoteFullListener listener;
+	private final CoronataWiimoteFullListener listener;
 
 	private byte[] previousState = new byte[4];
 	private byte[] currentState = new byte[4];
 
 	public ButtonHandlerThread(L2CAPConnection input, L2CAPConnection output,
-			ForficataWiimoteFullListener listener) {
+			CoronataWiimoteFullListener listener) {
 		this.input = input;
 		this.output = output;
 		this.listener = listener;

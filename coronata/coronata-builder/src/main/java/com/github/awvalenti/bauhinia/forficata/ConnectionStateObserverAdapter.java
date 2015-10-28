@@ -1,14 +1,14 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataConnectionStateObserver;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
-class ConnectionStateObserverAdapter implements ForficataObserver {
+class ConnectionStateObserverAdapter implements CoronataObserver {
 
-	private final ForficataConnectionStateObserver output;
+	private final CoronataConnectionStateObserver output;
 	private boolean connected = false;
 
-	public ConnectionStateObserverAdapter(ForficataConnectionStateObserver output) {
+	public ConnectionStateObserverAdapter(CoronataConnectionStateObserver output) {
 		this.output = output;
 		output.enteredIdleState();
 	}
@@ -54,7 +54,7 @@ class ConnectionStateObserverAdapter implements ForficataObserver {
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
+	public void errorOccurred(CoronataException e) {
 		output.enteredIdleState();
 	}
 

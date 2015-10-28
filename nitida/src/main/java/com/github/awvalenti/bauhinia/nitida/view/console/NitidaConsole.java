@@ -1,11 +1,11 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataException;
+import com.github.awvalenti.bauhinia.forficata.CoronataException;
 import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaConsole implements ForficataObserver {
+public class NitidaConsole implements CoronataObserver {
 
 	private final ProjectProperties projectProperties;
 
@@ -59,7 +59,7 @@ public class NitidaConsole implements ForficataObserver {
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
+	public void errorOccurred(CoronataException e) {
 		e.printStackTrace();
 		System.err.println("\n" + e.getMessage());
 	}

@@ -1,9 +1,9 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
-class ForficataConfig implements ReadableForficataConfig {
+class CoronataConfig implements ReadableCoronataConfig {
 
 	private Boolean synchronous;
 	private Integer wiimotesExpected;
@@ -29,20 +29,20 @@ class ForficataConfig implements ReadableForficataConfig {
 	}
 
 	@Override
-	public ForficataWiimoteFullListener getWiimoteListener() {
+	public CoronataWiimoteFullListener getWiimoteListener() {
 		return compositeListener;
 	}
 
-	public void addButtonListener(ForficataWiimoteFullListener l) {
+	public void addButtonListener(CoronataWiimoteFullListener l) {
 		compositeListener.addListener(l);
 	}
 
-	public void addObserver(ForficataObserver o) {
+	public void addObserver(CoronataObserver o) {
 		compositeObserver.add(o);
 	}
 
 	@Override
-	public ForficataObserver getForficataObserver() {
+	public CoronataObserver getForficataObserver() {
 		return compositeObserver;
 	}
 

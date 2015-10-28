@@ -1,13 +1,13 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataButtonListener;
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataButtonListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
 
-public class ButtonListenerAdapter implements ForficataWiimoteFullListener {
+public class ButtonListenerAdapter implements CoronataWiimoteFullListener {
 
-	private final ForficataButtonListener output;
+	private final CoronataButtonListener output;
 
-	public ButtonListenerAdapter(ForficataButtonListener output) {
+	public ButtonListenerAdapter(CoronataButtonListener output) {
 		this.output = output;
 	}
 

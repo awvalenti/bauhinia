@@ -1,14 +1,14 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
 import wiiusej.WiiUseApiManager;
 
 class WiiuseJWiimoteConnector implements WiimoteConnector {
 
-	private final ReadableForficataConfig config;
+	private final ReadableCoronataConfig config;
 
-	public WiiuseJWiimoteConnector(ReadableForficataConfig config) {
+	public WiiuseJWiimoteConnector(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
@@ -25,7 +25,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		else new Thread(task).start();
 	}
 
-	private void doSearch(final ForficataObserver observer) {
+	private void doSearch(final CoronataObserver observer) {
 		observer.forficataStarted();
 
 		try {
@@ -39,7 +39,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 			// libraries.
 
 			// TODO Use exception factory
-			observer.errorOccurred(new ForficataException(e, "Error loading native libraries"));
+			observer.errorOccurred(new CoronataException(e, "Error loading native libraries"));
 
 			return;
 		}

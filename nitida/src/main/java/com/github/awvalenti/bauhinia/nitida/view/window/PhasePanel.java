@@ -6,11 +6,11 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.ForficataFailure;
+import com.github.awvalenti.bauhinia.forficata.CoronataFailure;
 import com.github.awvalenti.bauhinia.forficata.Phase;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataPhaseObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataPhaseObserver;
 
-public class PhasePanel extends JPanel implements ForficataPhaseObserver {
+public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public class PhasePanel extends JPanel implements ForficataPhaseObserver {
 	}
 
 	@Override
-	public void failure(Phase phase, ForficataFailure failure) {
+	public void failure(Phase phase, CoronataFailure failure) {
 		map.get(phase).setState(PhaseState.FAILURE);
 	}
 

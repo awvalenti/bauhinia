@@ -1,7 +1,7 @@
 package com.github.awvalenti.bauhinia.nitida;
 
-import com.github.awvalenti.bauhinia.forficata.Forficata;
-import com.github.awvalenti.bauhinia.forficata.ForficataBuilderStep3;
+import com.github.awvalenti.bauhinia.forficata.Coronata;
+import com.github.awvalenti.bauhinia.forficata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.forficata.Phase;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
@@ -23,7 +23,7 @@ public class NitidaMain {
 	}
 
 	private static void runNitidaWindow() {
-		ForficataBuilderStep3 builder = Forficata.guidedBuilder()
+		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
 				.asynchronous()
 				.oneWiimote();
 
@@ -52,7 +52,7 @@ public class NitidaMain {
 	}
 
 	private static void runNitidaConsole() {
-		ForficataBuilderStep3 builder = Forficata.guidedBuilder()
+		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
 				.synchronous()
 				.oneWiimote();
 

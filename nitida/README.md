@@ -1,5 +1,5 @@
 # nitida
-A portable remote controller application, built on top of [forficata](../forficata).
+A portable remote controller application, built on top of [coronata](../coronata).
 
 ![Screenshot of nitida window](doc/nitida-screenshot.png)
 

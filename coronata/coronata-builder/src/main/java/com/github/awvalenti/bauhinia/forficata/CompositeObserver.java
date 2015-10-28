@@ -3,82 +3,82 @@ package com.github.awvalenti.bauhinia.forficata;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
-class CompositeObserver implements ForficataObserver {
+class CompositeObserver implements CoronataObserver {
 
-	private final List<ForficataObserver> all = new ArrayList<ForficataObserver>();
+	private final List<CoronataObserver> all = new ArrayList<CoronataObserver>();
 
-	public void add(ForficataObserver eventListener) {
+	public void add(CoronataObserver eventListener) {
 		all.add(eventListener);
 	}
 
 	@Override
 	public void forficataStarted() {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.forficataStarted();
 		}
 	}
 
 	@Override
 	public void librariesLoaded() {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.librariesLoaded();
 		}
 	}
 
 	@Override
 	public void searchStarted() {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.searchStarted();
 		}
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.bluetoothDeviceFound(address, deviceClass);
 		}
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.deviceRejectedIdentification(address, deviceClass);
 		}
 	}
 
 	@Override
 	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.deviceIdentifiedAsNotWiimote(address, deviceClass);
 		}
 	}
 
 	@Override
 	public void wiimoteIdentified() {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.wiimoteIdentified();
 		}
 	}
 
 	@Override
 	public void wiimoteConnected(Wiimote wiimote) {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.wiimoteConnected(wiimote);
 		}
 	}
 
 	@Override
 	public void searchFinished() {
-		for (ForficataObserver l : all) {
+		for (CoronataObserver l : all) {
 			l.searchFinished();
 		}
 	}
 
 	@Override
-	public void errorOccurred(ForficataException e) {
-		for (ForficataObserver l : all) {
+	public void errorOccurred(CoronataException e) {
+		for (CoronataObserver l : all) {
 			l.errorOccurred(e);
 		}
 	}

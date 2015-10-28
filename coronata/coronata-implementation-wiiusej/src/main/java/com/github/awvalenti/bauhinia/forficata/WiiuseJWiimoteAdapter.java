@@ -14,13 +14,13 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
 
 class WiiuseJWiimoteAdapter implements Wiimote {
 
 	private final wiiusej.Wiimote wiiusejWiimote;
 
-	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote, ForficataWiimoteFullListener listener) {
+	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote, CoronataWiimoteFullListener listener) {
 		this.wiiusejWiimote = wiiusejWiimote;
 		wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(listener));
 	}
@@ -43,9 +43,9 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 
 	private static class WiiuseJEventListener implements wiiusej.wiiusejevents.utils.WiimoteListener {
 
-		private final ForficataWiimoteFullListener listener;
+		private final CoronataWiimoteFullListener listener;
 
-		private WiiuseJEventListener(ForficataWiimoteFullListener listener) {
+		private WiiuseJEventListener(CoronataWiimoteFullListener listener) {
 			this.listener = listener;
 		}
 

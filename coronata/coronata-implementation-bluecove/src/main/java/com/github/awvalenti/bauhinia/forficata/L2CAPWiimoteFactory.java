@@ -6,11 +6,11 @@ import javax.bluetooth.L2CAPConnection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
 
 class L2CAPWiimoteFactory {
 
-	public Wiimote createWiimote(RemoteDevice device, ForficataWiimoteFullListener listener)
+	public Wiimote createWiimote(RemoteDevice device, CoronataWiimoteFullListener listener)
 			throws WiimoteRejectedConnection {
 		String btAddress = device.getBluetoothAddress();
 

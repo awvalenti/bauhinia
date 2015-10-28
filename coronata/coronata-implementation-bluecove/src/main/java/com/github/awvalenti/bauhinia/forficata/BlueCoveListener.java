@@ -5,20 +5,20 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.forficata.listeners.ForficataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.forficata.observers.ForficataObserver;
+import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
 
 class BlueCoveListener implements DiscoveryListener {
 
 	private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
 	private final BluetoothDeviceIdentifier deviceIdentifier = new BluetoothDeviceIdentifier();
 
-	private final ForficataObserver observer;
-	private final ForficataWiimoteFullListener wiimoteListener;
+	private final CoronataObserver observer;
+	private final CoronataWiimoteFullListener wiimoteListener;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(ForficataWiimoteFullListener wiimoteListener,
-			final ForficataObserver observer, final Object monitor) {
+	public BlueCoveListener(CoronataWiimoteFullListener wiimoteListener,
+			final CoronataObserver observer, final Object monitor) {
 		this.wiimoteListener = wiimoteListener;
 		this.observer = observer;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
@@ -72,7 +72,7 @@ class BlueCoveListener implements DiscoveryListener {
 			observer.deviceIdentifiedAsNotWiimote(address, deviceClass);
 
 		} catch (WiimoteRejectedConnection e) {
-			observer.errorOccurred(ForficataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
+			observer.errorOccurred(CoronataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
 		}
 
 	}

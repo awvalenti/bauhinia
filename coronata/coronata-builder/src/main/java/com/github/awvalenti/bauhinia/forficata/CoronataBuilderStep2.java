@@ -1,8 +1,8 @@
 package com.github.awvalenti.bauhinia.forficata;
 
-public interface ForficataBuilderStep2 {
+public interface CoronataBuilderStep2 {
 
 	// TODO Allow connecting more Wiimotes at once
-	ForficataBuilderStep3 oneWiimote();
+	CoronataBuilderStep3 oneWiimote();
 
 }
