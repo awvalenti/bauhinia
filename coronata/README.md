@@ -27,7 +27,7 @@ For Maven, to use coronata in your project, add this to your pom.xml:
       string "-SNAPSHOT" (without the quotes, with the hyphen).
       The example below uses a commit code.
     -->
-    <version>ea17d78a24de</version>
+    <version>a4b00354a56aa</version>
   </dependency>
 <dependencies>
 ```
