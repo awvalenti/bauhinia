@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.CoronataFailure;
-import com.github.awvalenti.bauhinia.forficata.Phase;
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataPhaseObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
+import com.github.awvalenti.bauhinia.coronata.Phase;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 

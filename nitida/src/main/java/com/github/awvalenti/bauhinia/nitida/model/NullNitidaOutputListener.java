@@ -1,7 +1,7 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import com.github.awvalenti.bauhinia.forficata.CoronataFailure;
-import com.github.awvalenti.bauhinia.forficata.Phase;
+import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
+import com.github.awvalenti.bauhinia.coronata.Phase;
 
 public class NullNitidaOutputListener implements NitidaOutputListener {
 

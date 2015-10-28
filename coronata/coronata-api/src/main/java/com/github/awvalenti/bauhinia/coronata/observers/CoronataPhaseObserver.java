@@ -1,18 +1,16 @@
-package com.github.awvalenti.bauhinia.nitida.model;
+package com.github.awvalenti.bauhinia.coronata.observers;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
 import com.github.awvalenti.bauhinia.coronata.Phase;
 
-public interface NitidaOutputListener {
+public interface CoronataPhaseObserver {
 
-	void run();
+	void starting();
 
 	void running(Phase phase);
 
 	void success(Phase phase);
 
 	void failure(Phase phase, CoronataFailure failure);
-
-	void wiimoteDisconnected();
 
 }

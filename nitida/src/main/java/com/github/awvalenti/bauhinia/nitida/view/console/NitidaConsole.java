@@ -1,8 +1,8 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
-import com.github.awvalenti.bauhinia.forficata.CoronataException;
-import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataException;
+import com.github.awvalenti.bauhinia.coronata.Wiimote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
 public class NitidaConsole implements CoronataObserver {

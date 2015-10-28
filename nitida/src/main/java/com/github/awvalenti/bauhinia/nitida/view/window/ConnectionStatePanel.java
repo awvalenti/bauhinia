@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 
 public class ConnectionStatePanel extends JPanel implements CoronataConnectionStateObserver {
 

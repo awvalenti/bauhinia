@@ -3,12 +3,12 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.forficata.CoronataBuilderStep3;
-import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.WiimoteButton;
-import com.github.awvalenti.bauhinia.forficata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.forficata.listeners.CoronataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataWiimoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
+import com.github.awvalenti.bauhinia.coronata.Wiimote;
+import com.github.awvalenti.bauhinia.coronata.WiimoteButton;
+import com.github.awvalenti.bauhinia.coronata.WiimoteConnector;
+import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiimoteConnectionObserver;
 
 public class NitidaModel implements NitidaControllable, CoronataWiimoteConnectionObserver,
 		CoronataWiimoteFullListener {

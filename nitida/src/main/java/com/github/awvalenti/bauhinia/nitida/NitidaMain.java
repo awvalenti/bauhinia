@@ -1,8 +1,8 @@
 package com.github.awvalenti.bauhinia.nitida;
 
-import com.github.awvalenti.bauhinia.forficata.Coronata;
-import com.github.awvalenti.bauhinia.forficata.CoronataBuilderStep3;
-import com.github.awvalenti.bauhinia.forficata.Phase;
+import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
+import com.github.awvalenti.bauhinia.coronata.Phase;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;

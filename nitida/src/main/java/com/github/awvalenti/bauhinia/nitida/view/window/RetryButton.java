@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import javax.swing.JButton;
 
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 
 public class RetryButton extends JButton implements CoronataConnectionStateObserver {
 

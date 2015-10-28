@@ -10,9 +10,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-import com.github.awvalenti.bauhinia.forficata.CoronataException;
-import com.github.awvalenti.bauhinia.forficata.Wiimote;
-import com.github.awvalenti.bauhinia.forficata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataException;
+import com.github.awvalenti.bauhinia.coronata.Wiimote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
 
 public class LogPanel extends JPanel implements CoronataObserver {
 

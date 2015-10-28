@@ -1,0 +1,89 @@
+package com.github.awvalenti.bauhinia.coronata;
+
+import javax.bluetooth.DeviceClass;
+import javax.bluetooth.DiscoveryListener;
+import javax.bluetooth.RemoteDevice;
+import javax.bluetooth.ServiceRecord;
+
+import com.github.awvalenti.bauhinia.coronata.Wiimote;
+import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+
+class BlueCoveListener implements DiscoveryListener {
+
+	private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
+	private final BluetoothDeviceIdentifier deviceIdentifier = new BluetoothDeviceIdentifier();
+
+	private final CoronataObserver observer;
+	private final CoronataWiimoteFullListener wiimoteListener;
+	private final JobSynchronizer synchronizer;
+
+	public BlueCoveListener(CoronataWiimoteFullListener wiimoteListener,
+			final CoronataObserver observer, final Object monitor) {
+		this.wiimoteListener = wiimoteListener;
+		this.observer = observer;
+		this.synchronizer = new JobSynchronizer(new Runnable() {
+			@Override
+			public void run() {
+				observer.searchFinished();
+				synchronized (monitor) {
+					monitor.notify();
+				}
+			}
+		});
+	}
+
+	@Override
+	public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
+
+		// This method, deviceDiscovered, should return immediatelly, according
+		// to BlueCove documentation. For that reason, we handle the discovery
+		// of a device in a separate thread. However, this requires
+		// synchronization.
+
+		synchronizer.newJob(new Runnable() {
+			@Override
+			public void run() {
+				handleDeviceDiscovered(device, clazz);
+			}
+		});
+	}
+
+	@Override
+	public synchronized void inquiryCompleted(int reason) {
+		synchronizer.end();
+	}
+
+	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
+		String address = device.getBluetoothAddress();
+		String deviceClass = ((Object) clazz).toString();
+
+		observer.bluetoothDeviceFound(address, deviceClass);
+
+		try {
+			deviceIdentifier.assertDeviceIsWiimote(device);
+			observer.wiimoteIdentified();
+			Wiimote wiimote = factory.createWiimote(device, wiimoteListener);
+			observer.wiimoteConnected(wiimote);
+
+		} catch (DeviceRejectedIdentification e) {
+			observer.deviceRejectedIdentification(address, deviceClass);
+
+		} catch (IdentifiedAnotherDevice e) {
+			observer.deviceIdentifiedAsNotWiimote(address, deviceClass);
+
+		} catch (WiimoteRejectedConnection e) {
+			observer.errorOccurred(CoronataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
+		}
+
+	}
+
+	@Override
+	public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
+	}
+
+	@Override
+	public void serviceSearchCompleted(int transID, int respCode) {
+	}
+
+}
