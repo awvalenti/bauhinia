@@ -29,8 +29,9 @@ configurations. Make the Wii Remote visible
 by pressing buttons 1 + 2 simultaneously. Add it as a paired device without
 using a code.
 If the device is already added, remove it and add it again.
-There is a tutorial
-[here](http://www.makeuseof.com/tag/how-to-connect-your-wiimote-to-your-pc/).
+For more information, please check
+[this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
+and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
 
 Download the JAR file and run it. A window should open and a connection
 attempt will be started. If you're using Linux, press buttons 1 + 2
