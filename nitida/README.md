@@ -33,14 +33,15 @@ For more information, please check
 and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
 Skip the parts dealing with the Dolphin emulator.
 
-On Linux, install the appropriate system package as described
-[here](http://bluecove.org/bluecove-gpl/). On Ubuntu or derivatives,
+On Linux, install the appropriate system package as described on the
+Requirements section of [this page](http://bluecove.org/bluecove-gpl/).
+On Ubuntu or derivatives,
 this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
 
 From the [releases page](https://github.com/awvalenti/bauhinia/releases),
-download the latest nitida JAR file and run it. You should be able to simply
-double-click it to start it. If that does not work, you might want to run on
-a terminal: ```java -jar nitida-x.y.z.jar```.
+download the latest nitida JAR file and run it. Double-clicking the file
+should work. If it doesn't, you might want to try starting nitida via terminal:
+```java -jar nitida-x.y.z.jar``` (replace ```x.y.z``` with the appropriate version).
 
 A window should open and a connection
 attempt will be started. On Linux, press buttons 1 + 2 simultaneously
