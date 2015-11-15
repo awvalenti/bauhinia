@@ -14,14 +14,13 @@ A portable remote controller application, built on top of
 - ...
 
 ## Highlights
-- Small, portable app (single JAR with less than 1MB)
+- Small, portable app (single JAR file with less than 1MB)
 - Cross-platform (tested on Windows and Linux)
 - Easy to use (informative user interface)
 - Few requirements:
   - Java Runtime Environment 1.6+
   - On Windows, pairing Bluetooth device
-  - On Linux, installing a system package once (```libbluetooth-dev``` on
-    Ubuntu or derivatives - details [here](http://bluecove.org/bluecove-gpl/))
+  - On Linux, installing a system package once
 
 ## How to use it
 On Windows, first step is to pair the Wii Remote. Open the Bluetooth
@@ -34,10 +33,15 @@ For more information, please check
 and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
 The Dolphin parts are not applicable.
 
-Download the JAR file and run it. A window should open and a connection
-attempt will be started. If you're using Linux, press buttons 1 + 2
-simultaneously to make the Wii Remote discoverable. On Windows, it is
-discoverable if previously paired as explained above.
+On Linux, please install the appropriate system package as described
+[here](http://bluecove.org/bluecove-gpl/). On Ubuntu or derivatives,
+this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
+
+From the [releases page](../bauhinia/releases), download the latest
+version of the JAR file and run it. A window should open and a connection
+attempt will be started. On Linux, press buttons 1 + 2 simultaneously
+on this moment to make the Wii Remote discoverable. On Windows, it is
+already discoverable if previously paired as explained above.
 
 You can also run nitida as a console application: ```java -jar nitida-x.y.z.jar --console```
 
