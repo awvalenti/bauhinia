@@ -18,8 +18,22 @@ import com.github.awvalenti.bauhinia.nitida.view.window.RetryButton;
 public class NitidaMain {
 
 	public static void main(String[] args) {
+		printCopyrightInfo();
+
 		if (args.length > 0 && args[0].equals("--console")) runNitidaConsole();
 		else runNitidaWindow();
+	}
+
+	private static void printCopyrightInfo() {
+		System.out.println("nitida  Copyright (C) 2015  Andre Willik Valenti");
+		System.out.println("Licensed under GPLv3");
+		System.out.println("This program comes with ABSOLUTELY NO WARRANTY.");
+		System.out.println("This is free software, and you are welcome to redistribute it");
+		System.out.println("under certain conditions. For more information, please visit:");
+		System.out.println("  http://www.gnu.org/licenses/gpl-3.0.en.html");
+		System.out.println("For source code and project information, please visit:");
+		System.out.println("  https://github.com/awvalenti/bauhinia");
+		System.out.println("");
 	}
 
 	private static void runNitidaWindow() {
