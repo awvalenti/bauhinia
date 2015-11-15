@@ -31,14 +31,18 @@ If the device is already added, remove it and add it again.
 For more information, please check
 [this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
 and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
-The Dolphin parts are not applicable.
+Skip the parts dealing with the Dolphin emulator.
 
-On Linux, please install the appropriate system package as described
+On Linux, install the appropriate system package as described
 [here](http://bluecove.org/bluecove-gpl/). On Ubuntu or derivatives,
 this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
 
-From the [releases page](../bauhinia/releases), download the latest
-version of the JAR file and run it. A window should open and a connection
+From the [releases page](https://github.com/awvalenti/bauhinia/releases),
+download the latest nitida JAR file and run it. You should be able to simply
+double-click it to start it. If that does not work, you might want to run on
+a terminal: ```java -jar nitida-x.y.z.jar```.
+
+A window should open and a connection
 attempt will be started. On Linux, press buttons 1 + 2 simultaneously
 on this moment to make the Wii Remote discoverable. On Windows, it is
 already discoverable if previously paired as explained above.
