@@ -1,13 +1,13 @@
 # coronata
-A Java Wiimote library that is cross-platform and easy to use.
+A cross-platform and easy to use Java Wiimote library.
 
 ## License
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Usage
-For your convenience, please use [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/). There is a free service called [JitPack]( https://jitpack.io/) that allows adding a GitHub project as a dependency. It is able to download a released JAR from a repository. For non-released versions, it is also able to download the code, compile it and package a JAR.
+For your convenience, please use [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/). There is a free service called [JitPack]( https://jitpack.io/) that allows adding a GitHub project as a dependency. It is able to download released JARs from GitHub repositories and, for non-released versions, it is able to download source code, compile it and package it as a JAR.
 
-For Maven, to use coronata in your project, add this to your pom.xml:
+To use coronata in a Maven project, add this to your pom.xml:
 
 ```xml
 <repositories>
@@ -36,8 +36,8 @@ For Maven, to use coronata in your project, add this to your pom.xml:
 I strongly encourage you to take a look at [nitida](https://github.com/awvalenti/bauhinia/tree/master/nitida). It is real code and is guaranteed to be up-to-date. The following example might not be. But, for you to have an idea, coronata looks something like this:
 ```java
 Coronata.guidedBuilder()
-    .asynchronous()   // use this one for GUI applications
-//  .synchronous()    // ...or this one for console applications
+    .asynchronous()   // use either this one (for GUI applications)
+//  .synchronous()    // ...or this one (for console applications)
     .oneWiimote()
     .wiimoteConnectionObserver(this)
     .buttonObserver(this)
