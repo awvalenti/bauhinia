@@ -29,7 +29,7 @@ For Maven, to use coronata in your project, add this to your pom.xml:
     -->
     <version>a4b00354a56aa</version>
   </dependency>
-<dependencies>
+</dependencies>
 ```
 
 ### API
