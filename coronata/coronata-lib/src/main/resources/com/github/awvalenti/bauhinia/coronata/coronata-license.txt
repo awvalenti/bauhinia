@@ -1,4 +1,5 @@
-Source code available at https://github.com/awvalenti/bauhinia
+Project information and source code available at:
+  https://github.com/awvalenti/bauhinia
 
 coronata - A cross-platform and easy to use Java Wiimote library
 Copyright (C) 2015  Andre Willik Valenti
