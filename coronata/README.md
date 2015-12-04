@@ -23,9 +23,9 @@ To use coronata on a Maven project, add this to your pom.xml:
     <artifactId>coronata-lib</artifactId>
 
     <!--
-      Here goes either a released version, a commit code or the
+      Here goes either a released version, a commit hash or the
       string "-SNAPSHOT" (without the quotes, with the hyphen).
-      The example below uses a commit code.
+      The example below uses a commit hash.
     -->
     <version>a4b00354a56aa</version>
   </dependency>
