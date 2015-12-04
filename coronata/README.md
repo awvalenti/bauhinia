@@ -5,7 +5,7 @@ A cross-platform and easy to use Java Wiimote library.
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Usage
-For your convenience, please use [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/). There is a free service called [JitPack]( https://jitpack.io/) that allows adding a GitHub project as a dependency. It is able to download released JARs from GitHub repositories and, for non-released versions, it is able to download source code, compile it and package it as a JAR.
+For your convenience, please use [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/). There is a free service called [JitPack](https://jitpack.io/) that allows adding a GitHub project as a dependency. It is able to download released JARs from GitHub repositories and, for non-released versions, it is able to download source code, compile it and package it as a JAR.
 
 To use coronata on a Maven project, add this to your pom.xml:
 
