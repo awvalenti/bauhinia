@@ -5,7 +5,11 @@ A cross-platform and easy to use Java Wiimote library.
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Usage
-For your convenience, please use [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/). There is a free service called [JitPack](https://jitpack.io/) that allows adding a GitHub project as a dependency. It is able to download released JARs from GitHub repositories and, for non-released versions, it is able to download source code, compile it and package it as a JAR.
+You can either:
+- download a [released JAR](../releases) and add it to the build path of your project (external dependencies included)
+- use a dependency management tool like [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/)
+
+For the second option, there is a free service called [JitPack](https://jitpack.io/) that allows adding a project hosted on GitHub as a dependency. It downloads source code, builds JARs and serves them to you.
 
 To use coronata on a Maven project, add this to your pom.xml:
 
@@ -23,11 +27,11 @@ To use coronata on a Maven project, add this to your pom.xml:
     <artifactId>coronata-lib</artifactId>
 
     <!--
-      Here goes either a released version, a commit hash or the
-      string "-SNAPSHOT" (without the quotes, with the hyphen).
-      The example below uses a commit hash.
+      Here goes either a git tag correponding to a released version,
+      a commit hash or the string "-SNAPSHOT" (without the quotes,
+      with the hyphen). The example below uses a git tag.
     -->
-    <version>a4b00354a56aa</version>
+    <version>v0.1.0</version>
   </dependency>
 </dependencies>
 ```
@@ -49,3 +53,8 @@ Coronata.guidedBuilder()
 Replace ```this``` with the object(s) you wish to observe the events. The interfaces to be implemented should make sense straightforwardly.
 
 There are many types of observers that you can use. Each one is optimized for a particular use. Just examine the methods from the builder and you will find them.
+
+## Dependencies
+- [awvalenti/wiiusej](https://github.com/awvalenti/wiiusej)
+- [BlueCove](http://bluecove.org/)
+- [BlueCove-gpl](http://bluecove.org/bluecove-gpl/)
