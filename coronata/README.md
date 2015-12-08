@@ -39,7 +39,7 @@ To use coronata on a Maven project, add this to your pom.xml:
 Maven plugin for Eclipse sometimes is unable to download JAR files properly from JitPack. If that happens, please try running ```mvn install``` from the command line and then updating Maven project on Eclipse (```right-click on the project > Maven > Update Project...```).
 
 ### API
-I strongly encourage you to take a look at [nitida](https://github.com/awvalenti/bauhinia/tree/master/nitida). It is real code and is guaranteed to be up-to-date. The following example might not be. But, for you to have an idea, coronata looks something like this:
+To learn how to use coronata, I strongly encourage you to take a look at [nitida](https://github.com/awvalenti/bauhinia/tree/master/nitida). You will find real and up-to-date code. For you to have an idea, coronata looks something like this:
 ```java
 Coronata.guidedBuilder()
     .asynchronous()   // use either this one (for GUI applications)
