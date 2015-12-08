@@ -6,7 +6,7 @@ A cross-platform and easy to use Java Wiimote library.
 
 ## Usage
 You can either:
-- download a [released JAR](../releases) and add it to the build path of your project (external dependencies included)
+- download a [released JAR](../../../releases) and add it to the build path of your project (external dependencies included)
 - use a dependency management tool like [Maven](https://maven.apache.org) or [Gradle](http://gradle.org/)
 
 For the second option, there is a free service called [JitPack](https://jitpack.io/) that allows adding a project hosted on GitHub as a dependency. It downloads source code, builds JARs and serves them to you.
