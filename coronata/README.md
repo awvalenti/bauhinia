@@ -43,18 +43,14 @@ To use coronata on a Maven project, add this to your pom.xml:
   <dependency>
     <groupId>com.github.awvalenti.bauhinia</groupId>
     <artifactId>coronata-lib</artifactId>
-
-    <!--
-      Here goes either a git tag correponding to a released version,
-      a commit hash or the string "-SNAPSHOT" (without the quotes,
-      with the hyphen). The example below uses a git tag.
-    -->
     <version>v0.1.0</version>
   </dependency>
 </dependencies>
 ```
 
-Maven plugin for Eclipse sometimes is unable to download JAR files properly from JitPack. If that happens, please try running ```mvn install``` from the command line and then updating Maven project on Eclipse (```right-click on the project > Maven > Update Project...```).
+On ```<version>```, put either a git tag correponding to a released version (which is the case above) or a commit hash.
+
+If you use Eclipse, sometimes the Maven plugin is unable to download JAR files properly from JitPack. If that happens, please try running ```mvn install``` from the command line and then updating Maven project on Eclipse (```right-click on the project > Maven > Update Project...```).
 
 ### API
 To learn how to use coronata, I strongly encourage you to take a look at [nitida](https://github.com/awvalenti/bauhinia/tree/master/nitida). You will find real and up-to-date code. For you to have an idea, coronata looks something like this:
