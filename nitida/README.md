@@ -1,35 +1,10 @@
 # nitida
 A portable remote controller application, built on top of
-[coronata](../coronata).
+[coronata](../coronata). Currently, it is able to work
+as a remote presenter. Future possible use cases
+include game and media player controller.
 
 ![Screenshot of nitida window](doc/nitida-screenshot.png)
-
-## License
-[GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
-
-```
-nitida - A portable remote controller application, built on top of coronata.
-Copyright (C) 2015  Andre Willik Valenti
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-```
-
-## Possible use cases
-- Remote presenter
-- Game controller
-- Media player controller
-- ...
 
 ## Highlights
 - Small, portable app (single JAR file with less than 1MB)
@@ -68,5 +43,26 @@ already discoverable if previously paired as explained above.
 
 You can also run nitida as a console application: ```java -jar nitida-x.y.z.jar --console```
 
-## WIP
-I'm working mostly on improving the application usability. Suggestions are welcome!
+## Development
+Suggestions are welcome! Please [open an issue](../../../issues) if you have one.
+
+## License
+[GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
+
+```
+nitida - A portable remote controller application, built on top of coronata.
+Copyright (C) 2015  Andre Willik Valenti
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+```
