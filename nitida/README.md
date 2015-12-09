@@ -1,10 +1,11 @@
 # nitida
-A portable remote controller application, built on top of
-[coronata](../coronata). Currently, it is able to work
-as a remote presenter. Future possible use cases
-include game and media player controller.
-
 ![Screenshot of nitida window](doc/nitida-screenshot.png)
+
+A portable remote controller application, built on top of
+[coronata](../coronata).
+
+It currently works as a remote presenter.
+Future use cases include game controller and media player controller.
 
 ## Highlights
 - Small, portable app (single JAR file with less than 1MB)
