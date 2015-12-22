@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
-import com.github.awvalenti.bauhinia.coronata.Phase;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
@@ -38,7 +37,7 @@ public class NitidaMain {
 		NitidaModel model = new NitidaModel(builder);
 
 		RetryButton retryButton = new RetryButton();
-		PhasePanel phasePanel = new PhasePanel(Phase.values());
+		PhasePanel phasePanel = new PhasePanel();
 		LogPanel logPanel = new LogPanel();
 		ConnectionStatePanel connectionStatePanel = new ConnectionStatePanel();
 

@@ -16,10 +16,10 @@ public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 
 	private final Map<Phase, PhaseIndication> map = new HashMap<Phase, PhaseIndication>();
 
-	public PhasePanel(Phase[] phases) {
-		super(new GridLayout(phases.length, 1));
+	public PhasePanel() {
+		super(new GridLayout(Phase.values().length, 1));
 
-		for (Phase phase : phases) {
+		for (Phase phase : Phase.values()) {
 			PhaseIndication indication = new PhaseIndication(phase.toString());
 			map.put(phase, indication);
 			add(indication);
