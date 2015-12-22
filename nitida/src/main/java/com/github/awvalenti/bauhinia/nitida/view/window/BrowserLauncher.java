@@ -65,7 +65,7 @@ public class BrowserLauncher {
 				return DESKTOP_BROWSE;
 			} else {
 				String os = System.getProperty("os.name").toLowerCase();
-				if (os.contains("nix")) return XDG_OPEN_COMMAND;
+				if (os.contains("nix") || os.contains("nux") || os.contains("aix")) return XDG_OPEN_COMMAND;
 				else if (os.contains("mac")) return OPEN_COMMAND;
 				else return BROWSER_LAUNCHING_NOT_SUPPORTED;
 			}
