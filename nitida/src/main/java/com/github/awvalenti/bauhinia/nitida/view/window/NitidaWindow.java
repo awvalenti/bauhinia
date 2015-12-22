@@ -1,9 +1,11 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JFrame;
 
+import com.github.awvalenti.bauhinia.nitida.UserInputPanel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
 public class NitidaWindow {
@@ -12,16 +14,16 @@ public class NitidaWindow {
 
 	public NitidaWindow(ProjectProperties projectProperties,
 			ApplicationStatePanel applicationStatePanel,
-			LogPanel logPanel, ActionPanel actionPanel) {
+			LogPanel logPanel, UserInputPanel userInputPanel) {
 		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
-		frame.setSize(320, 480);
+		frame.setSize(320, 520);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.add(applicationStatePanel, BorderLayout.NORTH);
 		frame.add(logPanel, BorderLayout.CENTER);
-		frame.add(actionPanel, BorderLayout.SOUTH);
+		frame.add(userInputPanel, BorderLayout.SOUTH);
 	}
 
 	public void run() {

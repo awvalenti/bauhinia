@@ -1,5 +1,5 @@
 # nitida
-![Screenshot of nitida window](doc/nitida-screenshot.png)
+![Screenshot of nitida window](doc/nitida-screenshot.gif)
 
 A portable remote controller application, built on top of
 [coronata](../coronata).
@@ -51,7 +51,7 @@ Suggestions are welcome! Please [open an issue](../../../issues) if you have one
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ```
-nitida - A portable remote controller application, built on top of coronata.
+nitida - Portable Wii Remote controller application.
 Copyright (C) 2015  Andre Willik Valenti
 
 This program is free software: you can redistribute it and/or modify
