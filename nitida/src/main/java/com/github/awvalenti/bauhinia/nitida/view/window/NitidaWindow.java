@@ -1,7 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
 import javax.swing.JFrame;
 
