@@ -1,5 +1,9 @@
 package com.github.awvalenti.bauhinia.nitida;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.Phase;
@@ -8,16 +12,18 @@ import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
 import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
-import com.github.awvalenti.bauhinia.nitida.view.window.HelpPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ApplicationStatePanel;
-import com.github.awvalenti.bauhinia.nitida.view.window.LogPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ConnectionStatePanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.HelpPanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.LogPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.NitidaWindow;
 import com.github.awvalenti.bauhinia.nitida.view.window.PhasePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.RetryButton;
 import com.github.awvalenti.bauhinia.nitida.view.window.UserInputPanel;
 
 public class NitidaMain {
+
+	private static final String COPYRIGHT_NOTICE_PATH = "/com/github/awvalenti/bauhinia/nitida/nitida-copyright-notice.txt";
 
 	public static void main(String[] args) {
 		if (args.length > 0 && args[0].equals("--console")) runNitidaConsole();
@@ -69,15 +75,26 @@ public class NitidaMain {
 	}
 
 	private static void printCopyrightInfo() {
-		System.out.println("nitida  Copyright (C) 2015  Andre Willik Valenti");
-		System.out.println("Licensed under GPLv3");
-		System.out.println("This program comes with ABSOLUTELY NO WARRANTY.");
-		System.out.println("This is free software, and you are welcome to redistribute it");
-		System.out.println("under certain conditions. For more information, please visit:");
-		System.out.println("  http://www.gnu.org/licenses/gpl-3.0.en.html");
-		System.out.println("For source code and project information, please visit:");
-		System.out.println("  https://github.com/awvalenti/bauhinia");
-		System.out.println("");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				NitidaMain.class.getResourceAsStream(COPYRIGHT_NOTICE_PATH)));
+
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			System.out.println();
+
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 }
