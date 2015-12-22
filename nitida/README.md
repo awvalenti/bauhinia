@@ -16,7 +16,7 @@ Future use cases include game controller and media player controller.
   - On Windows, pairing Bluetooth device
   - On Linux, installing a system package once
 
-## How to use it
+## Usage
 On Windows, first step is to pair the Wii Remote. Open the Bluetooth
 configurations. Make the Wii Remote visible
 by pressing buttons 1 + 2 simultaneously. Add it as a paired device without

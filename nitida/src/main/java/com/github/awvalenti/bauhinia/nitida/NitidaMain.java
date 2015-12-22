@@ -12,6 +12,7 @@ import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
 import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ApplicationStatePanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.BrowserLauncher;
 import com.github.awvalenti.bauhinia.nitida.view.window.ConnectionStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.HelpPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.LogPanel;
@@ -49,7 +50,7 @@ public class NitidaMain {
 
 		NitidaWindow nitidaWindow = new NitidaWindow(new ProjectProperties(),
 				new ApplicationStatePanel(phasePanel, connectionStatePanel), logPanel,
-				new UserInputPanel(new ActionPanel(retryButton), new HelpPanel()));
+				new UserInputPanel(new ActionPanel(retryButton), new HelpPanel(new BrowserLauncher())));
 
 		new NitidaController(model, retryButton);
 		nitidaWindow.run();

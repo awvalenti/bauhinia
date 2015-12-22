@@ -1,11 +1,8 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
@@ -17,27 +14,26 @@ public class HelpPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String NITIDA_HOW_TO_USE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida#how-to-use-it";
+	private static final String NITIDA_HOW_TO_USE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida#usage";
 	private static final String NITIDA_LICENSE_PATH = "/nitida-license.txt";
 
-	public HelpPanel() {
+	private final BrowserLauncher browserLauncher;
+
+	public HelpPanel(BrowserLauncher browserLauncher) {
+		this.browserLauncher = browserLauncher;
 		setBorder(BorderFactory.createTitledBorder("Help"));
 		add(new HyperlinkComponent("How to use", new HowToUseActionListener()));
 		add(new HyperlinkComponent("About", new AboutActionListener()));
 	}
 
-	private final class HowToUseActionListener implements ActionListener {
+	private class HowToUseActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			try {
-				Desktop.getDesktop().browse(URI.create(NITIDA_HOW_TO_USE_URL));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			browserLauncher.open(NITIDA_HOW_TO_USE_URL);
 		}
 	}
 
-	private final class AboutActionListener implements ActionListener {
+	private class AboutActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			JDialog dialog = new JDialog();
