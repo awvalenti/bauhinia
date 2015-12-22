@@ -52,19 +52,8 @@ On ```<version>```, put either a git tag correponding to a released version (whi
 
 If you use Eclipse, sometimes the Maven plugin is unable to download JAR files properly from JitPack. If that happens, please try running ```mvn install``` from the command line and then updating Maven project on Eclipse (```right-click on the project > Maven > Update Project...```).
 
-### API
-To learn how to use coronata, I strongly encourage you to take a look at [nitida](https://github.com/awvalenti/bauhinia/tree/master/nitida). You will find real and up-to-date code. For you to have an idea, coronata looks something like this:
-```java
-Coronata.guidedBuilder()
-    .asynchronous()   // use either this one (for GUI applications)
-//  .synchronous()    // ...or this one (for console applications)
-    .oneWiimote()
-    .wiimoteConnectionObserver(this)
-    .buttonObserver(this)
-    .build()
-    .run();
-```
-Replace ```this``` with the object(s) you wish to observe the events. The interfaces to be implemented should make sense straightforwardly.
+### How to use
+To learn how to use coronata, take a look at [coronata-demos](coronata-demos) and/or [nitida](../nitida). You will find real and up-to-date code.
 
 There are many types of observers that you can use. Each one is optimized for a particular use. Just examine the methods from the builder and you will find them.
 
