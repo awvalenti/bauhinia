@@ -1,11 +1,11 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaConsole implements CoronataObserver {
+public class NitidaConsole implements CoronataFullObserver {
 
 	private final ProjectProperties projectProperties;
 
@@ -25,7 +25,7 @@ public class NitidaConsole implements CoronataObserver {
 
 	@Override
 	public void searchStarted() {
-		System.out.println("Searching for Wiimote...");
+		System.out.println("Searching for Wii Remote...");
 	}
 
 	@Override
@@ -34,8 +34,8 @@ public class NitidaConsole implements CoronataObserver {
 	}
 
 	@Override
-	public void wiimoteIdentified() {
-		System.out.println("Found Wiimote. Connecting...");
+	public void wiiRemoteIdentified() {
+		System.out.println("Found Wii Remote. Connecting...");
 	}
 
 	@Override
@@ -44,12 +44,12 @@ public class NitidaConsole implements CoronataObserver {
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
-		System.out.println("Device at " + address + " identified as not Wiimote");
+	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
+		System.out.println("Device at " + address + " identified as not Wii Remote");
 	}
 
 	@Override
-	public void wiimoteConnected(Wiimote wiimote) {
+	public void wiiRemoteConnected(WiiRemote wiiRemote) {
 		System.out.println("Connected. Remote control is active!");
 	}
 

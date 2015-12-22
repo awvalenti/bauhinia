@@ -4,18 +4,18 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.WiimoteButton;
-import com.github.awvalenti.bauhinia.coronata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiimoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
-public class NitidaModel implements NitidaControllable, CoronataWiimoteConnectionObserver,
-		CoronataWiimoteFullListener {
+public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnectionObserver,
+		WiiRemoteFullListener {
 
 	private final Robot robot;
 	private final KeyMapping mapping;
-	private WiimoteConnector connector;
+	private CoronataConnector connector;
 
 	public NitidaModel(CoronataBuilderStep3 builder) {
 		try {
@@ -24,10 +24,10 @@ public class NitidaModel implements NitidaControllable, CoronataWiimoteConnectio
 			throw new RuntimeException(e);
 		}
 		this.mapping = new KeyMapping();
-		builder.wiimoteConnectionObserver(this).buttonListener(this);
+		builder.wiiRemoteConnectionObserver(this).buttonListener(this);
 	}
 
-	public void setConnector(WiimoteConnector connector) {
+	public void setConnector(CoronataConnector connector) {
 		this.connector = connector;
 	}
 
@@ -37,22 +37,22 @@ public class NitidaModel implements NitidaControllable, CoronataWiimoteConnectio
 	}
 
 	@Override
-	public void wiimoteConnected(Wiimote wiimote) {
-		wiimote.turnLedOn(0);
+	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+		wiiRemote.turnLedOn(0);
 	}
 
 	@Override
-	public void buttonPressed(WiimoteButton button) {
+	public void buttonPressed(WiiRemoteButton button) {
 		robot.keyPress(mapping.keycodeFor(button));
 	}
 
 	@Override
-	public void buttonReleased(WiimoteButton button) {
+	public void buttonReleased(WiiRemoteButton button) {
 		robot.keyRelease(mapping.keycodeFor(button));
 	}
 
 	@Override
-	public void wiimoteDisconnected() {
+	public void wiiRemoteDisconnected() {
 	}
 
 }

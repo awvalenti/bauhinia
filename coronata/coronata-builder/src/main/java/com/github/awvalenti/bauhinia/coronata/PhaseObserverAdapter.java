@@ -1,28 +1,28 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.Phase.*;
+import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.*;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
-import com.github.awvalenti.bauhinia.coronata.Phase;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
-class PhaseObserverAdapter implements CoronataObserver {
+class PhaseObserverAdapter implements CoronataFullObserver {
 
 	private final CoronataPhaseObserver output;
 
-	private Phase currentPhase;
+	private CoronataPhase currentPhase;
 	private boolean identified;
 
 	public PhaseObserverAdapter(CoronataPhaseObserver output) {
 		this.output = output;
 	}
 
-	private void moveToPhase(Phase phase) {
-		output.running(phase);
-		currentPhase = phase;
+	private void moveToPhase(CoronataPhase coronataPhase) {
+		output.running(coronataPhase);
+		currentPhase = coronataPhase;
 	}
 
 	@Override
@@ -34,7 +34,7 @@ class PhaseObserverAdapter implements CoronataObserver {
 	@Override
 	public void librariesLoaded() {
 		output.success(LOAD_LIBRARIES);
-		moveToPhase(FIND_WIIMOTE);
+		moveToPhase(FIND_WII_REMOTE);
 	}
 
 	@Override
@@ -50,25 +50,25 @@ class PhaseObserverAdapter implements CoronataObserver {
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
+	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
 	}
 
 	@Override
-	public void wiimoteIdentified() {
+	public void wiiRemoteIdentified() {
 		identified = true;
-		output.success(FIND_WIIMOTE);
-		moveToPhase(CONNECT_TO_WIIMOTE);
+		output.success(FIND_WII_REMOTE);
+		moveToPhase(CONNECT_TO_WII_REMOTE);
 	}
 
 	@Override
-	public void wiimoteConnected(Wiimote wiimote) {
-		output.success(CONNECT_TO_WIIMOTE);
+	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+		output.success(CONNECT_TO_WII_REMOTE);
 	}
 
 	@Override
 	public void searchFinished() {
 		// TODO Provide failure information
-		if (!identified) output.failure(FIND_WIIMOTE, new CoronataFailure(new Exception(), ""));
+		if (!identified) output.failure(FIND_WII_REMOTE, new CoronataFailure(new Exception(), ""));
 	}
 
 	@Override

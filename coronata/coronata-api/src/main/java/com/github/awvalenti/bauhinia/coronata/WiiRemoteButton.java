@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public enum WiimoteButton {
+public enum WiiRemoteButton {
 
 	UP   (2, 0x08),
 	DOWN (2, 0x04),
@@ -18,13 +18,13 @@ public enum WiimoteButton {
 	private final int byteIndex;
 	private final int byteValue;
 
-	private WiimoteButton(int byteIndex, int byteValue) {
+	private WiiRemoteButton(int byteIndex, int byteValue) {
 		this.byteIndex = byteIndex;
 		this.byteValue = byteValue;
 	}
 
-	boolean isPressedAccordingTo(byte[] dataReadFromWiimote) {
-		return (dataReadFromWiimote[byteIndex] & byteValue) != 0;
+	boolean isPressedAccordingTo(byte[] dataReadFromWiiRemote) {
+		return (dataReadFromWiiRemote[byteIndex] & byteValue) != 0;
 	}
 
 }

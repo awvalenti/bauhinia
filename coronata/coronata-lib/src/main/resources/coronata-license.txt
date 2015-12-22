@@ -1,7 +1,7 @@
 Project information and source code available at:
   https://github.com/awvalenti/bauhinia
 
-coronata - A cross-platform and easy to use Java Wiimote library
+coronata - A cross-platform and easy to use Java Wii Remote library
 Copyright (C) 2015  Andre Willik Valenti
 
 This program is free software: you can redistribute it and/or modify

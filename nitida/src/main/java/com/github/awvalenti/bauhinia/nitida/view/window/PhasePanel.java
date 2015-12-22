@@ -7,21 +7,21 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
-import com.github.awvalenti.bauhinia.coronata.Phase;
+import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Map<Phase, PhaseIndication> map = new HashMap<Phase, PhaseIndication>();
+	private final Map<CoronataPhase, PhaseIndication> map = new HashMap<CoronataPhase, PhaseIndication>();
 
 	public PhasePanel() {
-		super(new GridLayout(Phase.values().length, 1));
+		super(new GridLayout(CoronataPhase.values().length, 1));
 
-		for (Phase phase : Phase.values()) {
-			PhaseIndication indication = new PhaseIndication(phase.toString());
-			map.put(phase, indication);
+		for (CoronataPhase coronataPhase : CoronataPhase.values()) {
+			PhaseIndication indication = new PhaseIndication(coronataPhase.toString());
+			map.put(coronataPhase, indication);
 			add(indication);
 		}
 	}
@@ -34,18 +34,18 @@ public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 	}
 
 	@Override
-	public void running(Phase phase) {
-		map.get(phase).setState(PhaseState.RUNNING);
+	public void running(CoronataPhase coronataPhase) {
+		map.get(coronataPhase).setState(PhaseState.RUNNING);
 	}
 
 	@Override
-	public void success(Phase phase) {
-		map.get(phase).setState(PhaseState.SUCCESS);
+	public void success(CoronataPhase coronataPhase) {
+		map.get(coronataPhase).setState(PhaseState.SUCCESS);
 	}
 
 	@Override
-	public void failure(Phase phase, CoronataFailure failure) {
-		map.get(phase).setState(PhaseState.FAILURE);
+	public void failure(CoronataPhase coronataPhase, CoronataFailure failure) {
+		map.get(coronataPhase).setState(PhaseState.FAILURE);
 	}
 
 }

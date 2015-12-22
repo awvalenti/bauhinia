@@ -1,9 +1,9 @@
 package com.github.awvalenti.bauhinia.coronata.observers;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 
-public interface CoronataObserver {
+public interface CoronataFullObserver {
 
 	void coronataStarted();
 
@@ -15,11 +15,11 @@ public interface CoronataObserver {
 
 	void deviceRejectedIdentification(String address, String deviceClass);
 
-	void deviceIdentifiedAsNotWiimote(String address, String deviceClass);
+	void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass);
 
-	void wiimoteIdentified();
+	void wiiRemoteIdentified();
 
-	void wiimoteConnected(Wiimote wiimote);
+	void wiiRemoteConnected(WiiRemote wiiRemote);
 
 	void searchFinished();
 

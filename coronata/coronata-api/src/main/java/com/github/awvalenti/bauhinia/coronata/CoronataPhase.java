@@ -1,12 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public enum Phase {
+public enum CoronataPhase {
 
 	LOAD_LIBRARIES,
 
-	FIND_WIIMOTE,
+	FIND_WII_REMOTE,
 
-	CONNECT_TO_WIIMOTE,
+	CONNECT_TO_WII_REMOTE,
 
 	;
 

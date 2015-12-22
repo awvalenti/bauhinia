@@ -4,17 +4,17 @@ import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 
-class L2CAPWiimote implements Wiimote {
+class L2CAPWiiRemote implements WiiRemote {
 
 	private final L2CAPConnection output;
 
 	private byte litLedIndex = -1;
 	private byte vibrationState = 0x00;
 
-	public L2CAPWiimote(L2CAPConnection input, L2CAPConnection output, CoronataWiimoteFullListener listener) {
+	public L2CAPWiiRemote(L2CAPConnection input, L2CAPConnection output, WiiRemoteFullListener listener) {
 		this.output = output;
 		new ButtonHandlerThread(input, output, listener).start();
 	}
@@ -38,10 +38,10 @@ class L2CAPWiimote implements Wiimote {
 	}
 
 	private void realizeLedAndOrVibration() {
-		sendDataToWiimote((byte) 0x11, new byte[] { (byte) (vibrationState | (1 << (litLedIndex + 4))) });
+		sendDataToWiiRemote((byte) 0x11, new byte[] { (byte) (vibrationState | (1 << (litLedIndex + 4))) });
 	}
 
-	private void sendDataToWiimote(byte commandCode, byte[] data) {
+	private void sendDataToWiiRemote(byte commandCode, byte[] data) {
 		byte[] dataWithExtraBytes = new byte[2 + data.length];
 		dataWithExtraBytes[0] = 0x52;
 		dataWithExtraBytes[1] = commandCode;
@@ -50,7 +50,7 @@ class L2CAPWiimote implements Wiimote {
 			output.send(dataWithExtraBytes);
 		} catch (IOException e) {
 			// This should happen only if user tries to send data to
-			// an already disconnected Wiimote. The exception is ignored.
+			// an already disconnected Wii Remote. The exception is ignored.
 		}
 	}
 

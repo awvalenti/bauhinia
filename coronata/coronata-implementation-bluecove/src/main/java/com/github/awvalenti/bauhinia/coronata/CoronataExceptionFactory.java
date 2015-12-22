@@ -57,7 +57,7 @@ class CoronataExceptionFactory {
 		return connectionRefused(e);
 	}
 
-	public static CoronataException wiimoteRejectedConnection(IOException e) {
+	public static CoronataException wiiRemoteRejectedConnection(IOException e) {
 		return connectionRefused(e);
 	}
 

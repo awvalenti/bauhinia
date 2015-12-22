@@ -3,21 +3,21 @@ package com.github.awvalenti.bauhinia.coronata;
 import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
-import com.github.awvalenti.bauhinia.coronata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
-class BlueCoveWiimoteConnector implements WiimoteConnector {
+class BlueCoveConnector implements CoronataConnector {
 
 	private final ReadableCoronataConfig config;
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	public BlueCoveWiimoteConnector(ReadableCoronataConfig config) {
+	public BlueCoveConnector(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
 	@Override
 	public void run() {
-		CoronataObserver observer = config.getCoronataObserver();
+		CoronataFullObserver observer = config.getCoronataObserver();
 		observer.coronataStarted();
 
 		try {
@@ -25,7 +25,7 @@ class BlueCoveWiimoteConnector implements WiimoteConnector {
 			observer.librariesLoaded();
 
 			Object monitor = new Object();
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(config.getWiimoteListener(),
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(config.getWiiRemoteListener(),
 					observer, monitor));
 			observer.searchStarted();
 

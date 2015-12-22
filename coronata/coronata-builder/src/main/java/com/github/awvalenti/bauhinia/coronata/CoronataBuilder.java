@@ -1,13 +1,13 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.BlueCoveWiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.WiiuseJWiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataButtonListener;
+import com.github.awvalenti.bauhinia.coronata.BlueCoveConnector;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
+import com.github.awvalenti.bauhinia.coronata.WiiuseJConnector;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiimoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 		CoronataBuilderStep3 {
@@ -27,25 +27,25 @@ class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 	}
 
 	@Override
-	public CoronataBuilderStep3 oneWiimote() {
-		config.setWiimotesExpected(1);
+	public CoronataBuilderStep3 oneWiiRemote() {
+		config.setWiiRemotesExpected(1);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 buttonListener(CoronataButtonListener listener) {
+	public CoronataBuilderStep3 buttonListener(WiiRemoteButtonListener listener) {
 		config.addButtonListener(new ButtonListenerAdapter(listener));
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 wiimoteConnectionObserver(CoronataWiimoteConnectionObserver o) {
-		config.addObserver(new WiimoteConnectionObserverAdapter(o));
+	public CoronataBuilderStep3 wiiRemoteConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
+		config.addObserver(new WiiRemoteConnectionObserverAdapter(o));
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 fullObserver(CoronataObserver o) {
+	public CoronataBuilderStep3 fullObserver(CoronataFullObserver o) {
 		config.addObserver(o);
 		return this;
 	}
@@ -57,22 +57,14 @@ class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 	}
 
 	@Override
-	public CoronataBuilderStep3 observers(CoronataObserver... observers) {
-		for (CoronataObserver o : observers) {
-			config.addObserver(o);
-		}
-		return this;
-	}
-
-	@Override
 	public CoronataBuilderStep3 connectionStateObserver(CoronataConnectionStateObserver o) {
 		config.addObserver(new ConnectionStateObserverAdapter(o));
 		return this;
 	}
 
 	@Override
-	public WiimoteConnector build() {
-		return isWindows() ? new WiiuseJWiimoteConnector(config) : new BlueCoveWiimoteConnector(
+	public CoronataConnector build() {
+		return isWindows() ? new WiiuseJConnector(config) : new BlueCoveConnector(
 				config);
 	}
 

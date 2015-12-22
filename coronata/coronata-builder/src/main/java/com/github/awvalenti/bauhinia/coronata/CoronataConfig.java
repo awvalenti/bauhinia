@@ -1,13 +1,13 @@
 package com.github.awvalenti.bauhinia.coronata;
 
 import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class CoronataConfig implements ReadableCoronataConfig {
 
 	private Boolean synchronous;
-	private Integer wiimotesExpected;
+	private Integer wiiRemotesExpected;
 	private CompositeListener compositeListener = new CompositeListener();
 	private CompositeObserver compositeObserver = new CompositeObserver();
 
@@ -21,29 +21,29 @@ class CoronataConfig implements ReadableCoronataConfig {
 	}
 
 	@Override
-	public int getWiimotesExpected() {
-		return wiimotesExpected;
+	public int getWiiRemotesExpected() {
+		return wiiRemotesExpected;
 	}
 
-	public void setWiimotesExpected(int wiimotesExpected) {
-		this.wiimotesExpected = wiimotesExpected;
+	public void setWiiRemotesExpected(int wiiRemotesExpected) {
+		this.wiiRemotesExpected = wiiRemotesExpected;
 	}
 
 	@Override
-	public CoronataWiimoteFullListener getWiimoteListener() {
+	public WiiRemoteFullListener getWiiRemoteListener() {
 		return compositeListener;
 	}
 
-	public void addButtonListener(CoronataWiimoteFullListener l) {
+	public void addButtonListener(WiiRemoteFullListener l) {
 		compositeListener.addListener(l);
 	}
 
-	public void addObserver(CoronataObserver o) {
+	public void addObserver(CoronataFullObserver o) {
 		compositeObserver.add(o);
 	}
 
 	@Override
-	public CoronataObserver getCoronataObserver() {
+	public CoronataFullObserver getCoronataObserver() {
 		return compositeObserver;
 	}
 

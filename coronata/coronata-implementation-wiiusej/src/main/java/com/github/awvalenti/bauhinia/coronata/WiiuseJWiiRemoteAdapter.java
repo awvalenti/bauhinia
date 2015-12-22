@@ -1,10 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.WiimoteButton.*;
+import static com.github.awvalenti.bauhinia.coronata.WiiRemoteButton.*;
+import wiiusej.Wiimote;
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
 import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
 import wiiusej.wiiusejevents.physicalevents.WiimoteButtonsEvent;
+import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.ClassicControllerInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.ClassicControllerRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.DisconnectionEvent;
@@ -14,16 +16,15 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 
-class WiiuseJWiimoteAdapter implements Wiimote {
+class WiiuseJWiiRemoteAdapter implements WiiRemote {
 
-	private final wiiusej.Wiimote wiiusejWiimote;
+	private final Wiimote wiiusejWiimote;
 
-	public WiiuseJWiimoteAdapter(wiiusej.Wiimote wiiusejWiimote, CoronataWiimoteFullListener listener) {
+	public WiiuseJWiiRemoteAdapter(Wiimote wiiusejWiimote, WiiRemoteFullListener listener) {
 		this.wiiusejWiimote = wiiusejWiimote;
-		wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(listener));
+		this.wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(listener));
 	}
 
 	@Override
@@ -42,22 +43,22 @@ class WiiuseJWiimoteAdapter implements Wiimote {
 		wiiusejWiimote.deactivateRumble();
 	}
 
-	private static class WiiuseJEventListener implements wiiusej.wiiusejevents.utils.WiimoteListener {
+	private static class WiiuseJEventListener implements WiimoteListener {
 
-		private final CoronataWiimoteFullListener listener;
+		private final WiiRemoteFullListener listener;
 
-		private WiiuseJEventListener(CoronataWiimoteFullListener listener) {
+		private WiiuseJEventListener(WiiRemoteFullListener listener) {
 			this.listener = listener;
 		}
 
 		@Override
 		public void onDisconnectionEvent(DisconnectionEvent arg0) {
-			listener.wiimoteDisconnected();
+			listener.wiiRemoteDisconnected();
 		}
 
 		@Override
 		public void onButtonsEvent(WiimoteButtonsEvent wiiusejEvent) {
-			// We don't have many options here, except to check every button separately
+			// Although ugly, we really have to check every button separately
 
 			if (wiiusejEvent.isButtonUpJustPressed()) listener.buttonPressed(UP);
 			if (wiiusejEvent.isButtonDownJustPressed()) listener.buttonPressed(DOWN);

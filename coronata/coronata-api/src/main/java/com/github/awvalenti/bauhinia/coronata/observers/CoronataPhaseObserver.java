@@ -1,16 +1,16 @@
 package com.github.awvalenti.bauhinia.coronata.observers;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
-import com.github.awvalenti.bauhinia.coronata.Phase;
+import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
 
 public interface CoronataPhaseObserver {
 
 	void starting();
 
-	void running(Phase phase);
+	void running(CoronataPhase coronataPhase);
 
-	void success(Phase phase);
+	void success(CoronataPhase coronataPhase);
 
-	void failure(Phase phase, CoronataFailure failure);
+	void failure(CoronataPhase coronataPhase, CoronataFailure failure);
 
 }

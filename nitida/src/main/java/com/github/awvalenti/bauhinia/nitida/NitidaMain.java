@@ -32,7 +32,7 @@ public class NitidaMain {
 	private static void runNitidaWindow() {
 		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
 				.asynchronous()
-				.oneWiimote();
+				.oneWiiRemote();
 
 		NitidaModel model = new NitidaModel(builder);
 
@@ -63,7 +63,7 @@ public class NitidaMain {
 
 		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
 				.synchronous()
-				.oneWiimote();
+				.oneWiiRemote();
 
 		NitidaModel model = new NitidaModel(builder);
 

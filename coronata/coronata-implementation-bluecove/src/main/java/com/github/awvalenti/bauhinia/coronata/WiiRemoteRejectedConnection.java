@@ -2,11 +2,11 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import java.io.IOException;
 
-class WiimoteRejectedConnection extends Exception {
+class WiiRemoteRejectedConnection extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public WiimoteRejectedConnection(IOException e) {
+	public WiiRemoteRejectedConnection(IOException e) {
 		super(e);
 	}
 

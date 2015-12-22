@@ -1,29 +1,29 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.WiimoteButton;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataButtonListener;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 
-public class ButtonListenerAdapter implements CoronataWiimoteFullListener {
+public class ButtonListenerAdapter implements WiiRemoteFullListener {
 
-	private final CoronataButtonListener output;
+	private final WiiRemoteButtonListener output;
 
-	public ButtonListenerAdapter(CoronataButtonListener output) {
+	public ButtonListenerAdapter(WiiRemoteButtonListener output) {
 		this.output = output;
 	}
 
 	@Override
-	public void buttonPressed(WiimoteButton button) {
+	public void buttonPressed(WiiRemoteButton button) {
 		output.buttonPressed(button);
 	}
 
 	@Override
-	public void buttonReleased(WiimoteButton button) {
+	public void buttonReleased(WiiRemoteButton button) {
 		output.buttonReleased(button);
 	}
 
 	@Override
-	public void wiimoteDisconnected() {
+	public void wiiRemoteDisconnected() {
 	}
 
 }

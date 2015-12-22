@@ -4,83 +4,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
-class CompositeObserver implements CoronataObserver {
+class CompositeObserver implements CoronataFullObserver {
 
-	private final List<CoronataObserver> all = new ArrayList<CoronataObserver>();
+	private final List<CoronataFullObserver> all = new ArrayList<CoronataFullObserver>();
 
-	public void add(CoronataObserver eventListener) {
+	public void add(CoronataFullObserver eventListener) {
 		all.add(eventListener);
 	}
 
 	@Override
 	public void coronataStarted() {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.coronataStarted();
 		}
 	}
 
 	@Override
 	public void librariesLoaded() {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.librariesLoaded();
 		}
 	}
 
 	@Override
 	public void searchStarted() {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.searchStarted();
 		}
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.bluetoothDeviceFound(address, deviceClass);
 		}
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.deviceRejectedIdentification(address, deviceClass);
 		}
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
-		for (CoronataObserver l : all) {
-			l.deviceIdentifiedAsNotWiimote(address, deviceClass);
+	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
+		for (CoronataFullObserver l : all) {
+			l.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 		}
 	}
 
 	@Override
-	public void wiimoteIdentified() {
-		for (CoronataObserver l : all) {
-			l.wiimoteIdentified();
+	public void wiiRemoteIdentified() {
+		for (CoronataFullObserver l : all) {
+			l.wiiRemoteIdentified();
 		}
 	}
 
 	@Override
-	public void wiimoteConnected(Wiimote wiimote) {
-		for (CoronataObserver l : all) {
-			l.wiimoteConnected(wiimote);
+	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+		for (CoronataFullObserver l : all) {
+			l.wiiRemoteConnected(wiiRemote);
 		}
 	}
 
 	@Override
 	public void searchFinished() {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.searchFinished();
 		}
 	}
 
 	@Override
 	public void errorOccurred(CoronataException e) {
-		for (CoronataObserver l : all) {
+		for (CoronataFullObserver l : all) {
 			l.errorOccurred(e);
 		}
 	}

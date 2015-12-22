@@ -2,22 +2,19 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
-class ConnectionStateObserverAdapter implements CoronataFullObserver {
+class WiiRemoteConnectionObserverAdapter implements CoronataFullObserver {
 
-	private final CoronataConnectionStateObserver output;
-	private boolean connected = false;
+	private final CoronataWiiRemoteConnectionObserver output;
 
-	public ConnectionStateObserverAdapter(CoronataConnectionStateObserver output) {
+	public WiiRemoteConnectionObserverAdapter(CoronataWiiRemoteConnectionObserver output) {
 		this.output = output;
-		output.enteredIdleState();
 	}
 
 	@Override
 	public void coronataStarted() {
-		output.enteredInProcessState();
 	}
 
 	@Override
@@ -46,18 +43,15 @@ class ConnectionStateObserverAdapter implements CoronataFullObserver {
 
 	@Override
 	public void wiiRemoteConnected(WiiRemote wiiRemote) {
-		connected = true;
-		output.enteredConnectedState();
+		output.wiiRemoteConnected(wiiRemote);
 	}
 
 	@Override
 	public void searchFinished() {
-		if (!connected) output.enteredIdleState();
 	}
 
 	@Override
 	public void errorOccurred(CoronataException e) {
-		output.enteredIdleState();
 	}
 
 }

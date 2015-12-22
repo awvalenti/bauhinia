@@ -6,11 +6,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
 
-public class LogPanel extends JPanel implements CoronataObserver {
+public class LogPanel extends JPanel implements CoronataFullObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class LogPanel extends JPanel implements CoronataObserver {
 
 	@Override
 	public void searchStarted() {
-		append("Searching for Wiimote...");
+		append("Searching for Wii Remote...");
 	}
 
 	@Override
@@ -50,17 +50,17 @@ public class LogPanel extends JPanel implements CoronataObserver {
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiimote(String address, String deviceClass) {
-		append("Device at " + address + " identified as not Wiimote");
+	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
+		append("Device at " + address + " identified as not Wii Remote");
 	}
 
 	@Override
-	public void wiimoteIdentified() {
-		append("Found Wiimote. Connecting...");
+	public void wiiRemoteIdentified() {
+		append("Found Wii Remote. Connecting...");
 	}
 
 	@Override
-	public void wiimoteConnected(Wiimote wiimote) {
+	public void wiiRemoteConnected(WiiRemote wiiRemote) {
 		append("Connected. Remote control is active!");
 	}
 

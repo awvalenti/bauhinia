@@ -5,22 +5,22 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.coronata.Wiimote;
-import com.github.awvalenti.bauhinia.coronata.listeners.CoronataWiimoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class BlueCoveListener implements DiscoveryListener {
 
-	private final L2CAPWiimoteFactory factory = new L2CAPWiimoteFactory();
+	private final L2CAPWiiRemoteFactory factory = new L2CAPWiiRemoteFactory();
 	private final BluetoothDeviceIdentifier deviceIdentifier = new BluetoothDeviceIdentifier();
 
-	private final CoronataObserver observer;
-	private final CoronataWiimoteFullListener wiimoteListener;
+	private final CoronataFullObserver observer;
+	private final WiiRemoteFullListener wiiRemoteListener;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(CoronataWiimoteFullListener wiimoteListener,
-			final CoronataObserver observer, final Object monitor) {
-		this.wiimoteListener = wiimoteListener;
+	public BlueCoveListener(WiiRemoteFullListener wiiRemoteListener,
+			final CoronataFullObserver observer, final Object monitor) {
+		this.wiiRemoteListener = wiiRemoteListener;
 		this.observer = observer;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
 			@Override
@@ -61,19 +61,19 @@ class BlueCoveListener implements DiscoveryListener {
 		observer.bluetoothDeviceFound(address, deviceClass);
 
 		try {
-			deviceIdentifier.assertDeviceIsWiimote(device);
-			observer.wiimoteIdentified();
-			Wiimote wiimote = factory.createWiimote(device, wiimoteListener);
-			observer.wiimoteConnected(wiimote);
+			deviceIdentifier.assertDeviceIsWiiRemote(device);
+			observer.wiiRemoteIdentified();
+			WiiRemote wiiRemote = factory.createWiiRemote(device, wiiRemoteListener);
+			observer.wiiRemoteConnected(wiiRemote);
 
 		} catch (DeviceRejectedIdentification e) {
 			observer.deviceRejectedIdentification(address, deviceClass);
 
 		} catch (IdentifiedAnotherDevice e) {
-			observer.deviceIdentifiedAsNotWiimote(address, deviceClass);
+			observer.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 
-		} catch (WiimoteRejectedConnection e) {
-			observer.errorOccurred(CoronataExceptionFactory.wiimoteRejectedConnection(e.getCause()));
+		} catch (WiiRemoteRejectedConnection e) {
+			observer.errorOccurred(CoronataExceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
 		}
 
 	}

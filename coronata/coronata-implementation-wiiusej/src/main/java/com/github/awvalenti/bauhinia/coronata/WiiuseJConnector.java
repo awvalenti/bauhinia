@@ -1,17 +1,15 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
-import com.github.awvalenti.bauhinia.coronata.WiimoteConnector;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataObserver;
-
 import wiiusej.WiiUseApiManager;
+import wiiusej.Wiimote;
 
-class WiiuseJWiimoteConnector implements WiimoteConnector {
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+
+class WiiuseJConnector implements CoronataConnector {
 
 	private final ReadableCoronataConfig config;
 
-	public WiiuseJWiimoteConnector(ReadableCoronataConfig config) {
+	public WiiuseJConnector(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
@@ -28,7 +26,7 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		else new Thread(task).start();
 	}
 
-	private void doSearch(final CoronataObserver observer) {
+	private void doSearch(final CoronataFullObserver observer) {
 		observer.coronataStarted();
 
 		try {
@@ -55,11 +53,11 @@ class WiiuseJWiimoteConnector implements WiimoteConnector {
 		}
 
 		observer.searchStarted();
-		wiiusej.Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(
-				config.getWiimotesExpected(), false);
-		if (wiimotesFound.length > 0) observer.wiimoteIdentified();
-		for (wiiusej.Wiimote w : wiimotesFound) {
-			observer.wiimoteConnected(new WiiuseJWiimoteAdapter(w, config.getWiimoteListener()));
+		Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.getWiiRemotesExpected(),
+				false);
+		if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
+		for (Wiimote w : wiimotesFound) {
+			observer.wiiRemoteConnected(new WiiuseJWiiRemoteAdapter(w, config.getWiiRemoteListener()));
 		}
 		observer.searchFinished();
 	}
