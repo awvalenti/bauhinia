@@ -52,10 +52,8 @@ On ```<version>```, put either a git tag correponding to a released version (whi
 
 If you use Eclipse, sometimes the Maven plugin is unable to download JAR files properly from JitPack. If that happens, please try running ```mvn install``` from the command line and then updating Maven project on Eclipse (```right-click on the project > Maven > Update Project...```).
 
-### How to use
-To learn how to use coronata, take a look at [coronata-demos](coronata-demos) and/or [nitida](../nitida). You will find real and up-to-date code.
-
-There are many types of observers that you can use. Each one is optimized for a particular use. Just examine the methods from the builder and you will find them.
+### Usage
+To learn how to use coronata, take a look at source code from the [coronata-demos](coronata-demos) module and/or the [nitida](../nitida) project. You will find real and up-to-date code.
 
 ## Dependencies
 - [awvalenti/wiiusej](https://github.com/awvalenti/wiiusej)
