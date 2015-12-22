@@ -1,11 +1,8 @@
-package com.github.awvalenti.bauhinia.nitida;
+package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
-
-import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
-import com.github.awvalenti.bauhinia.nitida.view.window.HelpPanel;
 
 public class UserInputPanel extends JPanel {
 

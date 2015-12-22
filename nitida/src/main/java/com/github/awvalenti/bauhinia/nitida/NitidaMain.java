@@ -15,6 +15,7 @@ import com.github.awvalenti.bauhinia.nitida.view.window.ConnectionStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.NitidaWindow;
 import com.github.awvalenti.bauhinia.nitida.view.window.PhasePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.RetryButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.UserInputPanel;
 
 public class NitidaMain {
 

@@ -5,7 +5,6 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 
-import com.github.awvalenti.bauhinia.nitida.UserInputPanel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
 public class NitidaWindow {
