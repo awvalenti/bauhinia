@@ -1,5 +1,5 @@
 # nitida
-![Screenshot of nitida window](doc/nitida-screenshot.gif)
+<img alt="Screenshot of nitida window" src="doc/nitida-screenshot.gif" width="320" height="520">
 
 A portable remote controller application, built on top of
 [coronata](../coronata).
