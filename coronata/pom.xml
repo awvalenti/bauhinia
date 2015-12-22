@@ -17,6 +17,7 @@
 		<module>coronata-api</module>
 		<module>coronata-builder</module>
 		<module>coronata-common</module>
+		<module>coronata-demos</module>
 		<module>coronata-implementation-bluecove</module>
 		<module>coronata-implementation-wiiusej</module>
 		<module>coronata-lib</module>
