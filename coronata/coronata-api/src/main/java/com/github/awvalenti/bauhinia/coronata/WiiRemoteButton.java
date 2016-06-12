@@ -23,6 +23,10 @@ public enum WiiRemoteButton {
 		this.byteValue = byteValue;
 	}
 
+	// This method is not actually part of the API. It is here only
+	// for implementation convenience. For this reason, it was given
+	// package-level access. This prevents it from being called by the
+	// client of coronata.
 	boolean isPressedAccordingTo(byte[] dataReadFromWiiRemote) {
 		return (dataReadFromWiiRemote[byteIndex] & byteValue) != 0;
 	}
