@@ -14,13 +14,13 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 class BlueCoveListener implements DiscoveryListener {
 
 	private final L2CAPWiiRemoteFactory wiiRemotefactory = new L2CAPWiiRemoteFactory();
-	private final CoronataExceptionFactory exceptionFactory;
+	private final CoronataBlueCoveExceptionFactory exceptionFactory;
 
 	private final WiiRemoteFullListener wiiRemoteListener;
 	private final CoronataFullObserver observer;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(CoronataExceptionFactory exceptionFactory,
+	public BlueCoveListener(CoronataBlueCoveExceptionFactory exceptionFactory,
 			WiiRemoteFullListener wiiRemoteListener, final CoronataFullObserver observer,
 			final Object monitor) {
 		this.exceptionFactory = exceptionFactory;

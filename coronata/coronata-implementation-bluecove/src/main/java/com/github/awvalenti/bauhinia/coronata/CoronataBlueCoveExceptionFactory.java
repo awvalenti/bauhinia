@@ -6,33 +6,33 @@ import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 
-class CoronataExceptionFactory {
+class CoronataBlueCoveExceptionFactory {
 
-	public CoronataException wiiRemoteRejectedConnection(IOException e) {
-		return new CoronataException(e, ""
-				+ "Connection refused. Details: " + e
+	public CoronataException wiiRemoteRejectedConnection(IOException cause) {
+		return new CoronataException(cause, ""
+				+ "Connection refused. Details: " + cause
 				+ "");
 	}
 
-	public CoronataException forBlueCoveException(BluetoothStateException e) {
-		String errorMsg = e.getMessage().toLowerCase();
+	public CoronataException correspondingTo(BluetoothStateException cause) {
+		String errorMsg = cause.getMessage().toLowerCase();
 
 		if (errorMsg.contains("librar") && errorMsg.contains("not available")) {
-			return problemLoadingLibraries(e);
+			return problemLoadingLibraries(cause);
 
 		} else if (errorMsg.contains("device is not available") || errorMsg.contains("stack not detected")) {
-			return bluetoothAdapterIsOff(e);
+			return bluetoothAdapterIsOff(cause);
 
 		} else if (errorMsg.contains("device is not ready")) {
-			return deviceNotReady(e);
+			return deviceNotReady(cause);
 
 		} else {
-			return unknownError(e);
+			return unknownError(cause);
 		}
 	}
 
-	private CoronataException problemLoadingLibraries(BluetoothStateException e) {
-		return new CoronataException(e, ""
+	private CoronataException problemLoadingLibraries(BluetoothStateException cause) {
+		return new CoronataException(cause, ""
 				+ "Unable to load required libraries for BlueCove.\n"
 				+ "\tCheck if the requirements described here were met:"
 				+ " http://www.bluecove.org/bluecove-gpl/index.html\n"
@@ -41,20 +41,20 @@ class CoronataExceptionFactory {
 				+ "");
 	}
 
-	private CoronataException bluetoothAdapterIsOff(BluetoothStateException e) {
-		return new CoronataException(e, ""
+	private CoronataException bluetoothAdapterIsOff(BluetoothStateException cause) {
+		return new CoronataException(cause, ""
 				+ "Bluetooth adapter is unavailable. Check if it is present and turned on."
 				+ "");
 	}
 
-	private CoronataException deviceNotReady(BluetoothStateException e) {
-		return new CoronataException(e, ""
+	private CoronataException deviceNotReady(BluetoothStateException cause) {
+		return new CoronataException(cause, ""
 				+ "Bluetooth adapter is not ready. Try turning it off and on again."
 				+ "");
 	}
 
-	private CoronataException unknownError(Exception e) {
-		return new CoronataException(e, ""
+	private CoronataException unknownError(Exception cause) {
+		return new CoronataException(cause, ""
 				+ "An unknown error occured. Please check the stack trace for details."
 				+ "");
 	}

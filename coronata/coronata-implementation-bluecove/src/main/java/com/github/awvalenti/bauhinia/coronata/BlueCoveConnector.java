@@ -10,7 +10,7 @@ class BlueCoveConnector implements CoronataConnector {
 
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	private final CoronataExceptionFactory exceptionFactory = new CoronataExceptionFactory();
+	private final CoronataBlueCoveExceptionFactory exceptionFactory = new CoronataBlueCoveExceptionFactory();
 
 	private final ReadableCoronataConfig config;
 
@@ -39,7 +39,7 @@ class BlueCoveConnector implements CoronataConnector {
 			}
 
 		} catch (BluetoothStateException e) {
-			observer.errorOccurred(exceptionFactory.forBlueCoveException(e));
+			observer.errorOccurred(exceptionFactory.correspondingTo(e));
 
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);

@@ -7,6 +7,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class WiiuseJConnector implements CoronataConnector {
 
+	private final CoronataWiiusejExceptionFactory exceptionFactory = new CoronataWiiusejExceptionFactory();
+
 	private final ReadableCoronataConfig config;
 
 	public WiiuseJConnector(ReadableCoronataConfig config) {
@@ -33,21 +35,20 @@ class WiiuseJConnector implements CoronataConnector {
 			// This loads WiiuseJ classes and libraries
 			WiiUseApiManager.getInstance();
 			observer.librariesLoaded();
+
 		} catch (ExceptionInInitializerError e) {
 			// This happens if WiiuseJ fails to load native libraries for the first time.
 			// Although catching this error is not a great thing to do, for current version of
 			// WiiuseJ, it is the only alternative to find out that a problem occurred with native
 			// libraries.
 
-			// TODO Use exception factory
-			observer.errorOccurred(new CoronataException(e, "Error loading native libraries"));
+			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
 
 			return;
+
 		} catch (NoClassDefFoundError e) {
 			// This happens if WiiuseJ fails to load native libraries more than once.
-
-			// TODO Use exception factory
-			observer.errorOccurred(new CoronataException(e, "Error loading native libraries"));
+			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
 
 			return;
 		}
