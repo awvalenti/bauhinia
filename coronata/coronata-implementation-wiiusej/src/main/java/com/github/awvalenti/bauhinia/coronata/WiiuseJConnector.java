@@ -4,6 +4,7 @@ import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.wiiusej.WiiusejNativeLibrariesLoadingException;
 
 class WiiuseJConnector implements CoronataConnector {
 
@@ -31,36 +32,24 @@ class WiiuseJConnector implements CoronataConnector {
 	private void doSearch(final CoronataFullObserver observer) {
 		observer.coronataStarted();
 
+		final WiiUseApiManager wiiUseApiManager;
+
 		try {
-			// This loads WiiuseJ classes and libraries
-			WiiUseApiManager.getInstance();
+			wiiUseApiManager = new WiiUseApiManager();
 			observer.librariesLoaded();
 
-		} catch (ExceptionInInitializerError e) {
-			// This happens if WiiuseJ fails to load native libraries for the first time.
-			// Although catching this error is not a great thing to do, for current version of
-			// WiiuseJ, it is the only alternative to find out that a problem occurred with native
-			// libraries.
+			observer.searchStarted();
+			Wiimote[] wiimotesFound = wiiUseApiManager.getWiimotes(config.getWiiRemotesExpected(),
+					false);
+			if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
+			for (Wiimote w : wiimotesFound) {
+				observer.wiiRemoteConnected(new WiiuseJWiiRemoteAdapter(w, config.getWiiRemoteListener()));
+			}
+			observer.searchFinished();
 
+		} catch (WiiusejNativeLibrariesLoadingException e) {
 			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
-
-			return;
-
-		} catch (NoClassDefFoundError e) {
-			// This happens if WiiuseJ fails to load native libraries more than once.
-			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
-
-			return;
 		}
-
-		observer.searchStarted();
-		Wiimote[] wiimotesFound = WiiUseApiManager.getWiimotes(config.getWiiRemotesExpected(),
-				false);
-		if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
-		for (Wiimote w : wiimotesFound) {
-			observer.wiiRemoteConnected(new WiiuseJWiiRemoteAdapter(w, config.getWiiRemoteListener()));
-		}
-		observer.searchFinished();
 	}
 
 }
