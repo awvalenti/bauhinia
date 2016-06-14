@@ -2,7 +2,12 @@ Project information and source code available at:
   https://github.com/awvalenti/bauhinia
 
 coronata - A cross-platform and easy to use Java Wii Remote library
-Copyright (C) 2015  Andre Willik Valenti
+Copyright (C) 2015, 2016  Andre Willik Valenti
+
+coronata depends on these projects:
+  wiiusej: https://github.com/awvalenti/wiiusej
+  BlueCove: http://bluecove.org/
+  BlueCove-GPL: http://bluecove.org/bluecove-gpl/
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
