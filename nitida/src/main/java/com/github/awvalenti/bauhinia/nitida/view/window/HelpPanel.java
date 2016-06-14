@@ -37,6 +37,7 @@ public class HelpPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			JDialog dialog = new JDialog();
+			dialog.setModal(true);
 			dialog.setTitle("About");
 			dialog.setSize(600, 480);
 			dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
