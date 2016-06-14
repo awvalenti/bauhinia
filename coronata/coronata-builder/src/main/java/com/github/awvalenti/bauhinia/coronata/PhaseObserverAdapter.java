@@ -2,10 +2,6 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.*;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.CoronataFailure;
-import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
@@ -68,13 +64,13 @@ class PhaseObserverAdapter implements CoronataFullObserver {
 	@Override
 	public void searchFinished() {
 		// TODO Provide failure information
-		if (!identified) output.failure(FIND_WII_REMOTE, new CoronataFailure(new Exception(), ""));
+		if (!identified) output.failure(FIND_WII_REMOTE);
 	}
 
 	@Override
 	public void errorOccurred(CoronataException e) {
 		// TODO Provide failure information
-		output.failure(currentPhase, new CoronataFailure(e, ""));
+		output.failure(currentPhase);
 	}
 
 }

@@ -6,10 +6,22 @@ import javax.bluetooth.L2CAPConnection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 
 class L2CAPWiiRemoteFactory {
+
+	public void assertDeviceIsWiiRemote(RemoteDevice device) throws DeviceRejectedIdentification,
+			IdentifiedAnotherDevice {
+		final boolean isWiiRemote;
+
+		try {
+			isWiiRemote = device.getFriendlyName(false).startsWith("Nintendo RVL-CNT-01");
+		} catch (IOException e) {
+			throw new DeviceRejectedIdentification();
+		}
+
+		if (!isWiiRemote) throw new IdentifiedAnotherDevice();
+	}
 
 	public WiiRemote createWiiRemote(RemoteDevice device, WiiRemoteFullListener listener)
 			throws WiiRemoteRejectedConnection {
@@ -26,16 +38,34 @@ class L2CAPWiiRemoteFactory {
 
 			return new L2CAPWiiRemote(input, output, listener);
 
-		} catch (IOException e) {
-			closeConnectionIfOpen(input);
-			throw new WiiRemoteRejectedConnection(e);
+		} catch (IOException e1) {
+			try {
+				if (input != null) input.close();
+			} catch (IOException e2) {
+				// If exception happens when trying to close input, nothing can be done
+			}
+			throw new WiiRemoteRejectedConnection(e1);
 		}
 	}
 
-	private void closeConnectionIfOpen(L2CAPConnection connection) {
-		try {
-			if (connection != null) connection.close();
-		} catch (IOException e) {
+	static class IdentifiedAnotherDevice extends Exception {
+		private static final long serialVersionUID = 1L;
+	}
+
+	static class DeviceRejectedIdentification extends Exception {
+		private static final long serialVersionUID = 1L;
+	}
+
+	static class WiiRemoteRejectedConnection extends Exception {
+		private static final long serialVersionUID = 1L;
+
+		public WiiRemoteRejectedConnection(IOException e) {
+			super(e);
+		}
+
+		@Override
+		public IOException getCause() {
+			return (IOException) super.getCause();
 		}
 	}
 

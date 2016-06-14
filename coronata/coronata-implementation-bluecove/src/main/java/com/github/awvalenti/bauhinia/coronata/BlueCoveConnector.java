@@ -8,8 +8,11 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class BlueCoveConnector implements CoronataConnector {
 
-	private final ReadableCoronataConfig config;
 	private BlueCoveLibraryFacade blueCoveLib;
+
+	private final CoronataExceptionFactory exceptionFactory = new CoronataExceptionFactory();
+
+	private final ReadableCoronataConfig config;
 
 	public BlueCoveConnector(ReadableCoronataConfig config) {
 		this.config = config;
@@ -25,8 +28,8 @@ class BlueCoveConnector implements CoronataConnector {
 			observer.librariesLoaded();
 
 			Object monitor = new Object();
-			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(config.getWiiRemoteListener(),
-					observer, monitor));
+			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(exceptionFactory, config
+					.getWiiRemoteListener(), observer, monitor));
 			observer.searchStarted();
 
 			if (config.isSynchronous()) {
@@ -36,7 +39,7 @@ class BlueCoveConnector implements CoronataConnector {
 			}
 
 		} catch (BluetoothStateException e) {
-			observer.errorOccurred(CoronataExceptionFactory.correspondingTo(e));
+			observer.errorOccurred(exceptionFactory.forBlueCoveException(e));
 
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);

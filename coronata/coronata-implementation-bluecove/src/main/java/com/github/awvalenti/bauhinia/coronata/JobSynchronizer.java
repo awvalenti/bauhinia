@@ -2,8 +2,8 @@ package com.github.awvalenti.bauhinia.coronata;
 
 class JobSynchronizer {
 
-	private boolean noMoreJobs = false;
-	private int jobCount = 0;
+	private boolean finishedAddingJobs = false;
+	private int remainingJobsCount = 0;
 
 	private final Runnable onFinish;
 
@@ -11,23 +11,24 @@ class JobSynchronizer {
 		this.onFinish = onFinish;
 	}
 
-	public synchronized void newJob(final Runnable job) {
-		++jobCount;
+	public synchronized void addJob(final Runnable job) {
+		++remainingJobsCount;
 
 		new Thread() {
 			{
+				// Necessary because parent thread is daemon. If we do not set
+				// this thread as daemon=false, Java program may terminate
+				// before actually finished.
 				setDaemon(false);
 			}
 
 			@Override
 			public void run() {
 				synchronized (JobSynchronizer.this) {
-					// Runs jobs one at a time
-
 					try {
 						job.run();
 					} finally {
-						--jobCount;
+						--remainingJobsCount;
 						checkFinish();
 					}
 				}
@@ -35,13 +36,13 @@ class JobSynchronizer {
 		}.start();
 	}
 
-	public synchronized void end() {
-		noMoreJobs = true;
+	public synchronized void finishedAddingJobs() {
+		finishedAddingJobs = true;
 		checkFinish();
 	}
 
 	private void checkFinish() {
-		if (noMoreJobs && jobCount == 0) onFinish.run();
+		if (finishedAddingJobs && remainingJobsCount == 0) onFinish.run();
 	}
 
 }

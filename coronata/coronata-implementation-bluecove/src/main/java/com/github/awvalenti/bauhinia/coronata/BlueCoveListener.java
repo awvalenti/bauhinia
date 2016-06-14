@@ -5,21 +5,25 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.DeviceRejectedIdentification;
+import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.IdentifiedAnotherDevice;
+import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.WiiRemoteRejectedConnection;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class BlueCoveListener implements DiscoveryListener {
 
-	private final L2CAPWiiRemoteFactory factory = new L2CAPWiiRemoteFactory();
-	private final BluetoothDeviceIdentifier deviceIdentifier = new BluetoothDeviceIdentifier();
+	private final L2CAPWiiRemoteFactory wiiRemotefactory = new L2CAPWiiRemoteFactory();
+	private final CoronataExceptionFactory exceptionFactory;
 
-	private final CoronataFullObserver observer;
 	private final WiiRemoteFullListener wiiRemoteListener;
+	private final CoronataFullObserver observer;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(WiiRemoteFullListener wiiRemoteListener,
-			final CoronataFullObserver observer, final Object monitor) {
+	public BlueCoveListener(CoronataExceptionFactory exceptionFactory,
+			WiiRemoteFullListener wiiRemoteListener, final CoronataFullObserver observer,
+			final Object monitor) {
+		this.exceptionFactory = exceptionFactory;
 		this.wiiRemoteListener = wiiRemoteListener;
 		this.observer = observer;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
@@ -36,12 +40,11 @@ class BlueCoveListener implements DiscoveryListener {
 	@Override
 	public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
 
-		// This method, deviceDiscovered, should return immediatelly, according
-		// to BlueCove documentation. For that reason, we handle the discovery
-		// of a device in a separate thread. However, this requires
-		// synchronization.
+		// This method, deviceDiscovered, should return immediately, according
+		// to BlueCove documentation. For this reason, we handle device discoveries
+		// on separate threads. However, this requires synchronization.
 
-		synchronizer.newJob(new Runnable() {
+		synchronizer.addJob(new Runnable() {
 			@Override
 			public void run() {
 				handleDeviceDiscovered(device, clazz);
@@ -51,7 +54,7 @@ class BlueCoveListener implements DiscoveryListener {
 
 	@Override
 	public synchronized void inquiryCompleted(int reason) {
-		synchronizer.end();
+		synchronizer.finishedAddingJobs();
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
@@ -61,9 +64,9 @@ class BlueCoveListener implements DiscoveryListener {
 		observer.bluetoothDeviceFound(address, deviceClass);
 
 		try {
-			deviceIdentifier.assertDeviceIsWiiRemote(device);
+			wiiRemotefactory.assertDeviceIsWiiRemote(device);
 			observer.wiiRemoteIdentified();
-			WiiRemote wiiRemote = factory.createWiiRemote(device, wiiRemoteListener);
+			WiiRemote wiiRemote = wiiRemotefactory.createWiiRemote(device, wiiRemoteListener);
 			observer.wiiRemoteConnected(wiiRemote);
 
 		} catch (DeviceRejectedIdentification e) {
@@ -73,7 +76,7 @@ class BlueCoveListener implements DiscoveryListener {
 			observer.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 
 		} catch (WiiRemoteRejectedConnection e) {
-			observer.errorOccurred(CoronataExceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
+			observer.errorOccurred(exceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
 		}
 
 	}
