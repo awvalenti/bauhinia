@@ -6,7 +6,11 @@ Copyright (C) 2015, 2016  Andre Willik Valenti
 
 coronata depends on these projects:
   wiiusej: https://github.com/awvalenti/wiiusej
+
   BlueCove: http://bluecove.org/
+            (licensed under Apache License 2.0, whose text is available at
+             http://www.apache.org/licenses/LICENSE-2.0.txt)
+
   BlueCove-GPL: http://bluecove.org/bluecove-gpl/
 
 This program is free software: you can redistribute it and/or modify
