@@ -39,7 +39,7 @@ public class HelpPanel extends JPanel {
 			JDialog dialog = new JDialog();
 			dialog.setModal(true);
 			dialog.setTitle("About");
-			dialog.setSize(600, 480);
+			dialog.setSize(600, 500);
 			dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
 					Font.PLAIN, 14), getClass().getResource(NITIDA_LICENSE_PATH)));
 			dialog.setLocationRelativeTo(null);
