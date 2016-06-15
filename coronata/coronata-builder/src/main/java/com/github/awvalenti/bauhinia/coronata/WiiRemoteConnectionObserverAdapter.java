@@ -18,7 +18,7 @@ class WiiRemoteConnectionObserverAdapter implements CoronataFullObserver {
 	}
 
 	@Override
-	public void librariesLoaded() {
+	public void libraryLoaded() {
 	}
 
 	@Override

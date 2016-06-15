@@ -25,7 +25,7 @@ class BlueCoveConnector implements CoronataConnector {
 
 		try {
 			blueCoveLib = new BlueCoveLibraryFacade();
-			observer.librariesLoaded();
+			observer.libraryLoaded();
 
 			Object monitor = new Object();
 			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(exceptionFactory, config

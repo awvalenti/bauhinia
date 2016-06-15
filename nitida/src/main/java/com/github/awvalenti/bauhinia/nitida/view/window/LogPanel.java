@@ -31,7 +31,8 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 	}
 
 	@Override
-	public void librariesLoaded() {
+	public void libraryLoaded() {
+		append("Library loaded successfuly");
 	}
 
 	@Override

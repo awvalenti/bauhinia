@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.coronata;
 
 public enum CoronataPhase {
 
-	LOAD_LIBRARIES,
+	LOAD_LIBRARY,
 
 	FIND_WII_REMOTE,
 

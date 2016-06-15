@@ -7,7 +7,7 @@ public interface CoronataFullObserver {
 
 	void coronataStarted();
 
-	void librariesLoaded();
+	void libraryLoaded();
 
 	void searchStarted();
 

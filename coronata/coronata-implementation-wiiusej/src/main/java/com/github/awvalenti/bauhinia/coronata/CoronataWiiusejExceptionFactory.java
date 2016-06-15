@@ -4,7 +4,7 @@ class CoronataWiiusejExceptionFactory {
 
 	public CoronataException errorLoadingNativeLibraries(Throwable cause) {
 		return new CoronataException(cause, ""
-				+ "Error loading native libraries: " + cause
+				+ "Error loading library: " + cause
 				+ "");
 	}
 

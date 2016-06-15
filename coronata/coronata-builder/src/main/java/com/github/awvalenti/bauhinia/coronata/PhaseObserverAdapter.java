@@ -24,12 +24,12 @@ class PhaseObserverAdapter implements CoronataFullObserver {
 	@Override
 	public void coronataStarted() {
 		output.starting();
-		moveToPhase(LOAD_LIBRARIES);
+		moveToPhase(LOAD_LIBRARY);
 	}
 
 	@Override
-	public void librariesLoaded() {
-		output.success(LOAD_LIBRARIES);
+	public void libraryLoaded() {
+		output.success(LOAD_LIBRARY);
 		moveToPhase(FIND_WII_REMOTE);
 	}
 

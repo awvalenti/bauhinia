@@ -36,7 +36,7 @@ class WiiuseJConnector implements CoronataConnector {
 
 		try {
 			wiiUseApiManager = new WiiUseApiManager();
-			observer.librariesLoaded();
+			observer.libraryLoaded();
 
 			observer.searchStarted();
 			Wiimote[] wiimotesFound = wiiUseApiManager.getWiimotes(config.getWiiRemotesExpected(),

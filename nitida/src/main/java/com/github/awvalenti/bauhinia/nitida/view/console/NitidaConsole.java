@@ -19,8 +19,8 @@ public class NitidaConsole implements CoronataFullObserver {
 	}
 
 	@Override
-	public void librariesLoaded() {
-		System.out.println("Libraries loaded successfuly");
+	public void libraryLoaded() {
+		System.out.println("Library loaded successfuly");
 	}
 
 	@Override

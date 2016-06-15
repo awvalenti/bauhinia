@@ -23,9 +23,9 @@ class CompositeObserver implements CoronataFullObserver {
 	}
 
 	@Override
-	public void librariesLoaded() {
+	public void libraryLoaded() {
 		for (CoronataFullObserver o : all) {
-			o.librariesLoaded();
+			o.libraryLoaded();
 		}
 	}
 
