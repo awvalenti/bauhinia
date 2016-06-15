@@ -4,7 +4,7 @@ import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
-import com.github.awvalenti.wiiusej.WiiusejNativeLibrariesLoadingException;
+import com.github.awvalenti.wiiusej.WiiusejNativeLibraryLoadingException;
 
 class WiiuseJConnector implements CoronataConnector {
 
@@ -47,7 +47,7 @@ class WiiuseJConnector implements CoronataConnector {
 			}
 			observer.searchFinished();
 
-		} catch (WiiusejNativeLibrariesLoadingException e) {
+		} catch (WiiusejNativeLibraryLoadingException e) {
 			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
 		}
 	}
