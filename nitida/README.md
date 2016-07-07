@@ -36,25 +36,25 @@ Future use cases include game controller and media player controller.
     this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
 
   If you are on Mac:
-    - Please help me develop nitida! Try running the application
-    and [open an issue](https://github.com/awvalenti/bauhinia/issues/new) reporting your experience.
+    - Please help me develop nitida! Try running the application and
+    [open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
+    reporting your experience.
 
 1. From the [releases page](https://github.com/awvalenti/bauhinia/releases),
   download the latest nitida JAR file.
     
 1. To run nitida on window mode:
-  -  Double-click the downloaded JAR file. If it doesn't run, try
-  right-clicking the file and selecting
-  ```Open With > Java Runtime``` or similar. You may also start nitida via terminal:
+  - Double-click the downloaded JAR file. A window should open. If it doesn't,
+  try right-clicking the file and selecting ```Open With > Java Runtime```
+  or similar. You may also start nitida on window mode via terminal:
   ```java -jar nitida-x.y.z.jar```, where ```x.y.z``` is the appropriate version.
-
-  - A window should open and a connection
-  attempt should start. On Linux, press buttons 1 + 2 simultaneously
-  to make the Wii Remote discoverable. On Windows, it is
-  already discoverable if previously paired as explained above.
 
   To run nitida on console mode:
   - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```
+
+1. A connection attempt should start automatically. On Linux, press buttons 1 + 2
+  simultaneously to make the Wii Remote discoverable. On Windows, it should
+  already be discoverable if previously paired as explained above.
 
 ## Development
 Suggestions are welcome! Please [open an issue](../../../issues) if you have one.
