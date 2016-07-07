@@ -46,7 +46,7 @@ Future use cases include game controller and media player controller.
 1. To run nitida on window mode:
   - Double-click the downloaded JAR file. A window should open. If it doesn't,
   try right-clicking the file and selecting ```Open With > Java Runtime```
-  or similar. You may also start nitida on window mode via terminal:
+  or similar. If it still doesn't work, try via terminal:
   ```java -jar nitida-x.y.z.jar```, where ```x.y.z``` is the appropriate version.
 
   To run nitida on console mode:
