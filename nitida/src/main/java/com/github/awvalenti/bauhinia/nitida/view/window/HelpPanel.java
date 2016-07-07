@@ -14,7 +14,7 @@ public class HelpPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String NITIDA_HOW_TO_USE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida#usage";
+	private static final String NITIDA_HOW_TO_USE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida#how-to-use";
 	private static final String NITIDA_LICENSE_PATH = "/nitida-license.txt";
 
 	private final BrowserLauncher browserLauncher;
