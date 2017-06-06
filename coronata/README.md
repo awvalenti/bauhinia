@@ -6,7 +6,7 @@ A cross-platform and easy to use Java Wiimote library.
 
 ```
 coronata - A cross-platform and easy to use Java Wiimote library.
-Copyright (C) 2015  Andre Willik Valenti
+Copyright (C) 2015 - 2017  Andre Willik Valenti
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
