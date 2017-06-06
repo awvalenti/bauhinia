@@ -17,9 +17,6 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnect
 
 public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
-	private CompositeListener compositeListener = new CompositeListener();
-	private CompositeObserver compositeObserver = new CompositeObserver();
-
 	private CoronataPhase currentPhase;
 	private boolean identified = false;
 	private boolean connected = false;
@@ -29,18 +26,13 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 	private List<CoronataWiiRemoteConnectionObserver> connectionObservers = new ArrayList<CoronataWiiRemoteConnectionObserver>();
 	private List<CoronataConnectionStateObserver> connectionStateObservers = new ArrayList<CoronataConnectionStateObserver>();
 	private List<CoronataPhaseObserver> phaseStateObservers = new ArrayList<CoronataPhaseObserver>();
-
-	public void addListener(WiiRemoteFullListener l) {
-		compositeListener.addListener(l);
-	}
-
-	public void addObserver(CoronataFullObserver o) {
-		compositeObserver.add(o);
-	}
+	private List<CoronataFullObserver> fullObservers = new ArrayList<CoronataFullObserver>();
 
 	@Override
 	public void coronataStarted() {
-		compositeObserver.coronataStarted();
+		for (CoronataFullObserver o : fullObservers) {
+			o.coronataStarted();
+		}
 		for (CoronataConnectionStateObserver o : connectionStateObservers) {
 			o.enteredInProcessState();
 		}
@@ -52,7 +44,9 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	@Override
 	public void libraryLoaded() {
-		compositeObserver.libraryLoaded();
+		for (CoronataFullObserver o : fullObservers) {
+			o.libraryLoaded();
+		}
 		for (CoronataPhaseObserver o : phaseStateObservers) {
 			o.success(LOAD_LIBRARY);
 		}
@@ -61,27 +55,37 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	@Override
 	public void searchStarted() {
-		compositeObserver.searchStarted();
+		for (CoronataFullObserver o : fullObservers) {
+			o.searchStarted();
+		}
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		compositeObserver.bluetoothDeviceFound(address, deviceClass);
+		for (CoronataFullObserver o : fullObservers) {
+			o.bluetoothDeviceFound(address, deviceClass);
+		}
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		compositeObserver.deviceRejectedIdentification(address, deviceClass);
+		for (CoronataFullObserver o : fullObservers) {
+			o.deviceRejectedIdentification(address, deviceClass);
+		}
 	}
 
 	@Override
 	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		compositeObserver.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+		for (CoronataFullObserver o : fullObservers) {
+			o.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+		}
 	}
 
 	@Override
 	public void wiiRemoteIdentified() {
-		compositeObserver.wiiRemoteIdentified();
+		for (CoronataFullObserver o : fullObservers) {
+			o.wiiRemoteIdentified();
+		}
 		identified = true;
 		for (CoronataPhaseObserver o : phaseStateObservers) {
 			o.success(FIND_WII_REMOTE);
@@ -105,7 +109,9 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	@Override
 	public void searchFinished() {
-		compositeObserver.searchFinished();
+		for (CoronataFullObserver o : fullObservers) {
+			o.searchFinished();
+		}
 		
 		if (!connected) {
 			for (CoronataConnectionStateObserver o : connectionStateObservers) {
@@ -123,8 +129,9 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	@Override
 	public void errorOccurred(CoronataException e) {
-		compositeObserver.errorOccurred(e);
-		
+		for (CoronataFullObserver o : fullObservers) {
+			o.errorOccurred(e);
+		}
 		for (CoronataConnectionStateObserver o : connectionStateObservers) {
 			o.enteredIdleState();
 		}
@@ -186,7 +193,7 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 	}
 
 	public void addFullObserver(CoronataFullObserver o) {
-		compositeObserver.add(o);
+		fullObservers.add(o);
 	}
 
 	private void moveToPhase(CoronataPhase coronataPhase) {
