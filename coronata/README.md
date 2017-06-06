@@ -59,3 +59,7 @@ To learn how to use coronata, take a look at source code from ```coronata-demos`
 - [awvalenti/wiiusej](https://github.com/awvalenti/wiiusej)
 - [BlueCove](http://bluecove.org/)
 - [BlueCove-gpl](http://bluecove.org/bluecove-gpl/)
+
+## Development
+You are welcome to submit suggestions and bugs! Please [open an issue](../../../issues)
+if you have one.
