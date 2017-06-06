@@ -17,47 +17,47 @@ Future use cases include game controller and media player controller.
   - On Linux, installing a system package once
 
 ## How to use
-1. If you are on Windows:
-    - First, pair the Wii Remote. Double-click the Bluetooth icon on the
-    lower-right corner of the screen or via Control Panel.
-    Select the option to add a new device. Make the Wii Remote visible
-    by pressing buttons 1 + 2 simultaneously.
-    Add it as a paired device without using a code.
-    If the device is already added, please remove it and add it again.
-    For more information, please check
-    [this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
-    and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
-    Skip the parts dealing with the Dolphin emulator.
-
-  If you are on Linux:
-    - Install the appropriate system package as described on the
-    Requirements section of [this page](http://bluecove.org/bluecove-gpl/).
-    On Ubuntu or derivatives,
-    this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
-
-  If you are on Mac:
-    - Please help me develop nitida! Try running the application and
-    [open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
-    reporting your experience.
-
+1. Configure your computer to run nitida. The procedure varies according to your
+   operating system:
+    - Windows:
+      - Pair your Wii Remote:
+        1. Double-click the Bluetooth icon on the
+           lower-right corner of the screen or via Control Panel.
+        1. Look for Bluetooth devices already added. If the Wii Remote is there,
+        remove it.
+        1. Select the option to add a new device. Make the Wii Remote visible
+           by pressing buttons 1 + 2 simultaneously.
+        1. Add it as a paired device without using a code.         
+        1. For more information, please check
+           [this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
+           and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
+           Skip the parts dealing with the Dolphin emulator.
+    - Linux:
+      - Install the appropriate system package as described on the
+        Requirements section of [this page](http://bluecove.org/bluecove-gpl/).
+        On Ubuntu or derivatives,
+        this is accomplished by simply running ```sudo apt-get install libbluetooth-dev```.
+    - Mac:
+      - I don't have a Mac to test nitida, so I gladly accept your help to develop it!
+        Try running the application and
+        [open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
+          reporting your experience.
 1. From the [releases page](https://github.com/awvalenti/bauhinia/releases),
   download the latest nitida JAR file.
-    
 1. To run nitida on window mode:
   - Double-click the downloaded JAR file. A window should open. If it doesn't,
   try right-clicking the file and selecting ```Open With > Java Runtime```
   or similar. If it still doesn't work, try via terminal:
   ```java -jar nitida-x.y.z.jar```, where ```x.y.z``` is the appropriate version.
-
   To run nitida on console mode:
   - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```
-
 1. A connection attempt should start automatically. On Linux, press buttons 1 + 2
   simultaneously to make the Wii Remote discoverable. On Windows, it should
   already be discoverable if previously paired as explained above.
 
 ## Development
-Suggestions are welcome! Please [open an issue](../../../issues) if you have one.
+You are welcome to submit suggestions and bugs! Please [open an issue](../../../issues)
+if you have one.
 
 ## License
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
