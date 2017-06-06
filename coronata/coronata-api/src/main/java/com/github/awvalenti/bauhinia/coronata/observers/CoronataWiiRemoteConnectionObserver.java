@@ -6,4 +6,6 @@ public interface CoronataWiiRemoteConnectionObserver {
 
 	void wiiRemoteConnected(WiiRemote wiiRemote);
 
+	void wiiRemoteDisconnected(WiiRemote wiiRemote);
+
 }

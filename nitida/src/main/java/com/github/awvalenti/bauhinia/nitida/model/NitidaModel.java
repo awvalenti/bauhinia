@@ -4,15 +4,15 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnectionObserver,
-		WiiRemoteFullListener {
-
+		WiiRemoteButtonListener {
+	
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private CoronataConnector connector;
@@ -42,6 +42,11 @@ public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnect
 	}
 
 	@Override
+	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+		// TODO Release any robot keys pressed and not yet released
+	}
+
+	@Override
 	public void buttonPressed(WiiRemoteButton button) {
 		robot.keyPress(mapping.keycodeFor(button));
 	}
@@ -49,10 +54,6 @@ public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnect
 	@Override
 	public void buttonReleased(WiiRemoteButton button) {
 		robot.keyRelease(mapping.keycodeFor(button));
-	}
-
-	@Override
-	public void wiiRemoteDisconnected() {
 	}
 
 }

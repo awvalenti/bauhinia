@@ -51,6 +51,11 @@ public class CoronataDemo3Window extends JFrame implements CoronataWiiRemoteConn
 	}
 
 	@Override
+	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+		lblStatus.setText("Wii Remote disconnected");
+	}
+
+	@Override
 	public void buttonPressed(WiiRemoteButton button) {
 		lblStatus.setText(button + " pressed");
 	}

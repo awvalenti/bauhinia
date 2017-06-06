@@ -11,8 +11,8 @@ class CompositeObserver implements CoronataFullObserver {
 
 	private final List<CoronataFullObserver> all = new ArrayList<CoronataFullObserver>();
 
-	public void add(CoronataFullObserver eventListener) {
-		all.add(eventListener);
+	public void add(CoronataFullObserver o) {
+		all.add(o);
 	}
 
 	@Override

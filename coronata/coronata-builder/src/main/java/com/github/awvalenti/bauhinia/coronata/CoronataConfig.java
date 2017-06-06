@@ -1,15 +1,20 @@
 package com.github.awvalenti.bauhinia.coronata;
 
 import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
+// TODO Merge with CoronataBuilder class
 class CoronataConfig implements ReadableCoronataConfig {
 
 	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
-	private CompositeListener compositeListener = new CompositeListener();
-	private CompositeObserver compositeObserver = new CompositeObserver();
+	
+	private final Mediator mediator = new Mediator();
 
 	@Override
 	public boolean isSynchronous() {
@@ -31,20 +36,32 @@ class CoronataConfig implements ReadableCoronataConfig {
 
 	@Override
 	public WiiRemoteFullListener getWiiRemoteListener() {
-		return compositeListener;
-	}
-
-	public void addButtonListener(WiiRemoteFullListener l) {
-		compositeListener.addListener(l);
-	}
-
-	public void addObserver(CoronataFullObserver o) {
-		compositeObserver.add(o);
+		return mediator;
 	}
 
 	@Override
 	public CoronataFullObserver getCoronataObserver() {
-		return compositeObserver;
+		return mediator;
+	}
+
+	public void addButtonListener(WiiRemoteButtonListener l) {
+		mediator.addButtonListener(l);
+	}
+
+	public void addConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
+		mediator.addConnectionObserver(o);
+	}
+
+	public void addFullObserver(CoronataFullObserver o) {
+		mediator.addFullObserver(o);
+	}
+
+	public void addPhaseStateObserver(CoronataPhaseObserver o) {
+		mediator.addPhaseStateObserver(o);		
+	}
+
+	public void addConnectionStateObserver(CoronataConnectionStateObserver o) {
+		mediator.addConnectionStateObserver(o);
 	}
 
 }

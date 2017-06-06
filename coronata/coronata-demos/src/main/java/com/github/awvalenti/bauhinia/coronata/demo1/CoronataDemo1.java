@@ -18,6 +18,11 @@ public class CoronataDemo1 {
 						wiiRemote.turnLedOn(0);
 						System.out.println("Connected!");
 					}
+
+					@Override
+					public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+						System.out.println("Disconnected.");
+					}
 				})
 				.buttonListener(new WiiRemoteButtonListener() {
 					@Override

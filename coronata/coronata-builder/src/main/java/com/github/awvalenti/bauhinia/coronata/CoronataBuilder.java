@@ -9,6 +9,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
+// TODO Merge with CoronataConfig class
 class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 		CoronataBuilderStep3 {
 
@@ -34,31 +35,31 @@ class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 
 	@Override
 	public CoronataBuilderStep3 buttonListener(WiiRemoteButtonListener listener) {
-		config.addButtonListener(new ButtonListenerAdapter(listener));
+		config.addButtonListener(listener);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 wiiRemoteConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
-		config.addObserver(new WiiRemoteConnectionObserverAdapter(o));
+		config.addConnectionObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 fullObserver(CoronataFullObserver o) {
-		config.addObserver(o);
+		config.addFullObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 phaseStateObserver(CoronataPhaseObserver o) {
-		config.addObserver(new PhaseObserverAdapter(o));
+		config.addPhaseStateObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 connectionStateObserver(CoronataConnectionStateObserver o) {
-		config.addObserver(new ConnectionStateObserverAdapter(o));
+		config.addConnectionStateObserver(o);
 		return this;
 	}
 

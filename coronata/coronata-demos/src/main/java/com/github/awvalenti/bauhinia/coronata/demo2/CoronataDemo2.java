@@ -30,6 +30,11 @@ public class CoronataDemo2 implements CoronataWiiRemoteConnectionObserver,
 	}
 
 	@Override
+	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+		System.out.println("Disconnected.");
+	}
+
+	@Override
 	public void buttonPressed(WiiRemoteButton button) {
 		System.out.println(button + " pressed");
 	}

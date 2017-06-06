@@ -9,6 +9,7 @@ interface ReadableCoronataConfig {
 
 	int getWiiRemotesExpected();
 
+	// TODO Change to isSingleThreaded or something like that
 	boolean isSynchronous();
 
 	CoronataFullObserver getCoronataObserver();
