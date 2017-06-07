@@ -44,16 +44,21 @@ Future use cases include game controller and media player controller.
           reporting your experience.
 1. From the [releases page](https://github.com/awvalenti/bauhinia/releases),
   download the latest nitida JAR file.
-1. To run nitida...
-   - ...on window mode, double-click the downloaded JAR file. A window should open. If it doesn't,
-     try right-clicking the file and selecting ```Open With > Java Runtime```
-     or similar. If it still doesn't work, try via terminal:
-     ```java -jar nitida-x.y.z.jar```, where ```x.y.z``` is the app version.
-   - ...on console mode, run on a terminal: ```java -jar nitida-x.y.z.jar --console```,
-     where ```x.y.z``` is the app version.
-1. A connection attempt should start automatically. On Linux, press buttons 1 + 2
-  simultaneously to make the Wii Remote discoverable. On Windows, it should
-  already be discoverable if previously paired as explained above.
+1. To run nitida version x.y.z (replace x.y.z with your version number, e.g., 0.1.0)...
+   - ...on window mode:
+     - Depending on your operating system and configurations, simply double-clicking
+       the downloaded JAR file may be enough. On Linux, you might need to add execution
+       permission to the file (```chmod +x nitida-x.y.z.jar```) and/or
+       right-clicking the file and selecting ```Open With > Java Runtime```
+       or similar.
+     - If none of the above worked, try running via terminal:
+       ```java -jar nitida-x.y.z.jar```.
+   - ...on console mode:
+      - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```.
+1. A connection attempt should start automatically. If you are using Linux,
+   press buttons 1 + 2 simultaneously to make the Wii Remote discoverable.
+   If you are on Windows, it should already be discoverable if previously paired
+   as explained above.
 
 ## Development
 You are welcome to submit suggestions and bugs! Please [open an issue](../../../issues)
