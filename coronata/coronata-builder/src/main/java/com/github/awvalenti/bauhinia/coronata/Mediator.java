@@ -4,9 +4,6 @@ import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.CONNECT_TO_WI
 import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.FIND_WII_REMOTE;
 import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.LOAD_LIBRARY;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
@@ -21,161 +18,114 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 	private boolean identified = false;
 	private boolean connected = false;
 
-	private List<WiiRemoteButtonListener> buttonListeners = new ArrayList<WiiRemoteButtonListener>();
-	private List<WiiRemoteDisconnectionListener> disconnectionListeners = new ArrayList<WiiRemoteDisconnectionListener>();
-	private List<CoronataWiiRemoteConnectionObserver> connectionObservers = new ArrayList<CoronataWiiRemoteConnectionObserver>();
-	private List<CoronataConnectionStateObserver> connectionStateObservers = new ArrayList<CoronataConnectionStateObserver>();
-	private List<CoronataPhaseObserver> phaseStateObservers = new ArrayList<CoronataPhaseObserver>();
-	private List<CoronataFullObserver> fullObservers = new ArrayList<CoronataFullObserver>();
+	private final CompositeObserver compo = new CompositeObserver();
+	
+	private void moveToPhase(CoronataPhase coronataPhase) {
+		compo.running(coronataPhase);
+		currentPhase = coronataPhase;
+	}
 
 	@Override
 	public void coronataStarted() {
-		for (CoronataFullObserver o : fullObservers) {
-			o.coronataStarted();
-		}
-		for (CoronataConnectionStateObserver o : connectionStateObservers) {
-			o.enteredInProcessState();
-		}
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			o.starting();
-		}
+		compo.coronataStarted();
+		compo.enteredInProcessState();
+		compo.starting();
 		moveToPhase(LOAD_LIBRARY);
 	}
 
 	@Override
 	public void libraryLoaded() {
-		for (CoronataFullObserver o : fullObservers) {
-			o.libraryLoaded();
-		}
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			o.success(LOAD_LIBRARY);
-		}
+		compo.success(LOAD_LIBRARY);
+		compo.libraryLoaded();
 		moveToPhase(FIND_WII_REMOTE);
 	}
 
 	@Override
 	public void searchStarted() {
-		for (CoronataFullObserver o : fullObservers) {
-			o.searchStarted();
-		}
+		compo.searchStarted();
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		for (CoronataFullObserver o : fullObservers) {
-			o.bluetoothDeviceFound(address, deviceClass);
-		}
+		compo.bluetoothDeviceFound(address, deviceClass);
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		for (CoronataFullObserver o : fullObservers) {
-			o.deviceRejectedIdentification(address, deviceClass);
-		}
+		compo.deviceRejectedIdentification(address, deviceClass);
 	}
 
 	@Override
 	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		for (CoronataFullObserver o : fullObservers) {
-			o.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
-		}
+		compo.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 	}
 
 	@Override
 	public void wiiRemoteIdentified() {
-		for (CoronataFullObserver o : fullObservers) {
-			o.wiiRemoteIdentified();
-		}
 		identified = true;
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			o.success(FIND_WII_REMOTE);
-		}
+		compo.wiiRemoteIdentified();
+		compo.success(FIND_WII_REMOTE);
 		moveToPhase(CONNECT_TO_WII_REMOTE);
 	}
 
 	@Override
 	public void wiiRemoteConnected(WiiRemote wiiRemote) {
 		connected = true;
-		for (CoronataWiiRemoteConnectionObserver o : connectionObservers) {
-			o.wiiRemoteConnected(wiiRemote);
-		}
-		for (CoronataConnectionStateObserver o : connectionStateObservers) {
-			o.enteredConnectedState();
-		}
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			o.success(CONNECT_TO_WII_REMOTE);
-		}
+		compo.success(CONNECT_TO_WII_REMOTE);
+		compo.enteredConnectedState();
+		compo.wiiRemoteConnected(wiiRemote);
 	}
 
 	@Override
 	public void searchFinished() {
-		for (CoronataFullObserver o : fullObservers) {
-			o.searchFinished();
-		}
+		compo.searchFinished();
 		
 		if (!connected) {
-			for (CoronataConnectionStateObserver o : connectionStateObservers) {
-				o.enteredIdleState();
-			}
+			compo.enteredIdleState();
 		}
 		// TODO Provide failure information
 		if (!identified) {
-			for (CoronataPhaseObserver o : phaseStateObservers) {
-				o.failure(FIND_WII_REMOTE);
-			}
+			compo.failure(FIND_WII_REMOTE);
 		}
 
 	}
 
 	@Override
 	public void errorOccurred(CoronataException e) {
-		for (CoronataFullObserver o : fullObservers) {
-			o.errorOccurred(e);
-		}
-		for (CoronataConnectionStateObserver o : connectionStateObservers) {
-			o.enteredIdleState();
-		}
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			// TODO Provide failure information
-			o.failure(currentPhase);
-		}
-
+		compo.errorOccurred(e);
+		compo.enteredIdleState();
+		compo.failure(currentPhase);
 	}
 
 	@Override
 	public void buttonPressed(WiiRemoteButton button) {
-		for (WiiRemoteButtonListener l : buttonListeners) {
-			l.buttonPressed(button);
-		}
+		compo.buttonPressed(button);
 	}
 
 	@Override
 	public void buttonReleased(WiiRemoteButton button) {
-		for (WiiRemoteButtonListener l : buttonListeners) {
-			l.buttonReleased(button);
-		}
+		compo.buttonReleased(button);
 	}
 
 	@Override
 	public void wiiRemoteDisconnected() {
-		for (WiiRemoteDisconnectionListener l : disconnectionListeners) {
-			l.wiiRemoteDisconnected();
-		}
+		compo.wiiRemoteDisconnected();
+		
 		// ########################################################
-		// TODO Fix library state on wii remote disconnection
+		// TODO Set correct library state on Wii Remote disconnection
 		// ########################################################
 	}
 
 	public void addButtonListener(WiiRemoteButtonListener l) {
-		buttonListeners.add(l);
+		compo.addButtonListener(l);
 	}
 
 	public void addDisconnectionListener(WiiRemoteDisconnectionListener l) {
-		disconnectionListeners.add(l);
+		compo.addDisconnectionListener(l);
 	}
 
 	public void addConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
-		connectionObservers.add(o);
+		compo.addConnectionObserver(o);
 	}
 
 	public void addConnectionStateObserver(CoronataConnectionStateObserver o) {
@@ -184,23 +134,16 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 		// should configure itself upon construction instead of depending
 		// on this method being called.
 		o.enteredIdleState();
-		
-		connectionStateObservers.add(o);
+
+		compo.addConnectionStateObserver(o);
 	}
 
 	public void addPhaseStateObserver(CoronataPhaseObserver o) {
-		phaseStateObservers.add(o);
+		compo.addPhaseStateObserver(o);
 	}
 
 	public void addFullObserver(CoronataFullObserver o) {
-		fullObservers.add(o);
-	}
-
-	private void moveToPhase(CoronataPhase coronataPhase) {
-		for (CoronataPhaseObserver o : phaseStateObservers) {
-			o.running(coronataPhase);
-		}
-		currentPhase = coronataPhase;
+		compo.addFullObserver(o);
 	}
 
 }
