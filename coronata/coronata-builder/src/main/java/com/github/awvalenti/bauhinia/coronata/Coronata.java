@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public class Coronata {
+public final class Coronata {
 
 	private Coronata() {
 	}
