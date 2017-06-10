@@ -3,6 +3,7 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import static com.github.awvalenti.bauhinia.coronata.WiiRemoteButton.*;
 import static java.awt.event.KeyEvent.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,10 @@ public class KeyMapping {
 
 	public int keycodeFor(WiiRemoteButton button) {
 		return mapping.get(button);
+	}
+
+	public Collection<Integer> allMappedKeycodes() {
+		return mapping.values();
 	}
 
 }

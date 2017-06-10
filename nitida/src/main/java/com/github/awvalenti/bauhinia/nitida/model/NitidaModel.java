@@ -43,7 +43,9 @@ public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnect
 
 	@Override
 	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
-		// TODO Release any robot keys pressed and not yet released
+		for (Integer keycode : mapping.allMappedKeycodes()) {
+			robot.keyRelease(keycode);
+		}
 	}
 
 	@Override
