@@ -9,14 +9,12 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
-// TODO Merge with CoronataBuilder class
 class CoronataConfig implements ReadableCoronataConfig {
 
 	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
 	
 	private final AllObservers observers = new AllObservers();
-	
 	private final EventsMediator mediator = new EventsMediator(observers);
 
 	@Override
@@ -47,28 +45,27 @@ class CoronataConfig implements ReadableCoronataConfig {
 		return mediator;
 	}
 
-	public void addButtonListener(WiiRemoteButtonListener l) {
+	public void addObserver(WiiRemoteButtonListener l) {
 		observers.buttonListeners.add(l);
 	}
 
-	public void addConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
+	public void addObserver(CoronataWiiRemoteConnectionObserver o) {
 		observers.connectionObservers.add(o);
 	}
 
-	// XXX
-	public void addDisconnectionListener(WiiRemoteDisconnectionListener l) {
+	public void addObserver(WiiRemoteDisconnectionListener l) {
 		observers.disconnectionListeners.add(l);
 	}
 
-	public void addFullObserver(CoronataFullObserver o) {
+	public void addObserver(CoronataFullObserver o) {
 		observers.fullObservers.add(o);
 	}
 
-	public void addPhaseStateObserver(CoronataPhaseObserver o) {
+	public void addObserver(CoronataPhaseObserver o) {
 		observers.phaseObservers.add(o);
 	}
 
-	public void addConnectionStateObserver(CoronataConnectionStateObserver o) {
+	public void addObserver(CoronataConnectionStateObserver o) {
 		// XXX Should not have to call this here; calling this triggers the
 		// configuration of initial state on observer. But the observer
 		// should configure itself upon construction instead of depending

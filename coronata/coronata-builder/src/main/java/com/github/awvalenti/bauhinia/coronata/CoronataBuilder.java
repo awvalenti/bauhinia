@@ -4,12 +4,12 @@ import com.github.awvalenti.bauhinia.coronata.BlueCoveConnector;
 import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
 import com.github.awvalenti.bauhinia.coronata.WiiuseJConnector;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
-// TODO Merge with CoronataConfig class
 class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 		CoronataBuilderStep3 {
 
@@ -35,42 +35,45 @@ class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
 
 	@Override
 	public CoronataBuilderStep3 buttonListener(WiiRemoteButtonListener listener) {
-		config.addButtonListener(listener);
+		config.addObserver(listener);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 wiiRemoteConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
-		config.addConnectionObserver(o);
+		config.addObserver(o);
+		return this;
+	}
+
+	@Override
+	public CoronataBuilderStep3 disconnectionListener(WiiRemoteDisconnectionListener l) {
+		config.addObserver(l);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 fullObserver(CoronataFullObserver o) {
-		config.addFullObserver(o);
+		config.addObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 phaseStateObserver(CoronataPhaseObserver o) {
-		config.addPhaseStateObserver(o);
+		config.addObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataBuilderStep3 connectionStateObserver(CoronataConnectionStateObserver o) {
-		config.addConnectionStateObserver(o);
+		config.addObserver(o);
 		return this;
 	}
 
 	@Override
 	public CoronataConnector build() {
-		return isWindows() ? new WiiuseJConnector(config) : new BlueCoveConnector(
+		boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+		return isWindows ? new WiiuseJConnector(config) : new BlueCoveConnector(
 				config);
-	}
-
-	private static boolean isWindows() {
-		return System.getProperty("os.name").toLowerCase().contains("win");
 	}
 
 }
