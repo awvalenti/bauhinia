@@ -14,6 +14,7 @@ public class CoronataDemo3Main {
 				.wiiRemoteConnectionObserver(window)
 				.buttonListener(window)
 				.connectionStateObserver(window)
+				.disconnectionListener(window)
 				.build();
 
 		window.setConnector(connector);

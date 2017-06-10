@@ -4,10 +4,11 @@ import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public class CoronataDemo2 implements CoronataWiiRemoteConnectionObserver,
-		WiiRemoteButtonListener {
+		WiiRemoteButtonListener, WiiRemoteDisconnectionListener {
 
 	public static void main(String[] args) {
 		new CoronataDemo2().run();
@@ -19,6 +20,7 @@ public class CoronataDemo2 implements CoronataWiiRemoteConnectionObserver,
 				.oneWiiRemote()
 				.wiiRemoteConnectionObserver(this)
 				.buttonListener(this)
+				.disconnectionListener(this)
 				.build()
 				.run();
 	}
@@ -30,7 +32,7 @@ public class CoronataDemo2 implements CoronataWiiRemoteConnectionObserver,
 	}
 
 	@Override
-	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+	public void wiiRemoteDisconnected() {
 		System.out.println("Disconnected.");
 	}
 

@@ -110,9 +110,6 @@ public class EventsMediator implements CoronataFullObserver, WiiRemoteFullListen
 	@Override
 	public void wiiRemoteDisconnected() {
 		all.disconnectionListeners.wiiRemoteDisconnected();
-		
-		// XXX Replace null with Wii Remote, or remove parameter from signature
-		all.connectionObservers.wiiRemoteDisconnected(null);
 
 		// ########################################################
 		// TODO Set correct library state on Wii Remote disconnection

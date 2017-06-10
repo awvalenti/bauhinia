@@ -12,11 +12,12 @@ import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public class CoronataDemo3Window extends JFrame implements CoronataWiiRemoteConnectionObserver,
-		WiiRemoteButtonListener, CoronataConnectionStateObserver {
+		WiiRemoteButtonListener, CoronataConnectionStateObserver, WiiRemoteDisconnectionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +52,7 @@ public class CoronataDemo3Window extends JFrame implements CoronataWiiRemoteConn
 	}
 
 	@Override
-	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+	public void wiiRemoteDisconnected() {
 		lblStatus.setText("Wii Remote disconnected");
 	}
 

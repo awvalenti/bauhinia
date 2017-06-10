@@ -8,11 +8,12 @@ import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnectionObserver,
-		WiiRemoteButtonListener {
-	
+		WiiRemoteDisconnectionListener, WiiRemoteButtonListener {
+
 	private final Robot robot;
 	private final KeyMapping mapping;
 	private CoronataConnector connector;
@@ -24,7 +25,11 @@ public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnect
 			throw new RuntimeException(e);
 		}
 		this.mapping = new KeyMapping();
-		builder.wiiRemoteConnectionObserver(this).buttonListener(this);
+		
+		builder
+				.wiiRemoteConnectionObserver(this)
+				.disconnectionListener(this)
+				.buttonListener(this);
 	}
 
 	public void setConnector(CoronataConnector connector) {
@@ -42,7 +47,7 @@ public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnect
 	}
 
 	@Override
-	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
+	public void wiiRemoteDisconnected() {
 		for (Integer keycode : mapping.allMappedKeycodes()) {
 			robot.keyRelease(keycode);
 		}

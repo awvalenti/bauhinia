@@ -20,11 +20,4 @@ class CompositeConnectionObserver implements CoronataWiiRemoteConnectionObserver
 		}
 	}
 
-	@Override
-	public void wiiRemoteDisconnected(WiiRemote wiiRemote) {
-		for (CoronataWiiRemoteConnectionObserver o : observers) {
-			o.wiiRemoteDisconnected(wiiRemote);
-		}
-	}
-
 }
