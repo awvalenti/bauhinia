@@ -2,6 +2,7 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
@@ -14,7 +15,9 @@ class CoronataConfig implements ReadableCoronataConfig {
 	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
 	
-	private final Mediator mediator = new Mediator();
+	private final AllObservers observers = new AllObservers();
+	
+	private final Mediator mediator = new Mediator(observers);
 
 	@Override
 	public boolean isSynchronous() {
@@ -45,23 +48,34 @@ class CoronataConfig implements ReadableCoronataConfig {
 	}
 
 	public void addButtonListener(WiiRemoteButtonListener l) {
-		mediator.addButtonListener(l);
+		observers.buttonListeners.add(l);
 	}
 
 	public void addConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
-		mediator.addConnectionObserver(o);
+		observers.connectionObservers.add(o);
+	}
+
+	// XXX
+	public void addDisconnectionListener(WiiRemoteDisconnectionListener l) {
+		observers.disconnectionListeners.add(l);
 	}
 
 	public void addFullObserver(CoronataFullObserver o) {
-		mediator.addFullObserver(o);
+		observers.fullObservers.add(o);
 	}
 
 	public void addPhaseStateObserver(CoronataPhaseObserver o) {
-		mediator.addPhaseStateObserver(o);		
+		observers.phaseObservers.add(o);
 	}
 
 	public void addConnectionStateObserver(CoronataConnectionStateObserver o) {
-		mediator.addConnectionStateObserver(o);
+		// XXX Should not have to call this here; calling this triggers the
+		// configuration of initial state on observer. But the observer
+		// should configure itself upon construction instead of depending
+		// on this method being called.
+		o.enteredIdleState();
+
+		observers.connectionStateObservers.add(o);
 	}
 
 }
