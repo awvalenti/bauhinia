@@ -7,7 +7,7 @@ import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.LOAD_LIBRARY;
 import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
-public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
+public class EventsMediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	private CoronataPhase currentPhase;
 	private boolean identified = false;
@@ -15,7 +15,7 @@ public class Mediator implements CoronataFullObserver, WiiRemoteFullListener {
 
 	private final AllObservers all;
 
-	public Mediator(AllObservers allObservers) {
+	public EventsMediator(AllObservers allObservers) {
 		this.all = allObservers;
 	}
 

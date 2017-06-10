@@ -17,7 +17,7 @@ class CoronataConfig implements ReadableCoronataConfig {
 	
 	private final AllObservers observers = new AllObservers();
 	
-	private final Mediator mediator = new Mediator(observers);
+	private final EventsMediator mediator = new EventsMediator(observers);
 
 	@Override
 	public boolean isSynchronous() {
