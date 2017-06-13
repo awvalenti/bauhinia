@@ -26,7 +26,7 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 	}
 
 	private synchronized void append(String content) {
-		informationPane.append(content);
+		informationPane.append("\u2022 " + content + "\n");
 	}
 
 	@Override
