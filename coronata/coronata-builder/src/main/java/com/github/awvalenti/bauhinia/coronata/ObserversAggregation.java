@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-class AllObservers {
+class ObserversAggregation {
 
 	final CompositeButtonListener buttonListeners = new CompositeButtonListener();
 	

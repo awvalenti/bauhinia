@@ -5,6 +5,7 @@ import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
+// TODO Merge similar features with LogPanel
 public class NitidaConsole implements CoronataFullObserver {
 
 	private final ProjectProperties projectProperties;
@@ -56,6 +57,11 @@ public class NitidaConsole implements CoronataFullObserver {
 	@Override
 	public void searchFinished() {
 		System.out.println("Finished search");
+	}
+
+	@Override
+	public void wiiRemoteDisconnected() {
+		System.out.println("Wii Remote disconnected");
 	}
 
 	@Override

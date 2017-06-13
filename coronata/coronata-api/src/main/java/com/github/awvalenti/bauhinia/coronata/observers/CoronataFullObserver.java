@@ -23,6 +23,8 @@ public interface CoronataFullObserver {
 
 	void searchFinished();
 
+	void wiiRemoteDisconnected();
+
 	void errorOccurred(CoronataException e);
 
 }

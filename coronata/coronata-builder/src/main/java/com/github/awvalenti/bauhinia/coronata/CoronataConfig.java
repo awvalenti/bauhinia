@@ -14,7 +14,7 @@ class CoronataConfig implements ReadableCoronataConfig {
 	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
 	
-	private final AllObservers observers = new AllObservers();
+	private final ObserversAggregation observers = new ObserversAggregation();
 	private final EventsMediator mediator = new EventsMediator(observers);
 
 	@Override

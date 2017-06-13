@@ -77,6 +77,13 @@ class CompositeFullObserver implements CoronataFullObserver {
 	}
 
 	@Override
+	public void wiiRemoteDisconnected() {
+		for (CoronataFullObserver o : observers) {
+			o.wiiRemoteDisconnected();
+		}
+	}
+
+	@Override
 	public void errorOccurred(CoronataException e) {
 		for (CoronataFullObserver o : observers) {
 			o.errorOccurred(e);

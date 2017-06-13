@@ -10,6 +10,7 @@ import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
 
+// TODO Merge similar features with NitidaConsole
 public class LogPanel extends JPanel implements CoronataFullObserver {
 
 	private static final long serialVersionUID = 1L;
@@ -68,6 +69,11 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 	@Override
 	public void searchFinished() {
 		append("Finished search");
+	}
+
+	@Override
+	public void wiiRemoteDisconnected() {
+		append("Wii Remote disconnected");
 	}
 
 	@Override
