@@ -23,8 +23,8 @@ public class KeyMapping {
 		mapping.put(MINUS, VK_SUBTRACT);
 		mapping.put(HOME, VK_HOME);
 		mapping.put(PLUS, VK_ADD);
-		mapping.put(ONE, VK_ESCAPE);
-		mapping.put(TWO, VK_F5);
+		mapping.put(ONE, VK_F5);
+		mapping.put(TWO, VK_ESCAPE);
 	}
 
 	public int keycodeFor(WiiRemoteButton button) {
