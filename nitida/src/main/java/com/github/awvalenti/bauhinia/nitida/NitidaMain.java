@@ -9,6 +9,7 @@ import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
+import com.github.awvalenti.bauhinia.nitida.view.Messages;
 import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
 import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ApplicationStatePanel;
@@ -39,7 +40,7 @@ public class NitidaMain {
 
 		RetryButton retryButton = new RetryButton();
 		PhasePanel phasePanel = new PhasePanel();
-		LogPanel logPanel = new LogPanel();
+		LogPanel logPanel = new LogPanel(new Messages());
 		ConnectionStatePanel connectionStatePanel = new ConnectionStatePanel();
 
 		builder
@@ -68,7 +69,7 @@ public class NitidaMain {
 
 		NitidaModel model = new NitidaModel(builder);
 
-		builder.fullObserver(new NitidaConsole(new ProjectProperties()));
+		builder.fullObserver(new NitidaConsole(new ProjectProperties(), new Messages()));
 
 		model.setConnector(builder.build());
 		model.connect();

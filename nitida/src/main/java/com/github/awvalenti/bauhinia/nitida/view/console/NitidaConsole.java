@@ -4,64 +4,66 @@ import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
+import com.github.awvalenti.bauhinia.nitida.view.Messages;
 
-// TODO Merge similar features with LogPanel
 public class NitidaConsole implements CoronataFullObserver {
 
 	private final ProjectProperties projectProperties;
+	private final Messages messages;
 
-	public NitidaConsole(ProjectProperties projectProperties) {
+	public NitidaConsole(ProjectProperties projectProperties, Messages messages) {
 		this.projectProperties = projectProperties;
+		this.messages = messages;
 	}
 
 	@Override
 	public void coronataStarted() {
-		System.out.printf("nitida %s\n\n", projectProperties.getProjectVersion());
+		System.out.println(messages.get("appTitle", projectProperties.getProjectVersion()));
 	}
 
 	@Override
 	public void libraryLoaded() {
-		System.out.println("Library loaded successfuly");
+		System.out.println(messages.get("libraryLoaded"));
 	}
 
 	@Override
 	public void searchStarted() {
-		System.out.println("Searching for Wii Remote...");
+		System.out.println(messages.get("searchStarted"));
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		System.out.printf("Found a Bluetooth device at %s: %s\n", address, deviceClass);
+		System.out.println(messages.get("bluetoothDeviceFound", address, deviceClass));
 	}
 
 	@Override
 	public void wiiRemoteIdentified() {
-		System.out.println("Found Wii Remote. Connecting...");
+		System.out.println(messages.get("wiiRemoteIdentified"));
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		System.out.println("Device at " + address + " rejected identification");
+		System.out.println(messages.get("deviceRejectedIdentification", address));
 	}
 
 	@Override
 	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		System.out.println("Device at " + address + " identified as not Wii Remote");
+		System.out.println(messages.get("deviceIdentifiedAsNotWiiRemote", address));
 	}
 
 	@Override
 	public void wiiRemoteConnected(WiiRemote wiiRemote) {
-		System.out.println("Connected. Remote control is active!");
+		System.out.println(messages.get("wiiRemoteConnected"));
 	}
 
 	@Override
 	public void searchFinished() {
-		System.out.println("Finished search");
+		System.out.println(messages.get("searchFinished"));
 	}
 
 	@Override
 	public void wiiRemoteDisconnected() {
-		System.out.println("Wii Remote disconnected");
+		System.out.println(messages.get("wiiRemoteDisconnected"));
 	}
 
 	@Override

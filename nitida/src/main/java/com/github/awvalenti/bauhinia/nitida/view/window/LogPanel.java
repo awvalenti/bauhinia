@@ -8,23 +8,25 @@ import javax.swing.JPanel;
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.WiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.nitida.view.Messages;
 import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
 
-// TODO Merge similar features with NitidaConsole
 public class LogPanel extends JPanel implements CoronataFullObserver {
 
 	private static final long serialVersionUID = 1L;
 
+	private final Messages messages;
 	private final InformationPane informationPane = new InformationPane(HorizontalScrolling.NEVER);
 
-	public LogPanel() {
+	public LogPanel(Messages messages) {
 		super(new BorderLayout());
+		this.messages = messages;
 		setBorder(BorderFactory.createTitledBorder("Log"));
 		add(informationPane);
 	}
 
 	private synchronized void append(String content) {
-		informationPane.append(content);
+		informationPane.append("\u2022 " + content + "\n");
 	}
 
 	@Override
@@ -33,32 +35,32 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 
 	@Override
 	public void libraryLoaded() {
-		append("Library loaded successfuly");
+		append(messages.get("libraryLoaded"));
 	}
 
 	@Override
 	public void searchStarted() {
-		append("Searching for Wii Remote...");
+		append(messages.get("searchStarted"));
 	}
 
 	@Override
 	public void bluetoothDeviceFound(String address, String deviceClass) {
-		append(String.format("Bluetooth device found at %s: %s", address, deviceClass));
+		append(messages.get("bluetoothDeviceFound", address, deviceClass));
 	}
 
 	@Override
 	public void deviceRejectedIdentification(String address, String deviceClass) {
-		append("Device at " + address + " rejected identification");
+		append(messages.get("deviceRejectedIdentification", address));
 	}
 
 	@Override
 	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		append("Device at " + address + " identified as not Wii Remote");
+		append(messages.get("deviceIdentifiedAsNotWiiRemote", address));
 	}
 
 	@Override
 	public void wiiRemoteIdentified() {
-		append("Found Wii Remote. Connecting...");
+		append(messages.get("wiiRemoteIdentified"));
 	}
 
 	@Override
@@ -68,12 +70,12 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 
 	@Override
 	public void searchFinished() {
-		append("Finished search");
+		append(messages.get("searchFinished"));
 	}
 
 	@Override
 	public void wiiRemoteDisconnected() {
-		append("Wii Remote disconnected");
+		append(messages.get("wiiRemoteDisconnected"));
 	}
 
 	@Override
