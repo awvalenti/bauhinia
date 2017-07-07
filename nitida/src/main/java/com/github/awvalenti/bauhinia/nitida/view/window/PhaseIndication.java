@@ -45,7 +45,7 @@ public class PhaseIndication extends JPanel {
 			setPreferredSize(new Dimension(32, 32));
 			setHorizontalAlignment(CENTER);
 			setVerticalAlignment(CENTER);
-			setFont(new Font("monospace", Font.PLAIN, 22));
+			setFont(new Font(Font.MONOSPACED, Font.PLAIN, 22));
 		}
 
 		public final void setState(PhaseState state) {
