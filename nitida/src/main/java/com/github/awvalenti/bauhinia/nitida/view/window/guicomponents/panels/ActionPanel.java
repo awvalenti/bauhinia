@@ -1,7 +1,9 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons.RetryButton;
 
 public class ActionPanel extends JPanel {
 

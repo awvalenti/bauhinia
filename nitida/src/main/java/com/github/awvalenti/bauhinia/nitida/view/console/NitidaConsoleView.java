@@ -3,15 +3,15 @@ package com.github.awvalenti.bauhinia.nitida.view.console;
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
-import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
-import com.github.awvalenti.bauhinia.nitida.view.Messages;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.ProjectProperties;
 
-public class NitidaViewConsole implements CoronataLifecycleEventsObserver {
+public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 
 	private final ProjectProperties projectProperties;
 	private final Messages messages;
 
-	public NitidaViewConsole(ProjectProperties projectProperties, Messages messages) {
+	public NitidaConsoleView(ProjectProperties projectProperties, Messages messages) {
 		this.projectProperties = projectProperties;
 		this.messages = messages;
 	}

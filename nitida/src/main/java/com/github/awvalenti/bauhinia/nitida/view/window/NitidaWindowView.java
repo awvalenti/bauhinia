@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.ProjectProperties;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.ApplicationStatePanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.LogPanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.UserInputPanel;
 
 public class NitidaWindowView {
 

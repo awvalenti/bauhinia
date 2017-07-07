@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PhaseIndication extends JPanel {
+public class PhaseWidget extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class PhaseIndication extends JPanel {
 	private final PhaseStateIconLabel iconLabel;
 	private final JLabel nameLabel;
 
-	public PhaseIndication(String phaseName) {
+	public PhaseWidget(String phaseName) {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEtchedBorder());
 

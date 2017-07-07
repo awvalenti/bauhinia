@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import java.awt.BorderLayout;
 
@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
-import com.github.awvalenti.bauhinia.nitida.view.Messages;
-import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.InformationPane.HorizontalScrolling;
 
 public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver {
 

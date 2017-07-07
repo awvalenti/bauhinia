@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
-import com.github.awvalenti.bauhinia.nitida.view.window.RetryButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons.RetryButton;
 
 public class NitidaWindowController {
 

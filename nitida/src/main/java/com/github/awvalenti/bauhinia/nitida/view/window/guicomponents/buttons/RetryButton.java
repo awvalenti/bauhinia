@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons;
 
 import javax.swing.JButton;
 

@@ -8,8 +8,8 @@ import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.nitida.NitidaMain;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
-import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
-import com.github.awvalenti.bauhinia.nitida.view.Messages;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
+import com.github.awvalenti.bauhinia.nitida.view.common.properties.ProjectProperties;
 
 public class NitidaConsoleMVC {
 
@@ -19,7 +19,7 @@ public class NitidaConsoleMVC {
 		CoronataBuilderStep3 builder = CoronataBuilder.beginConfig()
 				.synchronous()
 				.oneWiiRemote()
-				.onLifecycleEvents(new NitidaViewConsole(new ProjectProperties(), new Messages()));
+				.onLifecycleEvents(new NitidaConsoleView(new ProjectProperties(), new Messages()));
 
 		NitidaModel model = new NitidaModel(builder);
 		model.setCoronata(builder.endConfig());

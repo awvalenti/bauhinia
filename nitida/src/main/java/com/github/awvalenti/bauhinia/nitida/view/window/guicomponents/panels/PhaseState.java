@@ -1,7 +1,10 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import java.awt.Color;
 
+/**
+ * Holds data to display icons "black ...", "red x" and "green check mark"
+ */
 public enum PhaseState {
 
 	INACTIVE(false, "\u25A1", Color.GRAY),

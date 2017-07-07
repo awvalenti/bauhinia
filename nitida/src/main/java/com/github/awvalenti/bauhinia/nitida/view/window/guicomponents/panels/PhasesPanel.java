@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import java.awt.GridLayout;
 import java.util.HashMap;
@@ -9,17 +9,17 @@ import javax.swing.JPanel;
 import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
-public class PhasePanel extends JPanel implements CoronataPhaseObserver {
+public class PhasesPanel extends JPanel implements CoronataPhaseObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Map<CoronataPhase, PhaseIndication> map = new HashMap<CoronataPhase, PhaseIndication>();
+	private final Map<CoronataPhase, PhaseWidget> map = new HashMap<CoronataPhase, PhaseWidget>();
 
-	public PhasePanel() {
+	public PhasesPanel() {
 		super(new GridLayout(CoronataPhase.values().length, 1));
 
 		for (CoronataPhase coronataPhase : CoronataPhase.values()) {
-			PhaseIndication indication = new PhaseIndication(coronataPhase.toString());
+			PhaseWidget indication = new PhaseWidget(coronataPhase.toString());
 			map.put(coronataPhase, indication);
 			add(indication);
 		}
@@ -27,7 +27,7 @@ public class PhasePanel extends JPanel implements CoronataPhaseObserver {
 
 	@Override
 	public void starting() {
-		for (PhaseIndication indication : map.values()) {
+		for (PhaseWidget indication : map.values()) {
 			indication.setState(PhaseState.INACTIVE);
 		}
 	}

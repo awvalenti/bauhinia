@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,7 +8,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
+import com.github.awvalenti.bauhinia.nitida.view.window.BrowserLauncher;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons.HyperlinkButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.InformationPane.HorizontalScrolling;
 
 public class HelpPanel extends JPanel {
 
@@ -22,8 +24,8 @@ public class HelpPanel extends JPanel {
 	public HelpPanel(BrowserLauncher browserLauncher) {
 		this.browserLauncher = browserLauncher;
 		setBorder(BorderFactory.createTitledBorder("Help"));
-		add(new HyperlinkComponent("How to use", new HowToUseActionListener()));
-		add(new HyperlinkComponent("About", new AboutActionListener()));
+		add(new HyperlinkButton("How to use", new HowToUseActionListener()));
+		add(new HyperlinkButton("About", new AboutActionListener()));
 	}
 
 	private class HowToUseActionListener implements ActionListener {
