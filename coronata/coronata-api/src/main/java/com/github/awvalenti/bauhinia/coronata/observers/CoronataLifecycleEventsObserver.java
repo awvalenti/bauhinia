@@ -1,9 +1,9 @@
 package com.github.awvalenti.bauhinia.coronata.observers;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 
-public interface CoronataFullObserver {
+public interface CoronataLifecycleEventsObserver extends CoronataDisconnectionObserver {
 
 	void coronataStarted();
 
@@ -19,11 +19,12 @@ public interface CoronataFullObserver {
 
 	void wiiRemoteIdentified();
 
-	void wiiRemoteConnected(WiiRemote wiiRemote);
+	void connected(CoronataWiiRemote wiiRemote);
 
 	void searchFinished();
 
-	void wiiRemoteDisconnected();
+	@Override
+	void disconnected();
 
 	void errorOccurred(CoronataException e);
 

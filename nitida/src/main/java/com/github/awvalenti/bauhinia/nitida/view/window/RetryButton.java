@@ -2,9 +2,9 @@ package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import javax.swing.JButton;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
-public class RetryButton extends JButton implements CoronataConnectionStateObserver {
+public class RetryButton extends JButton implements CoronataLifecycleStateObserver {
 
 	private static final long serialVersionUID = 1L;
 

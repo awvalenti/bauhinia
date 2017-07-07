@@ -1,23 +1,23 @@
 package com.github.awvalenti.bauhinia.coronata.demo3;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 
 public class CoronataDemo3Main {
 
 	public static void main(String[] args) {
 		CoronataDemo3Window window = new CoronataDemo3Window();
 
-		CoronataConnector connector = Coronata.guidedBuilder()
+		Coronata coronata = CoronataBuilder.beginConfig()
 				.asynchronous()	// Because this is a graphical application
 				.oneWiiRemote()
-				.wiiRemoteConnectionObserver(window)
-				.buttonListener(window)
-				.connectionStateObserver(window)
-				.disconnectionListener(window)
-				.build();
+				.onConnection(window)
+				.onButton(window)
+				.onLifecycleState(window)
+				.onDisconnection(window)
+				.endConfig();
 
-		window.setConnector(connector);
+		window.setCoronata(coronata);
 
 		window.setVisible(true);
 	}

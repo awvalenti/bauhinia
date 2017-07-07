@@ -8,16 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-public class CoronataDemo3Window extends JFrame implements CoronataWiiRemoteConnectionObserver,
-		WiiRemoteButtonListener, CoronataConnectionStateObserver, WiiRemoteDisconnectionListener {
+public class CoronataDemo3Window extends JFrame implements CoronataConnectionObserver,
+		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,33 +36,33 @@ public class CoronataDemo3Window extends JFrame implements CoronataWiiRemoteConn
 		setLocationRelativeTo(null);
 	}
 
-	public void setConnector(final CoronataConnector connector) {
+	public void setCoronata(final Coronata coronata) {
 		btnConnect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				connector.run();
+				coronata.run();
 				btnConnect.setEnabled(false);
 			}
 		});
 	}
 
 	@Override
-	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+	public void connected(CoronataWiiRemote wiiRemote) {
 		wiiRemote.turnLedOn(0);
 	}
 
 	@Override
-	public void wiiRemoteDisconnected() {
+	public void disconnected() {
 		lblStatus.setText("Wii Remote disconnected");
 	}
 
 	@Override
-	public void buttonPressed(WiiRemoteButton button) {
+	public void buttonPressed(CoronataWiiRemoteButton button) {
 		lblStatus.setText(button + " pressed");
 	}
 
 	@Override
-	public void buttonReleased(WiiRemoteButton button) {
+	public void buttonReleased(CoronataWiiRemoteButton button) {
 		lblStatus.setText(button + " released");
 	}
 

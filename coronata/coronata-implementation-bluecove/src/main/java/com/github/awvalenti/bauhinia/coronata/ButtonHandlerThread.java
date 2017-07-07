@@ -4,23 +4,26 @@ import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+
 
 class ButtonHandlerThread extends Thread {
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
-	private final WiiRemoteFullListener listener;
+	private final CoronataButtonObserver buttonObserver;
+	private final CoronataDisconnectionObserver disconnectionObserver;
 
 	private byte[] previousState = new byte[4];
 	private byte[] currentState = new byte[4];
 
 	public ButtonHandlerThread(L2CAPConnection input, L2CAPConnection output,
-			WiiRemoteFullListener listener) {
+			CoronataButtonObserver buttonObserver, CoronataDisconnectionObserver disconnectionObserver) {
 		this.input = input;
 		this.output = output;
-		this.listener = listener;
+		this.buttonObserver = buttonObserver;
+		this.disconnectionObserver = disconnectionObserver;
 		setDaemon(false);
 	}
 
@@ -30,9 +33,9 @@ class ButtonHandlerThread extends Thread {
 			receiveFirstState();
 			for (;;) {
 				receiveCurrentState();
-				for (WiiRemoteButton b : WiiRemoteButton.values()) {
-					if (buttonJustPressed(b)) listener.buttonPressed(b);
-					if (buttonJustReleased(b)) listener.buttonReleased(b);
+				for (CoronataWiiRemoteButton b : CoronataWiiRemoteButton.values()) {
+					if (buttonJustPressed(b)) buttonObserver.buttonPressed(b);
+					if (buttonJustReleased(b)) buttonObserver.buttonReleased(b);
 				}
 				swapBuffers();
 			}
@@ -55,11 +58,11 @@ class ButtonHandlerThread extends Thread {
 		input.receive(currentState);
 	}
 
-	private boolean buttonJustPressed(WiiRemoteButton b) {
+	private boolean buttonJustPressed(CoronataWiiRemoteButton b) {
 		return !b.isPressedAccordingTo(previousState) && b.isPressedAccordingTo(currentState);
 	}
 
-	private boolean buttonJustReleased(WiiRemoteButton b) {
+	private boolean buttonJustReleased(CoronataWiiRemoteButton b) {
 		return b.isPressedAccordingTo(previousState) && !b.isPressedAccordingTo(currentState);
 	}
 
@@ -81,7 +84,7 @@ class ButtonHandlerThread extends Thread {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} finally {
-			listener.wiiRemoteDisconnected();
+			disconnectionObserver.disconnected();
 		}
 	}
 

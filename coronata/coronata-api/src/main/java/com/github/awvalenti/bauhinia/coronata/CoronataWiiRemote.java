@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public interface WiiRemote {
+public interface CoronataWiiRemote {
 
 	void turnLedOn(int ledIndex);
 

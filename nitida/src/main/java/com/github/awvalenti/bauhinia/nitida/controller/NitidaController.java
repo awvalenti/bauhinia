@@ -12,7 +12,7 @@ public class NitidaController {
 		retryButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				model.connect();
+				model.run();
 			}
 		});
 	}

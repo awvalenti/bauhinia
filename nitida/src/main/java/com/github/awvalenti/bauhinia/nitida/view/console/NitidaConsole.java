@@ -1,12 +1,12 @@
 package com.github.awvalenti.bauhinia.nitida.view.console;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 import com.github.awvalenti.bauhinia.nitida.view.Messages;
 
-public class NitidaConsole implements CoronataFullObserver {
+public class NitidaConsole implements CoronataLifecycleEventsObserver {
 
 	private final ProjectProperties projectProperties;
 	private final Messages messages;
@@ -52,7 +52,7 @@ public class NitidaConsole implements CoronataFullObserver {
 	}
 
 	@Override
-	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+	public void connected(CoronataWiiRemote wiiRemote) {
 		System.out.println(messages.get("wiiRemoteConnected"));
 	}
 
@@ -62,7 +62,7 @@ public class NitidaConsole implements CoronataFullObserver {
 	}
 
 	@Override
-	public void wiiRemoteDisconnected() {
+	public void disconnected() {
 		System.out.println(messages.get("wiiRemoteDisconnected"));
 	}
 

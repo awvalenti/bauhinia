@@ -1,18 +1,18 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
+import com.github.awvalenti.wiiusej.WiiusejNativeLibraryLoadingException;
+
 import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
-import com.github.awvalenti.wiiusej.WiiusejNativeLibraryLoadingException;
+class CoronataImplementationWiiuseJ implements Coronata {
 
-class WiiuseJConnector implements CoronataConnector {
-
-	private final CoronataWiiusejExceptionFactory exceptionFactory = new CoronataWiiusejExceptionFactory();
+	private final WiiuseJExceptionFactory exceptionFactory = new WiiuseJExceptionFactory();
 
 	private final ReadableCoronataConfig config;
 
-	public WiiuseJConnector(ReadableCoronataConfig config) {
+	public CoronataImplementationWiiuseJ(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
@@ -21,7 +21,7 @@ class WiiuseJConnector implements CoronataConnector {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				doSearch(config.getCoronataObserver());
+				doSearch(config.getLifecycleEventsObserver());
 			}
 		};
 
@@ -29,7 +29,7 @@ class WiiuseJConnector implements CoronataConnector {
 		else new Thread(task).start();
 	}
 
-	private void doSearch(final CoronataFullObserver observer) {
+	private void doSearch(final CoronataLifecycleEventsObserver observer) {
 		observer.coronataStarted();
 
 		final WiiUseApiManager wiiUseApiManager;
@@ -42,7 +42,8 @@ class WiiuseJConnector implements CoronataConnector {
 			Wiimote[] wiimotesFound = wiiUseApiManager.getWiimotes(config.getWiiRemotesExpected());
 			if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
 			for (Wiimote w : wiimotesFound) {
-				observer.wiiRemoteConnected(new WiiuseJWiiRemoteAdapter(w, config.getWiiRemoteListener()));
+				observer.connected(
+						new WiiuseJWiiRemoteAdapter(w, config.getButtonObserver(), config.getLifecycleEventsObserver()));
 			}
 			observer.searchFinished();
 

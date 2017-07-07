@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
@@ -14,7 +15,7 @@ import com.github.awvalenti.bauhinia.nitida.view.console.NitidaConsole;
 import com.github.awvalenti.bauhinia.nitida.view.window.ActionPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.ApplicationStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.BrowserLauncher;
-import com.github.awvalenti.bauhinia.nitida.view.window.ConnectionStatePanel;
+import com.github.awvalenti.bauhinia.nitida.view.window.LifecycleStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.HelpPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.LogPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.NitidaWindow;
@@ -32,47 +33,52 @@ public class NitidaMain {
 	}
 
 	private static void runNitidaWindow() {
-		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
+		PhasePanel phasePanel = new PhasePanel();
+		LifecycleStatePanel lifecycleStatePanel = new LifecycleStatePanel();
+		LogPanel logPanel = new LogPanel(new Messages());
+		RetryButton retryButton = new RetryButton();
+
+		CoronataBuilderStep3 builder = CoronataBuilder.beginConfig()
 				.asynchronous()
-				.oneWiiRemote();
+				.oneWiiRemote()
+				.onPhase(phasePanel)
+				.onLifecycleState(lifecycleStatePanel)
+				.onLifecycleEvents(logPanel)
+				.onLifecycleState(retryButton);
 
 		NitidaModel model = new NitidaModel(builder);
 
-		RetryButton retryButton = new RetryButton();
-		PhasePanel phasePanel = new PhasePanel();
-		LogPanel logPanel = new LogPanel(new Messages());
-		ConnectionStatePanel connectionStatePanel = new ConnectionStatePanel();
-
-		builder
-				.phaseStateObserver(phasePanel)
-				.fullObserver(logPanel)
-				.connectionStateObserver(connectionStatePanel)
-				.connectionStateObserver(retryButton);
-
-		NitidaWindow nitidaWindow = new NitidaWindow(new ProjectProperties(),
-				new ApplicationStatePanel(phasePanel, connectionStatePanel), logPanel,
-				new UserInputPanel(new ActionPanel(retryButton), new HelpPanel(new BrowserLauncher())));
+		Coronata coronata = builder.endConfig();
 
 		new NitidaController(model, retryButton);
-		nitidaWindow.run();
 
-		model.setConnector(builder.build());
-		model.connect();
+		NitidaWindow view = new NitidaWindow(
+				new ProjectProperties(),
+				new ApplicationStatePanel(phasePanel, lifecycleStatePanel),
+				logPanel,
+				new UserInputPanel(
+						new ActionPanel(retryButton),
+						new HelpPanel(new BrowserLauncher())));
+
+		view.run();
+
+		model.setCoronata(coronata);
+		model.run();
 	}
 
 	private static void runNitidaConsole() {
 		printCopyrightInfo();
 
-		CoronataBuilderStep3 builder = Coronata.guidedBuilder()
+		CoronataBuilderStep3 builder = CoronataBuilder.beginConfig()
 				.synchronous()
 				.oneWiiRemote();
 
 		NitidaModel model = new NitidaModel(builder);
 
-		builder.fullObserver(new NitidaConsole(new ProjectProperties(), new Messages()));
+		builder.onLifecycleEvents(new NitidaConsole(new ProjectProperties(), new Messages()));
 
-		model.setConnector(builder.build());
-		model.connect();
+		model.setCoronata(builder.endConfig());
+		model.run();
 	}
 
 	private static void printCopyrightInfo() {

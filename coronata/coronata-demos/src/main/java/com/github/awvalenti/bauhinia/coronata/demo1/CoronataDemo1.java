@@ -1,43 +1,43 @@
 package com.github.awvalenti.bauhinia.coronata.demo1;
 
-import com.github.awvalenti.bauhinia.coronata.Coronata;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
 public class CoronataDemo1 {
 
 	public static void main(String[] args) {
-		Coronata.guidedBuilder()
+		CoronataBuilder.beginConfig()
 				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
-				.wiiRemoteConnectionObserver(new CoronataWiiRemoteConnectionObserver() {
+				.onConnection(new CoronataConnectionObserver() {
 					@Override
-					public void wiiRemoteConnected(WiiRemote wiiRemote) {
+					public void connected(CoronataWiiRemote wiiRemote) {
 						wiiRemote.turnLedOn(0);
 						System.out.println("Connected!");
 					}
 				})
-				.buttonListener(new WiiRemoteButtonListener() {
+				.onButton(new CoronataButtonObserver() {
 					@Override
-					public void buttonPressed(WiiRemoteButton button) {
+					public void buttonPressed(CoronataWiiRemoteButton button) {
 						System.out.println(button + " pressed");
 					}
 
 					@Override
-					public void buttonReleased(WiiRemoteButton button) {
+					public void buttonReleased(CoronataWiiRemoteButton button) {
 						System.out.println(button + " released");
 					}
 				})
-				.disconnectionListener(new WiiRemoteDisconnectionListener() {
+				.onDisconnection(new CoronataDisconnectionObserver() {
 					@Override
-					public void wiiRemoteDisconnected() {
+					public void disconnected() {
 						System.out.println("Disconnected.");
 					}
 				})
-				.build()
+				.endConfig()
 				.run();
 	}
 

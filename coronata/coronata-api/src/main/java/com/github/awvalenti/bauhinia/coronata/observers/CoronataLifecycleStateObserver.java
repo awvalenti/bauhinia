@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata.observers;
 
-public interface CoronataConnectionStateObserver {
+public interface CoronataLifecycleStateObserver {
 
 	void enteredIdleState();
 

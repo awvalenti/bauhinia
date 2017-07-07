@@ -6,7 +6,9 @@ import javax.bluetooth.L2CAPConnection;
 import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+
 
 class L2CAPWiiRemoteFactory {
 
@@ -23,8 +25,8 @@ class L2CAPWiiRemoteFactory {
 		if (!isWiiRemote) throw new IdentifiedAnotherDevice();
 	}
 
-	public WiiRemote createWiiRemote(RemoteDevice device, WiiRemoteFullListener listener)
-			throws WiiRemoteRejectedConnection {
+	public CoronataWiiRemote createWiiRemote(RemoteDevice device, CoronataButtonObserver buttonObserver,
+			CoronataDisconnectionObserver disconnectionObserver) throws WiiRemoteRejectedConnection {
 		String btAddress = device.getBluetoothAddress();
 
 		L2CAPConnection input = null;
@@ -36,7 +38,7 @@ class L2CAPWiiRemoteFactory {
 			L2CAPConnection output = (L2CAPConnection) Connector.open(
 					String.format("btl2cap://%s:11", btAddress), Connector.WRITE, true);
 
-			return new L2CAPWiiRemote(input, output, listener);
+			return new L2CAPWiiRemote(input, output, buttonObserver, disconnectionObserver);
 
 		} catch (IOException e1) {
 			try {

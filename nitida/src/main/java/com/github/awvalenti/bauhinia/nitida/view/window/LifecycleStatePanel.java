@@ -5,15 +5,15 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
-public class ConnectionStatePanel extends JPanel implements CoronataConnectionStateObserver {
+public class LifecycleStatePanel extends JPanel implements CoronataLifecycleStateObserver {
 
 	private static final long serialVersionUID = 1L;
 
 	private final ConnectionStateIndication[] indications;
 
-	public ConnectionStatePanel() {
+	public LifecycleStatePanel() {
 		super(new GridLayout(1, 3));
 
 		indications = new ConnectionStateIndication[] {

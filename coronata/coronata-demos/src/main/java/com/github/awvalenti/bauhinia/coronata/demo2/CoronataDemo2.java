@@ -1,48 +1,48 @@
 package com.github.awvalenti.bauhinia.coronata.demo2;
 
-import com.github.awvalenti.bauhinia.coronata.Coronata;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteDisconnectionListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-public class CoronataDemo2 implements CoronataWiiRemoteConnectionObserver,
-		WiiRemoteButtonListener, WiiRemoteDisconnectionListener {
+public class CoronataDemo2 implements CoronataConnectionObserver,
+		CoronataButtonObserver, CoronataDisconnectionObserver {
 
 	public static void main(String[] args) {
 		new CoronataDemo2().run();
 	}
 
 	public void run() {
-		Coronata.guidedBuilder()
+		CoronataBuilder.beginConfig()
 				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
-				.wiiRemoteConnectionObserver(this)
-				.buttonListener(this)
-				.disconnectionListener(this)
-				.build()
+				.onConnection(this)
+				.onButton(this)
+				.onDisconnection(this)
+				.endConfig()
 				.run();
 	}
 
 	@Override
-	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+	public void connected(CoronataWiiRemote wiiRemote) {
 		wiiRemote.turnLedOn(0);
 		System.out.println("Connected!");
 	}
 
 	@Override
-	public void wiiRemoteDisconnected() {
+	public void disconnected() {
 		System.out.println("Disconnected.");
 	}
 
 	@Override
-	public void buttonPressed(WiiRemoteButton button) {
+	public void buttonPressed(CoronataWiiRemoteButton button) {
 		System.out.println(button + " pressed");
 	}
 
 	@Override
-	public void buttonReleased(WiiRemoteButton button) {
+	public void buttonReleased(CoronataWiiRemoteButton button) {
 		System.out.println(button + " released");
 	}
 

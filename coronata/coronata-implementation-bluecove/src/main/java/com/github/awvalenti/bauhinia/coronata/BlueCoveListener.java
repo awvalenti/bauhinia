@@ -8,24 +8,24 @@ import javax.bluetooth.ServiceRecord;
 import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.DeviceRejectedIdentification;
 import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.IdentifiedAnotherDevice;
 import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.WiiRemoteRejectedConnection;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 class BlueCoveListener implements DiscoveryListener {
 
 	private final L2CAPWiiRemoteFactory wiiRemotefactory = new L2CAPWiiRemoteFactory();
-	private final CoronataBlueCoveExceptionFactory exceptionFactory;
+	private final BlueCoveExceptionFactory exceptionFactory;
 
-	private final WiiRemoteFullListener wiiRemoteListener;
-	private final CoronataFullObserver observer;
+	private final CoronataButtonObserver buttonObserver;
+	private final CoronataLifecycleEventsObserver leObserver;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(CoronataBlueCoveExceptionFactory exceptionFactory,
-			WiiRemoteFullListener wiiRemoteListener, final CoronataFullObserver observer,
+	public BlueCoveListener(BlueCoveExceptionFactory exceptionFactory,
+			CoronataButtonObserver wiiRemoteListener, final CoronataLifecycleEventsObserver observer,
 			final Object monitor) {
 		this.exceptionFactory = exceptionFactory;
-		this.wiiRemoteListener = wiiRemoteListener;
-		this.observer = observer;
+		this.buttonObserver = wiiRemoteListener;
+		this.leObserver = observer;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
 			@Override
 			public void run() {
@@ -61,22 +61,22 @@ class BlueCoveListener implements DiscoveryListener {
 		String address = device.getBluetoothAddress();
 		String deviceClass = ((Object) clazz).toString();
 
-		observer.bluetoothDeviceFound(address, deviceClass);
+		leObserver.bluetoothDeviceFound(address, deviceClass);
 
 		try {
 			wiiRemotefactory.assertDeviceIsWiiRemote(device);
-			observer.wiiRemoteIdentified();
-			WiiRemote wiiRemote = wiiRemotefactory.createWiiRemote(device, wiiRemoteListener);
-			observer.wiiRemoteConnected(wiiRemote);
+			leObserver.wiiRemoteIdentified();
+			CoronataWiiRemote w = wiiRemotefactory.createWiiRemote(device, buttonObserver, leObserver);
+			leObserver.connected(w);
 
 		} catch (DeviceRejectedIdentification e) {
-			observer.deviceRejectedIdentification(address, deviceClass);
+			leObserver.deviceRejectedIdentification(address, deviceClass);
 
 		} catch (IdentifiedAnotherDevice e) {
-			observer.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+			leObserver.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 
 		} catch (WiiRemoteRejectedConnection e) {
-			observer.errorOccurred(exceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
+			leObserver.errorOccurred(exceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
 		}
 
 	}

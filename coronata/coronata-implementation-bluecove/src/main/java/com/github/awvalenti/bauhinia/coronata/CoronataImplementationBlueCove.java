@@ -2,25 +2,23 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import javax.bluetooth.BluetoothStateException;
 
-import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class BlueCoveConnector implements CoronataConnector {
+class CoronataImplementationBlueCove implements Coronata {
 
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	private final CoronataBlueCoveExceptionFactory exceptionFactory = new CoronataBlueCoveExceptionFactory();
+	private final BlueCoveExceptionFactory exceptionFactory = new BlueCoveExceptionFactory();
 
 	private final ReadableCoronataConfig config;
 
-	public BlueCoveConnector(ReadableCoronataConfig config) {
+	public CoronataImplementationBlueCove(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
 	@Override
 	public void run() {
-		CoronataFullObserver observer = config.getCoronataObserver();
+		CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
 		observer.coronataStarted();
 
 		try {
@@ -29,7 +27,7 @@ class BlueCoveConnector implements CoronataConnector {
 
 			Object monitor = new Object();
 			blueCoveLib.startAsynchronousSearch(new BlueCoveListener(exceptionFactory, config
-					.getWiiRemoteListener(), observer, monitor));
+					.getButtonObserver(), observer, monitor));
 			observer.searchStarted();
 
 			if (config.isSynchronous()) {

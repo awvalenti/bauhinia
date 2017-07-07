@@ -6,12 +6,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.nitida.view.Messages;
 import com.github.awvalenti.bauhinia.nitida.view.window.InformationPane.HorizontalScrolling;
 
-public class LogPanel extends JPanel implements CoronataFullObserver {
+public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -64,7 +64,7 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 	}
 
 	@Override
-	public void wiiRemoteConnected(WiiRemote wiiRemote) {
+	public void connected(CoronataWiiRemote wiiRemote) {
 		append("Connected. Remote control is active!");
 	}
 
@@ -74,7 +74,7 @@ public class LogPanel extends JPanel implements CoronataFullObserver {
 	}
 
 	@Override
-	public void wiiRemoteDisconnected() {
+	public void disconnected() {
 		append(messages.get("wiiRemoteDisconnected"));
 	}
 

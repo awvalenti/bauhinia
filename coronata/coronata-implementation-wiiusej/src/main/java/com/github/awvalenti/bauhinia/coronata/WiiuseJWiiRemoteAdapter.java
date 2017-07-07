@@ -1,6 +1,10 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.WiiRemoteButton.*;
+import static com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton.*;
+
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+
 import wiiusej.Wiimote;
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
@@ -16,15 +20,14 @@ import wiiusej.wiiusejevents.wiiuseapievents.NunchukInsertedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.NunchukRemovedEvent;
 import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
-
-class WiiuseJWiiRemoteAdapter implements WiiRemote {
+class WiiuseJWiiRemoteAdapter implements CoronataWiiRemote {
 
 	private final Wiimote wiiusejWiimote;
 
-	public WiiuseJWiiRemoteAdapter(Wiimote wiiusejWiimote, WiiRemoteFullListener listener) {
+	public WiiuseJWiiRemoteAdapter(Wiimote wiiusejWiimote, CoronataButtonObserver buttonObserver,
+			CoronataDisconnectionObserver disconnectionObserver) {
 		this.wiiusejWiimote = wiiusejWiimote;
-		this.wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(listener));
+		this.wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(buttonObserver, disconnectionObserver));
 	}
 
 	@Override
@@ -45,44 +48,47 @@ class WiiuseJWiiRemoteAdapter implements WiiRemote {
 
 	private static class WiiuseJEventListener implements WiimoteListener {
 
-		private final WiiRemoteFullListener listener;
+		private final CoronataButtonObserver buttonObserver;
+		private final CoronataDisconnectionObserver disconnectionObserver;
 
-		private WiiuseJEventListener(WiiRemoteFullListener listener) {
-			this.listener = listener;
+		private WiiuseJEventListener(CoronataButtonObserver buttonObserver,
+				CoronataDisconnectionObserver disconnectionObserver) {
+			this.buttonObserver = buttonObserver;
+			this.disconnectionObserver = disconnectionObserver;
 		}
 
 		@Override
 		public void onDisconnectionEvent(DisconnectionEvent arg0) {
-			listener.wiiRemoteDisconnected();
+			disconnectionObserver.disconnected();
 		}
 
 		@Override
 		public void onButtonsEvent(WiimoteButtonsEvent wiiusejEvent) {
 			// Although ugly, we really have to check every button separately
 
-			if (wiiusejEvent.isButtonUpJustPressed()) listener.buttonPressed(UP);
-			if (wiiusejEvent.isButtonDownJustPressed()) listener.buttonPressed(DOWN);
-			if (wiiusejEvent.isButtonLeftJustPressed()) listener.buttonPressed(LEFT);
-			if (wiiusejEvent.isButtonRightJustPressed()) listener.buttonPressed(RIGHT);
-			if (wiiusejEvent.isButtonAJustPressed()) listener.buttonPressed(A);
-			if (wiiusejEvent.isButtonBJustPressed()) listener.buttonPressed(B);
-			if (wiiusejEvent.isButtonMinusJustPressed()) listener.buttonPressed(MINUS);
-			if (wiiusejEvent.isButtonHomeJustPressed()) listener.buttonPressed(HOME);
-			if (wiiusejEvent.isButtonPlusJustPressed()) listener.buttonPressed(PLUS);
-			if (wiiusejEvent.isButtonOneJustPressed()) listener.buttonPressed(ONE);
-			if (wiiusejEvent.isButtonTwoJustPressed()) listener.buttonPressed(TWO);
+			if (wiiusejEvent.isButtonUpJustPressed()) buttonObserver.buttonPressed(UP);
+			if (wiiusejEvent.isButtonDownJustPressed()) buttonObserver.buttonPressed(DOWN);
+			if (wiiusejEvent.isButtonLeftJustPressed()) buttonObserver.buttonPressed(LEFT);
+			if (wiiusejEvent.isButtonRightJustPressed()) buttonObserver.buttonPressed(RIGHT);
+			if (wiiusejEvent.isButtonAJustPressed()) buttonObserver.buttonPressed(A);
+			if (wiiusejEvent.isButtonBJustPressed()) buttonObserver.buttonPressed(B);
+			if (wiiusejEvent.isButtonMinusJustPressed()) buttonObserver.buttonPressed(MINUS);
+			if (wiiusejEvent.isButtonHomeJustPressed()) buttonObserver.buttonPressed(HOME);
+			if (wiiusejEvent.isButtonPlusJustPressed()) buttonObserver.buttonPressed(PLUS);
+			if (wiiusejEvent.isButtonOneJustPressed()) buttonObserver.buttonPressed(ONE);
+			if (wiiusejEvent.isButtonTwoJustPressed()) buttonObserver.buttonPressed(TWO);
 
-			if (wiiusejEvent.isButtonUpJustReleased()) listener.buttonReleased(UP);
-			if (wiiusejEvent.isButtonDownJustReleased()) listener.buttonReleased(DOWN);
-			if (wiiusejEvent.isButtonLeftJustReleased()) listener.buttonReleased(LEFT);
-			if (wiiusejEvent.isButtonRightJustReleased()) listener.buttonReleased(RIGHT);
-			if (wiiusejEvent.isButtonAJustReleased()) listener.buttonReleased(A);
-			if (wiiusejEvent.isButtonBJustReleased()) listener.buttonReleased(B);
-			if (wiiusejEvent.isButtonMinusJustReleased()) listener.buttonReleased(MINUS);
-			if (wiiusejEvent.isButtonHomeJustReleased()) listener.buttonReleased(HOME);
-			if (wiiusejEvent.isButtonPlusJustReleased()) listener.buttonReleased(PLUS);
-			if (wiiusejEvent.isButtonOneJustReleased()) listener.buttonReleased(ONE);
-			if (wiiusejEvent.isButtonTwoJustReleased()) listener.buttonReleased(TWO);
+			if (wiiusejEvent.isButtonUpJustReleased()) buttonObserver.buttonReleased(UP);
+			if (wiiusejEvent.isButtonDownJustReleased()) buttonObserver.buttonReleased(DOWN);
+			if (wiiusejEvent.isButtonLeftJustReleased()) buttonObserver.buttonReleased(LEFT);
+			if (wiiusejEvent.isButtonRightJustReleased()) buttonObserver.buttonReleased(RIGHT);
+			if (wiiusejEvent.isButtonAJustReleased()) buttonObserver.buttonReleased(A);
+			if (wiiusejEvent.isButtonBJustReleased()) buttonObserver.buttonReleased(B);
+			if (wiiusejEvent.isButtonMinusJustReleased()) buttonObserver.buttonReleased(MINUS);
+			if (wiiusejEvent.isButtonHomeJustReleased()) buttonObserver.buttonReleased(HOME);
+			if (wiiusejEvent.isButtonPlusJustReleased()) buttonObserver.buttonReleased(PLUS);
+			if (wiiusejEvent.isButtonOneJustReleased()) buttonObserver.buttonReleased(ONE);
+			if (wiiusejEvent.isButtonTwoJustReleased()) buttonObserver.buttonReleased(TWO);
 		}
 
 		@Override

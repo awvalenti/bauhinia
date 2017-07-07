@@ -1,17 +1,17 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-import static com.github.awvalenti.bauhinia.coronata.WiiRemoteButton.*;
+import static com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton.*;
 import static java.awt.event.KeyEvent.*;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 
 public class KeyMapping {
 
-	private final Map<WiiRemoteButton, Integer> mapping = new HashMap<WiiRemoteButton, Integer>();
+	private final Map<CoronataWiiRemoteButton, Integer> mapping = new HashMap<CoronataWiiRemoteButton, Integer>();
 
 	public KeyMapping() {
 		mapping.put(UP, VK_UP);
@@ -27,7 +27,7 @@ public class KeyMapping {
 		mapping.put(TWO, VK_ESCAPE);
 	}
 
-	public int keycodeFor(WiiRemoteButton button) {
+	public int keycodeFor(CoronataWiiRemoteButton button) {
 		return mapping.get(button);
 	}
 

@@ -1,8 +1,8 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-class CoronataWiiusejExceptionFactory {
+class WiiuseJExceptionFactory {
 
-	public CoronataException errorLoadingNativeLibraries(Throwable cause) {
+	CoronataException errorLoadingNativeLibraries(Throwable cause) {
 		return new CoronataException(cause, ""
 				+ "Error loading library: " + cause
 				+ "");

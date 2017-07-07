@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public enum WiiRemoteButton {
+public enum CoronataWiiRemoteButton {
 
 	UP   (2, 0x08),
 	DOWN (2, 0x04),
@@ -18,7 +18,7 @@ public enum WiiRemoteButton {
 	private final int byteIndex;
 	private final int byteValue;
 
-	private WiiRemoteButton(int byteIndex, int byteValue) {
+	private CoronataWiiRemoteButton(int byteIndex, int byteValue) {
 		this.byteIndex = byteIndex;
 		this.byteValue = byteValue;
 	}
