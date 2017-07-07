@@ -6,12 +6,12 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 import com.github.awvalenti.bauhinia.nitida.view.Messages;
 
-public class NitidaConsole implements CoronataLifecycleEventsObserver {
+public class NitidaViewConsole implements CoronataLifecycleEventsObserver {
 
 	private final ProjectProperties projectProperties;
 	private final Messages messages;
 
-	public NitidaConsole(ProjectProperties projectProperties, Messages messages) {
+	public NitidaViewConsole(ProjectProperties projectProperties, Messages messages) {
 		this.projectProperties = projectProperties;
 		this.messages = messages;
 	}

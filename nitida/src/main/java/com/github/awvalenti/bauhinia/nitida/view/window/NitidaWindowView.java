@@ -6,14 +6,12 @@ import javax.swing.JFrame;
 
 import com.github.awvalenti.bauhinia.nitida.other.ProjectProperties;
 
-public class NitidaWindow {
+public class NitidaWindowView {
 
-	private final JFrame frame;
-
-	public NitidaWindow(ProjectProperties projectProperties,
+	public NitidaWindowView(ProjectProperties projectProperties,
 			ApplicationStatePanel applicationStatePanel,
 			LogPanel logPanel, UserInputPanel userInputPanel) {
-		frame = new JFrame("nitida " + projectProperties.getProjectVersion());
+		JFrame frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
 		frame.setSize(320, 520);
 		frame.setLocationRelativeTo(null);
@@ -22,9 +20,7 @@ public class NitidaWindow {
 		frame.add(applicationStatePanel, BorderLayout.NORTH);
 		frame.add(logPanel, BorderLayout.CENTER);
 		frame.add(userInputPanel, BorderLayout.SOUTH);
-	}
 
-	public void run() {
 		frame.setVisible(true);
 	}
 

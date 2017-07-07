@@ -3,16 +3,15 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
-public class NitidaModel implements NitidaControllable, CoronataConnectionObserver,
-		CoronataDisconnectionObserver, CoronataButtonObserver {
+public class NitidaModel {
 
 	private final Robot robot;
 	private final KeyMapping mapping;
@@ -26,41 +25,47 @@ public class NitidaModel implements NitidaControllable, CoronataConnectionObserv
 		}
 		this.mapping = new KeyMapping();
 
+		MultipleEventsObserver o = new MultipleEventsObserver();
+
 		builder
-				.onConnection(this)
-				.onDisconnection(this)
-				.onButton(this);
+				.onConnection(o)
+				.onDisconnection(o)
+				.onButton(o);
 	}
 
 	public void setCoronata(Coronata coronata) {
 		this.coronata = coronata;
 	}
 
-	@Override
 	public void run() {
 		coronata.run();
 	}
 
-	@Override
-	public void connected(CoronataWiiRemote wiiRemote) {
-		wiiRemote.turnLedOn(0);
-	}
+	private class MultipleEventsObserver
+			implements CoronataConnectionObserver, CoronataDisconnectionObserver, CoronataButtonObserver {
 
-	@Override
-	public void disconnected() {
-		for (Integer keycode : mapping.allMappedKeycodes()) {
-			robot.keyRelease(keycode);
+		@Override
+		public void connected(CoronataWiiRemote wiiRemote) {
+			wiiRemote.turnLedOn(0);
 		}
-	}
 
-	@Override
-	public void buttonPressed(CoronataWiiRemoteButton button) {
-		robot.keyPress(mapping.keycodeFor(button));
-	}
+		@Override
+		public void disconnected() {
+			for (Integer keycode : mapping.allMappedKeycodes()) {
+				robot.keyRelease(keycode);
+			}
+		}
 
-	@Override
-	public void buttonReleased(CoronataWiiRemoteButton button) {
-		robot.keyRelease(mapping.keycodeFor(button));
+		@Override
+		public void buttonPressed(CoronataWiiRemoteButton button) {
+			robot.keyPress(mapping.keycodeFor(button));
+		}
+
+		@Override
+		public void buttonReleased(CoronataWiiRemoteButton button) {
+			robot.keyRelease(mapping.keycodeFor(button));
+		}
+
 	}
 
 }
