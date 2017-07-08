@@ -10,11 +10,18 @@
 
 ## Button-action mapping
 * __Directional__: Arrow keys (useful for text navigation)
-*      __A or +__: Next slide/page
-*      __B or -__: Previous slide/page
-*        __Home__: Start presentation from beginning
-*           __1__: Start presentation at current slide
-*           __2__: Stop presentation
+* __A or +__: Next slide/page
+* __B or -__: Previous slide/page
+* __Home__: Start presentation from beginning
+* __1__: Start presentation at current slide
+* __2__: Stop presentation
+
+## Known limitations
+* Due to Google Slides limitations:
+  * Start and stop presentation (buttons 1 and 2) only work well on Chrome
+  * Stop presentation (button 2) must be pressed twice so that
+    start presentation (button 1) works again
+* Due to SpeakerDeck limitation, the only way to go fullscreen is via mouse
 
 ## Detailed instructions
 1. **Download nitida JAR.** From the

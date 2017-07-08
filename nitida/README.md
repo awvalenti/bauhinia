@@ -11,6 +11,7 @@ Future use cases include game controller and media player controller.
 - Small, portable app (single JAR file with less than 1MB)
 - Cross-platform (tested on Windows and Linux)
 - Easy to use (informative user interface)
+- Profiles for PowerPoint, LibreOffice, Google Slides and Speaker Deck
 - Few requirements:
   - Java Runtime Environment 1.6+
   - On Windows, pairing Bluetooth device
@@ -18,13 +19,6 @@ Future use cases include game controller and media player controller.
 
 ## [Usage](src/main/resources/com/github/awvalenti/bauhinia/nitida/usage.md)
 Refer to [usage.md](src/main/resources/com/github/awvalenti/bauhinia/nitida/usage.md).
-
-## Known limitations
-* Due to Google Slides limitations:
-  * Start and stop presentation (buttons 1 and 2) only work well on Chrome
-  * Stop presentation (button 2) must be pressed twice so that button 1
-    works again
-* Due to SpeakerDeck limitation, only way to go fullscreen is via mouse
 
 ## Development
 You are welcome to submit suggestions and bugs! Please [open an issue](../../../issues)
