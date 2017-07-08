@@ -16,60 +16,43 @@ Future use cases include game controller and media player controller.
   - On Windows, pairing Bluetooth device
   - On Linux, installing a system package once
 
-## How to use
-1. Configure your computer to run nitida. The procedure varies according to your
-   operating system:
-    - Windows:
-      - Pair your Wii Remote:
-        1. Double-click the Bluetooth icon on the
-           lower-right corner of the screen or via Control Panel.
-        1. Look for Bluetooth devices already added. If the Wii Remote is there,
-        remove it.
-        1. Select the option to add a new device. Make the Wii Remote visible
-           by pressing buttons 1 + 2 simultaneously.
-        1. Add it as a paired device without using a code.         
-        1. For more information, please check
-           [this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
-           and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
-           Skip the parts dealing with the Dolphin emulator.
-    - Linux:
-      - Install the appropriate system package as described on the
-        Requirements section of [this page](http://bluecove.org/bluecove-gpl/).
-        On Ubuntu or derivatives,
-        this is accomplished by simply running ```sudo apt-get install libbluetooth-dev```.
-    - Mac:
-      - I don't have a Mac to test nitida, so I gladly accept your help to develop it!
-        Try running the application and
-        [open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
-          reporting your experience.
-1. From the [releases page](https://github.com/awvalenti/bauhinia/releases),
-  download the latest nitida JAR file.
-1. To run nitida version x.y.z (replace x.y.z with your version number, e.g., 0.1.0)...
-   - ...on window mode:
-     - Depending on your operating system and configurations, simply double-clicking
-       the downloaded JAR file may be enough. On Linux, you might need to add execution
-       permission to the file (```chmod +x nitida-x.y.z.jar```) and/or
-       right-clicking the file and selecting ```Open With > Java Runtime```
-       or similar.
-     - If none of the above worked, try running via terminal:
-       ```java -jar nitida-x.y.z.jar```.
-   - ...on console mode:
-      - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```.
-1. A connection attempt should start automatically. If you are using Linux,
-   press buttons 1 + 2 simultaneously to make the Wii Remote discoverable.
-   If you are on Windows, it should already be discoverable if previously paired
-   as explained above.
+## Usage
+On Windows, first step is to pair the Wii Remote. Open the Bluetooth
+configurations. Make the Wii Remote visible
+by pressing buttons 1 + 2 simultaneously. Add it as a paired device without
+using a code.
+If the device is already added, remove it and add it again.
+For more information, please check
+[this tutorial](http://www.dolphin-emulator.com/connect-wiimote.html)
+and/or [this video](https://www.youtube.com/watch?v=DIFARukwA5I).
+Skip the parts dealing with the Dolphin emulator.
+
+On Linux, install the appropriate system package as described on the
+Requirements section of [this page](http://bluecove.org/bluecove-gpl/).
+On Ubuntu or derivatives,
+this is accomplished by running ```sudo apt-get install libbluetooth-dev```.
+
+From the [releases page](https://github.com/awvalenti/bauhinia/releases),
+download the latest nitida JAR file and run it. Double-clicking the file
+should work. If it doesn't, you might want to try starting nitida via terminal:
+```java -jar nitida-x.y.z.jar``` (replace ```x.y.z``` with the appropriate version).
+
+A window should open and a connection
+attempt will be started. On Linux, press buttons 1 + 2 simultaneously
+on this moment to make the Wii Remote discoverable. On Windows, it is
+already discoverable if previously paired as explained above.
+
+You can also run nitida as a console application: ```java -jar nitida-x.y.z.jar --console```
 
 ## Development
-You are welcome to submit suggestions and bugs! Please [open an issue](../../../issues)
-if you have one.
+Suggestions are welcome! Please [open an issue](../../../issues) if you have one.
 
 ## License
 [GPL v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ```
 nitida - Portable Wii Remote controller application.
-Copyright (C) 2015 - 2017  Andre Willik Valenti
+Copyright (C) 2015  Andre Willik Valenti
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

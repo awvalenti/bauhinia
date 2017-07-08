@@ -4,21 +4,19 @@ import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
 
-
-class L2CAPWiiRemote implements CoronataWiiRemote {
+class L2CAPWiiRemote implements WiiRemote {
 
 	private final L2CAPConnection output;
 
 	private byte litLedIndex = -1;
 	private byte vibrationState = 0x00;
 
-	public L2CAPWiiRemote(L2CAPConnection input, L2CAPConnection output, CoronataButtonObserver buttonObserver,
-			CoronataDisconnectionObserver disconnectionObserver) {
+	public L2CAPWiiRemote(L2CAPConnection input, L2CAPConnection output, WiiRemoteFullListener listener) {
 		this.output = output;
-		new ButtonHandlerThread(input, output, buttonObserver, disconnectionObserver).start();
+		new ButtonHandlerThread(input, output, listener).start();
 	}
 
 	@Override

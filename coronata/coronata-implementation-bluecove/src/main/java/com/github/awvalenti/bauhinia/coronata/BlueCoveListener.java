@@ -5,27 +5,23 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.DeviceRejectedIdentification;
-import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.IdentifiedAnotherDevice;
-import com.github.awvalenti.bauhinia.coronata.L2CAPWiiRemoteFactory.WiiRemoteRejectedConnection;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class BlueCoveListener implements DiscoveryListener {
 
-	private final L2CAPWiiRemoteFactory wiiRemotefactory = new L2CAPWiiRemoteFactory();
-	private final BlueCoveExceptionFactory exceptionFactory;
+	private final L2CAPWiiRemoteFactory factory = new L2CAPWiiRemoteFactory();
+	private final BluetoothDeviceIdentifier deviceIdentifier = new BluetoothDeviceIdentifier();
 
-	private final CoronataButtonObserver buttonObserver;
-	private final CoronataLifecycleEventsObserver leObserver;
+	private final CoronataFullObserver observer;
+	private final WiiRemoteFullListener wiiRemoteListener;
 	private final JobSynchronizer synchronizer;
 
-	public BlueCoveListener(BlueCoveExceptionFactory exceptionFactory,
-			CoronataButtonObserver wiiRemoteListener, final CoronataLifecycleEventsObserver observer,
-			final Object monitor) {
-		this.exceptionFactory = exceptionFactory;
-		this.buttonObserver = wiiRemoteListener;
-		this.leObserver = observer;
+	public BlueCoveListener(WiiRemoteFullListener wiiRemoteListener,
+			final CoronataFullObserver observer, final Object monitor) {
+		this.wiiRemoteListener = wiiRemoteListener;
+		this.observer = observer;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
 			@Override
 			public void run() {
@@ -40,11 +36,12 @@ class BlueCoveListener implements DiscoveryListener {
 	@Override
 	public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
 
-		// This method, deviceDiscovered, should return immediately, according
-		// to BlueCove documentation. For this reason, we handle device discoveries
-		// on separate threads. However, this requires synchronization.
+		// This method, deviceDiscovered, should return immediatelly, according
+		// to BlueCove documentation. For that reason, we handle the discovery
+		// of a device in a separate thread. However, this requires
+		// synchronization.
 
-		synchronizer.addJob(new Runnable() {
+		synchronizer.newJob(new Runnable() {
 			@Override
 			public void run() {
 				handleDeviceDiscovered(device, clazz);
@@ -54,29 +51,29 @@ class BlueCoveListener implements DiscoveryListener {
 
 	@Override
 	public synchronized void inquiryCompleted(int reason) {
-		synchronizer.finishedAddingJobs();
+		synchronizer.end();
 	}
 
 	private void handleDeviceDiscovered(RemoteDevice device, DeviceClass clazz) {
 		String address = device.getBluetoothAddress();
 		String deviceClass = ((Object) clazz).toString();
 
-		leObserver.bluetoothDeviceFound(address, deviceClass);
+		observer.bluetoothDeviceFound(address, deviceClass);
 
 		try {
-			wiiRemotefactory.assertDeviceIsWiiRemote(device);
-			leObserver.wiiRemoteIdentified();
-			CoronataWiiRemote w = wiiRemotefactory.createWiiRemote(device, buttonObserver, leObserver);
-			leObserver.connected(w);
+			deviceIdentifier.assertDeviceIsWiiRemote(device);
+			observer.wiiRemoteIdentified();
+			WiiRemote wiiRemote = factory.createWiiRemote(device, wiiRemoteListener);
+			observer.wiiRemoteConnected(wiiRemote);
 
 		} catch (DeviceRejectedIdentification e) {
-			leObserver.deviceRejectedIdentification(address, deviceClass);
+			observer.deviceRejectedIdentification(address, deviceClass);
 
 		} catch (IdentifiedAnotherDevice e) {
-			leObserver.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+			observer.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
 
 		} catch (WiiRemoteRejectedConnection e) {
-			leObserver.errorOccurred(exceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
+			observer.errorOccurred(CoronataExceptionFactory.wiiRemoteRejectedConnection(e.getCause()));
 		}
 
 	}

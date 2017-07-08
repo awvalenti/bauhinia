@@ -1,43 +1,36 @@
 package com.github.awvalenti.bauhinia.coronata.demo1;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
-import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
-import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.WiiRemote;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public class CoronataDemo1 {
 
 	public static void main(String[] args) {
-		CoronataBuilder.beginConfig()
+		Coronata.guidedBuilder()
 				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
-				.onConnection(new CoronataConnectionObserver() {
+				.wiiRemoteConnectionObserver(new CoronataWiiRemoteConnectionObserver() {
 					@Override
-					public void connected(CoronataWiiRemote wiiRemote) {
+					public void wiiRemoteConnected(WiiRemote wiiRemote) {
 						wiiRemote.turnLedOn(0);
 						System.out.println("Connected!");
 					}
 				})
-				.onButton(new CoronataButtonObserver() {
+				.buttonListener(new WiiRemoteButtonListener() {
 					@Override
-					public void buttonPressed(CoronataWiiRemoteButton button) {
+					public void buttonPressed(WiiRemoteButton button) {
 						System.out.println(button + " pressed");
 					}
 
 					@Override
-					public void buttonReleased(CoronataWiiRemoteButton button) {
+					public void buttonReleased(WiiRemoteButton button) {
 						System.out.println(button + " released");
 					}
 				})
-				.onDisconnection(new CoronataDisconnectionObserver() {
-					@Override
-					public void disconnected() {
-						System.out.println("Disconnected.");
-					}
-				})
-				.endConfig()
+				.build()
 				.run();
 	}
 

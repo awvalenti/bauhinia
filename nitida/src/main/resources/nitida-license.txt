@@ -2,10 +2,7 @@ Project information and source code available at:
   https://github.com/awvalenti/bauhinia
 
 nitida - Portable Wii Remote controller application.
-Copyright (C) 2015 - 2017  Andre Willik Valenti
-
-nitida depends on this project:
-  coronata: https://github.com/awvalenti/bauhinia/tree/master/coronata
+Copyright (C) 2015  Andre Willik Valenti
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

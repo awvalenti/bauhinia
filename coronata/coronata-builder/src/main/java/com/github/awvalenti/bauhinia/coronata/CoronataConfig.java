@@ -1,19 +1,15 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
+import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 
 class CoronataConfig implements ReadableCoronataConfig {
 
 	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
-	
-	private final ObserversAggregation observers = new ObserversAggregation();
-	private final EventsMediator mediator = new EventsMediator(observers);
+	private CompositeListener compositeListener = new CompositeListener();
+	private CompositeObserver compositeObserver = new CompositeObserver();
 
 	@Override
 	public boolean isSynchronous() {
@@ -34,43 +30,21 @@ class CoronataConfig implements ReadableCoronataConfig {
 	}
 
 	@Override
-	public CoronataButtonObserver getButtonObserver() {
-		return mediator;
+	public WiiRemoteFullListener getWiiRemoteListener() {
+		return compositeListener;
+	}
+
+	public void addButtonListener(WiiRemoteFullListener l) {
+		compositeListener.addListener(l);
+	}
+
+	public void addObserver(CoronataFullObserver o) {
+		compositeObserver.add(o);
 	}
 
 	@Override
-	public CoronataLifecycleEventsObserver getLifecycleEventsObserver() {
-		return mediator;
-	}
-
-	public void addObserver(CoronataButtonObserver o) {
-		observers.button.add(o);
-	}
-
-	public void addObserver(CoronataConnectionObserver o) {
-		observers.connection.add(o);
-	}
-
-	public void addObserver(CoronataDisconnectionObserver o) {
-		observers.disconnection.add(o);
-	}
-
-	public void addObserver(CoronataLifecycleEventsObserver o) {
-		observers.lifecycleEvents.add(o);
-	}
-
-	public void addObserver(CoronataLifecycleStateObserver o) {
-		// XXX Should not have to call this here; calling this triggers the
-		// configuration of initial state on observer. But the observer
-		// should configure itself upon construction instead of depending
-		// on this method being called.
-		o.enteredIdleState();
-
-		observers.lifecycleState.add(o);
-	}
-
-	public void addObserver(CoronataPhaseObserver o) {
-		observers.phase.add(o);
+	public CoronataFullObserver getCoronataObserver() {
+		return compositeObserver;
 	}
 
 }

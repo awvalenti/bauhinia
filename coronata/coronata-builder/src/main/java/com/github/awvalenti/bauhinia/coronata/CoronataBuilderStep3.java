@@ -1,26 +1,24 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
+import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
 public interface CoronataBuilderStep3 {
 
-	CoronataBuilderStep3 onConnection(CoronataConnectionObserver o);
+	CoronataBuilderStep3 wiiRemoteConnectionObserver(CoronataWiiRemoteConnectionObserver o);
 
-	CoronataBuilderStep3 onDisconnection(CoronataDisconnectionObserver l);
+	CoronataBuilderStep3 buttonListener(WiiRemoteButtonListener listener);
 
-	CoronataBuilderStep3 onButton(CoronataButtonObserver listener);
+	CoronataBuilderStep3 connectionStateObserver(CoronataConnectionStateObserver o);
 
-	CoronataBuilderStep3 onLifecycleState(CoronataLifecycleStateObserver o);
+	CoronataBuilderStep3 phaseStateObserver(CoronataPhaseObserver o);
 
-	CoronataBuilderStep3 onPhase(CoronataPhaseObserver o);
+	CoronataBuilderStep3 fullObserver(CoronataFullObserver o);
 
-	CoronataBuilderStep3 onLifecycleEvents(CoronataLifecycleEventsObserver o);
-
-	Coronata endConfig();
+	CoronataConnector build();
 
 }

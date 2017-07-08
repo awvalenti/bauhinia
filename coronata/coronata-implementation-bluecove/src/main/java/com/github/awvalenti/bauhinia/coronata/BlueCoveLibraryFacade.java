@@ -9,7 +9,7 @@ import com.intel.bluetooth.BlueCoveConfigProperties;
 
 class BlueCoveLibraryFacade {
 
-	private final DiscoveryAgent agent;
+	private DiscoveryAgent agent;
 	private DiscoveryListener discoveryListener;
 
 	public BlueCoveLibraryFacade() throws BluetoothStateException {

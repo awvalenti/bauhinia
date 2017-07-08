@@ -1,3 +1,0 @@
-Remove redundancy between:
-	- WiiRemoteDisconnectionListener.wiiRemoteDisconnected
-	- CoronataWiiRemoteConnectionObserver.wiiRemoteDisconnected
