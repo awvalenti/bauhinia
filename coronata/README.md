@@ -2,11 +2,11 @@
 A cross-platform and easy to use Java Wii Remote library.
 
 coronata aims to be a high-usability library:
-* Clean API
+* Clean API (based on [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern))
 * Selective event handling (subscribe only to events that interest you)
 * No manuals, yes
 [demos](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata)
-(so learning is quickly and always up-to-date with latest coronata version)
+(so learning is quick and always up-to-date with current API)
 * Evolve together with applications (driven by real usage as much as possible)
 
 ## License
