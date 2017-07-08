@@ -55,7 +55,7 @@ To use coronata on a Maven project, add this to your pom.xml:
   <dependency>
     <groupId>com.github.awvalenti.bauhinia</groupId>
     <artifactId>coronata-lib</artifactId>
-    <version>v0.1.0</version>
+    <version>v0.2.0</version>
   </dependency>
 </dependencies>
 ```
