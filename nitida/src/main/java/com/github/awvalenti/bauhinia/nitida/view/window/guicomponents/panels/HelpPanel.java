@@ -16,38 +16,52 @@ public class HelpPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String NITIDA_HOW_TO_USE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida#usage";
-	private static final String NITIDA_LICENSE_PATH = "/nitida-license.txt";
+	private static final String ABOUT_PATH = "/nitida-license.txt";
+	private static final String USAGE_OFFLINE_PATH = "/com/github/awvalenti/bauhinia/nitida/usage.md";
+	private static final String USAGE_ONLINE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida/src/main/resources/com/github/awvalenti/bauhinia/nitida/usage.md";
 
 	private final BrowserLauncher browserLauncher;
 
 	public HelpPanel(BrowserLauncher browserLauncher) {
 		this.browserLauncher = browserLauncher;
 		setBorder(BorderFactory.createTitledBorder("Help"));
-		add(new HyperlinkButton("How to use", new HowToUseActionListener()));
 		add(new HyperlinkButton("About", new AboutActionListener()));
-	}
-
-	private class HowToUseActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			browserLauncher.open(NITIDA_HOW_TO_USE_URL);
-		}
+		add(new HyperlinkButton("Usage (offline)", new UsageOfflineActionListener()));
+		add(new HyperlinkButton("Usage (online)", new UsageOnlineActionListener()));
 	}
 
 	private class AboutActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			JDialog dialog = new JDialog();
-			dialog.setModal(true);
-			dialog.setTitle("About");
-			dialog.setSize(600, 500);
-			dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
-					Font.PLAIN, 14), getClass().getResource(NITIDA_LICENSE_PATH)));
-			dialog.setLocationRelativeTo(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			showDialog("About", 600, 550, ABOUT_PATH);
 		}
+
+	}
+
+	private class UsageOfflineActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			showDialog("Usage", 850, 800, USAGE_OFFLINE_PATH);
+		}
+	}
+
+	public class UsageOnlineActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			browserLauncher.open(USAGE_ONLINE_URL);
+		}
+	}
+
+	private void showDialog(String title, int width, int height, String pathToTextResource) {
+		JDialog dialog = new JDialog();
+		dialog.setModal(true);
+		dialog.setTitle(title);
+		dialog.setSize(width, height);
+		dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
+				Font.PLAIN, 14), getClass().getResource(pathToTextResource)));
+		dialog.setLocationRelativeTo(null);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
 	}
 
 }
