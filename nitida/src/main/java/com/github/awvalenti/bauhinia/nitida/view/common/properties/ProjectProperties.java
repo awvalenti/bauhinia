@@ -5,7 +5,7 @@ public class ProjectProperties {
 	private final String projectVersion;
 
 	public ProjectProperties() {
-		projectVersion = new MyProperties("/com/github/awvalenti/bauhinia/nitida/project.properties")
+		projectVersion = new PropertiesFileReader("/com/github/awvalenti/bauhinia/nitida/project.properties")
 				.get("project.version");
 	}
 

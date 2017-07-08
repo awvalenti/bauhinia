@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.nitida.view.window.BrowserLauncher;
-import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons.HyperlinkButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction.HyperlinkButton;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.InformationPane.HorizontalScrolling;
 
 public class HelpPanel extends JPanel {
@@ -18,7 +18,10 @@ public class HelpPanel extends JPanel {
 
 	private static final String ABOUT_PATH = "/nitida-license.txt";
 	private static final String USAGE_OFFLINE_PATH = "/com/github/awvalenti/bauhinia/nitida/usage.md";
-	private static final String USAGE_ONLINE_URL = "https://github.com/awvalenti/bauhinia/tree/master/nitida/src/main/resources/com/github/awvalenti/bauhinia/nitida/usage.md";
+
+	// TODO Add property to retrieve project version instead of hard-coded v0.2.x
+	private static final String USAGE_ONLINE_URL =
+			"https://github.com/awvalenti/bauhinia/tree/v0.2.x/nitida/src/main/resources/com/github/awvalenti/bauhinia/nitida/usage.md";
 
 	private final BrowserLauncher browserLauncher;
 
@@ -58,7 +61,7 @@ public class HelpPanel extends JPanel {
 		dialog.setTitle(title);
 		dialog.setSize(width, height);
 		dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
-				Font.PLAIN, 14), getClass().getResource(pathToTextResource)));
+				Font.BOLD, 14), getClass().getResource(pathToTextResource)));
 		dialog.setLocationRelativeTo(null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);

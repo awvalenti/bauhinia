@@ -10,11 +10,12 @@ import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.ProfileChangedObserver;
 
-public class NitidaModel {
+public class NitidaModel implements ProfileChangedObserver {
 
 	private final Robot robot;
-	private final KeyMapping mapping;
+	private final ButtonMapping mapping;
 	private Coronata coronata;
 
 	public NitidaModel(CoronataBuilderStep3 builder) {
@@ -23,7 +24,7 @@ public class NitidaModel {
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
-		this.mapping = new KeyMapping();
+		this.mapping = new ButtonMapping();
 
 		MultipleEventsObserver o = new MultipleEventsObserver();
 
@@ -52,20 +53,31 @@ public class NitidaModel {
 		@Override
 		public void disconnected() {
 			for (Integer keycode : mapping.allMappedKeycodes()) {
+				// This avoids keys getting stuck
+				// when controller is disconnected
 				robot.keyRelease(keycode);
 			}
 		}
 
 		@Override
 		public void buttonPressed(CoronataWiiRemoteButton button) {
-			robot.keyPress(mapping.keycodeFor(button));
+			for (int keycode : mapping.keycodesFor(button)) {
+				robot.keyPress(keycode);
+			}
 		}
 
 		@Override
 		public void buttonReleased(CoronataWiiRemoteButton button) {
-			robot.keyRelease(mapping.keycodeFor(button));
+			for (int keycode : mapping.keycodesFor(button)) {
+				robot.keyRelease(keycode);
+			}
 		}
 
+	}
+
+	@Override
+	public void presentationAppChanged(PresentationApp app) {
+		mapping.setPresentationApp(app);
 	}
 
 }

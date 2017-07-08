@@ -4,10 +4,11 @@ import java.text.MessageFormat;
 
 public class Messages {
 
-	private final MyProperties p;
+	private final PropertiesFileReader p;
 
 	public Messages() {
-		p = new MyProperties("/com/github/awvalenti/bauhinia/nitida/messages.properties");
+		p = new PropertiesFileReader(
+				"/com/github/awvalenti/bauhinia/nitida/messages.properties");
 	}
 
 	public String get(String key) {

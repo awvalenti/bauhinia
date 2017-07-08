@@ -16,7 +16,7 @@ public class NitidaWindowView {
 			LogPanel logPanel, UserInputPanel userInputPanel) {
 		JFrame frame = new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
-		frame.setSize(360, 520);
+		frame.setSize(360, 620);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

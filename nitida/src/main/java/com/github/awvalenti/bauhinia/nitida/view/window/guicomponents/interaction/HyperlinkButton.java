@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.buttons;
+package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction;
 
 import java.awt.Color;
 import java.awt.Cursor;
