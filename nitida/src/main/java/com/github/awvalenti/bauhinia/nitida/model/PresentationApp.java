@@ -2,6 +2,8 @@ package com.github.awvalenti.bauhinia.nitida.model;
 
 public enum PresentationApp {
 
+	ADOBE_READER("Adobe Reader"),
+
 	GOOGLE_SLIDES("Google Slides"),
 
 	POWERPOINT_OR_LIBREOFFICE("PowerPoint / LibreOffice"),
