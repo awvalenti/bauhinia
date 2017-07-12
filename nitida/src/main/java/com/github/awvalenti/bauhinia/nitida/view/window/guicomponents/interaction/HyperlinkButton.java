@@ -11,7 +11,7 @@ public class HyperlinkButton extends JButton {
 	private static final long serialVersionUID = 1L;
 
 	public HyperlinkButton(String text, ActionListener actionListener) {
-		setText("<html><u>" + text + "</u></html>");
+		setText("<html><u><center>" + text + "</center></u></html>");
 		setBorderPainted(false);
 		setOpaque(false);
 		setBackground(Color.WHITE);

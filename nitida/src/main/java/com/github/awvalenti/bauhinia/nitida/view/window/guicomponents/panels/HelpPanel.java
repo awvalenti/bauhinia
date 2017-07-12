@@ -29,8 +29,8 @@ public class HelpPanel extends JPanel {
 		this.browserLauncher = browserLauncher;
 		setBorder(BorderFactory.createTitledBorder("Help"));
 		add(new HyperlinkButton("About", new AboutActionListener()));
-		add(new HyperlinkButton("Usage (offline)", new UsageOfflineActionListener()));
-		add(new HyperlinkButton("Usage (online)", new UsageOnlineActionListener()));
+		add(new HyperlinkButton("Usage<br>(offline)", new UsageOfflineActionListener()));
+		add(new HyperlinkButton("Usage<br>(online)", new UsageOnlineActionListener()));
 	}
 
 	private class AboutActionListener implements ActionListener {
