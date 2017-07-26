@@ -53,7 +53,7 @@ public class NitidaModel implements ProfileChangedObserver {
 		@Override
 		public void disconnected() {
 			for (Integer keycode : mapping.allMappedKeycodes()) {
-				// This avoids keys getting stuck
+				// This avoids keys getting stuck pressed
 				// when controller is disconnected
 				robot.keyRelease(keycode);
 			}

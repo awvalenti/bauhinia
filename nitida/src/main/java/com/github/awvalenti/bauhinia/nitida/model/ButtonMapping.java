@@ -35,14 +35,15 @@ public class ButtonMapping {
 	}
 
 	public final void setPresentationApp(PresentationApp app) {
-		String path = "/com/github/awvalenti/bauhinia/nitida/button-mapping/" +
-				app.name() + ".properties";
+		buttonToKeycodes.clear();
 
-		PropertiesFileReader properties = new PropertiesFileReader(path);
+		PropertiesFileReader properties = new PropertiesFileReader(
+				"/com/github/awvalenti/bauhinia/nitida/button-mapping/" +
+				app.name() + ".properties");
 
-		for (String propName : properties.keySet()) {
-			String[] keysNames = properties.get(propName).toUpperCase().split(" ");
-			buttonToKeycodes.put(buttonFor(propName.toUpperCase()), keycodesFor(keysNames));
+		for (String buttonName : properties.keySet()) {
+			String[] keysNames = properties.get(buttonName).toUpperCase().split(" ");
+			buttonToKeycodes.put(buttonFor(buttonName.toUpperCase()), keycodesFor(keysNames));
 		}
 	}
 
@@ -56,6 +57,10 @@ public class ButtonMapping {
 	}
 
 	private int[] keycodesFor(String[] keysNames) {
+		if (keysNames.length == 0 || keysNames[0].isEmpty()) {
+			return new int[0];
+		}
+
 		int[] ret = new int[keysNames.length];
 		for (int i = 0; i < ret.length; ++i) {
 			ret[i] = findKeycode(keysNames[i]);
@@ -68,8 +73,8 @@ public class ButtonMapping {
 			return KeyEvent.class.getField(keyEventClassFieldName).getInt(null);
 
 		} catch (NoSuchFieldException e) {
-			throw new IllegalArgumentException(keyEventClassFieldName + ""
-					+ "is not a valid key name", e);
+			throw new IllegalArgumentException(keyEventClassFieldName +
+					" is not a valid key name", e);
 
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException(e);

@@ -8,20 +8,23 @@
 5. Choose presenter application
 6. Try it
 
-## Button-action mapping
+## Standard actions (may vary according to application)
 * __Directional__: Arrow keys (useful for text navigation)
-* __A or +__: Next slide/page
-* __B or -__: Previous slide/page
-* __Home__: Start presentation from beginning
-* __1__: Start presentation at current slide
-* __2__: Stop presentation
+* __A__: Next slide/page
+* __B__: Previous slide/page
+* __-__: Stop presentation
+* __Home__: Start presentation at first slide
+* __+__: Start presentation at current slide
+* __1__: Black out screen
+* __2__: ALT + TAB (may not work on Windows 8 - see
+         https://stackoverflow.com/questions/14549526/alttab-using-java-robot)
 
 ## Known limitations
 * Due to Google Slides limitations:
-  * Start and stop presentation (buttons 1 and 2) only work well on Chrome
-  * Stop presentation (button 2) must be pressed twice so that
-    start presentation (button 1) works again
-* Due to SpeakerDeck limitation, the only way to go fullscreen is via mouse
+  * Start and stop presentation functions only work well on Chrome
+  * Stop presentation button must be pressed twice in order to
+    start presentation function work again
+* Some applications only allow going fullscreen via mouse
 
 ## Detailed instructions
 1. **Download nitida JAR.** From the
