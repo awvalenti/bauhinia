@@ -56,7 +56,7 @@
         [open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
           reporting your experience.
 
-3. **Run JAR.** (replace x.y.z by version number, e.g., 0.2.0)
+3. **Run JAR.** (replace x.y.z by version number, e.g., 0.2.x)
    - ...on console mode:
       - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```.
    - ...on window mode (default):

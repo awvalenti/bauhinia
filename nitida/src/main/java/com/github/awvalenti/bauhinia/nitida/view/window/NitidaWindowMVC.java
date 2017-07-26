@@ -38,17 +38,18 @@ public class NitidaWindowMVC {
 		model.setCoronata(builder.endConfig());
 
 		PresentationAppComboBox comboBox = new PresentationAppComboBox();
+		ProjectProperties projectProperties = new ProjectProperties();
 
 		new NitidaWindowController(model, retryButton, comboBox);
 
 		new NitidaWindowView(
-				new ProjectProperties(),
+				projectProperties,
 				new ApplicationStatePanel(phasePanel, lifecycleStatePanel),
 				logPanel,
 				new UserInputPanel(
 						new PresentationAppPanel(comboBox),
 						new ActionPanel(retryButton),
-						new HelpPanel(new BrowserLauncher())));
+						new HelpPanel(projectProperties, new BrowserLauncher())));
 
 		model.run();
 	}

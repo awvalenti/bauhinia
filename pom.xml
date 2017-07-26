@@ -6,7 +6,7 @@
 	<groupId>com.github.awvalenti.bauhinia</groupId>
 	<artifactId>bauhinia</artifactId>
 	<packaging>pom</packaging>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.x</version>
 
 	<modules>
 		<module>coronata</module>
