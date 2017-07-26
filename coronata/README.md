@@ -55,13 +55,12 @@ To use coronata on a Maven project, add this to your pom.xml:
   <dependency>
     <groupId>com.github.awvalenti.bauhinia</groupId>
     <artifactId>coronata-lib</artifactId>
-    <version>v0.2.0</version>
+    <version>0.2.x</version>
   </dependency>
 </dependencies>
 ```
 
-On ```<version>```, put either a git tag correponding to a released version
-(which is the case above) or a commit hash.
+On ```<version>``` above, put a git tag correponding to a released version.
 
 If you use Eclipse, sometimes the Maven plugin is unable to download JAR files
 properly from JitPack. If that happens, please try running
