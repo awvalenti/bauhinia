@@ -3,16 +3,16 @@ package com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interacti
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-import com.github.awvalenti.bauhinia.nitida.model.PresentationApp;
+import com.github.awvalenti.bauhinia.nitida.model.Profile;
 
-public class PresentationAppComboBox extends JComboBox<PresentationApp> {
+public class ProfileComboBox extends JComboBox<Profile> {
 
 	private static final long serialVersionUID = 1L;
 
-	public PresentationAppComboBox() {
-		super(PresentationApp.values());
+	public ProfileComboBox() {
+		super(Profile.values());
 
-		setSelectedItem(PresentationApp.getDefault());
+		setSelectedItem(Profile.getDefault());
 
 		((JLabel) getRenderer()).setHorizontalAlignment(JLabel.CENTER);
 	}

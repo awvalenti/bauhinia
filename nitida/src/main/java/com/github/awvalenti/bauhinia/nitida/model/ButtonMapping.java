@@ -11,21 +11,21 @@ import com.github.awvalenti.bauhinia.nitida.view.common.properties.PropertiesFil
 
 public class ButtonMapping {
 
-	private final Map<CoronataWiiRemoteButton, int[]> buttonToKeycodes =
+	private final Map<CoronataWiiRemoteButton, int[]> buttonsToKeycodes =
 			new HashMap<CoronataWiiRemoteButton, int[]>();
 
 	public ButtonMapping() {
-		setPresentationApp(PresentationApp.getDefault());
+		setProfile(Profile.getDefault());
 	}
 
 	public int[] keycodesFor(CoronataWiiRemoteButton button) {
-		return buttonToKeycodes.get(button);
+		return buttonsToKeycodes.get(button);
 	}
 
 	public Collection<Integer> allMappedKeycodes() {
 		Collection<Integer> ret = new ArrayList<Integer>();
 
-		for (int[] keycodes : buttonToKeycodes.values()) {
+		for (int[] keycodes : buttonsToKeycodes.values()) {
 			for (int keycode : keycodes) {
 				ret.add(keycode);
 			}
@@ -34,16 +34,20 @@ public class ButtonMapping {
 		return ret;
 	}
 
-	public final void setPresentationApp(PresentationApp app) {
-		buttonToKeycodes.clear();
+	public final void setProfile(Profile profile) {
+		buttonsToKeycodes.clear();
 
 		PropertiesFileReader properties = new PropertiesFileReader(
 				"/com/github/awvalenti/bauhinia/nitida/button-mapping/" +
-				app.name() + ".properties");
+				profile.name() + ".properties");
 
 		for (String buttonName : properties.keySet()) {
 			String[] keysNames = properties.get(buttonName).toUpperCase().split(" ");
-			buttonToKeycodes.put(buttonFor(buttonName.toUpperCase()), keycodesFor(keysNames));
+			buttonsToKeycodes.put(buttonFor(buttonName.toUpperCase()), keycodesFor(keysNames));
+		}
+		
+		if (buttonsToKeycodes.size() != CoronataWiiRemoteButton.values().length) {
+			throw new RuntimeException(profile.name() + " profile is non-exhaustive");
 		}
 	}
 

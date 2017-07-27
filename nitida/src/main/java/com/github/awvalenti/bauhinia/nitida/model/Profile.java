@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.model;
 
-public enum PresentationApp {
+public enum Profile {
 
 	ADOBE_ACROBAT_READER("Adobe Acrobat Reader"),
 
@@ -18,7 +18,7 @@ public enum PresentationApp {
 
 	private final String formattedName;
 
-	private PresentationApp(String formattedName) {
+	private Profile(String formattedName) {
 		this.formattedName = formattedName;
 	}
 
@@ -27,7 +27,7 @@ public enum PresentationApp {
 		return formattedName;
 	}
 
-	public static PresentationApp getDefault() {
+	public static Profile getDefault() {
 		return POWERPOINT_OR_LIBREOFFICE;
 	}
 

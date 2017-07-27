@@ -76,8 +76,8 @@ public class NitidaModel implements ProfileChangedObserver {
 	}
 
 	@Override
-	public void presentationAppChanged(PresentationApp app) {
-		mapping.setPresentationApp(app);
+	public void profileChanged(Profile profile) {
+		mapping.setProfile(profile);
 	}
 
 }
