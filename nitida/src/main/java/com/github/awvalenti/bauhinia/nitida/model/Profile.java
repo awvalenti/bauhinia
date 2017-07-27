@@ -4,7 +4,7 @@ public enum Profile {
 
 	ADOBE_ACROBAT_READER("Adobe Acrobat Reader"),
 
-	CHROME_FIREFOX_FOXIT_PDF("Chrome / Firefox / Foxit (PDF)"),
+	CHROME_FIREFOX_FOXIT_READER("Chrome / Firefox / Foxit Reader"),
 
 	EVINCE("Evince"),
 
@@ -13,6 +13,10 @@ public enum Profile {
 	POWERPOINT_OR_LIBREOFFICE("PowerPoint / LibreOffice"),
 
 	SLIDESHARE_OR_SPEAKER_DECK("SlideShare / Speaker Deck"),
+
+	VLC("VLC Media Player"),
+
+	YOUTUBE("YouTube"),
 
 	;
 

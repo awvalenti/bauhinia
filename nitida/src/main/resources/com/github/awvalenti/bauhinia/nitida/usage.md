@@ -8,23 +8,15 @@
 5. Choose presenter application
 6. Try it
 
-## Standard actions (may vary according to application)
-* __Directional__: Arrow keys (useful for text navigation)
+## Standard actions (when supported)
+* __Directional__: Arrow keys
 * __A__: Next slide/page
 * __B__: Previous slide/page
-* __-__: Stop presentation
-* __Home__: Start presentation at first slide
-* __+__: Start presentation at current slide
+* __-__: Stop presentation (on Google Slides, must be pressed twice)
+* __Home__: Start presentation at first slide/page
+* __+__: Start presentation at current slide/page
 * __1__: Black out screen
-* __2__: ALT + TAB (may not work on Windows 8 - see
-         https://stackoverflow.com/questions/14549526/alttab-using-java-robot)
-
-## Known limitations
-* Due to Google Slides limitations:
-  * Start and stop presentation functions only work well on Chrome
-  * Stop presentation button must be pressed twice in order to
-    start presentation function work again
-* Some applications only allow going fullscreen via mouse
+* __2__: ALT + TAB (may not work on Windows 8)
 
 ## Detailed instructions
 1. **Download nitida JAR.** From the
@@ -38,7 +30,7 @@
         1. Double-click the Bluetooth icon on the
            lower-right corner of the screen or via Control Panel.
         2. Look for Bluetooth devices already added. If the Wii Remote is there,
-        remove it.
+           remove it.
         3. Select the option to add a new device. Make the Wii Remote visible
            by pressing buttons 1 + 2 simultaneously.
         4. Add it as a paired device without using a code.         
