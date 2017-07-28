@@ -74,7 +74,7 @@ class ButtonHandlerThread extends Thread {
 
 	private void wiiRemoteDisconnected() {
 		// Since we're not using Java 7, we need to do this odd try block to
-		// make sure connections are closed and listener is informed
+		// make sure connections are closed and observer is notified
 		try {
 			try {
 				input.close();
