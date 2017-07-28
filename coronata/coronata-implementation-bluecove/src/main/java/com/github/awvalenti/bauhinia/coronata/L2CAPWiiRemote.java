@@ -40,16 +40,8 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 	}
 
 	private void realizeLedAndOrVibration() {
-		sendDataToWiiRemote((byte) 0x11, new byte[] { (byte) (ledsState << 4 | vibrationState) });
-	}
-
-	private void sendDataToWiiRemote(byte commandCode, byte[] data) {
-		byte[] dataWithExtraBytes = new byte[2 + data.length];
-		dataWithExtraBytes[0] = 0x52;
-		dataWithExtraBytes[1] = commandCode;
-		System.arraycopy(data, 0, dataWithExtraBytes, 2, data.length);
 		try {
-			output.send(dataWithExtraBytes);
+			output.send(new byte[] { 0x52, 0x11, (byte) (ledsState << 4 | vibrationState) });
 		} catch (IOException e) {
 			// This should happen only if user tries to send data to
 			// an already disconnected Wii Remote. The exception is ignored.
