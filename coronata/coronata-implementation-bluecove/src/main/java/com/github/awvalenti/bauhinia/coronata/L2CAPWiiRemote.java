@@ -8,12 +8,12 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
 
-class L2CAPWiiRemote implements CoronataWiiRemote {
+class L2CAPWiiRemote implements CoronataWiiRemote, L2CAPWiiRemoteConstants {
 
 	private final L2CAPConnection output;
 
 	private byte ledsState = LEDS_NONE;
-	private byte vibrationState = 0x00;
+	private byte vibrationState = VIBRATION_OFF;
 
 	public L2CAPWiiRemote(L2CAPConnection input, L2CAPConnection output, CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
@@ -24,29 +24,26 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 	@Override
 	public void setLightedLEDs(int ledsState) {
 		this.ledsState = (byte) ledsState;
-		realizeLedAndOrVibration();
+		realizeLedsAndOrVibration();
 	}
 
 	@Override
 	public void startVibration() {
-		vibrationState = 0x01;
-		realizeLedAndOrVibration();
+		vibrationState = VIBRATION_ON;
+		realizeLedsAndOrVibration();
 	}
 
 	@Override
 	public void stopVibration() {
-		vibrationState = 0x00;
-		realizeLedAndOrVibration();
+		vibrationState = VIBRATION_OFF;
+		realizeLedsAndOrVibration();
 	}
 
-	private void realizeLedAndOrVibration() {
-		sendDataToWiiRemote((byte) 0x11, new byte[] { (byte) (ledsState << 4 | vibrationState) });
-	}
-
-	private void sendDataToWiiRemote(byte commandCode, byte[] data) {
+	private void realizeLedsAndOrVibration() {
+		byte[] data = new byte[] { (byte) (ledsState << 4 | vibrationState) };
 		byte[] dataWithExtraBytes = new byte[2 + data.length];
 		dataWithExtraBytes[0] = 0x52;
-		dataWithExtraBytes[1] = commandCode;
+		dataWithExtraBytes[1] = ID_LEDS_VIBRATION;
 		System.arraycopy(data, 0, dataWithExtraBytes, 2, data.length);
 		try {
 			output.send(dataWithExtraBytes);
