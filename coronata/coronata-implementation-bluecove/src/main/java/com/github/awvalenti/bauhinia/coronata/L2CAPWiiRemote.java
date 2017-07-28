@@ -12,7 +12,7 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 
 	private final L2CAPConnection output;
 
-	private byte litLedIndex = -1;
+	private byte ledsState = LEDS_NONE;
 	private byte vibrationState = 0x00;
 
 	public L2CAPWiiRemote(L2CAPConnection input, L2CAPConnection output, CoronataButtonObserver buttonObserver,
@@ -23,8 +23,7 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		// TODO accept any combination of lighted LEDs
-		this.litLedIndex = (byte) (ledsState % 4);
+		this.ledsState = (byte) ledsState;
 		realizeLedAndOrVibration();
 	}
 
@@ -41,7 +40,7 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 	}
 
 	private void realizeLedAndOrVibration() {
-		sendDataToWiiRemote((byte) 0x11, new byte[] { (byte) (vibrationState | (1 << (litLedIndex + 4))) });
+		sendDataToWiiRemote((byte) 0x11, new byte[] { (byte) (ledsState << 4 | vibrationState) });
 	}
 
 	private void sendDataToWiiRemote(byte commandCode, byte[] data) {
