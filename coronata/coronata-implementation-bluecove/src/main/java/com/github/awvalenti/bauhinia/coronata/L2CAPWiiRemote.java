@@ -23,7 +23,10 @@ class L2CAPWiiRemote implements CoronataWiiRemote, L2CAPWiiRemoteConstants {
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		this.ledsState = (byte) ledsState;
+		// Only first four bits are important. The other ones should not be set.
+		// To avoid interfering with vibration, they are discarded.
+		this.ledsState = (byte) (ledsState & 0xF0);
+
 		realizeLedsAndOrVibration();
 	}
 
@@ -41,7 +44,7 @@ class L2CAPWiiRemote implements CoronataWiiRemote, L2CAPWiiRemoteConstants {
 
 	private void realizeLedsAndOrVibration() {
 		try {
-			output.send(new byte[] { SET_REPORT, ID_LEDS_VIBRATION, (byte) (ledsState << 4 | vibrationState) });
+			output.send(new byte[] { SET_REPORT, ID_LEDS_VIBRATION, (byte) (ledsState | vibrationState) });
 		} catch (IOException e) {
 			// This should happen only if user tries to send data to
 			// an already disconnected Wii Remote. The exception is ignored.

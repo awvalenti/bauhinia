@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.coronata;
 
 interface L2CAPWiiRemoteConstants {
 
-	// See http://wiibrew.org/wiki/Wiimote
+	// Source: http://wiibrew.org/wiki/Wiimote
 
 	byte
 			SET_REPORT = 0x52,
