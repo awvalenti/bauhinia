@@ -16,7 +16,7 @@ public class CoronataDemo1 {
 				.onConnection(new CoronataConnectionObserver() {
 					@Override
 					public void connected(CoronataWiiRemote wiiRemote) {
-						wiiRemote.turnLedOn(0);
+						wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
 						System.out.println("Connected!");
 					}
 				})

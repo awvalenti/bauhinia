@@ -22,8 +22,9 @@ class L2CAPWiiRemote implements CoronataWiiRemote {
 	}
 
 	@Override
-	public void turnLedOn(int ledIndex) {
-		this.litLedIndex = (byte) (ledIndex % 4);
+	public void setLightedLEDs(int ledsState) {
+		// TODO accept any combination of lighted LEDs
+		this.litLedIndex = (byte) (ledsState % 4);
 		realizeLedAndOrVibration();
 	}
 

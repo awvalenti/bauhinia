@@ -50,7 +50,7 @@ public class NitidaModel {
 
 		@Override
 		public void connected(CoronataWiiRemote wiiRemote) {
-			wiiRemote.turnLedOn(0);
+			wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
 		}
 
 		@Override

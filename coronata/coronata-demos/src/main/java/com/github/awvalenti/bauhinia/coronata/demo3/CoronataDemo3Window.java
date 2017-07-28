@@ -48,7 +48,7 @@ public class CoronataDemo3Window extends JFrame implements CoronataConnectionObs
 
 	@Override
 	public void connected(CoronataWiiRemote wiiRemote) {
-		wiiRemote.turnLedOn(0);
+		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
 	}
 
 	@Override

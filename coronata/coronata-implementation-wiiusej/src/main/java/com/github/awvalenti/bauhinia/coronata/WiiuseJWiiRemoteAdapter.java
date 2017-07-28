@@ -31,9 +31,13 @@ class WiiuseJWiiRemoteAdapter implements CoronataWiiRemote {
 	}
 
 	@Override
-	public void turnLedOn(int ledIndex) {
-		ledIndex %= 4;
-		wiiusejWiimote.setLeds(ledIndex == 0, ledIndex == 1, ledIndex == 2, ledIndex == 3);
+	public void setLightedLEDs(int ledsState) {
+		wiiusejWiimote.setLeds(
+			(ledsState & LED_0) != 0,
+			(ledsState & LED_1) != 0,
+			(ledsState & LED_2) != 0,
+			(ledsState & LED_3) != 0
+		);
 	}
 
 	@Override
