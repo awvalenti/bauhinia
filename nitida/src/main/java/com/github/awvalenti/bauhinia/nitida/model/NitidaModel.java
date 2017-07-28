@@ -10,9 +10,8 @@ import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
-import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.ProfileChangedObserver;
 
-public class NitidaModel implements ProfileChangedObserver {
+public class NitidaModel {
 
 	private final Robot robot;
 	private final ButtonMapping mapping;
@@ -40,6 +39,10 @@ public class NitidaModel implements ProfileChangedObserver {
 
 	public void run() {
 		coronata.run();
+	}
+
+	public void profileChanged(Profile profile) {
+		mapping.setProfile(profile);
 	}
 
 	private class MultipleEventsObserver
@@ -73,11 +76,6 @@ public class NitidaModel implements ProfileChangedObserver {
 			}
 		}
 
-	}
-
-	@Override
-	public void profileChanged(Profile profile) {
-		mapping.setProfile(profile);
 	}
 
 }
