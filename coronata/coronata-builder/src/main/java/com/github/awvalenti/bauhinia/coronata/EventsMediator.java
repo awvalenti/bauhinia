@@ -1,13 +1,11 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.CONNECT_TO_WII_REMOTE;
-import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.FIND_WII_REMOTE;
-import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.LOAD_LIBRARY;
+import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.*;
 
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-public class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonObserver {
+class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonObserver {
 
 	private CoronataPhase currentPhase;
 	private boolean identified = false;

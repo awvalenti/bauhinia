@@ -1,5 +1,11 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataLinux;
+import com.github.awvalenti.bauhinia.coronata.CoronataWindows;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep1;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
@@ -76,8 +82,7 @@ public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderSte
 	@Override
 	public Coronata endConfig() {
 		boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
-		return isWindows ? new CoronataImplementationWiiuseJ(config) : new CoronataImplementationBlueCove(
-				config);
+		return isWindows ? new CoronataWindows(config) : new CoronataLinux(config);
 	}
 
 }

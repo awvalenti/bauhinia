@@ -9,15 +9,17 @@
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata-builder</artifactId>
+	<artifactId>coronata-implementation-windows</artifactId>
 	<packaging>jar</packaging>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
-		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-interface</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>coronata-common</artifactId>
@@ -25,13 +27,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-linux</artifactId>
+			<artifactId>coronata-interface</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-windows</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.github.awvalenti.wiiusej</groupId>
+			<artifactId>wiiusej-lib</artifactId>
+			<version>0.14-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

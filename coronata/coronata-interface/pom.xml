@@ -9,15 +9,10 @@
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata-common</artifactId>
+	<artifactId>coronata-interface</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-interface</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 
 </project>

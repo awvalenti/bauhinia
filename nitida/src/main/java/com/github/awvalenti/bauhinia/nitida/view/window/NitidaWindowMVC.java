@@ -1,7 +1,7 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaWindowController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;

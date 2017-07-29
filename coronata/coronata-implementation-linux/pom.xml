@@ -9,15 +9,10 @@
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata-builder</artifactId>
+	<artifactId>coronata-implementation-linux</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-interface</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>coronata-common</artifactId>
@@ -25,13 +20,19 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-linux</artifactId>
+			<artifactId>coronata-interface</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-windows</artifactId>
-			<version>${project.version}</version>
+			<groupId>net.sf.bluecove</groupId>
+			<artifactId>bluecove</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.bluecove</groupId>
+			<artifactId>bluecove-gpl</artifactId>
+			<version>2.1.0</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

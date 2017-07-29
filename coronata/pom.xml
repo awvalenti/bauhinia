@@ -13,12 +13,12 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>coronata-api</module>
+		<module>coronata-interface</module>
 		<module>coronata-builder</module>
 		<module>coronata-common</module>
 		<module>coronata-demos</module>
-		<module>coronata-implementation-bluecove</module>
-		<module>coronata-implementation-wiiusej</module>
+		<module>coronata-implementation-linux</module>
+		<module>coronata-implementation-windows</module>
 		<module>coronata-lib</module>
 	</modules>
 

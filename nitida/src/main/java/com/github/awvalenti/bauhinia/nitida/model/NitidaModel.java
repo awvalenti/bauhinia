@@ -4,9 +4,9 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;

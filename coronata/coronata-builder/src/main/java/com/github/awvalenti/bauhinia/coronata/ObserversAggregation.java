@@ -2,8 +2,6 @@ package com.github.awvalenti.bauhinia.coronata;
 
 /**
  * Just an aggreagtion of composite observers in a single object.
- * Not idiomatic Java, since it has fields with package-level access.
- * That, however, makes usage easier, and usage is very local.
  */
 class ObserversAggregation {
 

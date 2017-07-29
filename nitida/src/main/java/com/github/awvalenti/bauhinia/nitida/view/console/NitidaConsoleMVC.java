@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
+import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.nitida.NitidaMain;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
