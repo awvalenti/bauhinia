@@ -16,6 +16,7 @@ public class NitidaModel {
 	private final Robot robot;
 	private final ButtonMapping mapping;
 	private Coronata coronata;
+	private CoronataWiiRemote wiiRemote;
 
 	public NitidaModel(CoronataBuilderStep3 builder) {
 		try {
@@ -37,7 +38,7 @@ public class NitidaModel {
 		this.coronata = coronata;
 	}
 
-	public void run() {
+	public void start() {
 		coronata.run();
 	}
 
@@ -45,11 +46,17 @@ public class NitidaModel {
 		mapping.setProfile(profile);
 	}
 
+	public void stop() {
+		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
+		wiiRemote.disconnect();
+	}
+
 	private class MultipleEventsObserver
 			implements CoronataConnectionObserver, CoronataDisconnectionObserver, CoronataButtonObserver {
 
 		@Override
-		public void connected(CoronataWiiRemote wiiRemote) {
+		public void connected(final CoronataWiiRemote wiiRemote) {
+			NitidaModel.this.wiiRemote = wiiRemote;
 			wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
 		}
 

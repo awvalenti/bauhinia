@@ -23,7 +23,7 @@ public class NitidaConsoleMVC {
 
 		NitidaModel model = new NitidaModel(builder);
 		model.setCoronata(builder.endConfig());
-		model.run();
+		model.start();
 	}
 
 	private void printCopyrightInfo() {

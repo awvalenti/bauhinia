@@ -7,7 +7,8 @@ import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.ProjectProperties;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction.ProfileComboBox;
-import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction.RetryButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction.StartButton;
+import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.interaction.StopButton;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.ActionPanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.ApplicationStatePanel;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.HelpPanel;
@@ -23,7 +24,8 @@ public class NitidaWindowMVC {
 		PhasesPanel phasePanel = new PhasesPanel();
 		LifecycleStatePanel lifecycleStatePanel = new LifecycleStatePanel();
 		LogPanel logPanel = new LogPanel(new Messages());
-		RetryButton retryButton = new RetryButton();
+		StartButton startButton = new StartButton();
+		StopButton stopButton = new StopButton();
 
 		CoronataBuilderStep3 builder = CoronataBuilder.beginConfig()
 				.asynchronous()
@@ -31,7 +33,8 @@ public class NitidaWindowMVC {
 				.onPhase(phasePanel)
 				.onLifecycleEvents(logPanel)
 				.onLifecycleState(lifecycleStatePanel)
-				.onLifecycleState(retryButton);
+				.onLifecycleState(startButton)
+				.onLifecycleState(stopButton);
 
 		NitidaModel model = new NitidaModel(builder);
 
@@ -40,7 +43,7 @@ public class NitidaWindowMVC {
 		ProfileComboBox comboBox = new ProfileComboBox();
 		ProjectProperties projectProperties = new ProjectProperties();
 
-		new NitidaWindowController(model, retryButton, comboBox);
+		new NitidaWindowController(model, startButton, stopButton, comboBox);
 
 		new NitidaWindowView(
 				projectProperties,
@@ -48,10 +51,10 @@ public class NitidaWindowMVC {
 				logPanel,
 				new UserInputPanel(
 						new ProfilePanel(comboBox),
-						new ActionPanel(retryButton),
+						new ActionPanel(startButton, stopButton),
 						new HelpPanel(projectProperties, new BrowserLauncher())));
 
-		model.run();
+		model.start();
 	}
 
 }

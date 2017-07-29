@@ -22,17 +22,18 @@ import wiiusej.wiiusejevents.wiiuseapievents.StatusEvent;
 
 class WiiuseJWiiRemote implements CoronataWiiRemote {
 
-	private final Wiimote wiiusejWiimote;
+	private final Wiimote wiimote;
 
-	public WiiuseJWiiRemote(Wiimote wiiusejWiimote, CoronataButtonObserver buttonObserver,
+	public WiiuseJWiiRemote(Wiimote wiimote, CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
-		this.wiiusejWiimote = wiiusejWiimote;
-		this.wiiusejWiimote.addWiiMoteEventListeners(new WiiuseJEventListener(buttonObserver, disconnectionObserver));
+		this.wiimote = wiimote;
+		wiimote.addWiiMoteEventListeners(
+				new WiiuseJEventListener(buttonObserver, disconnectionObserver));
 	}
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		wiiusejWiimote.setLeds(
+		wiimote.setLeds(
 			(ledsState & LED_0) != 0,
 			(ledsState & LED_1) != 0,
 			(ledsState & LED_2) != 0,
@@ -42,12 +43,12 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 
 	@Override
 	public void startVibration() {
-		wiiusejWiimote.activateRumble();
+		wiimote.activateRumble();
 	}
 
 	@Override
 	public void stopVibration() {
-		wiiusejWiimote.deactivateRumble();
+		wiimote.deactivateRumble();
 	}
 
 	private static class WiiuseJEventListener implements WiimoteListener {
@@ -62,7 +63,7 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 		}
 
 		@Override
-		public void onDisconnectionEvent(DisconnectionEvent arg0) {
+		public void onDisconnectionEvent(DisconnectionEvent e) {
 			disconnectionObserver.disconnected();
 		}
 
@@ -135,6 +136,18 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 		public void onExpansionEvent(ExpansionEvent arg0) {
 		}
 
+	}
+
+	@Override
+	public void disconnect() {
+		wiimote.disconnect();
+
+		// Strangely, WiiuseJ does not notify the event automatically.
+		// So, we do it manually below.
+
+		for (WiimoteListener l : wiimote.getWiiMoteEventListeners()) {
+			l.onDisconnectionEvent(null);
+		}
 	}
 
 }

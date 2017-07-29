@@ -65,7 +65,7 @@ public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver 
 
 	@Override
 	public void connected(CoronataWiiRemote wiiRemote) {
-		append("Connected. Remote control is active!");
+		append(messages.get("wiiRemoteConnected"));
 	}
 
 	@Override

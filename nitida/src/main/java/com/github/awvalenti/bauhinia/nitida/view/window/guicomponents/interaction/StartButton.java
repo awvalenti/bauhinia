@@ -4,12 +4,12 @@ import javax.swing.JButton;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
-public class RetryButton extends JButton implements CoronataLifecycleStateObserver {
+public class StartButton extends JButton implements CoronataLifecycleStateObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	public RetryButton() {
-		super("Retry");
+	public StartButton() {
+		super("Start");
 	}
 
 	@Override

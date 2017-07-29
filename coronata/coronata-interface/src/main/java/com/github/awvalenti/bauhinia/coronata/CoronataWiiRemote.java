@@ -11,4 +11,6 @@ public interface CoronataWiiRemote {
 
 	void stopVibration();
 
+	void disconnect();
+
 }

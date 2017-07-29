@@ -50,4 +50,10 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 		}
 	}
 
+	@Override
+	public void disconnect() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
