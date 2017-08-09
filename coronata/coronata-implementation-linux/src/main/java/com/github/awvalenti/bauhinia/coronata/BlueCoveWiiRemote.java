@@ -14,10 +14,14 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 	private byte ledsState = LEDS_NONE;
 	private byte vibrationState = VIBRATION_OFF;
 
-	public BlueCoveWiiRemote(L2CAPConnection input, L2CAPConnection output, CoronataButtonObserver buttonObserver,
+	private ButtonHandlerThread thread;
+
+	public BlueCoveWiiRemote(L2CAPConnection input, L2CAPConnection output,
+			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.output = output;
-		new ButtonHandlerThread(input, output, buttonObserver, disconnectionObserver).start();
+		this.thread = new ButtonHandlerThread(input, output, buttonObserver, disconnectionObserver);
+		this.thread.start();
 	}
 
 	@Override
@@ -52,8 +56,7 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
-
+		thread.disconnectWiiRemote();
 	}
 
 }

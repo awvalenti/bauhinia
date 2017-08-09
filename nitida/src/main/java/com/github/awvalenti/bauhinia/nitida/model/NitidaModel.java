@@ -16,7 +16,7 @@ public class NitidaModel {
 	private final Robot robot;
 	private final ButtonMapping mapping;
 	private Coronata coronata;
-	private CoronataWiiRemote wiiRemote;
+	private CoronataWiiRemote storedWiiRemote;
 
 	public NitidaModel(CoronataBuilderStep3 builder) {
 		try {
@@ -47,8 +47,8 @@ public class NitidaModel {
 	}
 
 	public void stop() {
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
-		wiiRemote.disconnect();
+		storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
+		storedWiiRemote.disconnect();
 	}
 
 	private class MultipleEventsObserver
@@ -56,12 +56,14 @@ public class NitidaModel {
 
 		@Override
 		public void connected(final CoronataWiiRemote wiiRemote) {
-			NitidaModel.this.wiiRemote = wiiRemote;
 			wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
+			storedWiiRemote = wiiRemote;
 		}
 
 		@Override
 		public void disconnected() {
+			storedWiiRemote = null;
+
 			for (Integer keycode : mapping.allMappedKeycodes()) {
 				// This avoids keys getting stuck pressed
 				// when controller is disconnected
