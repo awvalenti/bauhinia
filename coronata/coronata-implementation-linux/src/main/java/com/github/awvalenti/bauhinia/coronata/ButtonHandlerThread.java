@@ -36,7 +36,7 @@ class ButtonHandlerThread extends Thread {
 		// This avoids program exiting when this thread is still running.
 		// Setting daemon to false is necessary because the thread that
 		// spawns this one is of daemon type, thus this one is also
-		// set to dameon by default.
+		// set to daemon by default.
 		setDaemon(false);
 	}
 
@@ -47,14 +47,13 @@ class ButtonHandlerThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			for (;;) {
-				input.receive(currentState);
+			receiveFirstState();
+			 for (;;) {
+				waitForDataReady();
+				if (disconnectionRequested) break;
+				receiveCurrentState();
 				handleButtons();
 				swapBuffers();
-				while (!input.ready()) {
-					if (disconnectionRequested) return;
-					Thread.sleep(1);
-				}
 			}
 		} catch (InterruptedException e) {
 			// Won't happen (Thread.sleep requires this catch clause)
@@ -71,6 +70,21 @@ class ButtonHandlerThread extends Thread {
 		} finally {
 			handleDisconnection();
 		}
+	}
+
+	private void receiveFirstState() throws IOException {
+		input.receive(previousState);
+	}
+
+	private void waitForDataReady() throws IOException, InterruptedException {
+		while (!input.ready()) {
+			if (disconnectionRequested) break;
+			Thread.sleep(1);
+		}
+	}
+
+	private void receiveCurrentState() throws IOException {
+		input.receive(currentState);
 	}
 
 	private void handleButtons() {
