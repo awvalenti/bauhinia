@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.coronata.demo3;
+package com.github.awvalenti.bauhinia.coronata.demo3window;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

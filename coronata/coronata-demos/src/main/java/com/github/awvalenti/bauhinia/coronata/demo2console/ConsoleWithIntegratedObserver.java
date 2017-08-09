@@ -1,4 +1,4 @@
-package com.github.awvalenti.bauhinia.coronata.demo2;
+package com.github.awvalenti.bauhinia.coronata.demo2console;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
