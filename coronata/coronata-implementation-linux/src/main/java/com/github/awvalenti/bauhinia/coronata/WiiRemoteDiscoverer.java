@@ -5,15 +5,15 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.coronata.BlueCoveWiiRemoteFactory.DeviceRejectedIdentification;
-import com.github.awvalenti.bauhinia.coronata.BlueCoveWiiRemoteFactory.IdentifiedAnotherDevice;
-import com.github.awvalenti.bauhinia.coronata.BlueCoveWiiRemoteFactory.WiiRemoteRejectedConnection;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.DeviceRejectedIdentification;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentifiedAnotherDevice;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.WiiRemoteRejectedConnection;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 class WiiRemoteDiscoverer implements DiscoveryListener {
 
-	private final BlueCoveWiiRemoteFactory wiiRemotefactory = new BlueCoveWiiRemoteFactory();
+	private final WiiRemoteFactory wiiRemotefactory = new WiiRemoteFactory();
 	private final BlueCoveExceptionFactory exceptionFactory;
 
 	private final CoronataButtonObserver buttonObserver;

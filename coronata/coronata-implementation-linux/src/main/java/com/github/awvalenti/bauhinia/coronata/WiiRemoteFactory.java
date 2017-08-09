@@ -9,8 +9,7 @@ import javax.microedition.io.Connector;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-
-class BlueCoveWiiRemoteFactory {
+class WiiRemoteFactory {
 
 	public void assertDeviceIsWiiRemote(RemoteDevice device) throws DeviceRejectedIdentification,
 			IdentifiedAnotherDevice {
