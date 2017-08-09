@@ -7,7 +7,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-public class CoronataDemo1 {
+public class ConsoleWithSeparatedObservers {
 
 	public static void main(String[] args) {
 		CoronataBuilder.beginConfig()

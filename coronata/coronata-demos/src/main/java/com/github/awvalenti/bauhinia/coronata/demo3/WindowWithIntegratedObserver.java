@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
@@ -16,7 +17,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-public class CoronataDemo3Window extends JFrame implements CoronataConnectionObserver,
+public class WindowWithIntegratedObserver extends JFrame implements CoronataConnectionObserver,
 		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +25,7 @@ public class CoronataDemo3Window extends JFrame implements CoronataConnectionObs
 	private final JLabel lblStatus = new JLabel("", JLabel.CENTER);
 	private final JButton btnConnect = new JButton("Connect");
 
-	public CoronataDemo3Window() {
+	public WindowWithIntegratedObserver() {
 		super("Coronata Demo");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,6 +80,23 @@ public class CoronataDemo3Window extends JFrame implements CoronataConnectionObs
 	@Override
 	public void enteredConnectedState() {
 		lblStatus.setText("Connected! Press Wii Remote buttons to test.");
+	}
+
+	public static void main(String[] args) {
+		WindowWithIntegratedObserver window = new WindowWithIntegratedObserver();
+	
+		Coronata coronata = CoronataBuilder.beginConfig()
+				.asynchronous()	// Because this is a graphical application
+				.oneWiiRemote()
+				.onConnection(window)
+				.onButton(window)
+				.onLifecycleState(window)
+				.onDisconnection(window)
+				.endConfig();
+	
+		window.setCoronata(coronata);
+	
+		window.setVisible(true);
 	}
 
 }

@@ -68,10 +68,8 @@ properly from JitPack. If that happens, please try running
 Eclipse (```right-click on the project > Maven > Update Project...```).
 
 ### Usage
-To learn how to use coronata, take a look at source code from
-[```coronata-demos```](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata)
-module. A quick sample is
-[CoronataDemo1](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata/demo1/CoronataDemo1.java).
+To learn how to use coronata, take a look at source code from module
+[```coronata-demos```](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata). 
 For a more thorough example, please refer to the [nitida project](../nitida).
 
 ## Dependencies
