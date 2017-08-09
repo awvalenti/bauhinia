@@ -48,7 +48,7 @@ class ButtonHandlerThread extends Thread {
 	public void run() {
 		try {
 			receiveFirstState();
-			 for (;;) {
+			for (;;) {
 				waitForDataReady();
 				if (disconnectionRequested) break;
 				receiveCurrentState();
