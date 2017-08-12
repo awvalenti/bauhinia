@@ -10,11 +10,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	private final L2CAPConnection output;
-
-	private byte ledsState = LEDS_NONE;
-	private byte vibrationState = VIBRATION_OFF;
-
-	private ButtonHandlerThread thread;
+	private final ButtonHandlerThread thread;
+	private byte currentState = 0x00;
 
 	public BlueCoveWiiRemote(L2CAPConnection input, L2CAPConnection output,
 			CoronataButtonObserver buttonObserver,
@@ -26,28 +23,25 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		// Only first four bits are important. The other ones should not be set.
-		// To avoid interfering with vibration, they are discarded.
-		this.ledsState = (byte) (ledsState & 0xF0);
-
+		currentState = (byte) (currentState & ~LEDS_MASK | ledsState & LEDS_MASK);
 		realizeLedsAndOrVibration();
 	}
 
 	@Override
 	public void startVibration() {
-		vibrationState = VIBRATION_ON;
+		currentState |= VIBRATION_MASK;
 		realizeLedsAndOrVibration();
 	}
 
 	@Override
 	public void stopVibration() {
-		vibrationState = VIBRATION_OFF;
+		currentState &= ~VIBRATION_MASK;
 		realizeLedsAndOrVibration();
 	}
 
 	private void realizeLedsAndOrVibration() {
 		try {
-			output.send(new byte[] { SET_REPORT, ID_LEDS_VIBRATION, (byte) (ledsState | vibrationState) });
+			output.send(new byte[] { SET_REPORT, ID_LEDS_VIBRATION, currentState });
 		} catch (IOException e) {
 			// This should happen only if user tries to send data to
 			// an already disconnected Wii Remote. The exception is ignored.

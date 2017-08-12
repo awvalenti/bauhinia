@@ -9,7 +9,8 @@ interface WiiRemoteConstants {
 
 			ID_LEDS_VIBRATION = 0x11,
 
-			VIBRATION_OFF = 0x00,
-			VIBRATION_ON = 0x01;
+			LEDS_MASK = (byte) 0xF0,
+
+			VIBRATION_MASK = 0x01;
 
 }
