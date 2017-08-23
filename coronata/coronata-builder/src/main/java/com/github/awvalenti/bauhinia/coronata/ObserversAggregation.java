@@ -1,7 +1,7 @@
 package com.github.awvalenti.bauhinia.coronata;
 
 /**
- * Just an aggreagtion of composite observers in a single object.
+ * Just an aggregation of composite observers in a single object.
  */
 class ObserversAggregation {
 
