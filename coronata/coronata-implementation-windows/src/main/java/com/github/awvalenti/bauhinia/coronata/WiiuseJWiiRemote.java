@@ -68,32 +68,43 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 		}
 
 		@Override
-		public void onButtonsEvent(WiimoteButtonsEvent wiiusejEvent) {
+		public void onButtonsEvent(WiimoteButtonsEvent e) {
+			final CoronataButtonObserver o = buttonObserver;
+
 			// The ugly and only way to do it
 
-			if (wiiusejEvent.isButtonUpJustPressed()) buttonObserver.buttonPressed(UP);
-			if (wiiusejEvent.isButtonDownJustPressed()) buttonObserver.buttonPressed(DOWN);
-			if (wiiusejEvent.isButtonLeftJustPressed()) buttonObserver.buttonPressed(LEFT);
-			if (wiiusejEvent.isButtonRightJustPressed()) buttonObserver.buttonPressed(RIGHT);
-			if (wiiusejEvent.isButtonAJustPressed()) buttonObserver.buttonPressed(A);
-			if (wiiusejEvent.isButtonBJustPressed()) buttonObserver.buttonPressed(B);
-			if (wiiusejEvent.isButtonMinusJustPressed()) buttonObserver.buttonPressed(MINUS);
-			if (wiiusejEvent.isButtonHomeJustPressed()) buttonObserver.buttonPressed(HOME);
-			if (wiiusejEvent.isButtonPlusJustPressed()) buttonObserver.buttonPressed(PLUS);
-			if (wiiusejEvent.isButtonOneJustPressed()) buttonObserver.buttonPressed(ONE);
-			if (wiiusejEvent.isButtonTwoJustPressed()) buttonObserver.buttonPressed(TWO);
+			if (e.isButtonUpJustPressed()) o.buttonPressed(UP);
+			else if (e.isButtonUpJustReleased()) o.buttonReleased(UP);
 
-			if (wiiusejEvent.isButtonUpJustReleased()) buttonObserver.buttonReleased(UP);
-			if (wiiusejEvent.isButtonDownJustReleased()) buttonObserver.buttonReleased(DOWN);
-			if (wiiusejEvent.isButtonLeftJustReleased()) buttonObserver.buttonReleased(LEFT);
-			if (wiiusejEvent.isButtonRightJustReleased()) buttonObserver.buttonReleased(RIGHT);
-			if (wiiusejEvent.isButtonAJustReleased()) buttonObserver.buttonReleased(A);
-			if (wiiusejEvent.isButtonBJustReleased()) buttonObserver.buttonReleased(B);
-			if (wiiusejEvent.isButtonMinusJustReleased()) buttonObserver.buttonReleased(MINUS);
-			if (wiiusejEvent.isButtonHomeJustReleased()) buttonObserver.buttonReleased(HOME);
-			if (wiiusejEvent.isButtonPlusJustReleased()) buttonObserver.buttonReleased(PLUS);
-			if (wiiusejEvent.isButtonOneJustReleased()) buttonObserver.buttonReleased(ONE);
-			if (wiiusejEvent.isButtonTwoJustReleased()) buttonObserver.buttonReleased(TWO);
+			if (e.isButtonDownJustPressed()) o.buttonPressed(DOWN);
+			else if (e.isButtonDownJustReleased()) o.buttonReleased(DOWN);
+
+			if (e.isButtonLeftJustPressed()) o.buttonPressed(LEFT);
+			else if (e.isButtonLeftJustReleased()) o.buttonReleased(LEFT);
+
+			if (e.isButtonRightJustPressed()) o.buttonPressed(RIGHT);
+			else if (e.isButtonRightJustReleased()) o.buttonReleased(RIGHT);
+
+			if (e.isButtonAJustPressed()) o.buttonPressed(A);
+			else if (e.isButtonAJustReleased()) o.buttonReleased(A);
+
+			if (e.isButtonBJustPressed()) o.buttonPressed(B);
+			else if (e.isButtonBJustReleased()) o.buttonReleased(B);
+
+			if (e.isButtonMinusJustPressed()) o.buttonPressed(MINUS);
+			else if (e.isButtonMinusJustReleased()) o.buttonReleased(MINUS);
+
+			if (e.isButtonHomeJustPressed()) o.buttonPressed(HOME);
+			else if (e.isButtonHomeJustReleased()) o.buttonReleased(HOME);
+
+			if (e.isButtonPlusJustPressed()) o.buttonPressed(PLUS);
+			else if (e.isButtonPlusJustReleased()) o.buttonReleased(PLUS);
+
+			if (e.isButtonOneJustPressed()) o.buttonPressed(ONE);
+			else if (e.isButtonOneJustReleased()) o.buttonReleased(ONE);
+
+			if (e.isButtonTwoJustPressed()) o.buttonPressed(TWO);
+			else if (e.isButtonTwoJustReleased()) o.buttonReleased(TWO);
 		}
 
 		@Override
