@@ -65,9 +65,9 @@ element, put a released coronata version.
 
 If errors occur when downloading dependencies, please do the following:
 1. Erase partially downloaded files from your repository. Delete one of the
-  directories below:
-  - On Linux: ```~/.m2/repository/com/github/awvalenti```
-  - On Windows: ```%HOMEPATH%\.m2\repository\com\github\awvalenti```
+   directories below:
+     - On Linux: ```~/.m2/repository/com/github/awvalenti```
+     - On Windows: ```%HOMEPATH%\.m2\repository\com\github\awvalenti```
 2. Rebuild your project, either via Maven (e.g., ```mvn clean compile```) or
    IDE (on Eclipse: Project > Clean > Clean all projects > OK).
 
