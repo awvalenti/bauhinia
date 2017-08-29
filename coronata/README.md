@@ -3,8 +3,8 @@
 * Clean API, based on [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern)
 * Selective event handling: subscribe only to events that interest you
 * No manuals, yes
-[demos](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata)
-(quick learning and up-to-date with current API)
+[demos](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata):
+quick learning and up-to-date with current API
 * Evolve together with applications: driven by real usage
 
 ## License
