@@ -1,13 +1,15 @@
 package com.github.awvalenti.bauhinia.coronata.demo5vibration;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 
 public class Vibration implements CoronataConnectionObserver,
-		CoronataButtonObserver {
+		CoronataButtonObserver, CoronataErrorObserver {
 
 	private CoronataWiiRemote wiiRemote;
 
@@ -18,10 +20,16 @@ public class Vibration implements CoronataConnectionObserver,
 	public void run() {
 		CoronataBuilder.beginConfig()
 				.oneWiiRemote()
+				.onError(this)
 				.onConnection(this)
 				.onButton(this)
 				.endConfig()
 				.run();
+	}
+
+	@Override
+	public void errorOccurred(CoronataException e) {
+		System.err.println(e);
 	}
 
 	@Override

@@ -17,4 +17,6 @@ class ObserversAggregation {
 
 	final CompositePhaseObserver phase = new CompositePhaseObserver();
 
+	final CompositeErrorObserver error = new CompositeErrorObserver();
+
 }

@@ -1,13 +1,11 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.Coronata;
-import com.github.awvalenti.bauhinia.coronata.CoronataLinux;
-import com.github.awvalenti.bauhinia.coronata.CoronataWindows;
 import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep1;
 import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
@@ -61,6 +59,12 @@ public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderSte
 
 	@Override
 	public CoronataBuilderStep2 onPhase(CoronataPhaseObserver o) {
+		config.addObserver(o);
+		return this;
+	}
+
+	@Override
+	public CoronataBuilderStep2 onError(CoronataErrorObserver o) {
 		config.addObserver(o);
 		return this;
 	}

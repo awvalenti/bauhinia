@@ -1,10 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata.demo4leds;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 
-public class LEDs implements CoronataConnectionObserver {
+public class LEDs implements CoronataConnectionObserver, CoronataErrorObserver {
 
 	public static void main(String[] args) {
 		new LEDs().run();
@@ -13,9 +15,15 @@ public class LEDs implements CoronataConnectionObserver {
 	public void run() {
 		CoronataBuilder.beginConfig()
 				.oneWiiRemote()
+				.onError(this)
 				.onConnection(this)
 				.endConfig()
 				.run();
+	}
+
+	@Override
+	public void errorOccurred(CoronataException e) {
+		System.err.println(e);
 	}
 
 	@Override

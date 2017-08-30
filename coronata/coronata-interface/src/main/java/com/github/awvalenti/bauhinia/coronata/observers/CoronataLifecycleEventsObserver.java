@@ -3,7 +3,8 @@ package com.github.awvalenti.bauhinia.coronata.observers;
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 
-public interface CoronataLifecycleEventsObserver extends CoronataDisconnectionObserver {
+public interface CoronataLifecycleEventsObserver extends
+		CoronataDisconnectionObserver, CoronataErrorObserver {
 
 	void coronataStarted();
 
@@ -26,6 +27,7 @@ public interface CoronataLifecycleEventsObserver extends CoronataDisconnectionOb
 	@Override
 	void disconnected();
 
+	@Override
 	void errorOccurred(CoronataException e);
 
 }

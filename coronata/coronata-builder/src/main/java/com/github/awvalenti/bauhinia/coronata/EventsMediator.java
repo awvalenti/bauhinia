@@ -93,6 +93,7 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 		observers.lifecycleEvents.errorOccurred(e);
 		observers.lifecycleState.enteredIdleState();
 		observers.phase.failure(currentPhase);
+		observers.error.errorOccurred(e);
 	}
 
 	@Override

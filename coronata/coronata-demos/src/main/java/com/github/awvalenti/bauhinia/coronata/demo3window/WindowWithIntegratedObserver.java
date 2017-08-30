@@ -10,15 +10,18 @@ import javax.swing.JLabel;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
 public class WindowWithIntegratedObserver extends JFrame implements CoronataConnectionObserver,
-		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver {
+		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver,
+		CoronataErrorObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,10 +44,15 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 		btnConnect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				coronata.run();
 				btnConnect.setEnabled(false);
+				coronata.run();
 			}
 		});
+	}
+
+	@Override
+	public void errorOccurred(CoronataException e) {
+		lblStatus.setText("Error: " + e.toString());
 	}
 
 	@Override
@@ -55,7 +63,6 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 	@Override
 	public void disconnected() {
 		lblStatus.setText("Wii Remote disconnected");
-		btnConnect.setEnabled(true);
 	}
 
 	@Override
@@ -71,6 +78,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 	@Override
 	public void enteredIdleState() {
 		lblStatus.setText("Idle");
+		btnConnect.setEnabled(true);
 	}
 
 	@Override
@@ -88,6 +96,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 
 		Coronata coronata = CoronataBuilder.beginConfig()
 				.oneWiiRemote()
+				.onError(window)
 				.onConnection(window)
 				.onButton(window)
 				.onLifecycleState(window)

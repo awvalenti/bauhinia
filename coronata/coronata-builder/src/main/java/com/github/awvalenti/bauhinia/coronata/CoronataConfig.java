@@ -4,6 +4,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
@@ -61,6 +62,10 @@ class CoronataConfig implements ReadableCoronataConfig {
 
 	public void addObserver(CoronataPhaseObserver o) {
 		observers.phase.add(o);
+	}
+
+	public void addObserver(CoronataErrorObserver o) {
+		observers.error.add(o);
 	}
 
 }
