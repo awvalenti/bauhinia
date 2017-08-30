@@ -35,8 +35,8 @@ class ButtonHandlerThread extends Thread {
 		// Makes this a user thread instead of a daemon thread.
 		// This avoids program exiting when this thread is still running.
 		// Setting daemon to false is necessary because the thread that
-		// spawns this one is of daemon type, thus this one is also
-		// set to daemon by default.
+		// spawns this one is of daemon type, thus this one would also
+		// be set to daemon by default.
 		setDaemon(false);
 	}
 

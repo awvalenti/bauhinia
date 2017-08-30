@@ -9,20 +9,10 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 class CoronataConfig implements ReadableCoronataConfig {
 
-	private Boolean synchronous;
 	private Integer wiiRemotesExpected;
 	
 	private final ObserversAggregation observers = new ObserversAggregation();
 	private final EventsMediator mediator = new EventsMediator(observers);
-
-	@Override
-	public boolean isSynchronous() {
-		return synchronous;
-	}
-
-	public void setSynchronous(boolean synchronous) {
-		this.synchronous = synchronous;
-	}
 
 	@Override
 	public int getWiiRemotesExpected() {

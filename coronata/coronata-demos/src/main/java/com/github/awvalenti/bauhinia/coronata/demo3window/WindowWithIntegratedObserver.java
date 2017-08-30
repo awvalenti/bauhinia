@@ -87,7 +87,6 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 		WindowWithIntegratedObserver window = new WindowWithIntegratedObserver();
 
 		Coronata coronata = CoronataBuilder.beginConfig()
-				.asynchronous()	// Because this is a graphical application
 				.oneWiiRemote()
 				.onConnection(window)
 				.onButton(window)

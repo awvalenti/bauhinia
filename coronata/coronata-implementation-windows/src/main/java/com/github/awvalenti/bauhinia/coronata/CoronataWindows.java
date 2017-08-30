@@ -18,38 +18,31 @@ class CoronataWindows implements Coronata {
 
 	@Override
 	public void run() {
-		Runnable task = new Runnable() {
+		new Thread("Coronata") {
 			@Override
 			public void run() {
-				doSearch(config.getLifecycleEventsObserver());
+				CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
+
+				observer.coronataStarted();
+
+				try {
+					WiiUseApiManager wiiuseJ = new WiiUseApiManager();
+					observer.libraryLoaded();
+
+					observer.searchStarted();
+					Wiimote[] wiimotesFound = wiiuseJ.getWiimotes(config.getWiiRemotesExpected());
+					if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
+					for (Wiimote w : wiimotesFound) {
+						observer.connected(
+								new WiiuseJWiiRemote(w, config.getButtonObserver(), observer));
+					}
+					observer.searchFinished();
+
+				} catch (WiiusejNativeLibraryLoadingException e) {
+					observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
+				}
 			}
-		};
-
-		if (config.isSynchronous()) task.run();
-		else new Thread(task).start();
-	}
-
-	private void doSearch(final CoronataLifecycleEventsObserver observer) {
-		observer.coronataStarted();
-
-		final WiiUseApiManager wiiUseApiManager;
-
-		try {
-			wiiUseApiManager = new WiiUseApiManager();
-			observer.libraryLoaded();
-
-			observer.searchStarted();
-			Wiimote[] wiimotesFound = wiiUseApiManager.getWiimotes(config.getWiiRemotesExpected());
-			if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
-			for (Wiimote w : wiimotesFound) {
-				observer.connected(
-						new WiiuseJWiiRemote(w, config.getButtonObserver(), config.getLifecycleEventsObserver()));
-			}
-			observer.searchFinished();
-
-		} catch (WiiusejNativeLibraryLoadingException e) {
-			observer.errorOccurred(exceptionFactory.errorLoadingNativeLibraries(e));
-		}
+		}.start();
 	}
 
 }

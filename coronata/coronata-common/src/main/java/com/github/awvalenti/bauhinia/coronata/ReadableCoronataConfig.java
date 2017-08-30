@@ -5,12 +5,9 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 interface ReadableCoronataConfig {
 
-	CoronataButtonObserver getButtonObserver();
-
 	int getWiiRemotesExpected();
 
-	// TODO Change to isSingleThreaded or something like that
-	boolean isSynchronous();
+	CoronataButtonObserver getButtonObserver();
 
 	CoronataLifecycleEventsObserver getLifecycleEventsObserver();
 

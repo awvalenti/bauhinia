@@ -6,8 +6,6 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 
 class CoronataLinux implements Coronata {
 
-	private BlueCoveLibraryFacade blueCoveLib;
-
 	private final BlueCoveExceptionFactory exceptionFactory = new BlueCoveExceptionFactory();
 
 	private final ReadableCoronataConfig config;
@@ -18,30 +16,33 @@ class CoronataLinux implements Coronata {
 
 	@Override
 	public void run() {
-		CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
-		observer.coronataStarted();
+		new Thread("Coronata") {
+			@Override
+			public void run() {
+				CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
+				observer.coronataStarted();
+		
+				try {
+					BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
+					observer.libraryLoaded();
+		
+					Object monitor = new Object();
+					blueCoveLib.startAsynchronousSearch(new WiiRemoteDiscoverer(exceptionFactory, config
+							.getButtonObserver(), observer, monitor));
+					observer.searchStarted();
+		
+					synchronized (monitor) {
+						monitor.wait();
+					}
+		
+				} catch (BluetoothStateException e) {
+					observer.errorOccurred(exceptionFactory.correspondingTo(e));
 
-		try {
-			blueCoveLib = new BlueCoveLibraryFacade();
-			observer.libraryLoaded();
-
-			Object monitor = new Object();
-			blueCoveLib.startAsynchronousSearch(new WiiRemoteDiscoverer(exceptionFactory, config
-					.getButtonObserver(), observer, monitor));
-			observer.searchStarted();
-
-			if (config.isSynchronous()) {
-				synchronized (monitor) {
-					monitor.wait();
+				} catch (InterruptedException e) {
+					throw new RuntimeException(e);
 				}
 			}
-
-		} catch (BluetoothStateException e) {
-			observer.errorOccurred(exceptionFactory.correspondingTo(e));
-
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+		}.start();
 	}
 
 }

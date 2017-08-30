@@ -16,7 +16,6 @@ public class ConsoleWithIntegratedObserver implements CoronataConnectionObserver
 
 	public void run() {
 		CoronataBuilder.beginConfig()
-				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
 				.onConnection(this)
 				.onButton(this)

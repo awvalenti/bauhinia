@@ -5,7 +5,6 @@ import com.github.awvalenti.bauhinia.coronata.CoronataLinux;
 import com.github.awvalenti.bauhinia.coronata.CoronataWindows;
 import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep1;
 import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
-import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep3;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
@@ -13,8 +12,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
-public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
-		CoronataBuilderStep3 {
+public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2 {
 
 	private final CoronataConfig config = new CoronataConfig();
 
@@ -26,55 +24,43 @@ public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderSte
 	}
 
 	@Override
-	public CoronataBuilderStep2 synchronous() {
-		config.setSynchronous(true);
-		return this;
-	}
-
-	@Override
-	public CoronataBuilderStep2 asynchronous() {
-		config.setSynchronous(false);
-		return this;
-	}
-
-	@Override
-	public CoronataBuilderStep3 oneWiiRemote() {
+	public CoronataBuilderStep2 oneWiiRemote() {
 		config.setWiiRemotesExpected(1);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onButton(CoronataButtonObserver listener) {
+	public CoronataBuilderStep2 onButton(CoronataButtonObserver listener) {
 		config.addObserver(listener);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onConnection(CoronataConnectionObserver o) {
+	public CoronataBuilderStep2 onConnection(CoronataConnectionObserver o) {
 		config.addObserver(o);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onDisconnection(CoronataDisconnectionObserver l) {
+	public CoronataBuilderStep2 onDisconnection(CoronataDisconnectionObserver l) {
 		config.addObserver(l);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onLifecycleEvents(CoronataLifecycleEventsObserver o) {
+	public CoronataBuilderStep2 onLifecycleEvents(CoronataLifecycleEventsObserver o) {
 		config.addObserver(o);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onLifecycleState(CoronataLifecycleStateObserver o) {
+	public CoronataBuilderStep2 onLifecycleState(CoronataLifecycleStateObserver o) {
 		config.addObserver(o);
 		return this;
 	}
 
 	@Override
-	public CoronataBuilderStep3 onPhase(CoronataPhaseObserver o) {
+	public CoronataBuilderStep2 onPhase(CoronataPhaseObserver o) {
 		config.addObserver(o);
 		return this;
 	}

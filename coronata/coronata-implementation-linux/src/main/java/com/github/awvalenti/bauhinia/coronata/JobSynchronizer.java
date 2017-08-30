@@ -1,6 +1,10 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class JobSynchronizer {
+
+	private static final AtomicInteger threadId = new AtomicInteger(0);
 
 	private boolean finishedAddingJobs = false;
 	private int remainingJobsCount = 0;
@@ -11,17 +15,10 @@ class JobSynchronizer {
 		this.onFinish = onFinish;
 	}
 
-	public synchronized void addJob(final Runnable job) {
+	public synchronized void addJob(String name, final Runnable job) {
 		++remainingJobsCount;
 
-		new Thread() {
-			{
-				// Necessary because parent thread is daemon. If we do not set
-				// this thread as daemon=false, Java program may terminate
-				// before actually finished.
-				setDaemon(false);
-			}
-
+		new Thread(name + "-" + threadId.getAndAdd(1)) {
 			@Override
 			public void run() {
 				synchronized (JobSynchronizer.this) {

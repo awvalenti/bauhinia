@@ -12,7 +12,6 @@ public class LEDs implements CoronataConnectionObserver {
 
 	public void run() {
 		CoronataBuilder.beginConfig()
-				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
 				.onConnection(this)
 				.endConfig()

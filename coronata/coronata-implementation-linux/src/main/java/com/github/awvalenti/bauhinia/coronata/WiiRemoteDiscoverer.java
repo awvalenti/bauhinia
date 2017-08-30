@@ -44,7 +44,7 @@ class WiiRemoteDiscoverer implements DiscoveryListener {
 		// to BlueCove documentation. For this reason, we handle device discoveries
 		// on separate threads. However, this requires synchronization.
 
-		synchronizer.addJob(new Runnable() {
+		synchronizer.addJob("DeviceDiscovered", new Runnable() {
 			@Override
 			public void run() {
 				handleDeviceDiscovered(device, clazz);

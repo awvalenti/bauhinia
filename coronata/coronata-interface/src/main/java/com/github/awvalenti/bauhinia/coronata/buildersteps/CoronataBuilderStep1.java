@@ -2,8 +2,7 @@ package com.github.awvalenti.bauhinia.coronata.buildersteps;
 
 public interface CoronataBuilderStep1 {
 
-	CoronataBuilderStep2 synchronous();
-
-	CoronataBuilderStep2 asynchronous();
+	// TODO Allow connecting more Wii Remotes at once
+	CoronataBuilderStep2 oneWiiRemote();
 
 }

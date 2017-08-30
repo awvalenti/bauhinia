@@ -11,7 +11,6 @@ public class ConsoleWithSeparatedObservers {
 
 	public static void main(String[] args) {
 		CoronataBuilder.beginConfig()
-				.synchronous()	// Because this is a console application
 				.oneWiiRemote()
 				.onConnection(new CoronataConnectionObserver() {
 					@Override
