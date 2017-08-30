@@ -80,7 +80,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 
 	@Override
 	public void enteredConnectedState() {
-		lblStatus.setText("Connected! Press Wii Remote buttons to test.");
+		lblStatus.setText("Connected! Press buttons to test.");
 	}
 
 	public static void main(String[] args) {
