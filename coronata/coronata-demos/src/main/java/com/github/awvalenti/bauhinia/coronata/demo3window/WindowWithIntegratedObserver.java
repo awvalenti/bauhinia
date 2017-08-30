@@ -12,10 +12,10 @@ import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
 public class WindowWithIntegratedObserver extends JFrame implements CoronataConnectionObserver,
 		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver {
@@ -55,6 +55,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 	@Override
 	public void disconnected() {
 		lblStatus.setText("Wii Remote disconnected");
+		btnConnect.setEnabled(true);
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 
 	public static void main(String[] args) {
 		WindowWithIntegratedObserver window = new WindowWithIntegratedObserver();
-	
+
 		Coronata coronata = CoronataBuilder.beginConfig()
 				.asynchronous()	// Because this is a graphical application
 				.oneWiiRemote()
@@ -93,9 +94,9 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 				.onLifecycleState(window)
 				.onDisconnection(window)
 				.endConfig();
-	
+
 		window.setCoronata(coronata);
-	
+
 		window.setVisible(true);
 	}
 
