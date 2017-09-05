@@ -5,11 +5,11 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.DeviceRejectedIdentification;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.DeviceIdentifiedAsNotWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.DeviceRejectedIdentification;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.WiiRemoteRejectedConnection;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
 class WiiRemoteDiscoverer implements DiscoveryListener {
 
@@ -38,11 +38,12 @@ class WiiRemoteDiscoverer implements DiscoveryListener {
 	}
 
 	@Override
-	public synchronized void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
+	public void deviceDiscovered(final RemoteDevice device, final DeviceClass clazz) {
 
-		// This method, deviceDiscovered, should return immediately, according
-		// to BlueCove documentation. For this reason, we handle device discoveries
-		// on separate threads. However, this requires synchronization.
+		// BlueCove documentation specifies that this method, deviceDiscovered,
+		// should return immediately. For this reason and also to keep
+		// search running, we handle device discoveries on separate
+		// threads.
 
 		synchronizer.addJob("DeviceDiscovered", new Runnable() {
 			@Override
@@ -53,7 +54,7 @@ class WiiRemoteDiscoverer implements DiscoveryListener {
 	}
 
 	@Override
-	public synchronized void inquiryCompleted(int reason) {
+	public void inquiryCompleted(int reason) {
 		synchronizer.finishedAddingJobs();
 	}
 

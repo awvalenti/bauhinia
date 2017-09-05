@@ -1,10 +1,8 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 class JobSynchronizer {
 
-	private static final AtomicInteger threadId = new AtomicInteger(0);
+	private static int threadId = 0;
 
 	private boolean finishedAddingJobs = false;
 	private int remainingJobsCount = 0;
@@ -18,7 +16,7 @@ class JobSynchronizer {
 	public synchronized void addJob(String name, final Runnable job) {
 		++remainingJobsCount;
 
-		new Thread(name + "-" + threadId.getAndAdd(1)) {
+		new Thread(name + "-" + threadId++) {
 			@Override
 			public void run() {
 				synchronized (JobSynchronizer.this) {
@@ -39,7 +37,9 @@ class JobSynchronizer {
 	}
 
 	private void checkFinish() {
-		if (finishedAddingJobs && remainingJobsCount == 0) onFinish.run();
+		if (finishedAddingJobs && remainingJobsCount == 0) {
+			onFinish.run();
+		}
 	}
 
 }
