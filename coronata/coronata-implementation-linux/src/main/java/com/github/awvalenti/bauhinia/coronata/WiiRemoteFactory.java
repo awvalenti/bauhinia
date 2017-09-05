@@ -12,7 +12,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 class WiiRemoteFactory {
 
 	public void assertDeviceIsWiiRemote(RemoteDevice device) throws DeviceRejectedIdentification,
-			IdentifiedAnotherDevice {
+			DeviceIdentifiedAsNotWiiRemote {
 		final boolean isWiiRemote;
 
 		try {
@@ -21,7 +21,7 @@ class WiiRemoteFactory {
 			throw new DeviceRejectedIdentification();
 		}
 
-		if (!isWiiRemote) throw new IdentifiedAnotherDevice();
+		if (!isWiiRemote) throw new DeviceIdentifiedAsNotWiiRemote();
 	}
 
 	public CoronataWiiRemote createWiiRemote(RemoteDevice device, CoronataButtonObserver buttonObserver,
@@ -49,7 +49,7 @@ class WiiRemoteFactory {
 		}
 	}
 
-	static class IdentifiedAnotherDevice extends Exception {
+	static class DeviceIdentifiedAsNotWiiRemote extends Exception {
 		private static final long serialVersionUID = 1L;
 	}
 
