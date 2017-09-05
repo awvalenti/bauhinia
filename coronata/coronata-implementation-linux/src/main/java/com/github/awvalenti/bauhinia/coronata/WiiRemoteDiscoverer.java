@@ -21,15 +21,15 @@ class WiiRemoteDiscoverer implements DiscoveryListener {
 	private final JobSynchronizer synchronizer;
 
 	public WiiRemoteDiscoverer(BlueCoveExceptionFactory exceptionFactory,
-			CoronataButtonObserver wiiRemoteListener, final CoronataLifecycleEventsObserver observer,
+			CoronataButtonObserver buttonObserver, final CoronataLifecycleEventsObserver leObserver,
 			final Object monitor) {
 		this.exceptionFactory = exceptionFactory;
-		this.buttonObserver = wiiRemoteListener;
-		this.leObserver = observer;
+		this.buttonObserver = buttonObserver;
+		this.leObserver = leObserver;
 		this.synchronizer = new JobSynchronizer(new Runnable() {
 			@Override
 			public void run() {
-				observer.searchFinished();
+				leObserver.searchFinished();
 				synchronized (monitor) {
 					monitor.notify();
 				}

@@ -13,16 +13,16 @@ public interface CoronataBuilderStep2 {
 
 	CoronataBuilderStep2 onConnection(CoronataConnectionObserver o);
 
-	CoronataBuilderStep2 onDisconnection(CoronataDisconnectionObserver l);
+	CoronataBuilderStep2 onDisconnection(CoronataDisconnectionObserver o);
 
-	CoronataBuilderStep2 onButton(CoronataButtonObserver listener);
+	CoronataBuilderStep2 onButton(CoronataButtonObserver o);
 
 	CoronataBuilderStep2 onLifecycleState(CoronataLifecycleStateObserver o);
 
 	CoronataBuilderStep2 onLifecycleEvents(CoronataLifecycleEventsObserver o);
 
 	CoronataBuilderStep2 onPhase(CoronataPhaseObserver o);
-	
+
 	CoronataBuilderStep2 onError(CoronataErrorObserver o);
 
 	Coronata endConfig();

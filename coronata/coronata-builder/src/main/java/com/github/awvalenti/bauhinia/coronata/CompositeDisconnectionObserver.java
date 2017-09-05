@@ -7,15 +7,15 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 
 class CompositeDisconnectionObserver implements CoronataDisconnectionObserver {
 
-	private final List<CoronataDisconnectionObserver> listeners = new ArrayList<CoronataDisconnectionObserver>();
+	private final List<CoronataDisconnectionObserver> observers = new ArrayList<CoronataDisconnectionObserver>();
 
 	public void add(CoronataDisconnectionObserver o) {
-		listeners.add(o);
+		observers.add(o);
 	}
 
 	@Override
 	public void disconnected() {
-		for (CoronataDisconnectionObserver o : listeners) {
+		for (CoronataDisconnectionObserver o : observers) {
 			o.disconnected();
 		}
 	}

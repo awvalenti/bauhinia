@@ -7,23 +7,23 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 class CompositeButtonObserver implements CoronataButtonObserver {
 
-	private final List<CoronataButtonObserver> listeners = new ArrayList<CoronataButtonObserver>();
+	private final List<CoronataButtonObserver> observers = new ArrayList<CoronataButtonObserver>();
 
-	public void add(CoronataButtonObserver l) {
-		listeners.add(l);
+	public void add(CoronataButtonObserver o) {
+		observers.add(o);
 	}
 
 	@Override
 	public void buttonPressed(CoronataWiiRemoteButton button) {
-		for (CoronataButtonObserver l : listeners) {
-			l.buttonPressed(button);
+		for (CoronataButtonObserver o : observers) {
+			o.buttonPressed(button);
 		}
 	}
 
 	@Override
 	public void buttonReleased(CoronataWiiRemoteButton button) {
-		for (CoronataButtonObserver l : listeners) {
-			l.buttonReleased(button);
+		for (CoronataButtonObserver o : observers) {
+			o.buttonReleased(button);
 		}
 	}
 

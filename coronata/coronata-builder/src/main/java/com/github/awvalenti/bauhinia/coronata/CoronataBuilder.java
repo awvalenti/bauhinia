@@ -28,8 +28,8 @@ public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderSte
 	}
 
 	@Override
-	public CoronataBuilderStep2 onButton(CoronataButtonObserver listener) {
-		config.addObserver(listener);
+	public CoronataBuilderStep2 onButton(CoronataButtonObserver o) {
+		config.addObserver(o);
 		return this;
 	}
 
@@ -40,8 +40,8 @@ public class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderSte
 	}
 
 	@Override
-	public CoronataBuilderStep2 onDisconnection(CoronataDisconnectionObserver l) {
-		config.addObserver(l);
+	public CoronataBuilderStep2 onDisconnection(CoronataDisconnectionObserver o) {
+		config.addObserver(o);
 		return this;
 	}
 
