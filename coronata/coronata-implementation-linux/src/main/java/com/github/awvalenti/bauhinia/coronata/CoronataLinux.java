@@ -61,12 +61,11 @@ class CoronataLinux implements Coronata {
 			int wiiRemotesExpected) throws BluetoothStateException {
 		int connectedWiiRemotes = 0;
 
-		ConnectionAttemptsQueue connectionAttempts =
-				new ConnectionAttemptsQueue();
+		DevicesGatherer gatherer = new DevicesGatherer();
+		ConnectionAttemptsQueue connectionAttempts = gatherer.getQueue();
 
 		for (int i = 0; i < maxSearches; ++i) {
-			blueCoveLib.startSynchronousSearch(
-					new DevicesGatherer(connectionAttempts));
+			blueCoveLib.startSynchronousSearch(gatherer);
 
 			while (!connectionAttempts.isEmpty()) {
 				ConnectionResult result = connectionAttempts.pop().run();
@@ -79,11 +78,8 @@ class CoronataLinux implements Coronata {
 	}
 
 	class DevicesGatherer implements SimpleDiscoveryListener {
-		private final ConnectionAttemptsQueue queue;
-
-		public DevicesGatherer(ConnectionAttemptsQueue queue) {
-			this.queue = queue;
-		}
+		private final ConnectionAttemptsQueue queue =
+				new ConnectionAttemptsQueue();
 
 		@Override
 		public void deviceDiscovered(RemoteDevice btDevice, DeviceClass clazz) {
@@ -95,6 +91,10 @@ class CoronataLinux implements Coronata {
 
 			queue.push(new ConnectionAttemptTask(btDevice, clazz, leObserver,
 					config.getButtonObserver(), wiiRemoteFactory));
+		}
+
+		public ConnectionAttemptsQueue getQueue() {
+			return queue;
 		}
 
 	}
