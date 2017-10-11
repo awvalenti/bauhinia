@@ -4,9 +4,9 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
@@ -18,7 +18,7 @@ public class NitidaModel {
 	private Coronata coronata;
 	private CoronataWiiRemote storedWiiRemote;
 
-	public NitidaModel(CoronataBuilderStep2 builder) {
+	public NitidaModel(CoronataBuilder builder) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {

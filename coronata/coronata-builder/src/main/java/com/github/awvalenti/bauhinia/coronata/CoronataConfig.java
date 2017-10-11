@@ -10,24 +10,29 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 class CoronataConfig implements ReadableCoronataConfig {
 
-	private Integer wiiRemotesExpected;
-
 	private final ObserversAggregation observers = new ObserversAggregation();
 	private final EventsMediator mediator = new EventsMediator(observers);
+
+	private int wiiRemotesExpected = 1;
+	private int minimumTimeoutInSeconds = 30;
+
 
 	@Override
 	public int getWiiRemotesExpected() {
 		return wiiRemotesExpected;
 	}
 
-	@Override
-	public int getMaximumBluetoothSearches() {
-		// TODO Make configurable
-		return 3;
-	}
-
 	public void setWiiRemotesExpected(int wiiRemotesExpected) {
 		this.wiiRemotesExpected = wiiRemotesExpected;
+	}
+
+	@Override
+	public int getMinimumTimeoutInSeconds() {
+		return minimumTimeoutInSeconds;
+	}
+
+	public void setMinimumTimeoutInSeconds(int minimumTimeoutInSeconds) {
+		this.minimumTimeoutInSeconds = minimumTimeoutInSeconds;
 	}
 
 	@Override

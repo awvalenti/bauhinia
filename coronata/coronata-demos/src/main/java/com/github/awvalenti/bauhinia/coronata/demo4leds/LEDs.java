@@ -14,7 +14,6 @@ public class LEDs implements CoronataConnectionObserver, CoronataErrorObserver {
 
 	public void run() {
 		CoronataBuilder.beginConfig()
-				.oneWiiRemote()
 				.onError(this)
 				.onConnection(this)
 				.endConfig()

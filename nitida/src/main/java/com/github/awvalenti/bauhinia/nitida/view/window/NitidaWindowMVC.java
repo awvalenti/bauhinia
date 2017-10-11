@@ -1,7 +1,6 @@
 package com.github.awvalenti.bauhinia.nitida.view.window;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
-import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
 import com.github.awvalenti.bauhinia.nitida.controller.NitidaWindowController;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
@@ -27,8 +26,7 @@ public class NitidaWindowMVC {
 		StartButton startButton = new StartButton();
 		StopButton stopButton = new StopButton();
 
-		CoronataBuilderStep2 builder = CoronataBuilder.beginConfig()
-				.oneWiiRemote()
+		CoronataBuilder builder = CoronataBuilder.beginConfig()
 				.onPhase(phasePanel)
 				.onLifecycleEvents(logPanel)
 				.onLifecycleState(lifecycleStatePanel)

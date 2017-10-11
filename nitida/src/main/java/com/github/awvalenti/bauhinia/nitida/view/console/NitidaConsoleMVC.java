@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
-import com.github.awvalenti.bauhinia.coronata.buildersteps.CoronataBuilderStep2;
 import com.github.awvalenti.bauhinia.nitida.NitidaMain;
 import com.github.awvalenti.bauhinia.nitida.model.NitidaModel;
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
@@ -16,9 +15,9 @@ public class NitidaConsoleMVC {
 	public NitidaConsoleMVC() {
 		printCopyrightInfo();
 
-		CoronataBuilderStep2 builder = CoronataBuilder.beginConfig()
-				.oneWiiRemote()
-				.onLifecycleEvents(new NitidaConsoleView(new ProjectProperties(), new Messages()));
+		CoronataBuilder builder = CoronataBuilder.beginConfig()
+				.onLifecycleEvents(new NitidaConsoleView(
+						new ProjectProperties(), new Messages()));
 
 		NitidaModel model = new NitidaModel(builder);
 		model.setCoronata(builder.endConfig());

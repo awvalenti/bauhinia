@@ -13,7 +13,6 @@ public class ConsoleWithSeparatedObservers {
 
 	public static void main(String[] args) {
 		CoronataBuilder.beginConfig()
-				.oneWiiRemote()
 				.onError(new CoronataErrorObserver() {
 					@Override
 					public void errorOccurred(CoronataException e) {

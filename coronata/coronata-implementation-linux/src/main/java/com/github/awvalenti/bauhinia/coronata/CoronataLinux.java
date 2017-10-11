@@ -47,7 +47,7 @@ class CoronataLinux implements Coronata {
 			// TODO Another leObserver call?
 			leObserver.searchStarted();
 
-			doSearch(blueCoveLib, config.getMaximumBluetoothSearches(),
+			doSearch(blueCoveLib, config.getMinimumTimeoutInSeconds(),
 					config.getWiiRemotesExpected());
 
 			leObserver.searchFinished();
@@ -57,14 +57,16 @@ class CoronataLinux implements Coronata {
 		}
 	}
 
-	private void doSearch(BlueCoveLibraryFacade blueCoveLib, int maxSearches,
-			int wiiRemotesExpected) throws BluetoothStateException {
+	private void doSearch(BlueCoveLibraryFacade blueCoveLib,
+			int minTimeoutInSeconds, int wiiRemotesExpected)
+			throws BluetoothStateException {
 		int connectedWiiRemotes = 0;
 
 		DevicesGatherer gatherer = new DevicesGatherer();
 		ConnectionAttemptsQueue connectionAttempts = gatherer.getQueue();
 
-		for (int i = 0; i < maxSearches; ++i) {
+		final long startTime = System.nanoTime();
+		do {
 			blueCoveLib.startSynchronousSearch(gatherer);
 
 			while (!connectionAttempts.isEmpty()) {
@@ -74,7 +76,7 @@ class CoronataLinux implements Coronata {
 					return;
 				}
 			}
-		}
+		} while ((System.nanoTime() - startTime) / 1e9 < minTimeoutInSeconds);
 	}
 
 	class DevicesGatherer implements SimpleDiscoveryListener {
