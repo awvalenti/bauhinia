@@ -35,30 +35,37 @@ class CompositeLifecycleEventsObserver implements CoronataLifecycleEventsObserve
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String address, String deviceClass) {
+	public void bluetoothDeviceFound(String btAddress, String deviceClass) {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.bluetoothDeviceFound(address, deviceClass);
+			o.bluetoothDeviceFound(btAddress, deviceClass);
 		}
 	}
 
 	@Override
-	public void deviceRejectedIdentification(String address, String deviceClass) {
+	public void identificationRejected(String btAddress) {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.deviceRejectedIdentification(address, deviceClass);
+			o.identificationRejected(btAddress);
 		}
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
+	public void identifiedAsNonWiiRemote(String btAddress) {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+			o.identifiedAsNonWiiRemote(btAddress);
 		}
 	}
 
 	@Override
-	public void wiiRemoteIdentified() {
+	public void identifiedAsWiiRemote(String btAddressOrNull) {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.wiiRemoteIdentified();
+			o.identifiedAsWiiRemote(btAddressOrNull);
+		}
+	}
+
+	@Override
+	public void connectionRejected(String btAddress) {
+		for (CoronataLifecycleEventsObserver o : observers) {
+			o.connectionRejected(btAddress);
 		}
 	}
 

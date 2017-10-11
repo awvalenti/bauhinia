@@ -1,16 +1,8 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import java.io.IOException;
-
 import javax.bluetooth.BluetoothStateException;
 
 class BlueCoveExceptionFactory {
-
-	public CoronataException wiiRemoteRejectedConnection(IOException cause) {
-		return new CoronataException(cause, ""
-				+ "Connection refused. Details: " + cause
-				+ "");
-	}
 
 	public CoronataException correspondingTo(BluetoothStateException cause) {
 		String errorMsg = cause.getMessage().toLowerCase();

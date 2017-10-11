@@ -11,64 +11,61 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 
 class WiiRemoteFactory {
 
-	public void assertDeviceIsWiiRemote(RemoteDevice device) throws DeviceRejectedIdentification,
-			DeviceIdentifiedAsNotWiiRemote {
+	public void assertDeviceIsWiiRemote(RemoteDevice device)
+			throws IdentificationRejected,
+			IdentifiedAsNonWiiRemote {
+
 		final boolean isWiiRemote;
 
 		try {
-			String name = device.getFriendlyName(false);
+			String name = device.getFriendlyName(true);
 			isWiiRemote = name != null && name.startsWith("Nintendo RVL-CNT-01");
 		} catch (IOException e) {
-			throw new DeviceRejectedIdentification();
+			throw new IdentificationRejected();
 		}
 
-		if (!isWiiRemote) throw new DeviceIdentifiedAsNotWiiRemote();
+		if (!isWiiRemote) throw new IdentifiedAsNonWiiRemote();
 	}
 
-	public CoronataWiiRemote createWiiRemote(RemoteDevice device, CoronataButtonObserver buttonObserver,
-			CoronataDisconnectionObserver disconnectionObserver) throws WiiRemoteRejectedConnection {
-		String btAddress = device.getBluetoothAddress();
+	public CoronataWiiRemote create(String btAddress,
+			CoronataButtonObserver buttonObserver,
+			CoronataDisconnectionObserver disconnectionObserver)
+			throws ConnectionRejected {
 
 		L2CAPConnection input = null;
 
 		try {
-			input = (L2CAPConnection) Connector.open(String.format("btl2cap://%s:13", btAddress),
-					Connector.READ, true);
+			input = (L2CAPConnection) Connector.open(
+					String.format("btl2cap://%s:13", btAddress), Connector.READ,
+					true);
 
 			L2CAPConnection output = (L2CAPConnection) Connector.open(
-					String.format("btl2cap://%s:11", btAddress), Connector.WRITE, true);
+					String.format("btl2cap://%s:11", btAddress),
+					Connector.WRITE, true);
 
-			return new BlueCoveWiiRemote(input, output, buttonObserver, disconnectionObserver);
+			return new BlueCoveWiiRemote(input, output, buttonObserver,
+					disconnectionObserver);
 
 		} catch (IOException e1) {
 			try {
 				if (input != null) input.close();
 			} catch (IOException e2) {
-				// If exception happens when trying to close input, nothing can be done
+				// Nothing can be done here
 			}
-			throw new WiiRemoteRejectedConnection(e1);
+			throw new ConnectionRejected();
 		}
 	}
 
-	static class DeviceIdentifiedAsNotWiiRemote extends Exception {
+	static class IdentificationRejected extends Exception {
 		private static final long serialVersionUID = 1L;
 	}
 
-	static class DeviceRejectedIdentification extends Exception {
+	static class IdentifiedAsNonWiiRemote extends Exception {
 		private static final long serialVersionUID = 1L;
 	}
 
-	static class WiiRemoteRejectedConnection extends Exception {
+	static class ConnectionRejected extends Exception {
 		private static final long serialVersionUID = 1L;
-
-		public WiiRemoteRejectedConnection(IOException e) {
-			super(e);
-		}
-
-		@Override
-		public IOException getCause() {
-			return (IOException) super.getCause();
-		}
 	}
 
 }

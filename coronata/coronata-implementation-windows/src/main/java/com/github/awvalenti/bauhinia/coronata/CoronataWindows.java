@@ -8,6 +8,8 @@ import wiiusej.Wiimote;
 
 class CoronataWindows implements Coronata {
 
+	private volatile static int threadId = 0;
+
 	private final WiiuseJExceptionFactory exceptionFactory = new WiiuseJExceptionFactory();
 
 	private final ReadableCoronataConfig config;
@@ -18,7 +20,7 @@ class CoronataWindows implements Coronata {
 
 	@Override
 	public void run() {
-		new Thread("Coronata") {
+		new Thread("Coronata-" + threadId++) {
 			@Override
 			public void run() {
 				CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
@@ -31,7 +33,9 @@ class CoronataWindows implements Coronata {
 
 					observer.searchStarted();
 					Wiimote[] wiimotesFound = wiiuseJ.getWiimotes(config.getWiiRemotesExpected());
-					if (wiimotesFound.length > 0) observer.wiiRemoteIdentified();
+					if (wiimotesFound.length > 0) {
+						observer.identifiedAsWiiRemote(null);
+					}
 					for (Wiimote w : wiimotesFound) {
 						observer.connected(
 								new WiiuseJWiiRemote(w, config.getButtonObserver(), observer));

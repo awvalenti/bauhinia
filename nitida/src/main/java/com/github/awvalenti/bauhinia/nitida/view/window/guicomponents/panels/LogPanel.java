@@ -44,28 +44,36 @@ public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver 
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String address, String deviceClass) {
-		append(messages.get("bluetoothDeviceFound", address, deviceClass));
+	public void bluetoothDeviceFound(String btAddress, String deviceClass) {
+		append(messages.get("bluetoothDeviceFound", btAddress, deviceClass));
 	}
 
 	@Override
-	public void deviceRejectedIdentification(String address, String deviceClass) {
-		append(messages.get("deviceRejectedIdentification", address));
+	public void identificationRejected(String btAddress) {
+		append(messages.get("identificationRejected", btAddress));
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		append(messages.get("deviceIdentifiedAsNotWiiRemote", address));
+	public void identifiedAsNonWiiRemote(String btAddress) {
+		append(messages.get("identifiedAsNonWiiRemote", btAddress));
 	}
 
 	@Override
-	public void wiiRemoteIdentified() {
-		append(messages.get("wiiRemoteIdentified"));
+	public void identifiedAsWiiRemote(String btAddressOrNull) {
+		append(btAddressOrNull == null ?
+				messages.get("identifiedAsWiiRemote-addressNull") :
+				messages.get("identifiedAsWiiRemote-addressNotNull",
+						btAddressOrNull));
+	}
+
+	@Override
+	public void connectionRejected(String btAddress) {
+		append(messages.get("connectionRejected", btAddress));
 	}
 
 	@Override
 	public void connected(CoronataWiiRemote wiiRemote) {
-		append(messages.get("wiiRemoteConnected"));
+		append(messages.get("connected"));
 	}
 
 	@Override
@@ -75,7 +83,7 @@ public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver 
 
 	@Override
 	public void disconnected() {
-		append(messages.get("wiiRemoteDisconnected"));
+		append(messages.get("disconnected"));
 	}
 
 	@Override

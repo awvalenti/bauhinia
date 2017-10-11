@@ -32,28 +32,36 @@ public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String address, String deviceClass) {
-		System.out.println(messages.get("bluetoothDeviceFound", address, deviceClass));
+	public void bluetoothDeviceFound(String btAddress, String deviceClass) {
+		System.out.println(messages.get("bluetoothDeviceFound", btAddress, deviceClass));
 	}
 
 	@Override
-	public void wiiRemoteIdentified() {
-		System.out.println(messages.get("wiiRemoteIdentified"));
+	public void identifiedAsWiiRemote(String btAddressOrNull) {
+		System.out.println(btAddressOrNull == null ?
+				messages.get("identifiedAsWiiRemote-addressNull") :
+				messages.get("identifiedAsWiiRemote-addressNotNull",
+						btAddressOrNull));
 	}
 
 	@Override
-	public void deviceRejectedIdentification(String address, String deviceClass) {
-		System.out.println(messages.get("deviceRejectedIdentification", address));
+	public void identificationRejected(String btAddress) {
+		System.out.println(messages.get("identificationRejected", btAddress));
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		System.out.println(messages.get("deviceIdentifiedAsNotWiiRemote", address));
+	public void identifiedAsNonWiiRemote(String btAddress) {
+		System.out.println(messages.get("identifiedAsNonWiiRemote", btAddress));
+	}
+
+	@Override
+	public void connectionRejected(String btAddress) {
+		System.out.println(messages.get("connectionRejected", btAddress));
 	}
 
 	@Override
 	public void connected(CoronataWiiRemote wiiRemote) {
-		System.out.println(messages.get("wiiRemoteConnected"));
+		System.out.println(messages.get("connected"));
 	}
 
 	@Override
@@ -63,7 +71,7 @@ public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 
 	@Override
 	public void disconnected() {
-		System.out.println(messages.get("wiiRemoteDisconnected"));
+		System.out.println(messages.get("disconnected"));
 	}
 
 	@Override

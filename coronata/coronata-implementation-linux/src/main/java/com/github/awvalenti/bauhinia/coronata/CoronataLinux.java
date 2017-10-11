@@ -1,12 +1,20 @@
 package com.github.awvalenti.bauhinia.coronata;
 
 import javax.bluetooth.BluetoothStateException;
+import javax.bluetooth.DeviceClass;
+import javax.bluetooth.RemoteDevice;
 
+import com.github.awvalenti.bauhinia.coronata.ConnectionAttemptTask.ConnectionResult;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
 class CoronataLinux implements Coronata {
 
-	private final BlueCoveExceptionFactory exceptionFactory = new BlueCoveExceptionFactory();
+	private volatile static int threadId = 0;
+
+	private final WiiRemoteFactory wiiRemoteFactory = new WiiRemoteFactory();
+
+	private final BlueCoveExceptionFactory exceptionFactory =
+			new BlueCoveExceptionFactory();
 
 	private final ReadableCoronataConfig config;
 
@@ -16,33 +24,77 @@ class CoronataLinux implements Coronata {
 
 	@Override
 	public void run() {
-		new Thread("Coronata") {
+		new Thread("Coronata-" + threadId++) {
 			@Override
 			public void run() {
-				CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
-				observer.coronataStarted();
-		
-				try {
-					BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
-					observer.libraryLoaded();
-		
-					Object monitor = new Object();
-					blueCoveLib.startAsynchronousSearch(new WiiRemoteDiscoverer(exceptionFactory, config
-							.getButtonObserver(), observer, monitor));
-					observer.searchStarted();
-		
-					synchronized (monitor) {
-						monitor.wait();
-					}
-		
-				} catch (BluetoothStateException e) {
-					observer.errorOccurred(exceptionFactory.correspondingTo(e));
-
-				} catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
+				runUntilConnectionOrTimeout();
 			}
 		}.start();
+	}
+
+	private void runUntilConnectionOrTimeout() {
+		CoronataLifecycleEventsObserver leObserver =
+				config.getLifecycleEventsObserver();
+
+		try {
+			leObserver.coronataStarted();
+
+			BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
+			leObserver.libraryLoaded();
+
+			// TODO Another leObserver call?
+			leObserver.searchStarted();
+
+			doSearch(blueCoveLib, config.getMaximumBluetoothSearches(),
+					config.getWiiRemotesExpected());
+
+			leObserver.searchFinished();
+
+		} catch (BluetoothStateException e) {
+			leObserver.errorOccurred(exceptionFactory.correspondingTo(e));
+		}
+	}
+
+	private void doSearch(BlueCoveLibraryFacade blueCoveLib, int maxSearches,
+			int wiiRemotesExpected) throws BluetoothStateException {
+		int connectedWiiRemotes = 0;
+
+		ConnectionAttemptsQueue connectionAttempts =
+				new ConnectionAttemptsQueue();
+
+		for (int i = 0; i < maxSearches; ++i) {
+			blueCoveLib.startSynchronousSearch(
+					new DevicesGatherer(connectionAttempts));
+
+			while (!connectionAttempts.isEmpty()) {
+				ConnectionResult result = connectionAttempts.pop().run();
+				if (result == ConnectionResult.SUCCESS &&
+						++connectedWiiRemotes == wiiRemotesExpected) {
+					return;
+				}
+			}
+		}
+	}
+
+	class DevicesGatherer implements SimpleDiscoveryListener {
+		private final ConnectionAttemptsQueue queue;
+
+		public DevicesGatherer(ConnectionAttemptsQueue queue) {
+			this.queue = queue;
+		}
+
+		@Override
+		public void deviceDiscovered(RemoteDevice btDevice, DeviceClass clazz) {
+			CoronataLifecycleEventsObserver leObserver =
+					config.getLifecycleEventsObserver();
+
+			leObserver.bluetoothDeviceFound(btDevice.getBluetoothAddress(),
+					((Object) clazz).toString());
+
+			queue.push(new ConnectionAttemptTask(btDevice, clazz, leObserver,
+					config.getButtonObserver(), wiiRemoteFactory));
+		}
+
 	}
 
 }

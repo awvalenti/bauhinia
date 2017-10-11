@@ -7,6 +7,8 @@ interface ReadableCoronataConfig {
 
 	int getWiiRemotesExpected();
 
+	int getMaximumBluetoothSearches();
+
 	CoronataButtonObserver getButtonObserver();
 
 	CoronataLifecycleEventsObserver getLifecycleEventsObserver();

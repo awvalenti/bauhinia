@@ -11,13 +11,19 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 class CoronataConfig implements ReadableCoronataConfig {
 
 	private Integer wiiRemotesExpected;
-	
+
 	private final ObserversAggregation observers = new ObserversAggregation();
 	private final EventsMediator mediator = new EventsMediator(observers);
 
 	@Override
 	public int getWiiRemotesExpected() {
 		return wiiRemotesExpected;
+	}
+
+	@Override
+	public int getMaximumBluetoothSearches() {
+		// TODO Make configurable
+		return 3;
 	}
 
 	public void setWiiRemotesExpected(int wiiRemotesExpected) {

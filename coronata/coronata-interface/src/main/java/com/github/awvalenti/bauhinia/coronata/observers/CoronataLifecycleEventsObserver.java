@@ -12,13 +12,15 @@ public interface CoronataLifecycleEventsObserver extends
 
 	void searchStarted();
 
-	void bluetoothDeviceFound(String address, String deviceClass);
+	void bluetoothDeviceFound(String btAddress, String deviceClass);
 
-	void deviceRejectedIdentification(String address, String deviceClass);
+	void identificationRejected(String btAddress);
 
-	void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass);
+	void identifiedAsNonWiiRemote(String btAddress);
 
-	void wiiRemoteIdentified();
+	void identifiedAsWiiRemote(String btAddressOrNull);
+
+	void connectionRejected(String btAddress);
 
 	void connected(CoronataWiiRemote wiiRemote);
 

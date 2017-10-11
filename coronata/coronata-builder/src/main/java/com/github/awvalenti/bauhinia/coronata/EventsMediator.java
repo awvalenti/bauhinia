@@ -8,8 +8,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonObserver {
 
 	private CoronataPhase currentPhase;
-	private boolean identified = false;
-	private boolean connected = false;
+	private boolean connected;
 
 	private final ObserversAggregation observers;
 
@@ -24,6 +23,7 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 
 	@Override
 	public void coronataStarted() {
+		connected = false;
 		observers.lifecycleEvents.coronataStarted();
 		observers.lifecycleState.enteredInProcessState();
 		observers.phase.starting();
@@ -43,26 +43,32 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 	}
 
 	@Override
-	public void bluetoothDeviceFound(String address, String deviceClass) {
-		observers.lifecycleEvents.bluetoothDeviceFound(address, deviceClass);
+	public void bluetoothDeviceFound(String btAddress, String deviceClass) {
+		observers.lifecycleEvents.bluetoothDeviceFound(btAddress, deviceClass);
 	}
 
 	@Override
-	public void deviceRejectedIdentification(String address, String deviceClass) {
-		observers.lifecycleEvents.deviceRejectedIdentification(address, deviceClass);
+	public void identificationRejected(String btAddress) {
+		observers.lifecycleEvents.identificationRejected(btAddress);
 	}
 
 	@Override
-	public void deviceIdentifiedAsNotWiiRemote(String address, String deviceClass) {
-		observers.lifecycleEvents.deviceIdentifiedAsNotWiiRemote(address, deviceClass);
+	public void identifiedAsNonWiiRemote(String btAddress) {
+		observers.lifecycleEvents.identifiedAsNonWiiRemote(btAddress);
 	}
 
 	@Override
-	public void wiiRemoteIdentified() {
-		identified = true;
-		observers.lifecycleEvents.wiiRemoteIdentified();
+	public void identifiedAsWiiRemote(String btAddressOrNull) {
+		observers.lifecycleEvents.identifiedAsWiiRemote(btAddressOrNull);
 		observers.phase.success(FIND_WII_REMOTE);
 		moveToPhase(CONNECT_TO_WII_REMOTE);
+	}
+
+	@Override
+	public void connectionRejected(String btAddress) {
+		observers.lifecycleEvents.connectionRejected(btAddress);
+		observers.phase.failure(CONNECT_TO_WII_REMOTE);
+		moveToPhase(FIND_WII_REMOTE);
 	}
 
 	@Override
@@ -80,12 +86,8 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 
 		if (!connected) {
 			observers.lifecycleState.enteredIdleState();
+			observers.phase.failure(currentPhase);
 		}
-		// TODO Provide failure information
-		if (!identified) {
-			observers.phase.failure(FIND_WII_REMOTE);
-		}
-
 	}
 
 	@Override
@@ -108,7 +110,6 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 
 	@Override
 	public void disconnected() {
-		identified = false;
 		connected = false;
 		observers.lifecycleEvents.disconnected();
 		observers.disconnection.disconnected();
