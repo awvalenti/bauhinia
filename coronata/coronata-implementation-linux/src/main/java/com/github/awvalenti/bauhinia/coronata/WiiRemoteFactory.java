@@ -18,7 +18,7 @@ class WiiRemoteFactory {
 		final boolean isWiiRemote;
 
 		try {
-			String name = device.getFriendlyName(true);
+			String name = device.getFriendlyName(false);
 			isWiiRemote = name != null && name.startsWith("Nintendo RVL-CNT-01");
 		} catch (IOException e) {
 			throw new IdentificationRejected();
