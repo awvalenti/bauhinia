@@ -10,7 +10,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 
 class ButtonHandlerThread extends Thread {
 
-	private static final AtomicInteger id = new AtomicInteger(0);
+	private static final AtomicInteger threadId = new AtomicInteger(0);
 
 	private final L2CAPConnection input;
 	private final L2CAPConnection output;
@@ -30,7 +30,7 @@ class ButtonHandlerThread extends Thread {
 		this.buttonObserver = buttonObserver;
 		this.disconnectionObserver = disconnectionObserver;
 
-		setName(getClass().getSimpleName() + "-" + id.getAndAdd(1));
+		setName(getClass().getSimpleName() + "-" + threadId.getAndIncrement());
 
 		// Makes this a user thread instead of a daemon thread.
 		// This avoids program exiting when this thread is still running.

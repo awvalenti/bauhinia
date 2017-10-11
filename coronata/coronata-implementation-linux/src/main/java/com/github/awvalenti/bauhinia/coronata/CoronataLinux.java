@@ -1,5 +1,7 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.RemoteDevice;
@@ -9,7 +11,7 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 
 class CoronataLinux implements Coronata {
 
-	private volatile static int threadId = 0;
+	private static final AtomicInteger threadId = new AtomicInteger(0);
 
 	private final WiiRemoteFactory wiiRemoteFactory = new WiiRemoteFactory();
 
@@ -24,7 +26,7 @@ class CoronataLinux implements Coronata {
 
 	@Override
 	public void run() {
-		new Thread("Coronata-" + threadId++) {
+		new Thread("Coronata-" + threadId.getAndIncrement()) {
 			@Override
 			public void run() {
 				runUntilConnectionOrTimeout();

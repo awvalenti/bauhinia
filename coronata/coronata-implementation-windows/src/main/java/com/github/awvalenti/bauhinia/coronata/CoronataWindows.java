@@ -1,5 +1,7 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 import com.github.awvalenti.wiiusej.WiiusejNativeLibraryLoadingException;
 
@@ -8,7 +10,7 @@ import wiiusej.Wiimote;
 
 class CoronataWindows implements Coronata {
 
-	private volatile static int threadId = 0;
+	private static final AtomicInteger threadId = new AtomicInteger(0);
 
 	private final WiiuseJExceptionFactory exceptionFactory = new WiiuseJExceptionFactory();
 
@@ -20,7 +22,7 @@ class CoronataWindows implements Coronata {
 
 	@Override
 	public void run() {
-		new Thread("Coronata-" + threadId++) {
+		new Thread("Coronata-" + threadId.getAndIncrement()) {
 			@Override
 			public void run() {
 				CoronataLifecycleEventsObserver observer = config.getLifecycleEventsObserver();
