@@ -25,19 +25,13 @@ class ButtonHandlerThread extends Thread {
 	public ButtonHandlerThread(L2CAPConnection input, L2CAPConnection output,
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
+
+		setName(getClass().getSimpleName() + "-" + threadId.getAndIncrement());
+
 		this.input = input;
 		this.output = output;
 		this.buttonObserver = buttonObserver;
 		this.disconnectionObserver = disconnectionObserver;
-
-		setName(getClass().getSimpleName() + "-" + threadId.getAndIncrement());
-
-		// Makes this a user thread instead of a daemon thread.
-		// This avoids program exiting when this thread is still running.
-		// Setting daemon to false is necessary because the thread that
-		// spawns this one is of daemon type, thus this one would also
-		// be set to daemon by default.
-		setDaemon(false);
 	}
 
 	public void disconnectWiiRemote() {
