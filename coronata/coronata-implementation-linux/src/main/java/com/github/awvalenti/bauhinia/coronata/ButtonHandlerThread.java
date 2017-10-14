@@ -58,7 +58,7 @@ class ButtonHandlerThread extends Thread {
 			// gone too far from computer etc.)
 
 		} catch (Throwable t) {
-			// Observer has thrown unhandled exception (see issue #22)
+			// buttonObserver has thrown unhandled exception (see issue #22)
 			throw new RuntimeException(t);
 
 		} finally {
