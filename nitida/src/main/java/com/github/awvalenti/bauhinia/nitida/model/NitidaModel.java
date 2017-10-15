@@ -47,8 +47,11 @@ public class NitidaModel {
 	}
 
 	public void stop() {
-		storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
-		storedWiiRemote.disconnect();
+		if (storedWiiRemote != null) {
+			storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
+			storedWiiRemote.disconnect();
+		}
+		coronata.requestStop();
 	}
 
 	private class MultipleEventsObserver

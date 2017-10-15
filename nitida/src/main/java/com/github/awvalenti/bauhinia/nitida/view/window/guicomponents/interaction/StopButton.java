@@ -19,7 +19,7 @@ public class StopButton extends JButton implements CoronataLifecycleStateObserve
 
 	@Override
 	public void enteredInProcessState() {
-		setEnabled(false);
+		setEnabled(true);
 	}
 
 	@Override

@@ -11,15 +11,24 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 
 class WiiRemoteFactory {
 
-	public void assertDeviceIsWiiRemote(RemoteDevice device)
-			throws IdentificationRejected,
-			IdentifiedAsNonWiiRemote {
+	private final CoronataButtonObserver buttonObserver;
+	private final CoronataDisconnectionObserver disconnectionObserver;
+
+	WiiRemoteFactory(CoronataButtonObserver buttonObserver,
+			CoronataDisconnectionObserver disconnectionObserver) {
+		this.buttonObserver = buttonObserver;
+		this.disconnectionObserver = disconnectionObserver;
+	}
+
+	void assertDeviceIsWiiRemote(RemoteDevice device)
+			throws IdentificationRejected, IdentifiedAsNonWiiRemote {
 
 		final boolean isWiiRemote;
 
 		try {
 			String name = device.getFriendlyName(false);
-			isWiiRemote = name != null && name.startsWith("Nintendo RVL-CNT-01");
+			isWiiRemote =
+					name != null && name.startsWith("Nintendo RVL-CNT-01");
 		} catch (IOException e) {
 			throw new IdentificationRejected();
 		}
@@ -27,13 +36,8 @@ class WiiRemoteFactory {
 		if (!isWiiRemote) throw new IdentifiedAsNonWiiRemote();
 	}
 
-	public CoronataWiiRemote create(String btAddress,
-			CoronataButtonObserver buttonObserver,
-			CoronataDisconnectionObserver disconnectionObserver)
-			throws ConnectionRejected {
-
+	BlueCoveWiiRemote create(String btAddress) throws ConnectionRejected {
 		L2CAPConnection input = null;
-
 		try {
 			input = (L2CAPConnection) Connector.open(
 					String.format("btl2cap://%s:13", btAddress), Connector.READ,

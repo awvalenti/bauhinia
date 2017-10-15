@@ -51,4 +51,9 @@ class CoronataWindows implements Coronata {
 		}.start();
 	}
 
+	@Override
+	public void requestStop() {
+		// TODO
+	}
+
 }
