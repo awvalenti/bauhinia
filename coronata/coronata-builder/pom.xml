@@ -30,7 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-windows</artifactId>
+			<artifactId>coronata-windows</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

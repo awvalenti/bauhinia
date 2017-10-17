@@ -9,7 +9,7 @@
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata-implementation-windows</artifactId>
+	<artifactId>coronata-windows</artifactId>
 	<packaging>jar</packaging>
 
 	<repositories>
