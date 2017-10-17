@@ -17,7 +17,7 @@
 		<module>coronata-builder</module>
 		<module>coronata-common</module>
 		<module>coronata-demos</module>
-		<module>coronata-implementation-linux</module>
+		<module>coronata-linux-lib</module>
 		<module>coronata-implementation-windows</module>
 		<module>coronata-lib</module>
 	</modules>

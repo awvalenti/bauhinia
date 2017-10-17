@@ -9,7 +9,7 @@
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata-implementation-linux</artifactId>
+	<artifactId>coronata-linux-lib</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>

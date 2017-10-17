@@ -25,7 +25,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-implementation-linux</artifactId>
+			<artifactId>coronata-linux-lib</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
