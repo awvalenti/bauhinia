@@ -5,21 +5,15 @@
 
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
-		<artifactId>bauhinia</artifactId>
+		<artifactId>coronata</artifactId>
 		<version>0.2.x</version>
 	</parent>
 
-	<artifactId>coronata</artifactId>
+	<artifactId>coronata-linux</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>coronata-interface</module>
-		<module>coronata-builder</module>
-		<module>coronata-common</module>
-		<module>coronata-demos</module>
-		<module>coronata-lib</module>
-		<module>coronata-linux</module>
-		<module>coronata-windows</module>
+		<module>coronata-linux-lib</module>
 	</modules>
 
 </project>
