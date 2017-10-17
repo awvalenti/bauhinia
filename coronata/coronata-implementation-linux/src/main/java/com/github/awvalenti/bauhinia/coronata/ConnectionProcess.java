@@ -151,24 +151,17 @@ class ConnectionProcess implements Runnable {
 							c.btDevice.getBluetoothAddress(),
 							((Object) c.clazz).toString());
 				}
-				return PROCESS_NEXT_DEVICE;
+				return IDENTIFY_NEXT_DEVICE;
 			}
 		},
 
-		PROCESS_NEXT_DEVICE {
+		IDENTIFY_NEXT_DEVICE {
 			@Override
 			State run(Data data) {
 				if (data.candidates.isEmpty()) return INQUIRY;
 
 				data.candidate = data.candidates.pop();
-				return IDENTIFY;
-			}
 
-		},
-
-		IDENTIFY {
-			@Override
-			State run(Data data) {
 				try {
 					data.wiiRemoteFactory
 							.assertDeviceIsWiiRemote(data.candidate.btDevice);
@@ -188,7 +181,7 @@ class ConnectionProcess implements Runnable {
 			State run(Data data) {
 				data.leObserver.identificationRejected(
 						data.candidate.btDevice.getBluetoothAddress());
-				return PROCESS_NEXT_DEVICE;
+				return IDENTIFY_NEXT_DEVICE;
 			}
 
 		},
@@ -198,7 +191,7 @@ class ConnectionProcess implements Runnable {
 			State run(Data data) {
 				data.leObserver.identifiedAsNonWiiRemote(
 						data.candidate.btDevice.getBluetoothAddress());
-				return PROCESS_NEXT_DEVICE;
+				return IDENTIFY_NEXT_DEVICE;
 			}
 
 		},
@@ -225,7 +218,7 @@ class ConnectionProcess implements Runnable {
 			State run(Data data) {
 				data.leObserver.connectionRejected(
 						data.candidate.btDevice.getBluetoothAddress());
-				return PROCESS_NEXT_DEVICE;
+				return IDENTIFY_NEXT_DEVICE;
 			}
 
 		},
@@ -241,7 +234,7 @@ class ConnectionProcess implements Runnable {
 					return FINISHED;
 
 				} else {
-					return PROCESS_NEXT_DEVICE;
+					return IDENTIFY_NEXT_DEVICE;
 				}
 			}
 
