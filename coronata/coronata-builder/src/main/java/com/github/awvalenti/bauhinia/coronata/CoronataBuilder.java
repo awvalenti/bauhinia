@@ -20,12 +20,12 @@ public class CoronataBuilder {
 	}
 
 	public CoronataBuilder wiiRemotesExpected(int count) {
-		config.setWiiRemotesExpected(count);
+		config.setNumberOfWiiRemotes(count);
 		return this;
 	}
 
 	public CoronataBuilder minimumTimeoutInSeconds(int timeout) {
-		config.setMinimumTimeoutInSeconds(timeout);
+		config.setTimeoutInSeconds(timeout);
 		return this;
 	}
 

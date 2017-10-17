@@ -34,11 +34,11 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 	public void libraryLoaded() {
 		observers.lifecycleEvents.libraryLoaded();
 		observers.phase.success(LOAD_LIBRARY);
-		moveToPhase(FIND_WII_REMOTE);
 	}
 
 	@Override
 	public void searchStarted() {
+		moveToPhase(FIND_WII_REMOTE);
 		observers.lifecycleEvents.searchStarted();
 	}
 

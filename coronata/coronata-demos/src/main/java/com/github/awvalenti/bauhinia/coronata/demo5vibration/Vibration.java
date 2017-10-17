@@ -23,7 +23,7 @@ public class Vibration implements CoronataConnectionObserver,
 				.onConnection(this)
 				.onButton(this)
 				.endConfig()
-				.run();
+				.start();
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class ConsoleWithSeparatedObservers {
 					}
 				})
 				.endConfig()
-				.run();
+				.start();
 	}
 
 }

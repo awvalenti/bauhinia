@@ -11,9 +11,10 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	private final L2CAPConnection output;
 	private final ButtonHandlerThread thread;
+
 	private byte currentState = 0x00;
 
-	public BlueCoveWiiRemote(L2CAPConnection input, L2CAPConnection output,
+	BlueCoveWiiRemote(L2CAPConnection input, L2CAPConnection output,
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.output = output;

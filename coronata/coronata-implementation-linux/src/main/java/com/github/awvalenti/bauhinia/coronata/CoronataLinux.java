@@ -2,51 +2,47 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class CoronataLinux implements Coronata {
+class CoronataLinux implements Coronata, Runnable {
 
 	private static final AtomicInteger threadId = new AtomicInteger(0);
 
 	private final ReadableCoronataConfig config;
 	private final WiiRemoteFactory wiiRemoteFactory;
 
-	private ConnectionProcess process;
+	private volatile ConnectionProcess process = null;
 
 	public CoronataLinux(ReadableCoronataConfig config) {
 		this.config = config;
-
-		wiiRemoteFactory = new WiiRemoteFactory(config.getButtonObserver(),
+		this.wiiRemoteFactory = new WiiRemoteFactory(config.getButtonObserver(),
 				config.getLifecycleEventsObserver());
 	}
 
 	@Override
-	public void run() {
-		new Thread("Coronata-" + threadId.getAndIncrement()) {
-			@Override
-			public void run() {
-				runConnectionProcess();
-			}
-		}.start();
-	}
+	public void start() {
+		synchronized (this) {
+			if (processIsRunning()) return;
 
-	private void runConnectionProcess() {
-		if (processIsRunning()) return;
+			process = new ConnectionProcess(config.getLifecycleEventsObserver(),
+					config.getTimeoutInSeconds(),
+					config.getNumberOfWiiRemotes(), wiiRemoteFactory);
+		}
 
-		process = new ConnectionProcess(config.getMinimumTimeoutInSeconds(),
-				config.getWiiRemotesExpected(),
-				config.getLifecycleEventsObserver(), wiiRemoteFactory);
-
-		process.run();
-
-		process = null;
+		new Thread(this, "Coronata-" + threadId.getAndIncrement()).start();
 	}
 
 	@Override
-	public void requestStop() {
+	public void stop() {
 		if (processIsRunning()) process.requestStop();
 	}
 
 	private boolean processIsRunning() {
 		return process != null;
+	}
+
+	@Override
+	public void run() {
+		process.runSynchronously();
+		process = null;
 	}
 
 }

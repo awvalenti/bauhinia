@@ -1,10 +1,9 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-public interface Coronata extends Runnable {
+public interface Coronata {
 
-	@Override
-	void run();
+	void start();
 
-	void requestStop();
+	void stop();
 
 }

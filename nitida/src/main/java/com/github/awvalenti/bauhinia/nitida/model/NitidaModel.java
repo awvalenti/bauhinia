@@ -39,7 +39,7 @@ public class NitidaModel {
 	}
 
 	public void start() {
-		coronata.run();
+		coronata.start();
 	}
 
 	public void profileChanged(Profile profile) {
@@ -51,7 +51,7 @@ public class NitidaModel {
 			storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
 			storedWiiRemote.disconnect();
 		}
-		coronata.requestStop();
+		coronata.stop();
 	}
 
 	private class MultipleEventsObserver

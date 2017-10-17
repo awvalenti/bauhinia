@@ -5,9 +5,9 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 interface ReadableCoronataConfig {
 
-	int getWiiRemotesExpected();
+	int getNumberOfWiiRemotes();
 
-	int getMinimumTimeoutInSeconds();
+	int getTimeoutInSeconds();
 
 	CoronataButtonObserver getButtonObserver();
 

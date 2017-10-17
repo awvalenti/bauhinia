@@ -23,7 +23,7 @@ public class ConsoleWithIntegratedObserver implements CoronataConnectionObserver
 				.onButton(this)
 				.onDisconnection(this)
 				.endConfig()
-				.run();
+				.start();
 	}
 
 	@Override

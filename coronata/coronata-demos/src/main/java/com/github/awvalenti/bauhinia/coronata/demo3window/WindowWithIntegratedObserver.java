@@ -45,7 +45,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnConnect.setEnabled(false);
-				coronata.run();
+				coronata.start();
 			}
 		});
 	}

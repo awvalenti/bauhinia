@@ -13,26 +13,26 @@ class CoronataConfig implements ReadableCoronataConfig {
 	private final ObserversAggregation observers = new ObserversAggregation();
 	private final EventsMediator mediator = new EventsMediator(observers);
 
-	private int wiiRemotesExpected = 1;
-	private int minimumTimeoutInSeconds = 30;
+	private int numberOfWiiRemotes = 1;
+	private int timeoutInSeconds = 30;
 
 
 	@Override
-	public int getWiiRemotesExpected() {
-		return wiiRemotesExpected;
+	public int getNumberOfWiiRemotes() {
+		return numberOfWiiRemotes;
 	}
 
-	public void setWiiRemotesExpected(int wiiRemotesExpected) {
-		this.wiiRemotesExpected = wiiRemotesExpected;
+	public void setNumberOfWiiRemotes(int numberOfWiiRemotes) {
+		this.numberOfWiiRemotes = numberOfWiiRemotes;
 	}
 
 	@Override
-	public int getMinimumTimeoutInSeconds() {
-		return minimumTimeoutInSeconds;
+	public int getTimeoutInSeconds() {
+		return timeoutInSeconds;
 	}
 
-	public void setMinimumTimeoutInSeconds(int minimumTimeoutInSeconds) {
-		this.minimumTimeoutInSeconds = minimumTimeoutInSeconds;
+	public void setTimeoutInSeconds(int timeoutInSeconds) {
+		this.timeoutInSeconds = timeoutInSeconds;
 	}
 
 	@Override

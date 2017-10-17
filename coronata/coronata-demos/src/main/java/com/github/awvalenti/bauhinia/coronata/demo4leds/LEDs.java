@@ -17,7 +17,7 @@ public class LEDs implements CoronataConnectionObserver, CoronataErrorObserver {
 				.onError(this)
 				.onConnection(this)
 				.endConfig()
-				.run();
+				.start();
 	}
 
 	@Override

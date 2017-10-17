@@ -3,18 +3,18 @@ package com.github.awvalenti.bauhinia.coronata;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.RemoteDevice;
 
-class Candidate implements Comparable<Candidate> {
+class CandidateDevice implements Comparable<CandidateDevice> {
 
 	final RemoteDevice btDevice;
 	final DeviceClass clazz;
 
-	Candidate(RemoteDevice btDevice, DeviceClass clazz) {
+	CandidateDevice(RemoteDevice btDevice, DeviceClass clazz) {
 		this.btDevice = btDevice;
 		this.clazz = clazz;
 	}
 
 	@Override
-	public final int compareTo(Candidate o) {
+	public final int compareTo(CandidateDevice o) {
 		return Integer.compare(getPriority(), o.getPriority());
 	}
 

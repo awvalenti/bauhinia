@@ -21,7 +21,7 @@ class CoronataWindows implements Coronata {
 	}
 
 	@Override
-	public void run() {
+	public void start() {
 		new Thread("Coronata-" + threadId.getAndIncrement()) {
 			@Override
 			public void run() {
@@ -34,7 +34,7 @@ class CoronataWindows implements Coronata {
 					observer.libraryLoaded();
 
 					observer.searchStarted();
-					Wiimote[] wiimotesFound = wiiuseJ.getWiimotes(config.getWiiRemotesExpected());
+					Wiimote[] wiimotesFound = wiiuseJ.getWiimotes(config.getNumberOfWiiRemotes());
 					if (wiimotesFound.length > 0) {
 						observer.identifiedAsWiiRemote(null);
 					}
@@ -52,7 +52,7 @@ class CoronataWindows implements Coronata {
 	}
 
 	@Override
-	public void requestStop() {
+	public void stop() {
 		// TODO
 	}
 
