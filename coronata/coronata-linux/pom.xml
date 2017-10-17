@@ -13,6 +13,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>coronata-linux-common</module>
+		<module>coronata-linux-connection-process</module>
 		<module>coronata-linux-lib</module>
 	</modules>
 
