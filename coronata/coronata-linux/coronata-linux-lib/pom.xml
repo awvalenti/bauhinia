@@ -15,12 +15,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-linux-common</artifactId>
+			<artifactId>coronata-linux-state-machine</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
-			<artifactId>coronata-linux-connection-process</artifactId>
+			<artifactId>coronata-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
