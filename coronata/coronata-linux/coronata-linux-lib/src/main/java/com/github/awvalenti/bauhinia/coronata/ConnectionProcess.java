@@ -1,6 +1,6 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.State;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
 class ConnectionProcess {
@@ -13,10 +13,11 @@ class ConnectionProcess {
 	private volatile boolean stopRequested = false;
 
 	ConnectionProcess(CoronataLifecycleEventsObserver leObserver, int timeout,
-			int numberOfWiiRemotes, WiiRemoteFactory wiiRemoteFactory) {
+			int numberOfWiiRemotes, CoronataButtonObserver buttonObserver) {
 		this.leObserver = leObserver;
 		this.timeout = timeout;
-		this.states = new StateFactory(leObserver, wiiRemoteFactory,
+		this.states = new StateFactory(leObserver,
+				new WiiRemoteFactory(buttonObserver, leObserver),
 				new Counter(numberOfWiiRemotes));
 	}
 

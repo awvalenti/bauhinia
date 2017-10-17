@@ -18,6 +18,11 @@
 			<artifactId>coronata-linux-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.awvalenti.bauhinia</groupId>
+			<artifactId>coronata-linux-connection-process</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>
