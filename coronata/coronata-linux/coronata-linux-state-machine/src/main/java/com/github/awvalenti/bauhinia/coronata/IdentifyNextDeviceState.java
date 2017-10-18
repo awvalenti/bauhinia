@@ -7,14 +7,14 @@ import javax.bluetooth.RemoteDevice;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentificationRejected;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentifiedAsNonWiiRemote;
 
-class StateIdentifyNextDevice extends State {
+class IdentifyNextDeviceState extends State {
 
 	private final StateFactory states;
 
 	private final CandidatesQueue candidates;
 	private final WiiRemoteFactory wiiRemoteFactory;
 
-	StateIdentifyNextDevice(StateFactory states, CandidatesQueue candidates,
+	IdentifyNextDeviceState(StateFactory states, CandidatesQueue candidates,
 			WiiRemoteFactory wiiRemoteFactory) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;

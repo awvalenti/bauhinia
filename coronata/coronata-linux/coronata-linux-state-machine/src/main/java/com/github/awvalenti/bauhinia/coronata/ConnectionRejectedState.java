@@ -4,24 +4,24 @@ import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateIdentifiedAsNonWiiRemote extends State {
+class ConnectionRejectedState extends State {
 
 	private final StateFactory states;
 
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final String btAddress;
 
-	StateIdentifiedAsNonWiiRemote(StateFactory states,
+	ConnectionRejectedState(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver, String btAddress) {
-		super(STOP_IF_REQUESTED_OR_TIMEOUT);
+		super(ALWAYS_RUN);
 		this.states = states;
-		this.leObserver = leObserver;
 		this.btAddress = btAddress;
+		this.leObserver = leObserver;
 	}
 
 	@Override
 	State run() {
-		leObserver.identifiedAsNonWiiRemote(btAddress);
+		leObserver.connectionRejected(btAddress);
 		return states.identifyNextDevice();
 	}
 

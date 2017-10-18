@@ -2,9 +2,9 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
-class StateFinish extends State {
+class FinishState extends State {
 
-	StateFinish() {
+	FinishState() {
 		super(NEVER_RUN);
 	}
 

@@ -6,29 +6,34 @@ import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateBluetoothException extends State {
+class StartInquiryState extends State {
 
 	private final StateFactory states;
 
-	private final BlueCoveExceptionFactory exceptionFactory =
-			new BlueCoveExceptionFactory();
-
 	private final CoronataLifecycleEventsObserver leObserver;
-	private final BluetoothStateException exception;
+	private final BlueCoveLibraryFacade blueCoveLib;
 
-	StateBluetoothException(StateFactory states,
+	StartInquiryState(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver,
-			BluetoothStateException exception) {
+			BlueCoveLibraryFacade blueCoveLib) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
-		this.exception = exception;
+		this.blueCoveLib = blueCoveLib;
 	}
 
 	@Override
 	State run() {
-		leObserver.errorOccurred(exceptionFactory.correspondingTo(exception));
-		return states.finish();
+		leObserver.searchStarted();
+
+		try {
+			InquiryResult inquiryResult = new InquiryResult();
+			blueCoveLib.startAsynchronousSearch(inquiryResult);
+			return states.waitForInquiry(inquiryResult);
+
+		} catch (BluetoothStateException e) {
+			return states.bluetoothException(e);
+		}
 	}
 
 }

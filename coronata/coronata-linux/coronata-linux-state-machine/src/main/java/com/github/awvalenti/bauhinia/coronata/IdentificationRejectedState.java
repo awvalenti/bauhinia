@@ -4,14 +4,14 @@ import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateIdentificationRejected extends State {
+class IdentificationRejectedState extends State {
 
 	private final StateFactory states;
 
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final String btAddress;
 
-	StateIdentificationRejected(
+	IdentificationRejectedState(
 			StateFactory states, CoronataLifecycleEventsObserver leObserver, String btAddress) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;

@@ -2,32 +2,27 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
-import javax.bluetooth.BluetoothStateException;
-
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateLoadLibrary extends State {
+class IdentifiedAsNonWiiRemoteState extends State {
 
 	private final StateFactory states;
 
 	private final CoronataLifecycleEventsObserver leObserver;
+	private final String btAddress;
 
-	StateLoadLibrary(StateFactory states,
-			CoronataLifecycleEventsObserver leObserver) {
+	IdentifiedAsNonWiiRemoteState(StateFactory states,
+			CoronataLifecycleEventsObserver leObserver, String btAddress) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
+		this.btAddress = btAddress;
 	}
 
 	@Override
 	State run() {
-		try {
-			BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
-			leObserver.libraryLoaded();
-			return states.startInquiry(blueCoveLib);
-
-		} catch (BluetoothStateException e) {
-			return states.bluetoothException(e);
-		}
+		leObserver.identifiedAsNonWiiRemote(btAddress);
+		return states.identifyNextDevice();
 	}
+
 }

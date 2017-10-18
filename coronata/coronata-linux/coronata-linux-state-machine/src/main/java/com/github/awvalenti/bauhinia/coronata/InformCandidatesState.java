@@ -4,24 +4,27 @@ import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateConnectionRejected extends State {
+class InformCandidatesState extends State {
 
 	private final StateFactory states;
 
 	private final CoronataLifecycleEventsObserver leObserver;
-	private final String btAddress;
+	private final CandidatesQueue candidates;
 
-	StateConnectionRejected(StateFactory states,
-			CoronataLifecycleEventsObserver leObserver, String btAddress) {
-		super(ALWAYS_RUN);
+	InformCandidatesState(StateFactory states,
+			CoronataLifecycleEventsObserver leObserver, CandidatesQueue candidates) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
-		this.btAddress = btAddress;
 		this.leObserver = leObserver;
+		this.candidates = candidates;
 	}
 
 	@Override
 	State run() {
-		leObserver.connectionRejected(btAddress);
+		for (CandidateDevice c : candidates) {
+			leObserver.bluetoothDeviceFound(c.btDevice.getBluetoothAddress(),
+					((Object) c.clazz).toString());
+		}
 		return states.identifyNextDevice();
 	}
 
