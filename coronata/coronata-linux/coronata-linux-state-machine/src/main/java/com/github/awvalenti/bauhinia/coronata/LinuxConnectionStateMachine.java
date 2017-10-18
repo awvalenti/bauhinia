@@ -3,7 +3,7 @@ package com.github.awvalenti.bauhinia.coronata;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class ConnectionProcess {
+class LinuxConnectionStateMachine {
 
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final int timeout;
@@ -12,7 +12,7 @@ class ConnectionProcess {
 
 	private volatile boolean stopRequested = false;
 
-	ConnectionProcess(CoronataLifecycleEventsObserver leObserver, int timeout,
+	LinuxConnectionStateMachine(CoronataLifecycleEventsObserver leObserver, int timeout,
 			int numberOfWiiRemotes, CoronataButtonObserver buttonObserver) {
 		this.leObserver = leObserver;
 		this.timeout = timeout;

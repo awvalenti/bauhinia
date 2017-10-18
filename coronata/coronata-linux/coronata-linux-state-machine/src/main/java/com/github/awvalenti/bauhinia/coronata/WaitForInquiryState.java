@@ -6,10 +6,11 @@ class WaitForInquiryState extends State {
 
 	private final StateFactory states;
 
-	private InquiryResult inquiryResult;
+	private BluetoothInquiryResult inquiryResult;
 	private BlueCoveLibraryFacade blueCoveLib;
 
-	WaitForInquiryState(StateFactory states, InquiryResult inquiryResult,
+	WaitForInquiryState(StateFactory states,
+			BluetoothInquiryResult inquiryResult,
 			BlueCoveLibraryFacade blueCoveLib) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;

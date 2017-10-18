@@ -27,7 +27,7 @@ class StartInquiryState extends State {
 		leObserver.searchStarted();
 
 		try {
-			InquiryResult inquiryResult = new InquiryResult();
+			BluetoothInquiryResult inquiryResult = new BluetoothInquiryResult();
 			blueCoveLib.startAsynchronousSearch(inquiryResult);
 			return states.waitForInquiry(inquiryResult);
 

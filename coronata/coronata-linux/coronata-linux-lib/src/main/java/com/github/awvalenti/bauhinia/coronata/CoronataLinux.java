@@ -8,7 +8,7 @@ class CoronataLinux implements Coronata, Runnable {
 
 	private final ReadableCoronataConfig config;
 
-	private volatile ConnectionProcess process = null;
+	private volatile LinuxConnectionStateMachine machine = null;
 
 	public CoronataLinux(ReadableCoronataConfig config) {
 		this.config = config;
@@ -17,9 +17,10 @@ class CoronataLinux implements Coronata, Runnable {
 	@Override
 	public void start() {
 		synchronized (this) {
-			if (processIsRunning()) return;
+			if (machineIsRunning()) return;
 
-			process = new ConnectionProcess(config.getLifecycleEventsObserver(),
+			machine = new LinuxConnectionStateMachine(
+					config.getLifecycleEventsObserver(),
 					config.getTimeoutInSeconds(),
 					config.getNumberOfWiiRemotes(), config.getButtonObserver());
 		}
@@ -29,17 +30,17 @@ class CoronataLinux implements Coronata, Runnable {
 
 	@Override
 	public void stop() {
-		if (processIsRunning()) process.requestStop();
+		if (machineIsRunning()) machine.requestStop();
 	}
 
-	private boolean processIsRunning() {
-		return process != null;
+	private boolean machineIsRunning() {
+		return machine != null;
 	}
 
 	@Override
 	public void run() {
-		process.runSynchronously();
-		process = null;
+		machine.runSynchronously();
+		machine = null;
 	}
 
 }

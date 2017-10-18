@@ -34,7 +34,7 @@ class StateFactory {
 		return new StartInquiryState(this, leObserver, blueCoveLib);
 	}
 
-	State waitForInquiry(InquiryResult inquiryResult) {
+	State waitForInquiry(BluetoothInquiryResult inquiryResult) {
 		return new WaitForInquiryState(this, inquiryResult, blueCoveLib);
 	}
 

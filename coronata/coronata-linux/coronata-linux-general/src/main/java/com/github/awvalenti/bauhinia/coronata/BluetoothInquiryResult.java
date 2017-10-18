@@ -5,7 +5,7 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
-class InquiryResult implements DiscoveryListener {
+class BluetoothInquiryResult implements DiscoveryListener {
 
 	private final CandidatesQueue candidateDevices = new CandidatesQueue();
 
