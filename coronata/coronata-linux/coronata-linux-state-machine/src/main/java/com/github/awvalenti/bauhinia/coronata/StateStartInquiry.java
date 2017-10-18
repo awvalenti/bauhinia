@@ -1,10 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateStartInquiry extends StateAbstractRunUnlessStopRequestedOrTimeout {
+class StateStartInquiry extends State {
 
 	private final StateFactory states;
 
@@ -14,6 +16,7 @@ class StateStartInquiry extends StateAbstractRunUnlessStopRequestedOrTimeout {
 	StateStartInquiry(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver,
 			BlueCoveLibraryFacade blueCoveLib) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.blueCoveLib = blueCoveLib;

@@ -1,8 +1,10 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateIdentifiedAsNonWiiRemote extends StateAbstractRunUnlessStopRequestedOrTimeout {
+class StateIdentifiedAsNonWiiRemote extends State {
 
 	private final StateFactory states;
 
@@ -11,6 +13,7 @@ class StateIdentifiedAsNonWiiRemote extends StateAbstractRunUnlessStopRequestedO
 
 	StateIdentifiedAsNonWiiRemote(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver, String btAddress) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.btAddress = btAddress;

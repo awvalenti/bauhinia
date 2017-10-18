@@ -1,10 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 import javax.bluetooth.BluetoothStateException;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateBluetoothException extends StateAbstractRunUnlessStopRequestedOrTimeout {
+class StateBluetoothException extends State {
 
 	private final StateFactory states;
 
@@ -17,6 +19,7 @@ class StateBluetoothException extends StateAbstractRunUnlessStopRequestedOrTimeo
 	StateBluetoothException(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver,
 			BluetoothStateException exception) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.exception = exception;

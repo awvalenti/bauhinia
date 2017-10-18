@@ -1,7 +1,9 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 class StateWaitForInquiry extends
-		StateAbstractRunUnlessStopRequestedOrTimeout {
+		State {
 
 	private final StateFactory states;
 
@@ -10,6 +12,7 @@ class StateWaitForInquiry extends
 
 	StateWaitForInquiry(StateFactory states, InquiryResult inquiryResult,
 			BlueCoveLibraryFacade blueCoveLib) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.inquiryResult = inquiryResult;
 		this.blueCoveLib = blueCoveLib;

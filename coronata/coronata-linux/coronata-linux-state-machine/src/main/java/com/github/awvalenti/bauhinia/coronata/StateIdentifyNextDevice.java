@@ -1,11 +1,13 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 import javax.bluetooth.RemoteDevice;
 
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentificationRejected;
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentifiedAsNonWiiRemote;
 
-class StateIdentifyNextDevice extends StateAbstractRunUnlessStopRequestedOrTimeout {
+class StateIdentifyNextDevice extends State {
 
 	private final StateFactory states;
 
@@ -14,6 +16,7 @@ class StateIdentifyNextDevice extends StateAbstractRunUnlessStopRequestedOrTimeo
 
 	StateIdentifyNextDevice(StateFactory states, CandidatesQueue candidates,
 			WiiRemoteFactory wiiRemoteFactory) {
+		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.candidates = candidates;
 		this.wiiRemoteFactory = wiiRemoteFactory;

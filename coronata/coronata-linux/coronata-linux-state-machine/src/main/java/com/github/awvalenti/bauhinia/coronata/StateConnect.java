@@ -1,9 +1,11 @@
 package com.github.awvalenti.bauhinia.coronata;
 
+import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
+
 import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.ConnectionRejected;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class StateConnect extends StateAbstractRunUnlessStopRequested {
+class StateConnect extends State {
 
 	private final StateFactory states;
 
@@ -14,6 +16,7 @@ class StateConnect extends StateAbstractRunUnlessStopRequested {
 	StateConnect(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver, String btAddress,
 			WiiRemoteFactory wiiRemoteFactory) {
+		super(STOP_ONLY_IF_REQUESTED);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.btAddress = btAddress;
