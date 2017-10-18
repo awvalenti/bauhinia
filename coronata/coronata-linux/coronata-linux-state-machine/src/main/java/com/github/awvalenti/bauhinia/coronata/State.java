@@ -5,35 +5,35 @@ abstract class State {
 	enum RunPolicy {
 		ALWAYS_RUN {
 			@Override
-			boolean shouldRun(Countdown countdown, boolean stopRequested) {
+			boolean shouldRun(boolean stopRequested, Countdown countdown) {
 				return true;
 			}
 		},
 
 		STOP_ONLY_IF_REQUESTED {
 			@Override
-			boolean shouldRun(Countdown countdown, boolean stopRequested) {
+			boolean shouldRun(boolean stopRequested, Countdown countdown) {
 				return !stopRequested;
 			}
 		},
 
 		STOP_IF_REQUESTED_OR_TIMEOUT {
 			@Override
-			boolean shouldRun(Countdown countdown, boolean stopRequested) {
+			boolean shouldRun(boolean stopRequested, Countdown countdown) {
 				return !stopRequested && !countdown.finished();
 			}
 		},
 
 		NEVER_RUN {
 			@Override
-			boolean shouldRun(Countdown countdown, boolean stopRequested) {
+			boolean shouldRun(boolean stopRequested, Countdown countdown) {
 				return false;
 			}
 		},
 
 		;
 
-		abstract boolean shouldRun(Countdown countdown, boolean stopRequested);
+		abstract boolean shouldRun(boolean stopRequested, Countdown countdown);
 	}
 
 	private final RunPolicy runPolicy;
@@ -42,8 +42,8 @@ abstract class State {
 		this.runPolicy = runPolicy;
 	}
 
-	final boolean shouldRun(Countdown countdown, boolean stopRequested) {
-		return runPolicy.shouldRun(countdown, stopRequested);
+	final boolean shouldRun(boolean stopRequested, Countdown countdown) {
+		return runPolicy.shouldRun(stopRequested, countdown);
 	}
 
 	abstract State run();

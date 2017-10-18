@@ -27,7 +27,7 @@ class ConnectionProcess {
 		leObserver.coronataStarted();
 
 		State current = states.loadLibrary();
-		while (current.shouldRun(countdown, stopRequested)) {
+		while (current.shouldRun(stopRequested, countdown)) {
 			current = current.run();
 		}
 		current.cleanUpIfDidntRun();
