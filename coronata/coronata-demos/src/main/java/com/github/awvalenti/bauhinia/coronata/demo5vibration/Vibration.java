@@ -32,8 +32,8 @@ public class Vibration implements CoronataConnectionObserver,
 	}
 
 	@Override
-	public void connected(CoronataWiiRemote wiiRemote) {
-		this.wiiRemote = wiiRemote;
+	public void connected(CoronataWiiRemote w) {
+		wiiRemote = w;
 
 		System.out.println("Connected!");
 		wiiRemote.startVibration();
