@@ -28,7 +28,9 @@ class CoronataLinux implements Coronata, Runnable {
 
 	@Override
 	public synchronized void stop() {
-		if (machine != null) machine.requestStop();
+		if (machine == null) return;
+
+		machine.requestStop();
 	}
 
 	@Override
