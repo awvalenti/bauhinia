@@ -21,7 +21,7 @@ class LinuxConnectionStateMachine {
 				new Counter(numberOfWiiRemotes));
 	}
 
-	void runSynchronously() {
+	void run() {
 		Countdown countdown = new Countdown(timeout);
 
 		leObserver.coronataStarted();

@@ -8,39 +8,35 @@ class CoronataLinux implements Coronata, Runnable {
 
 	private final ReadableCoronataConfig config;
 
-	private volatile LinuxConnectionStateMachine machine = null;
+	private LinuxConnectionStateMachine machine;
 
 	public CoronataLinux(ReadableCoronataConfig config) {
 		this.config = config;
 	}
 
 	@Override
-	public void start() {
-		synchronized (this) {
-			if (machineIsRunning()) return;
+	public synchronized void start() {
+		if (machine != null) return;
 
-			machine = new LinuxConnectionStateMachine(
-					config.getLifecycleEventsObserver(),
-					config.getTimeoutInSeconds(),
-					config.getNumberOfWiiRemotes(), config.getButtonObserver());
-		}
+		machine = new LinuxConnectionStateMachine(
+				config.getLifecycleEventsObserver(),
+				config.getTimeoutInSeconds(),
+				config.getNumberOfWiiRemotes(), config.getButtonObserver());
 
 		new Thread(this, "Coronata-" + threadId.getAndIncrement()).start();
 	}
 
 	@Override
-	public void stop() {
-		if (machineIsRunning()) machine.requestStop();
-	}
-
-	private boolean machineIsRunning() {
-		return machine != null;
+	public synchronized void stop() {
+		if (machine != null) machine.requestStop();
 	}
 
 	@Override
 	public void run() {
-		machine.runSynchronously();
-		machine = null;
+		machine.run();
+		synchronized (this) {
+			machine = null;
+		}
 	}
 
 }
