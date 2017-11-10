@@ -89,11 +89,13 @@ class ButtonHandlerThread extends Thread {
 	}
 
 	private boolean buttonJustPressed(CoronataWiiRemoteButton b) {
-		return !b.isPressedAccordingTo(previousState) && b.isPressedAccordingTo(currentState);
+		return !b.isPressedAccordingTo(previousState) &&
+				b.isPressedAccordingTo(currentState);
 	}
 
 	private boolean buttonJustReleased(CoronataWiiRemoteButton b) {
-		return b.isPressedAccordingTo(previousState) && !b.isPressedAccordingTo(currentState);
+		return b.isPressedAccordingTo(previousState) &&
+				!b.isPressedAccordingTo(currentState);
 	}
 
 	private void swapBuffers() {

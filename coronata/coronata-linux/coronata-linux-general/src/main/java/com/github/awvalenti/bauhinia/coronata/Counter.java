@@ -12,8 +12,10 @@ class Counter {
 
 	void increment() {
 		++current;
-		if (current > goal) throw new IllegalStateException(String.format(
-				"Overflow: goal = %d, current = %d", goal, current));
+		if (current > goal) {
+			throw new IllegalStateException(String.format(
+					"Overflow: goal = %d, current = %d", goal, current));
+		}
 	}
 
 	boolean reachedGoal() {

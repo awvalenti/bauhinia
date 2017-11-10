@@ -18,13 +18,15 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.output = output;
-		this.thread = new ButtonHandlerThread(input, output, buttonObserver, disconnectionObserver);
+		this.thread = new ButtonHandlerThread(input, output, buttonObserver,
+				disconnectionObserver);
 		this.thread.start();
 	}
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		currentState = (byte) (currentState & ~LEDS_MASK | ledsState & LEDS_MASK);
+		currentState =
+				(byte) (currentState & ~LEDS_MASK | ledsState & LEDS_MASK);
 		realizeLedsAndOrVibration();
 	}
 
@@ -42,7 +44,8 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	private void realizeLedsAndOrVibration() {
 		try {
-			output.send(new byte[] { SET_REPORT, ID_LEDS_VIBRATION, currentState });
+			output.send(
+					new byte[] { SET_REPORT, ID_LEDS_VIBRATION, currentState });
 		} catch (IOException e) {
 			// This should happen only if user tries to send data to
 			// an already disconnected Wii Remote. The exception is ignored.
