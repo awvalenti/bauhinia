@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.github.awvalenti.bauhinia</groupId>
 			<artifactId>coronata-lib</artifactId>
-			<version>0.2.x</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
