@@ -12,7 +12,8 @@ class InformCandidatesState extends State {
 	private final CandidatesQueue candidates;
 
 	InformCandidatesState(StateFactory states,
-			CoronataLifecycleEventsObserver leObserver, CandidatesQueue candidates) {
+			CoronataLifecycleEventsObserver leObserver,
+			CandidatesQueue candidates) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;

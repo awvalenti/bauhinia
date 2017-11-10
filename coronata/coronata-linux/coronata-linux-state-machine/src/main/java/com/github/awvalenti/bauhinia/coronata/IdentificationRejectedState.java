@@ -11,8 +11,8 @@ class IdentificationRejectedState extends State {
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final String btAddress;
 
-	IdentificationRejectedState(
-			StateFactory states, CoronataLifecycleEventsObserver leObserver, String btAddress) {
+	IdentificationRejectedState(StateFactory states,
+			CoronataLifecycleEventsObserver leObserver, String btAddress) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;

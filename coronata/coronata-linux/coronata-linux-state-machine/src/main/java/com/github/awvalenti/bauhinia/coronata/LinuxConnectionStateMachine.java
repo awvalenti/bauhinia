@@ -12,8 +12,9 @@ class LinuxConnectionStateMachine {
 
 	private volatile boolean stopRequested = false;
 
-	LinuxConnectionStateMachine(CoronataLifecycleEventsObserver leObserver, int timeout,
-			int numberOfWiiRemotes, CoronataButtonObserver buttonObserver) {
+	LinuxConnectionStateMachine(CoronataLifecycleEventsObserver leObserver,
+			int timeout, int numberOfWiiRemotes,
+			CoronataButtonObserver buttonObserver) {
 		this.leObserver = leObserver;
 		this.timeout = timeout;
 		this.states = new StateFactory(leObserver,
