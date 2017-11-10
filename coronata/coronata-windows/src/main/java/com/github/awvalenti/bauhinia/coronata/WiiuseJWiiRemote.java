@@ -24,21 +24,21 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 
 	private final Wiimote wiimote;
 
-	public WiiuseJWiiRemote(Wiimote wiimote, CoronataButtonObserver buttonObserver,
+	public WiiuseJWiiRemote(Wiimote wiimote,
+			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.wiimote = wiimote;
-		wiimote.addWiiMoteEventListeners(
-				new WiiuseJEventListener(buttonObserver, disconnectionObserver));
+		wiimote.addWiiMoteEventListeners(new WiiuseJEventListener(
+				buttonObserver, disconnectionObserver));
 	}
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
 		wiimote.setLeds(
-			(ledsState & LED_0) != 0,
-			(ledsState & LED_1) != 0,
-			(ledsState & LED_2) != 0,
-			(ledsState & LED_3) != 0
-		);
+				(ledsState & LED_0) != 0,
+				(ledsState & LED_1) != 0,
+				(ledsState & LED_2) != 0,
+				(ledsState & LED_3) != 0);
 	}
 
 	@Override
@@ -108,11 +108,13 @@ class WiiuseJWiiRemote implements CoronataWiiRemote {
 		}
 
 		@Override
-		public void onClassicControllerRemovedEvent(ClassicControllerRemovedEvent arg0) {
+		public void onClassicControllerRemovedEvent(
+				ClassicControllerRemovedEvent arg0) {
 		}
 
 		@Override
-		public void onClassicControllerInsertedEvent(ClassicControllerInsertedEvent arg0) {
+		public void onClassicControllerInsertedEvent(
+				ClassicControllerInsertedEvent arg0) {
 		}
 
 		@Override
