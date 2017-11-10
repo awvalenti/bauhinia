@@ -4,7 +4,8 @@ import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 
 public interface CoronataLifecycleEventsObserver extends
-		CoronataDisconnectionObserver, CoronataErrorObserver {
+		CoronataDisconnectionObserver,
+		CoronataErrorObserver {
 
 	void coronataStarted();
 

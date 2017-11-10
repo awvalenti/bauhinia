@@ -12,6 +12,7 @@ public enum CoronataPhase {
 
 	@Override
 	public String toString() {
-		return name().charAt(0) + name().substring(1).replaceAll("_", " ").toLowerCase();
+		return name().charAt(0) +
+				name().substring(1).replaceAll("_", " ").toLowerCase();
 	}
 }
