@@ -54,8 +54,6 @@ public class Vibration implements CoronataConnectionObserver,
 
 	@Override
 	public void buttonReleased(CoronataWiiRemoteButton button) {
-		// TODO Maybe should not require this method to be implemented
-		// (see https://github.com/awvalenti/bauhinia/issues/42)
 	}
 
 	private static void pause(long millis) {

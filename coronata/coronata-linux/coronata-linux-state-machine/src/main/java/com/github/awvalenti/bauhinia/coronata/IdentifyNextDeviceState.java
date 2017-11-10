@@ -30,12 +30,7 @@ class IdentifyNextDeviceState extends State {
 		RemoteDevice btDevice = current.btDevice;
 		String btAddress = btDevice.getBluetoothAddress();
 
-		// TODO Add a new event: leObserver.identifying(btAddress);
-		// This will eliminate the need for moveToPhase(FIND_WII_REMOTE)
-		// on EventsMediator.connectionRejected.
-
 		try {
-			// TODO Add a new event: leObserver.nameOfTheDevice(name);
 			wiiRemoteFactory.assertDeviceIsWiiRemote(btDevice);
 			return states.connect(btAddress);
 

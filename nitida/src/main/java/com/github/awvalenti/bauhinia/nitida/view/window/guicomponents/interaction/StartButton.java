@@ -10,6 +10,7 @@ public class StartButton extends JButton implements CoronataLifecycleStateObserv
 
 	public StartButton() {
 		super("Start");
+		enteredIdleState();
 	}
 
 	@Override

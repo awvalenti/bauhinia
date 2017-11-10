@@ -10,6 +10,7 @@ public class StopButton extends JButton implements CoronataLifecycleStateObserve
 
 	public StopButton() {
 		super("Stop");
+		enteredIdleState();
 	}
 
 	@Override

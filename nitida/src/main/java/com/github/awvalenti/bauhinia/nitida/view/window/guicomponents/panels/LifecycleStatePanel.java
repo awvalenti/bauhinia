@@ -25,6 +25,8 @@ public class LifecycleStatePanel extends JPanel implements CoronataLifecycleStat
 		for (ConnectionStateIndication i : indications) {
 			add(i);
 		}
+
+		enteredIdleState();
 	}
 
 	@Override

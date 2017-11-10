@@ -38,6 +38,8 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 
 		setSize(300, 150);
 		setLocationRelativeTo(null);
+
+		enteredIdleState();
 	}
 
 	public void setCoronata(final CoronataConnectionProcess coronata) {

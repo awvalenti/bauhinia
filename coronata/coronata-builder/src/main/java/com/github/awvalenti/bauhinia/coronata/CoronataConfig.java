@@ -62,12 +62,6 @@ class CoronataConfig implements ReadableCoronataConfig {
 	}
 
 	public void addObserver(CoronataLifecycleStateObserver o) {
-		// XXX Should not have to call this here; calling this triggers the
-		// configuration of initial state on observer. But the observer
-		// should configure itself upon construction instead of depending
-		// on this method being called.
-		o.enteredIdleState();
-
 		observers.lifecycleState.add(o);
 	}
 
