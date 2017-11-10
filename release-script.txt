@@ -1,0 +1,89 @@
+1. Release WiiuseJ
+	OLD=0.14-SNAPSHOT
+	CURRENT=0.14
+
+	cd wiiusej
+	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	git diff
+	mvn clean package
+
+	# Will go to master since there were no other branches up to this point
+	git commit -a -m "Releasing $CURRENT"
+	git push origin master
+
+	# Commands below can be replaced with creating tag directly on GitHub
+	# git tag $CURRENT
+	# git push origin $CURRENT
+	https://github.com/awvalenti/wiiusej/releases/new
+		Tag version: $CURRENT
+		Release title: $CURRENT
+		Attach binaries: wiiusej-lib/target/wiiusej-lib-$CURRENT.jar
+		Publish release
+	Download and test JAR in a project
+	Repeat the test using Maven
+
+	NEW=0.15-SNAPSHOT
+	find -name pom.xml | xargs sed -i -e 's/$CURRENT/$NEW/g'
+	git checkout -b $NEW
+	# Now we'll start using branches
+	git commit -a -m "Starting $NEW"
+	git push origin $NEW
+	cd ..
+	
+2. Go to correct branch of Bauhinia
+	OLD=0.2.x
+	cd bauhinia
+	git checkout $OLD
+
+2. Update references to WiiuseJ
+	OLD=0.14-SNAPSHOT
+	CURRENT=0.14
+	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	git diff
+	git commit -a -m "Referencing wiiusej-lib-$CURRENT"
+
+3. Release coronata and nitida
+	OLD=0.2.x
+	CURRENT=0.2.0
+
+	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	git diff
+
+	mvn clean package
+	cd coronata/coronata-lib/target
+	mv coronata-lib-$CURRENT-jar-with-dependencies.jar coronata-lib-$CURRENT.jar
+	cd -
+	cd nitida/target
+	mv nitida-$CURRENT-jar-with-dependencies.jar nitida-$CURRENT.jar
+
+	git commit -a -m "Releasing $CURRENT"
+	git push origin $OLD
+	
+	# Commands below can be replaced with creating tag directly on GitHub
+	# git tag $CURRENT
+	# git push origin $CURRENT
+	https://github.com/awvalenti/bauhinia/releases/new
+		Tag version: $CURRENT
+		Release title: $CURRENT
+		Attach binaries:
+			coronata/coronata-lib/target/coronata-lib-$CURRENT.jar
+			nitida/target/nitida-$CURRENT.jar
+		Publish release
+	Download and test nitida JAR
+	Download and test coronata-lib JAR
+	Repeat the test using Maven
+	
+	git checkout master
+	git merge $CURRENT
+	git commit -a -m 'Merging $CURRENT into master'
+	git push origin master
+
+	NEW=0.3.x
+	git checkout -b $NEW
+	find -name pom.xml | xargs sed -i -e 's/$CURRENT/$NEW/g'
+	git diff
+	mvn clean package
+
+	git commit -a -m "Starting $NEW"
+	git push origin $NEW
+	cd ..
