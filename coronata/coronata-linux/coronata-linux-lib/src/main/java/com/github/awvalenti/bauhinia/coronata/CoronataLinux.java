@@ -20,8 +20,8 @@ class CoronataLinux implements CoronataConnectionProcess, Runnable {
 
 		machine = new LinuxConnectionStateMachine(
 				config.getLifecycleEventsObserver(),
-				config.getTimeoutInSeconds(),
-				config.getNumberOfWiiRemotes(), config.getButtonObserver());
+				config.getTimeoutInSeconds(), config.getNumberOfWiiRemotes(),
+				config.getButtonObserver());
 
 		new Thread(this, "Coronata-" + threadId.getAndIncrement()).start();
 	}
