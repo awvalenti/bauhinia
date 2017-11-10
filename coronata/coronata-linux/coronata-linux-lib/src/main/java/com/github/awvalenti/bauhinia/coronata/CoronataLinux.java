@@ -15,7 +15,7 @@ class CoronataLinux implements Coronata, Runnable {
 	}
 
 	@Override
-	public synchronized void start() {
+	public synchronized void startConnectionProcess() {
 		if (machine != null) return;
 
 		machine = new LinuxConnectionStateMachine(
@@ -27,7 +27,7 @@ class CoronataLinux implements Coronata, Runnable {
 	}
 
 	@Override
-	public synchronized void stop() {
+	public synchronized void stopConnectionProcessIfActive() {
 		if (machine == null) return;
 
 		machine.requestStop();

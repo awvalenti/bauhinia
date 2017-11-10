@@ -21,7 +21,7 @@ class CoronataWindows implements Coronata {
 	}
 
 	@Override
-	public void start() {
+	public void startConnectionProcess() {
 		new Thread("Coronata-" + threadId.getAndIncrement()) {
 			@Override
 			public void run() {
@@ -51,9 +51,11 @@ class CoronataWindows implements Coronata {
 		}.start();
 	}
 
+	/**
+	 * @see {#link Coronata.stopConnectionProcessIfActive}
+	 */
 	@Override
-	public void stop() {
-		// TODO
+	public void stopConnectionProcessIfActive() {
 	}
 
 }

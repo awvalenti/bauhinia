@@ -39,7 +39,7 @@ public class NitidaModel {
 	}
 
 	public void start() {
-		coronata.start();
+		coronata.startConnectionProcess();
 	}
 
 	public void profileChanged(Profile profile) {
@@ -47,11 +47,11 @@ public class NitidaModel {
 	}
 
 	public void stop() {
+		coronata.stopConnectionProcessIfActive();
 		if (storedWiiRemote != null) {
 			storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
 			storedWiiRemote.disconnect();
 		}
-		coronata.stop();
 	}
 
 	private class MultipleEventsObserver
