@@ -31,9 +31,7 @@ class CoronataWindows implements CoronataConnectionProcess {
 
 				try {
 					WiiUseApiManager wiiuseJ = new WiiUseApiManager();
-					observer.libraryLoaded();
-
-					observer.searchStarted();
+					observer.libraryLoadedSearchStarted();
 					Wiimote[] wiimotesFound = wiiuseJ.getWiimotes(config.getNumberOfWiiRemotes());
 					if (wiimotesFound.length > 0) {
 						observer.identifiedAsWiiRemote(null);

@@ -21,16 +21,9 @@ class CompositeLifecycleEventsObserver implements CoronataLifecycleEventsObserve
 	}
 
 	@Override
-	public void libraryLoaded() {
+	public void libraryLoadedSearchStarted() {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.libraryLoaded();
-		}
-	}
-
-	@Override
-	public void searchStarted() {
-		for (CoronataLifecycleEventsObserver o : observers) {
-			o.searchStarted();
+			o.libraryLoadedSearchStarted();
 		}
 	}
 

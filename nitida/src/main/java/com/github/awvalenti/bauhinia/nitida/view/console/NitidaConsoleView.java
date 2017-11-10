@@ -22,13 +22,8 @@ public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 	}
 
 	@Override
-	public void libraryLoaded() {
-		System.out.println(messages.get("libraryLoaded"));
-	}
-
-	@Override
-	public void searchStarted() {
-		System.out.println(messages.get("searchStarted"));
+	public void libraryLoadedSearchStarted() {
+		System.out.println(messages.get("libraryLoadedSearchStarted"));
 	}
 
 	@Override

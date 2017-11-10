@@ -23,7 +23,7 @@ class LoadLibraryState extends State {
 	State run() {
 		try {
 			BlueCoveLibraryFacade blueCoveLib = new BlueCoveLibraryFacade();
-			leObserver.libraryLoaded();
+			leObserver.libraryLoadedSearchStarted();
 			return states.startInquiry(blueCoveLib);
 
 		} catch (BluetoothStateException e) {

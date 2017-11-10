@@ -34,13 +34,8 @@ public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver 
 	}
 
 	@Override
-	public void libraryLoaded() {
-		append(messages.get("libraryLoaded"));
-	}
-
-	@Override
-	public void searchStarted() {
-		append(messages.get("searchStarted"));
+	public void libraryLoadedSearchStarted() {
+		append(messages.get("libraryLoadedSearchStarted"));
 	}
 
 	@Override
