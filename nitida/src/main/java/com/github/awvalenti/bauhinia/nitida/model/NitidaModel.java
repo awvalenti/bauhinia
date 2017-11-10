@@ -3,7 +3,7 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.coronata.Coronata;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnectionProcess;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
@@ -15,7 +15,7 @@ public class NitidaModel {
 
 	private final Robot robot;
 	private final ButtonMapping mapping;
-	private Coronata coronata;
+	private CoronataConnectionProcess coronata;
 	private CoronataWiiRemote storedWiiRemote;
 
 	public NitidaModel(CoronataBuilder builder) {
@@ -34,12 +34,12 @@ public class NitidaModel {
 				.onButton(o);
 	}
 
-	public void setCoronata(Coronata coronata) {
+	public void setCoronata(CoronataConnectionProcess coronata) {
 		this.coronata = coronata;
 	}
 
 	public void start() {
-		coronata.startConnectionProcess();
+		coronata.start();
 	}
 
 	public void profileChanged(Profile profile) {
@@ -47,7 +47,7 @@ public class NitidaModel {
 	}
 
 	public void stop() {
-		coronata.stopConnectionProcessIfActive();
+		coronata.cancel();
 		if (storedWiiRemote != null) {
 			storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
 			storedWiiRemote.disconnect();

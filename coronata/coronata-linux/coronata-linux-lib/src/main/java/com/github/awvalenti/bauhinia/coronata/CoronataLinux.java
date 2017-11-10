@@ -2,7 +2,7 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class CoronataLinux implements Coronata, Runnable {
+class CoronataLinux implements CoronataConnectionProcess, Runnable {
 
 	private static final AtomicInteger threadId = new AtomicInteger(0);
 
@@ -15,7 +15,7 @@ class CoronataLinux implements Coronata, Runnable {
 	}
 
 	@Override
-	public synchronized void startConnectionProcess() {
+	public synchronized void start() {
 		if (machine != null) return;
 
 		machine = new LinuxConnectionStateMachine(
@@ -27,7 +27,7 @@ class CoronataLinux implements Coronata, Runnable {
 	}
 
 	@Override
-	public synchronized void stopConnectionProcessIfActive() {
+	public synchronized void cancel() {
 		if (machine == null) return;
 
 		machine.requestStop();

@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.github.awvalenti.bauhinia.coronata.Coronata;
 import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnectionProcess;
 import com.github.awvalenti.bauhinia.coronata.CoronataException;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
 import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
@@ -40,7 +40,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 		setLocationRelativeTo(null);
 	}
 
-	public void setCoronata(final Coronata coronata) {
+	public void setCoronata(final CoronataConnectionProcess coronata) {
 		btnConnect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -94,7 +94,7 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 	public static void main(String[] args) {
 		WindowWithIntegratedObserver window = new WindowWithIntegratedObserver();
 
-		Coronata coronata = CoronataBuilder.beginConfig()
+		CoronataConnectionProcess coronata = CoronataBuilder.beginConfig()
 				.onError(window)
 				.onConnection(window)
 				.onButton(window)

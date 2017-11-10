@@ -8,7 +8,7 @@ import com.github.awvalenti.wiiusej.WiiusejNativeLibraryLoadingException;
 import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 
-class CoronataWindows implements Coronata {
+class CoronataWindows implements CoronataConnectionProcess {
 
 	private static final AtomicInteger threadId = new AtomicInteger(0);
 
@@ -21,7 +21,7 @@ class CoronataWindows implements Coronata {
 	}
 
 	@Override
-	public void startConnectionProcess() {
+	public void start() {
 		new Thread("Coronata-" + threadId.getAndIncrement()) {
 			@Override
 			public void run() {
@@ -51,11 +51,8 @@ class CoronataWindows implements Coronata {
 		}.start();
 	}
 
-	/**
-	 * @see {#link Coronata.stopConnectionProcessIfActive}
-	 */
 	@Override
-	public void stopConnectionProcessIfActive() {
+	public void cancel() {
 	}
 
 }
