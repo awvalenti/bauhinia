@@ -26,7 +26,7 @@ public class PhasesPanel extends JPanel implements CoronataPhaseObserver {
 	}
 
 	@Override
-	public void starting() {
+	public void reset() {
 		for (PhaseWidget indication : map.values()) {
 			indication.setState(PhaseState.INACTIVE);
 		}

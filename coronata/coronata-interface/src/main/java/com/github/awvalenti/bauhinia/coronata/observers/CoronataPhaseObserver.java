@@ -4,7 +4,7 @@ import com.github.awvalenti.bauhinia.coronata.CoronataPhase;
 
 public interface CoronataPhaseObserver {
 
-	void starting();
+	void reset();
 
 	void running(CoronataPhase coronataPhase);
 

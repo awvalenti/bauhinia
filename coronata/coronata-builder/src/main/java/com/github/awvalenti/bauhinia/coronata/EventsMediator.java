@@ -28,7 +28,7 @@ class EventsMediator implements
 		connected = false;
 		observers.lifecycleEvents.coronataStarted();
 		observers.lifecycleState.enteredInProcessState();
-		observers.phase.starting();
+		observers.phase.reset();
 		moveToPhase(LOAD_LIBRARY);
 	}
 
@@ -111,9 +111,7 @@ class EventsMediator implements
 		observers.lifecycleEvents.disconnected();
 		observers.disconnection.disconnected();
 		observers.lifecycleState.enteredIdleState();
-
-		// TODO starting may be an odd name in this context
-		observers.phase.starting();
+		observers.phase.reset();
 	}
 
 }

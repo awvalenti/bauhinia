@@ -14,9 +14,9 @@ class CompositePhaseObserver implements CoronataPhaseObserver {
 	}
 
 	@Override
-	public void starting() {
+	public void reset() {
 		for (CoronataPhaseObserver o : observers) {
-			o.starting();
+			o.reset();
 		}
 	}
 
