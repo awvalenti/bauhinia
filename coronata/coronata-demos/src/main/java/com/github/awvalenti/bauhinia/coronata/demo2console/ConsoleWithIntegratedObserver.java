@@ -9,8 +9,11 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserv
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 
-public class ConsoleWithIntegratedObserver implements CoronataConnectionObserver,
-		CoronataButtonObserver, CoronataDisconnectionObserver, CoronataErrorObserver {
+public class ConsoleWithIntegratedObserver implements
+		CoronataConnectionObserver,
+		CoronataButtonObserver,
+		CoronataDisconnectionObserver,
+		CoronataErrorObserver {
 
 	public static void main(String[] args) {
 		new ConsoleWithIntegratedObserver().run();

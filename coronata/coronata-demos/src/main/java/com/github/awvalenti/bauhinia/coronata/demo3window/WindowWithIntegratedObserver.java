@@ -19,8 +19,11 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObs
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
-public class WindowWithIntegratedObserver extends JFrame implements CoronataConnectionObserver,
-		CoronataButtonObserver, CoronataLifecycleStateObserver, CoronataDisconnectionObserver,
+public class WindowWithIntegratedObserver extends JFrame implements
+		CoronataConnectionObserver,
+		CoronataButtonObserver,
+		CoronataLifecycleStateObserver,
+		CoronataDisconnectionObserver,
 		CoronataErrorObserver {
 
 	private static final long serialVersionUID = 1L;
@@ -94,7 +97,8 @@ public class WindowWithIntegratedObserver extends JFrame implements CoronataConn
 	}
 
 	public static void main(String[] args) {
-		WindowWithIntegratedObserver window = new WindowWithIntegratedObserver();
+		WindowWithIntegratedObserver window =
+				new WindowWithIntegratedObserver();
 
 		CoronataConnectionProcess coronata = CoronataBuilder.beginConfig()
 				.onError(window)

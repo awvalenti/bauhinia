@@ -49,27 +49,35 @@ public class LEDs implements CoronataConnectionObserver, CoronataErrorObserver {
 		pause(500);
 
 		System.out.println("Now dancing!");
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_3);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_3);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
 		pause(500);
 		wiiRemote.setLightedLEDs(CoronataWiiRemote.LEDS_NONE);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_3);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_3);
 		pause(500);
 		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_1);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_1);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0 | CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
+		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0 |
+				CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2);
 		pause(500);
 		wiiRemote.setLightedLEDs(CoronataWiiRemote.LEDS_ALL);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_1 | CoronataWiiRemote.LED_2 | CoronataWiiRemote.LED_3);
+		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_1 |
+				CoronataWiiRemote.LED_2 | CoronataWiiRemote.LED_3);
 		pause(500);
-		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_2 | CoronataWiiRemote.LED_3);
+		wiiRemote.setLightedLEDs(
+				CoronataWiiRemote.LED_2 | CoronataWiiRemote.LED_3);
 		pause(500);
 		wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
 		pause(500);

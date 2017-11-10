@@ -8,8 +8,10 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 
-public class Vibration implements CoronataConnectionObserver,
-		CoronataButtonObserver, CoronataErrorObserver {
+public class Vibration implements
+		CoronataConnectionObserver,
+		CoronataButtonObserver,
+		CoronataErrorObserver {
 
 	private CoronataWiiRemote wiiRemote;
 
