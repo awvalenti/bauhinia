@@ -5,7 +5,9 @@ import static com.github.awvalenti.bauhinia.coronata.CoronataPhase.*;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonObserver {
+class EventsMediator implements
+		CoronataLifecycleEventsObserver,
+		CoronataButtonObserver {
 
 	private CoronataPhase currentPhase;
 	private boolean connected;
@@ -16,9 +18,9 @@ class EventsMediator implements CoronataLifecycleEventsObserver, CoronataButtonO
 		this.observers = observers;
 	}
 
-	private void moveToPhase(CoronataPhase coronataPhase) {
-		observers.phase.running(coronataPhase);
-		currentPhase = coronataPhase;
+	private void moveToPhase(CoronataPhase phase) {
+		currentPhase = phase;
+		observers.phase.running(phase);
 	}
 
 	@Override
