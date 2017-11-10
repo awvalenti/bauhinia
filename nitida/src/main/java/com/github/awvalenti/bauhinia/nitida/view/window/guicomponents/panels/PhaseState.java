@@ -8,10 +8,9 @@ import java.awt.Color;
 public enum PhaseState {
 
 	INACTIVE(false, "\u25A1", Color.GRAY),
-	RUNNING(  true, "\u22EF", Color.BLACK),
-	SUCCESS(  true, "\u2714", Color.GREEN.darker()),
-	FAILURE(  true, "\u2718", Color.RED),
-	;
+	RUNNING(true, "\u22EF", Color.BLACK),
+	SUCCESS(true, "\u2714", Color.GREEN.darker()),
+	FAILURE(true, "\u2718", Color.RED),;
 
 	private final boolean active;
 	private final String symbol;

@@ -11,14 +11,16 @@ public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 	private final ProjectProperties projectProperties;
 	private final Messages messages;
 
-	public NitidaConsoleView(ProjectProperties projectProperties, Messages messages) {
+	public NitidaConsoleView(ProjectProperties projectProperties,
+			Messages messages) {
 		this.projectProperties = projectProperties;
 		this.messages = messages;
 	}
 
 	@Override
 	public void coronataStarted() {
-		System.out.println(messages.get("appTitle", projectProperties.getProjectVersion()));
+		System.out.println(messages.get("appTitle",
+				projectProperties.getProjectVersion()));
 	}
 
 	@Override
@@ -28,7 +30,8 @@ public class NitidaConsoleView implements CoronataLifecycleEventsObserver {
 
 	@Override
 	public void bluetoothDeviceFound(String btAddress, String deviceClass) {
-		System.out.println(messages.get("bluetoothDeviceFound", btAddress, deviceClass));
+		System.out.println(
+				messages.get("bluetoothDeviceFound", btAddress, deviceClass));
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ConnectionStateIndication extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Color originalBackgroundColor;
+	private final Color originalBgColor;
 
 	private JLabel iconLabel;
 	private JLabel textLabel;
@@ -29,10 +29,11 @@ public class ConnectionStateIndication extends JPanel {
 		setOpaque(true);
 
 		iconLabel = new JLabel(new CircleIcon(enabledColor));
-		iconLabel.setDisabledIcon(new CircleIcon(enabledColor.darker().darker()));
+		iconLabel.setDisabledIcon(
+				new CircleIcon(enabledColor.darker().darker()));
 		iconLabel.setOpaque(true);
 
-		originalBackgroundColor = iconLabel.getBackground();
+		originalBgColor = iconLabel.getBackground();
 
 		textLabel = new JLabel(title, JLabel.CENTER);
 		textLabel.setOpaque(true);
@@ -45,9 +46,9 @@ public class ConnectionStateIndication extends JPanel {
 	public final void setEnabled(boolean enabled) {
 		iconLabel.setEnabled(enabled);
 		textLabel.setEnabled(enabled);
-		setBackground(enabled ? Color.WHITE : originalBackgroundColor);
-		iconLabel.setBackground(enabled ? Color.WHITE : originalBackgroundColor);
-		textLabel.setBackground(enabled ? Color.WHITE : originalBackgroundColor);
+		setBackground(enabled ? Color.WHITE : originalBgColor);
+		iconLabel.setBackground(enabled ? Color.WHITE : originalBgColor);
+		textLabel.setBackground(enabled ? Color.WHITE : originalBgColor);
 	}
 
 	private static class CircleIcon implements Icon {
@@ -61,17 +62,21 @@ public class ConnectionStateIndication extends JPanel {
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			Graphics2D g2d = (Graphics2D) g;
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
 
-			int startingX = (c.getWidth() - getIconWidth()) / 2, outerCircleRadius = 25,
-					innerCircleRadius = 15, distanceBetweenCircles = (outerCircleRadius - innerCircleRadius) / 2;
+			int startingX = (c.getWidth() - getIconWidth()) / 2,
+					outerCircleRadius = 25, innerCircleRadius = 15,
+					distanceBetweenCircles =
+							(outerCircleRadius - innerCircleRadius) / 2;
 
 			g2d.setColor(Color.BLACK);
 			g2d.fillOval(startingX, 0, outerCircleRadius, outerCircleRadius);
 
 			g2d.setColor(innerCircleColor);
-			g2d.fillOval(startingX + distanceBetweenCircles, distanceBetweenCircles,
-					innerCircleRadius, innerCircleRadius);
+			g2d.fillOval(startingX + distanceBetweenCircles,
+					distanceBetweenCircles, innerCircleRadius,
+					innerCircleRadius);
 		}
 
 		@Override

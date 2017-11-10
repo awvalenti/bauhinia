@@ -9,7 +9,8 @@ public class ApplicationStatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public ApplicationStatePanel(PhasesPanel phasePanel, LifecycleStatePanel connectionStatePanel) {
+	public ApplicationStatePanel(PhasesPanel phasePanel,
+			LifecycleStatePanel connectionStatePanel) {
 		super(new BorderLayout());
 		setBorder(BorderFactory.createTitledBorder("Application state"));
 

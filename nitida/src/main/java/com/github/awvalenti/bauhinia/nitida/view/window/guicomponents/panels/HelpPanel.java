@@ -30,14 +30,17 @@ public class HelpPanel extends JPanel {
 	private final ProjectProperties projectProperties;
 	private final BrowserLauncher browserLauncher;
 
-	public HelpPanel(ProjectProperties projectProperties, BrowserLauncher browserLauncher) {
+	public HelpPanel(ProjectProperties projectProperties,
+			BrowserLauncher browserLauncher) {
 		this.projectProperties = projectProperties;
 		this.browserLauncher = browserLauncher;
 
 		setBorder(BorderFactory.createTitledBorder("Help"));
 		add(new HyperlinkButton("About", new AboutActionListener()));
-		add(new HyperlinkButton("Usage<br>(offline)", new UsageOfflineActionListener()));
-		add(new HyperlinkButton("Usage<br>(online)", new UsageOnlineActionListener()));
+		add(new HyperlinkButton("Usage<br>(offline)",
+				new UsageOfflineActionListener()));
+		add(new HyperlinkButton("Usage<br>(online)",
+				new UsageOnlineActionListener()));
 	}
 
 	private class AboutActionListener implements ActionListener {
@@ -65,13 +68,15 @@ public class HelpPanel extends JPanel {
 		}
 	}
 
-	private void showDialog(String title, int width, int height, String pathToTextResource) {
+	private void showDialog(String title, int width, int height,
+			String pathToTextResource) {
 		JDialog dialog = new JDialog();
 		dialog.setModal(true);
 		dialog.setTitle(title);
 		dialog.setSize(width, height);
-		dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED, new Font(Font.MONOSPACED,
-				Font.BOLD, 14), getClass().getResource(pathToTextResource)));
+		dialog.add(new InformationPane(HorizontalScrolling.AS_NEEDED,
+				new Font(Font.MONOSPACED, Font.BOLD, 14),
+				getClass().getResource(pathToTextResource)));
 		dialog.setLocationRelativeTo(null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);

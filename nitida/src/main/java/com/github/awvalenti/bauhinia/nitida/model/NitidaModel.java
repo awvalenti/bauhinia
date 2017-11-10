@@ -54,8 +54,10 @@ public class NitidaModel {
 		}
 	}
 
-	private class MultipleEventsObserver
-			implements CoronataConnectionObserver, CoronataDisconnectionObserver, CoronataButtonObserver {
+	private class MultipleEventsObserver implements
+			CoronataConnectionObserver,
+			CoronataDisconnectionObserver,
+			CoronataButtonObserver {
 
 		@Override
 		public void connected(final CoronataWiiRemote wiiRemote) {

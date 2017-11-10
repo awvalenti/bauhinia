@@ -21,11 +21,13 @@ public class InformationPane extends JScrollPane {
 		editorPane.setEditable(false);
 
 		setViewportView(editorPane);
-		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		setVerticalScrollBarPolicy(
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		setHorizontalScrollBarPolicy(horizontalScrolling.policy);
 	}
 
-	public InformationPane(HorizontalScrolling horizontalScrolling, Font font, URL contentUrl) {
+	public InformationPane(HorizontalScrolling horizontalScrolling, Font font,
+			URL contentUrl) {
 		this(horizontalScrolling);
 		editorPane.setFont(font);
 		try {
@@ -48,7 +50,9 @@ public class InformationPane extends JScrollPane {
 
 	public static enum HorizontalScrolling {
 		AS_NEEDED(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED),
+		
 		NEVER(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER),
+
 		;
 
 		private final int policy;

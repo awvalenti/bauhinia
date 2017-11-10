@@ -11,12 +11,14 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 import com.github.awvalenti.bauhinia.nitida.view.common.properties.Messages;
 import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.InformationPane.HorizontalScrolling;
 
-public class LogPanel extends JPanel implements CoronataLifecycleEventsObserver {
+public class LogPanel extends JPanel implements
+		CoronataLifecycleEventsObserver {
 
 	private static final long serialVersionUID = 1L;
 
 	private final Messages messages;
-	private final InformationPane informationPane = new InformationPane(HorizontalScrolling.NEVER);
+	private final InformationPane informationPane =
+			new InformationPane(HorizontalScrolling.NEVER);
 
 	public LogPanel(Messages messages) {
 		super(new BorderLayout());

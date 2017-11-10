@@ -7,7 +7,8 @@ import javax.swing.JPanel;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 
-public class LifecycleStatePanel extends JPanel implements CoronataLifecycleStateObserver {
+public class LifecycleStatePanel extends JPanel implements
+		CoronataLifecycleStateObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,8 +20,7 @@ public class LifecycleStatePanel extends JPanel implements CoronataLifecycleStat
 		indications = new ConnectionStateIndication[] {
 				new ConnectionStateIndication("Idle", Color.RED),
 				new ConnectionStateIndication("In process", Color.YELLOW),
-				new ConnectionStateIndication("Connected", Color.GREEN),
-		};
+				new ConnectionStateIndication("Connected", Color.GREEN)};
 
 		for (ConnectionStateIndication i : indications) {
 			add(i);

@@ -12,9 +12,10 @@ import com.github.awvalenti.bauhinia.nitida.view.window.guicomponents.panels.Use
 public class NitidaWindowView {
 
 	public NitidaWindowView(ProjectProperties projectProperties,
-			ApplicationStatePanel applicationStatePanel,
-			LogPanel logPanel, UserInputPanel userInputPanel) {
-		JFrame frame = new JFrame("nitida " + projectProperties.getProjectVersion());
+			ApplicationStatePanel applicationStatePanel, LogPanel logPanel,
+			UserInputPanel userInputPanel) {
+		JFrame frame =
+				new JFrame("nitida " + projectProperties.getProjectVersion());
 		frame.setLayout(new BorderLayout());
 		frame.setSize(360, 620);
 		frame.setLocationRelativeTo(null);

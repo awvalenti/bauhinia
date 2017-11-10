@@ -13,7 +13,8 @@ public class NitidaMain {
 			new NitidaConsoleMVC();
 
 		} else {
-			throw new IllegalArgumentException("Unrecognized argument: " + args[0]);
+			throw new IllegalArgumentException(
+					"Unrecognized argument: " + args[0]);
 		}
 	}
 

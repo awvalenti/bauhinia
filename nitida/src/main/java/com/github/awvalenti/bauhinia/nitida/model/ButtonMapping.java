@@ -42,12 +42,16 @@ public class ButtonMapping {
 				profile.name() + ".properties");
 
 		for (String buttonName : properties.keySet()) {
-			String[] keysNames = properties.get(buttonName).toUpperCase().split(" ");
-			buttonsToKeycodes.put(buttonFor(buttonName.toUpperCase()), keycodesFor(keysNames));
+			String[] keysNames =
+					properties.get(buttonName).toUpperCase().split(" ");
+			buttonsToKeycodes.put(buttonFor(buttonName.toUpperCase()),
+					keycodesFor(keysNames));
 		}
-		
-		if (buttonsToKeycodes.size() != CoronataWiiRemoteButton.values().length) {
-			throw new RuntimeException(profile.name() + " profile is non-exhaustive");
+
+		if (buttonsToKeycodes
+				.size() != CoronataWiiRemoteButton.values().length) {
+			throw new RuntimeException(
+					profile.name() + " profile is non-exhaustive");
 		}
 	}
 
@@ -55,8 +59,8 @@ public class ButtonMapping {
 		try {
 			return CoronataWiiRemoteButton.valueOf(key);
 		} catch (Exception e) {
-			throw new IllegalArgumentException(key +
-					" is not a valid Wii Remote button name", e);
+			throw new IllegalArgumentException(
+					key + " is not a valid Wii Remote button name", e);
 		}
 	}
 
@@ -77,8 +81,8 @@ public class ButtonMapping {
 			return KeyEvent.class.getField(keyEventClassFieldName).getInt(null);
 
 		} catch (NoSuchFieldException e) {
-			throw new IllegalArgumentException(keyEventClassFieldName +
-					" is not a valid key name", e);
+			throw new IllegalArgumentException(
+					keyEventClassFieldName + " is not a valid key name", e);
 
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException(e);

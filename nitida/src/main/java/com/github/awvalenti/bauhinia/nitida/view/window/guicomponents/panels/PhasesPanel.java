@@ -13,7 +13,8 @@ public class PhasesPanel extends JPanel implements CoronataPhaseObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Map<CoronataPhase, PhaseWidget> map = new HashMap<CoronataPhase, PhaseWidget>();
+	private final Map<CoronataPhase, PhaseWidget> map =
+			new HashMap<CoronataPhase, PhaseWidget>();
 
 	public PhasesPanel() {
 		super(new GridLayout(CoronataPhase.values().length, 1));
