@@ -44,7 +44,8 @@ public class CoronataBuilder {
 		return this;
 	}
 
-	public CoronataBuilder onLifecycleEvents(CoronataLifecycleEventsObserver o) {
+	public CoronataBuilder
+			onLifecycleEvents(CoronataLifecycleEventsObserver o) {
 		config.addObserver(o);
 		return this;
 	}
@@ -65,8 +66,10 @@ public class CoronataBuilder {
 	}
 
 	public CoronataConnectionProcess endConfig() {
-		boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
-		return isWindows ? new CoronataWindows(config) : new CoronataLinux(config);
+		boolean isWindows =
+				System.getProperty("os.name").toLowerCase().contains("win");
+		return isWindows ? new CoronataWindows(config) :
+				new CoronataLinux(config);
 	}
 
 }

@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class CompositeLifecycleEventsObserver implements CoronataLifecycleEventsObserver {
+class CompositeLifecycleEventsObserver implements
+		CoronataLifecycleEventsObserver {
 
-	private final List<CoronataLifecycleEventsObserver> observers = new ArrayList<CoronataLifecycleEventsObserver>();
+	private final List<CoronataLifecycleEventsObserver> observers =
+			new ArrayList<CoronataLifecycleEventsObserver>();
 
 	public void add(CoronataLifecycleEventsObserver o) {
 		observers.add(o);

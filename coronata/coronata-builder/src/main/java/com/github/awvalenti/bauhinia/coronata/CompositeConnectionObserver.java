@@ -7,7 +7,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserv
 
 class CompositeConnectionObserver implements CoronataConnectionObserver {
 
-	private final List<CoronataConnectionObserver> observers = new ArrayList<CoronataConnectionObserver>();
+	private final List<CoronataConnectionObserver> observers =
+			new ArrayList<CoronataConnectionObserver>();
 
 	public void add(CoronataConnectionObserver o) {
 		observers.add(o);

@@ -7,7 +7,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 class CompositePhaseObserver implements CoronataPhaseObserver {
 
-	private final List<CoronataPhaseObserver> observers = new ArrayList<CoronataPhaseObserver>();
+	private final List<CoronataPhaseObserver> observers =
+			new ArrayList<CoronataPhaseObserver>();
 
 	public void add(CoronataPhaseObserver o) {
 		observers.add(o);

@@ -7,7 +7,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
 
 class CompositeErrorObserver implements CoronataErrorObserver {
 
-	private final List<CoronataErrorObserver> observers = new ArrayList<CoronataErrorObserver>();
+	private final List<CoronataErrorObserver> observers =
+			new ArrayList<CoronataErrorObserver>();
 
 	public void add(CoronataErrorObserver o) {
 		observers.add(o);

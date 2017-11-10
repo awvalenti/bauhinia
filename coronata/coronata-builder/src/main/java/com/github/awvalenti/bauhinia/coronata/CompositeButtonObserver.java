@@ -7,7 +7,8 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 class CompositeButtonObserver implements CoronataButtonObserver {
 
-	private final List<CoronataButtonObserver> observers = new ArrayList<CoronataButtonObserver>();
+	private final List<CoronataButtonObserver> observers =
+			new ArrayList<CoronataButtonObserver>();
 
 	public void add(CoronataButtonObserver o) {
 		observers.add(o);

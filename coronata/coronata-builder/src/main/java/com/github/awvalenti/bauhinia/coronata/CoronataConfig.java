@@ -16,7 +16,6 @@ class CoronataConfig implements ReadableCoronataConfig {
 	private int numberOfWiiRemotes = 1;
 	private int timeoutInSeconds = 30;
 
-
 	@Override
 	public int getNumberOfWiiRemotes() {
 		return numberOfWiiRemotes;
