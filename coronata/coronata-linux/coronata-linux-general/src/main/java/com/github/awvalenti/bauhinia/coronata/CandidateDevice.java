@@ -21,13 +21,16 @@ class CandidateDevice implements Comparable<CandidateDevice> {
 	private int getPriority() {
 		int wiiRemoteProbability = 0;
 
-		// http://wiibrew.org/wiki/Wiimote#SDP_information
-
-		boolean isPeripheral = clazz.getMajorDeviceClass() == 1280;
+		boolean isPeripheral = clazz.getMajorDeviceClass() == 1280,
+				
+				// Nintendo RVL-CNT-01
+				isJoystick = clazz.getMinorDeviceClass() == 4,
+				
+				// Nintendo RVL-CNT-01-TR
+				isGamepad = clazz.getMinorDeviceClass() == 8;
+		
 		if (isPeripheral) wiiRemoteProbability += 25;
-
-		boolean isJoystick = clazz.getMinorDeviceClass() == 4;
-		if (isJoystick) wiiRemoteProbability += 50;
+		if (isJoystick || isGamepad) wiiRemoteProbability += 50;
 
 		return wiiRemoteProbability;
 	}
