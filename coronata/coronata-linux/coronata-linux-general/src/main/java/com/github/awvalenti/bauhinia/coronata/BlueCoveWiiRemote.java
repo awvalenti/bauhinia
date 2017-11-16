@@ -10,7 +10,7 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 	private final WiiRemoteConnection connection;
 	private final ButtonHandlerThread thread;
 
-	private byte currentState = 0x00;
+	private transient byte currentState = 0x00;
 
 	BlueCoveWiiRemote(WiiRemoteConnection connection,
 			CoronataButtonObserver buttonObserver,
@@ -23,9 +23,15 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		currentState =
-				(byte) (currentState & ~LEDS_MASK | ledsState & LEDS_MASK);
-		realizeLedsAndOrVibration();
+		ledsState &= LEDS_MASK;			// Filters undesired bits (if present)
+
+		byte state = currentState;		// Copies state (for thread-safety)
+		state &= ~LEDS_MASK;			// Mark all LEDs as off
+		state |= ledsState;				// Mark desired LEDs as on
+
+		currentState = state;			// Update class field
+
+		realizeLedsAndOrVibration();	// Realize changes
 	}
 
 	@Override
