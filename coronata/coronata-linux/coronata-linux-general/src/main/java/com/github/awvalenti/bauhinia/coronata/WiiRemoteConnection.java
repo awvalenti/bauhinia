@@ -4,30 +4,30 @@ import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
 
-public class WiiRemoteConnection {
+class WiiRemoteConnection {
 
 	private final L2CAPConnection controlPipe;
 	private final L2CAPConnection dataPipe;
 
-	public WiiRemoteConnection(L2CAPConnection controlPipe,
+	WiiRemoteConnection(L2CAPConnection controlPipe,
 			L2CAPConnection dataPipe) {
 		this.controlPipe = controlPipe;
 		this.dataPipe = dataPipe;
 	}
 
-	public void send(byte[] bytes) throws IOException {
+	void send(byte[] bytes) throws IOException {
 		dataPipe.send(bytes);
 	}
 
-	public void receive(byte[] bytes) throws IOException {
+	void receive(byte[] bytes) throws IOException {
 		dataPipe.receive(bytes);
 	}
 
-	public boolean isInputReady() throws IOException {
+	boolean isInputReady() throws IOException {
 		return dataPipe.ready();
 	}
 
-	public void close() {
+	void close() {
 		try {
 			try {
 				controlPipe.close();
