@@ -38,7 +38,8 @@ class WiiRemoteFactory {
 	BlueCoveWiiRemote create(String btAddress) throws ConnectionRejected {
 		// http://wiibrew.org/wiki/Wiimote#HID_Interface
 
-		L2CAPConnection controlPipe = null, dataPipe = null;
+		L2CAPConnection controlPipe = null;
+		L2CAPConnection dataPipe;
 
 		try {
 			controlPipe = (L2CAPConnection) Connector.open(
@@ -52,7 +53,7 @@ class WiiRemoteFactory {
 		} catch (IOException e1) {
 			try {
 				if (controlPipe != null) controlPipe.close();
-				// dataPipe will surely be null
+				// dataPipe is surely not open here
 
 			} catch (IOException e2) {
 				// Nothing can be done here
