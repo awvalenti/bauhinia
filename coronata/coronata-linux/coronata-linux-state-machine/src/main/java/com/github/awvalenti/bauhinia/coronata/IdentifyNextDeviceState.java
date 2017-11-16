@@ -2,24 +2,20 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
-import javax.bluetooth.RemoteDevice;
+import java.io.IOException;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentificationRejected;
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.IdentifiedAsNonWiiRemote;
+import javax.bluetooth.RemoteDevice;
 
 class IdentifyNextDeviceState extends State {
 
 	private final StateFactory states;
 
 	private final CandidatesQueue candidates;
-	private final WiiRemoteFactory wiiRemoteFactory;
 
-	IdentifyNextDeviceState(StateFactory states, CandidatesQueue candidates,
-			WiiRemoteFactory wiiRemoteFactory) {
+	IdentifyNextDeviceState(StateFactory states, CandidatesQueue candidates) {
 		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.candidates = candidates;
-		this.wiiRemoteFactory = wiiRemoteFactory;
 	}
 
 	@Override
@@ -30,16 +26,22 @@ class IdentifyNextDeviceState extends State {
 		RemoteDevice btDevice = current.btDevice;
 		String btAddress = btDevice.getBluetoothAddress();
 
+		final String name;
 		try {
-			wiiRemoteFactory.assertDeviceIsWiiRemote(btDevice);
-			return states.connect(btAddress);
-
-		} catch (IdentificationRejected e) {
+			name = btDevice.getFriendlyName(false);
+		} catch (IOException e) {
 			return states.identificationRejected(btAddress);
+		}
 
-		} catch (IdentifiedAsNonWiiRemote e) {
+		if (!isWiiRemote(name)) {
 			return states.identifiedAsNonWiiRemote(btAddress);
 		}
+
+		return states.connect(btAddress);
+	}
+
+	private boolean isWiiRemote(String name) {
+		return name != null && name.startsWith("Nintendo RVL-CNT-01");
 	}
 
 }

@@ -3,7 +3,6 @@ package com.github.awvalenti.bauhinia.coronata;
 import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
-import javax.bluetooth.RemoteDevice;
 import javax.microedition.io.Connector;
 
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
@@ -18,21 +17,6 @@ class WiiRemoteFactory {
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.buttonObserver = buttonObserver;
 		this.disconnectionObserver = disconnectionObserver;
-	}
-
-	void assertDeviceIsWiiRemote(RemoteDevice device)
-			throws IdentificationRejected, IdentifiedAsNonWiiRemote {
-
-		final boolean isWiiRemote;
-
-		try {
-			String n = device.getFriendlyName(false);
-			isWiiRemote = n != null && n.startsWith("Nintendo RVL-CNT-01");
-		} catch (IOException e) {
-			throw new IdentificationRejected();
-		}
-
-		if (!isWiiRemote) throw new IdentifiedAsNonWiiRemote();
 	}
 
 	BlueCoveWiiRemote create(String btAddress) throws ConnectionRejected {
@@ -65,14 +49,6 @@ class WiiRemoteFactory {
 		return new BlueCoveWiiRemote(
 				new WiiRemoteConnection(controlPipe, dataPipe), buttonObserver,
 				disconnectionObserver);
-	}
-
-	static class IdentificationRejected extends Exception {
-		private static final long serialVersionUID = 1L;
-	}
-
-	static class IdentifiedAsNonWiiRemote extends Exception {
-		private static final long serialVersionUID = 1L;
 	}
 
 	static class ConnectionRejected extends Exception {

@@ -49,7 +49,7 @@ class StateFactory {
 	}
 
 	State identifyNextDevice() {
-		return new IdentifyNextDeviceState(this, candidates, wiiRemoteFactory);
+		return new IdentifyNextDeviceState(this, candidates);
 	}
 
 	State identificationRejected(String btAddress) {
