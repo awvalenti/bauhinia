@@ -3,8 +3,6 @@ package com.github.awvalenti.bauhinia.coronata;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.bluetooth.L2CAPConnection;
-
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
@@ -12,8 +10,7 @@ class ButtonHandlerThread extends Thread {
 
 	private static final AtomicInteger threadId = new AtomicInteger(0);
 
-	private final L2CAPConnection input;
-	private final L2CAPConnection output;
+	private final WiiRemoteConnection connection;
 	private final CoronataButtonObserver buttonObserver;
 	private final CoronataDisconnectionObserver disconnectionObserver;
 
@@ -22,14 +19,13 @@ class ButtonHandlerThread extends Thread {
 
 	private volatile boolean disconnectionRequested = false;
 
-	public ButtonHandlerThread(L2CAPConnection input, L2CAPConnection output,
+	public ButtonHandlerThread(WiiRemoteConnection connection,
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 
 		setName(getClass().getSimpleName() + "-" + threadId.getAndIncrement());
 
-		this.input = input;
-		this.output = output;
+		this.connection = connection;
 		this.buttonObserver = buttonObserver;
 		this.disconnectionObserver = disconnectionObserver;
 	}
@@ -58,27 +54,32 @@ class ButtonHandlerThread extends Thread {
 			// gone too far from computer etc.)
 
 		} catch (Throwable t) {
-			// buttonObserver has thrown unhandled exception (see issue #22)
+			// buttonObserver has thrown unhandled exception
+			// (see https://github.com/awvalenti/bauhinia/issues/48)
 			throw new RuntimeException(t);
 
 		} finally {
-			handleDisconnection();
+			try {
+				connection.close();
+			} finally {
+				disconnectionObserver.disconnected();
+			}
 		}
 	}
 
 	private void receiveFirstState() throws IOException {
-		input.receive(previousState);
+		connection.receive(previousState);
 	}
 
 	private void waitForDataReady() throws IOException, InterruptedException {
-		while (!input.ready()) {
+		while (!connection.isInputReady()) {
 			if (disconnectionRequested) break;
 			Thread.sleep(1);
 		}
 	}
 
 	private void receiveCurrentState() throws IOException {
-		input.receive(currentState);
+		connection.receive(currentState);
 	}
 
 	private void handleButtons() {
@@ -102,23 +103,6 @@ class ButtonHandlerThread extends Thread {
 		byte[] aux = currentState;
 		currentState = previousState;
 		previousState = aux;
-
-	}
-
-	private void handleDisconnection() {
-		// Since we're not using Java 7, we need to do this odd try block to
-		// make sure connections are closed and observer is notified
-		try {
-			try {
-				input.close();
-			} finally {
-				output.close();
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			disconnectionObserver.disconnected();
-		}
 	}
 
 }

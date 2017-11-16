@@ -36,27 +36,34 @@ class WiiRemoteFactory {
 	}
 
 	BlueCoveWiiRemote create(String btAddress) throws ConnectionRejected {
-		L2CAPConnection input = null;
-		try {
-			input = (L2CAPConnection) Connector.open(
-					String.format("btl2cap://%s:13", btAddress), Connector.READ,
-					true);
+		// http://wiibrew.org/wiki/Wiimote#HID_Interface
 
-			L2CAPConnection output = (L2CAPConnection) Connector.open(
+		L2CAPConnection controlPipe = null, dataPipe = null;
+
+		try {
+			controlPipe = (L2CAPConnection) Connector.open(
 					String.format("btl2cap://%s:11", btAddress),
 					Connector.WRITE, true);
 
-			return new BlueCoveWiiRemote(input, output, buttonObserver,
-					disconnectionObserver);
+			dataPipe = (L2CAPConnection) Connector.open(
+					String.format("btl2cap://%s:13", btAddress),
+					Connector.READ_WRITE, true);
 
 		} catch (IOException e1) {
 			try {
-				if (input != null) input.close();
+				if (controlPipe != null) controlPipe.close();
+				// dataPipe will surely be null
+
 			} catch (IOException e2) {
 				// Nothing can be done here
 			}
+
 			throw new ConnectionRejected();
 		}
+
+		return new BlueCoveWiiRemote(
+				new WiiRemoteConnection(controlPipe, dataPipe), buttonObserver,
+				disconnectionObserver);
 	}
 
 	static class IdentificationRejected extends Exception {
