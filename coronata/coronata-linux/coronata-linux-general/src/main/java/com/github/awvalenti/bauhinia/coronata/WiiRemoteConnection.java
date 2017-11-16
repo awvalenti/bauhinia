@@ -9,8 +9,7 @@ class WiiRemoteConnection {
 	private final L2CAPConnection controlPipe;
 	private final L2CAPConnection dataPipe;
 
-	WiiRemoteConnection(L2CAPConnection controlPipe,
-			L2CAPConnection dataPipe) {
+	WiiRemoteConnection(L2CAPConnection controlPipe, L2CAPConnection dataPipe) {
 		this.controlPipe = controlPipe;
 		this.dataPipe = dataPipe;
 	}
