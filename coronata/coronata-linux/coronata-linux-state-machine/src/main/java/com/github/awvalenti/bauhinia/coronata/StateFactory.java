@@ -1,22 +1,26 @@
 package com.github.awvalenti.bauhinia.coronata;
 
 import javax.bluetooth.BluetoothStateException;
+import javax.bluetooth.L2CAPConnection;
 
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
 class StateFactory {
 
 	private final CoronataLifecycleEventsObserver leObserver;
-	private final WiiRemoteFactory wiiRemoteFactory;
+	private final CoronataButtonObserver buttonObserver;
+
 	private final Counter connectionsCounter;
 
 	private BlueCoveLibraryFacade blueCoveLib;
 	private CandidatesQueue candidates;
 
 	StateFactory(CoronataLifecycleEventsObserver leObserver,
-			WiiRemoteFactory wiiRemoteFactory, Counter connectionsCounter) {
+			CoronataButtonObserver buttonObserver,
+			Counter connectionsCounter) {
 		this.leObserver = leObserver;
-		this.wiiRemoteFactory = wiiRemoteFactory;
+		this.buttonObserver = buttonObserver;
 		this.connectionsCounter = connectionsCounter;
 	}
 
@@ -60,16 +64,21 @@ class StateFactory {
 		return new IdentifiedAsNonWiiRemoteState(this, leObserver, btAddress);
 	}
 
-	State connect(String btAddress) {
-		return new ConnectState(this, leObserver, btAddress, wiiRemoteFactory);
+	State openControlPipe(String btAddress) {
+		return new OpenControlPipeState(this, leObserver, btAddress);
+	}
+
+	State openDataPipe(String btAddress, L2CAPConnection controlPipe) {
+		return new OpenDataPipeState(this, btAddress, controlPipe);
 	}
 
 	State connectionRejected(String btAddress) {
 		return new ConnectionRejectedState(this, leObserver, btAddress);
 	}
 
-	State connectionAccepted(BlueCoveWiiRemote wiiRemote) {
-		return new ConnectionAcceptedState(this, connectionsCounter, wiiRemote);
+	State connectionAccepted(WiiRemoteConnection connection) {
+		return new ConnectionAcceptedState(this, leObserver, connectionsCounter,
+				connection, buttonObserver);
 	}
 
 	State finish() {

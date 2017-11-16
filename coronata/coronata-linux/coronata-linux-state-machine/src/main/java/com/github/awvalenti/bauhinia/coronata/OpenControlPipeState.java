@@ -2,39 +2,42 @@ package com.github.awvalenti.bauhinia.coronata;
 
 import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
 
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteFactory.ConnectionRejected;
+import java.io.IOException;
+
+import javax.bluetooth.L2CAPConnection;
+import javax.microedition.io.Connector;
+
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
-class ConnectState extends State {
+class OpenControlPipeState extends State {
 
 	private final StateFactory states;
 
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final String btAddress;
-	private final WiiRemoteFactory wiiRemoteFactory;
 
-	ConnectState(StateFactory states,
-			CoronataLifecycleEventsObserver leObserver, String btAddress,
-			WiiRemoteFactory wiiRemoteFactory) {
+	OpenControlPipeState(StateFactory states,
+			CoronataLifecycleEventsObserver leObserver, String btAddress) {
 		super(STOP_ONLY_IF_REQUESTED);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.btAddress = btAddress;
-		this.wiiRemoteFactory = wiiRemoteFactory;
 	}
 
 	@Override
 	State run() {
 		leObserver.identifiedAsWiiRemote(btAddress);
 
+		final L2CAPConnection controlPipe;
 		try {
-			BlueCoveWiiRemote wiiRemote = wiiRemoteFactory.create(btAddress);
-			leObserver.connected(wiiRemote);
-			return states.connectionAccepted(wiiRemote);
-
-		} catch (ConnectionRejected e) {
+			controlPipe = (L2CAPConnection) Connector.open(
+					String.format("btl2cap://%s:11", btAddress),
+					Connector.WRITE, true);
+		} catch (IOException e) {
 			return states.connectionRejected(btAddress);
 		}
+
+		return states.openDataPipe(btAddress, controlPipe);
 	}
 
 }

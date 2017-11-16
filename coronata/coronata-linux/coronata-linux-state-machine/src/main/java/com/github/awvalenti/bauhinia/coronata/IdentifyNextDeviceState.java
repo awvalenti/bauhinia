@@ -37,7 +37,7 @@ class IdentifyNextDeviceState extends State {
 			return states.identifiedAsNonWiiRemote(btAddress);
 		}
 
-		return states.connect(btAddress);
+		return states.openControlPipe(btAddress);
 	}
 
 	private boolean isWiiRemote(String name) {

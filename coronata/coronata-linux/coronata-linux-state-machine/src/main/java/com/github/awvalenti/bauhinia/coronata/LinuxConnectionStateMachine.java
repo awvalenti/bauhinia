@@ -17,8 +17,7 @@ class LinuxConnectionStateMachine {
 			CoronataButtonObserver buttonObserver) {
 		this.leObserver = leObserver;
 		this.timeout = timeout;
-		this.states = new StateFactory(leObserver,
-				new WiiRemoteFactory(buttonObserver, leObserver),
+		this.states = new StateFactory(leObserver, buttonObserver,
 				new Counter(numberOfWiiRemotes));
 	}
 
