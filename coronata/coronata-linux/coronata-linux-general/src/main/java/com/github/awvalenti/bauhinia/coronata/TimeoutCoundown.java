@@ -1,12 +1,12 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-class Countdown {
+class TimeoutCoundown {
 
 	private final long startTime = System.nanoTime();
 
 	private final int timeout;
 
-	Countdown(int timeout) {
+	TimeoutCoundown(int timeout) {
 		this.timeout = timeout;
 	}
 

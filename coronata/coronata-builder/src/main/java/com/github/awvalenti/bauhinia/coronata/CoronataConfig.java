@@ -14,7 +14,7 @@ class CoronataConfig implements ReadableCoronataConfig {
 	private final EventsMediator mediator = new EventsMediator(observers);
 
 	private int numberOfWiiRemotes = 1;
-	private int timeoutInSeconds = 30;
+	private int timeoutInSeconds = 40;
 
 	@Override
 	public int getNumberOfWiiRemotes() {

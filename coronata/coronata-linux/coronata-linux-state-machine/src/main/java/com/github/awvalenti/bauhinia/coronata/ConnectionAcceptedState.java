@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
-
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
@@ -14,11 +12,10 @@ class ConnectionAcceptedState extends State {
 	private final WiiRemoteConnection connection;
 	private final CoronataButtonObserver buttonObserver;
 
-	public ConnectionAcceptedState(StateFactory states,
+	ConnectionAcceptedState(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver,
 			Counter connectionsCounter, WiiRemoteConnection connection,
 			CoronataButtonObserver buttonObserver) {
-		super(STOP_ONLY_IF_REQUESTED);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.connectionsCounter = connectionsCounter;
@@ -27,14 +24,14 @@ class ConnectionAcceptedState extends State {
 	}
 
 	@Override
-	void cleanUpIfDidntRun() {
-		connection.close();
+	boolean shouldStopNow(boolean stopRequested, TimeoutCoundown timeout) {
+		return false;
 	}
 
 	@Override
 	State run() {
-		CoronataWiiRemote wiiRemote = new BlueCoveWiiRemote(connection,
-				buttonObserver, leObserver);
+		CoronataWiiRemote wiiRemote =
+				new BlueCoveWiiRemote(connection, buttonObserver, leObserver);
 
 		leObserver.connected(wiiRemote);
 

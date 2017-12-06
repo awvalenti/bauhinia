@@ -6,6 +6,8 @@ import javax.bluetooth.L2CAPConnection;
 
 class WiiRemoteConnection {
 
+	// http://wiibrew.org/wiki/Wiimote#HID_Interface
+
 	private final L2CAPConnection controlPipe;
 	private final L2CAPConnection dataPipe;
 

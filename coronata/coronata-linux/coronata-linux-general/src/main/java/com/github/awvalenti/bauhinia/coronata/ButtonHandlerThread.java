@@ -19,7 +19,7 @@ class ButtonHandlerThread extends Thread {
 
 	private volatile boolean disconnectionRequested = false;
 
-	public ButtonHandlerThread(WiiRemoteConnection connection,
+	ButtonHandlerThread(WiiRemoteConnection connection,
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 
@@ -30,7 +30,7 @@ class ButtonHandlerThread extends Thread {
 		this.disconnectionObserver = disconnectionObserver;
 	}
 
-	public void disconnectWiiRemote() {
+	void disconnectWiiRemote() {
 		disconnectionRequested = true;
 	}
 
@@ -59,11 +59,8 @@ class ButtonHandlerThread extends Thread {
 			throw new RuntimeException(t);
 
 		} finally {
-			try {
-				connection.close();
-			} finally {
-				disconnectionObserver.disconnected();
-			}
+			connection.close();
+			disconnectionObserver.disconnected();
 		}
 	}
 

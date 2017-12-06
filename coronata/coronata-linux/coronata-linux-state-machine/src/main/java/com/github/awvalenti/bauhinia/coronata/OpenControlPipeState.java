@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
-
 import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
@@ -16,9 +14,10 @@ class OpenControlPipeState extends State {
 	private final CoronataLifecycleEventsObserver leObserver;
 	private final String btAddress;
 
+	private L2CAPConnection controlPipe;
+
 	OpenControlPipeState(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver, String btAddress) {
-		super(STOP_ONLY_IF_REQUESTED);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.btAddress = btAddress;
@@ -28,7 +27,6 @@ class OpenControlPipeState extends State {
 	State run() {
 		leObserver.identifiedAsWiiRemote(btAddress);
 
-		final L2CAPConnection controlPipe;
 		try {
 			controlPipe = (L2CAPConnection) Connector.open(
 					String.format("btl2cap://%s:11", btAddress),
@@ -38,6 +36,15 @@ class OpenControlPipeState extends State {
 		}
 
 		return states.openDataPipe(btAddress, controlPipe);
+	}
+
+	@Override
+	void cleanUpIfStoppedHere() {
+		try {
+			controlPipe.close();
+		} catch (IOException e) {
+			// Nothing can be done here
+		}
 	}
 
 }

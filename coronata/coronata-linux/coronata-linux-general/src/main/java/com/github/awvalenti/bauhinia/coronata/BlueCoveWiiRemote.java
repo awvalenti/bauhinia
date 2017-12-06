@@ -16,22 +16,21 @@ class BlueCoveWiiRemote implements CoronataWiiRemote, WiiRemoteConstants {
 			CoronataButtonObserver buttonObserver,
 			CoronataDisconnectionObserver disconnectionObserver) {
 		this.connection = connection;
-		this.thread = new ButtonHandlerThread(connection, buttonObserver,
+		thread = new ButtonHandlerThread(connection, buttonObserver,
 				disconnectionObserver);
-		this.thread.start();
+		thread.start();
 	}
 
 	@Override
 	public void setLightedLEDs(int ledsState) {
-		ledsState &= LEDS_MASK;			// Filters undesired bits (if present)
-
 		byte state = currentState;		// Copies state (for thread-safety)
-		state &= ~LEDS_MASK;			// Mark all LEDs as off
-		state |= ledsState;				// Mark desired LEDs as on
+		state &= ~LEDS_MASK;			// Marks all LEDs as off
+		ledsState &= LEDS_MASK;			// Filters undesired bits (if present)
+		state |= ledsState;				// Marks desired LEDs as on
 
-		currentState = state;			// Update class field
+		currentState = state;			// Updates field
 
-		realizeLedsAndOrVibration();	// Realize changes
+		realizeLedsAndOrVibration();	// Realizes changes
 	}
 
 	@Override

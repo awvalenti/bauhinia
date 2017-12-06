@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
-
 import java.io.IOException;
 
 import javax.bluetooth.RemoteDevice;
@@ -13,7 +11,6 @@ class IdentifyNextDeviceState extends State {
 	private final CandidatesQueue candidates;
 
 	IdentifyNextDeviceState(StateFactory states, CandidatesQueue candidates) {
-		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.candidates = candidates;
 	}

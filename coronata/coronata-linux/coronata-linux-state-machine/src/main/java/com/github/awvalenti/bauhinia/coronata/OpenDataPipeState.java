@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
-
 import java.io.IOException;
 
 import javax.bluetooth.L2CAPConnection;
@@ -14,28 +12,28 @@ class OpenDataPipeState extends State {
 	private final String btAddress;
 	private final L2CAPConnection controlPipe;
 
+	private L2CAPConnection dataPipe;
+
 	OpenDataPipeState(StateFactory states, String btAddress,
 			L2CAPConnection controlPipe) {
-		super(STOP_ONLY_IF_REQUESTED);
 		this.states = states;
 		this.btAddress = btAddress;
 		this.controlPipe = controlPipe;
 	}
 
 	@Override
-	void cleanUpIfDidntRun() {
-		closeControlPipe();
+	boolean shouldStopNow(boolean stopRequested, TimeoutCoundown timeout) {
+		return stopRequested;
 	}
 
 	@Override
 	State run() {
-		final L2CAPConnection dataPipe;
 		try {
 			dataPipe = (L2CAPConnection) Connector.open(
 					String.format("btl2cap://%s:13", btAddress),
 					Connector.READ_WRITE, true);
 		} catch (IOException e) {
-			closeControlPipe();
+			closePipes();
 			return states.connectionRejected(btAddress);
 		}
 
@@ -43,10 +41,19 @@ class OpenDataPipeState extends State {
 				new WiiRemoteConnection(controlPipe, dataPipe));
 	}
 
-	private void closeControlPipe() {
+	@Override
+	void cleanUpIfStoppedHere() {
+		closePipes();
+	}
+
+	private void closePipes() {
 		try {
-			controlPipe.close();
-		} catch (IOException e2) {
+			try {
+				controlPipe.close();
+			} finally {
+				if (dataPipe != null) dataPipe.close();
+			}
+		} catch (IOException e) {
 			// Nothing can be done here
 		}
 	}

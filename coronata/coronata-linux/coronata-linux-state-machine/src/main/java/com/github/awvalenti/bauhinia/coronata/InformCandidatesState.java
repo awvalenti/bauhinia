@@ -1,7 +1,5 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import static com.github.awvalenti.bauhinia.coronata.State.RunPolicy.*;
-
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
 
 class InformCandidatesState extends State {
@@ -14,7 +12,6 @@ class InformCandidatesState extends State {
 	InformCandidatesState(StateFactory states,
 			CoronataLifecycleEventsObserver leObserver,
 			CandidatesQueue candidates) {
-		super(STOP_IF_REQUESTED_OR_TIMEOUT);
 		this.states = states;
 		this.leObserver = leObserver;
 		this.candidates = candidates;

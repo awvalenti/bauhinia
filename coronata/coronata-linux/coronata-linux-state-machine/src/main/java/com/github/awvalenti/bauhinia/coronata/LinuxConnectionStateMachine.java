@@ -6,31 +6,36 @@ import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsO
 class LinuxConnectionStateMachine {
 
 	private final CoronataLifecycleEventsObserver leObserver;
-	private final int timeout;
+	private final int timeoutInSeconds;
 
 	private final StateFactory states;
 
 	private volatile boolean stopRequested = false;
 
 	LinuxConnectionStateMachine(CoronataLifecycleEventsObserver leObserver,
-			int timeout, int numberOfWiiRemotes,
+			int timeoutInSeconds, int numberOfWiiRemotes,
 			CoronataButtonObserver buttonObserver) {
 		this.leObserver = leObserver;
-		this.timeout = timeout;
-		this.states = new StateFactory(leObserver, buttonObserver,
+		this.timeoutInSeconds = timeoutInSeconds;
+		states = new StateFactory(leObserver, buttonObserver,
 				new Counter(numberOfWiiRemotes));
 	}
 
 	void run() {
-		Countdown countdown = new Countdown(timeout);
+		TimeoutCoundown timeoutCountdown =
+				new TimeoutCoundown(timeoutInSeconds);
 
 		leObserver.coronataStarted();
 
 		State current = states.loadLibrary();
-		while (current.shouldRun(stopRequested, countdown)) {
-			current = current.run();
+		for (;;) {
+			State next = current.run();
+			if (next.shouldStopNow(stopRequested, timeoutCountdown)) {
+				current.cleanUpIfStoppedHere();
+				break;
+			}
+			current = next;
 		}
-		current.cleanUpIfDidntRun();
 
 		leObserver.searchFinished();
 	}
