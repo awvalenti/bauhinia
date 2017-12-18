@@ -36,8 +36,9 @@ public class LogPanel extends JPanel implements
 	}
 
 	@Override
-	public void libraryLoadedSearchStarted() {
-		append(messages.get("libraryLoadedSearchStarted"));
+	public void searchStarted(boolean isWindows) {
+		append(messages.get(
+				isWindows ? "searchStarted-windows" : "searchStarted-linux"));
 	}
 
 	@Override

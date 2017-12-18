@@ -33,8 +33,8 @@ class EventsMediator implements
 	}
 
 	@Override
-	public void libraryLoadedSearchStarted() {
-		observers.lifecycleEvents.libraryLoadedSearchStarted();
+	public void searchStarted(boolean isWindows) {
+		observers.lifecycleEvents.searchStarted(isWindows);
 		observers.phase.success(LOAD_LIBRARY);
 		moveToPhase(FIND_WII_REMOTE);
 	}

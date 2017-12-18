@@ -23,9 +23,9 @@ class CompositeLifecycleEventsObserver implements
 	}
 
 	@Override
-	public void libraryLoadedSearchStarted() {
+	public void searchStarted(boolean isWindows) {
 		for (CoronataLifecycleEventsObserver o : observers) {
-			o.libraryLoadedSearchStarted();
+			o.searchStarted(isWindows);
 		}
 	}
 

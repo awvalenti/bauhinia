@@ -9,7 +9,7 @@ public interface CoronataLifecycleEventsObserver extends
 
 	void coronataStarted();
 
-	void libraryLoadedSearchStarted();
+	void searchStarted(boolean isWindows);
 
 	void bluetoothDeviceFound(String btAddress, String deviceClass);
 
