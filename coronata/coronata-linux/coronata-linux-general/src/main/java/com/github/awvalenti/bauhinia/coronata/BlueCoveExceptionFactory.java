@@ -15,16 +15,16 @@ class BlueCoveExceptionFactory {
 			return bluetoothAdapterIsOff(cause);
 
 		} else if (errorMsg.contains("device is not ready")) {
-			return deviceNotReady(cause);
+			return deviceIsNotReady(cause);
 
 		} else {
-			return unknownError(cause);
+			return unexpectedError(cause);
 		}
 	}
 
 	private CoronataException
 			problemLoadingLibraries(BluetoothStateException cause) {
-		return new CoronataException(cause, "" +
+		return new CoronataException(cause,
 				"Unable to load required libraries for BlueCove.\n" +
 				"\tCheck if the requirements described here were met:" +
 				" http://www.bluecove.org/bluecove-gpl/index.html\n" +
@@ -36,24 +36,22 @@ class BlueCoveExceptionFactory {
 
 	private CoronataException
 			bluetoothAdapterIsOff(BluetoothStateException cause) {
-		return new CoronataException(cause, "" +
-				"Bluetooth adapter is unavailable. Check if it is present and" +
-				" turned on." +
+		return new CoronataException(cause,
+				"Bluetooth adapter is unavailable. Make sure it is enabled. " +
+				"If it is a USB adapter, check if it is connected." +
 				"");
 	}
 
-	private CoronataException deviceNotReady(BluetoothStateException cause) {
-		return new CoronataException(cause, "" +
+	private CoronataException deviceIsNotReady(BluetoothStateException cause) {
+		return new CoronataException(cause,
 				"Bluetooth adapter is not ready. Try turning it off and on" +
 				" again." +
 				"");
 	}
 
-	private CoronataException unknownError(Exception cause) {
-		return new CoronataException(cause, "" +
-				"An unknown error occured. Please check the stack trace for" +
-				" details." +
-				"");
+	private CoronataException unexpectedError(Exception cause) {
+		return new CoronataException(cause, "Unexpected error: " +
+				cause.getMessage());
 	}
 
 }

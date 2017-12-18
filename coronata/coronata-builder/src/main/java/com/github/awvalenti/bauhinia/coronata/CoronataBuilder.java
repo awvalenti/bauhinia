@@ -68,7 +68,7 @@ public class CoronataBuilder {
 	public CoronataConnectionProcess endConfig() {
 		boolean isWindows =
 				System.getProperty("os.name").toLowerCase().contains("win");
-		return //XXX isWindows ? new CoronataWindows(config) :
+		return isWindows ? new CoronataWindows(config) :
 				new CoronataLinux(config);
 	}
 
