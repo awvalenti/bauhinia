@@ -56,7 +56,7 @@ Mac. If you do, you are welcome to help! Try running the application and
 
     - On console mode:
       - Run on a terminal: ```java -jar nitida-x.y.z.jar --console```
-        (replace x.y.z by version number, e.g., 0.2.x).
+        (replace x.y.z with version number, e.g., 0.2.0).
 
     - On window mode (default):
       - Double-click the JAR file and it should work. If not, try right-clicking it
@@ -64,8 +64,8 @@ Mac. If you do, you are welcome to help! Try running the application and
         add execution permission to the file (```chmod +x nitida-x.y.z.jar```).
 
       - If none of the above worked, try opening a terminal/command prompt and
-        executing: ```java -jar nitida-x.y.z.jar``` (replace x.y.z by version
-        number, e.g., 0.2.x).
+        executing: ```java -jar nitida-x.y.z.jar``` (replace x.y.z with version
+        number, e.g., 0.2.0).
 
 5. **(Linux only) Make Wii Remote discoverable.**
   Press red sync button under back lid of Wii Remote.

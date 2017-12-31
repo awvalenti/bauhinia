@@ -3,8 +3,8 @@
 	CURRENT=0.14
 
 	cd wiiusej
-	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	# README.md and wiiusej-license.txt: update copyright years
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	git diff
 	mvn clean package
 
@@ -50,16 +50,18 @@
 	CURRENT=0.2.0
 
 	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
-	# README.md, coronata-license.txt, nitida-license: update copyright years 
-	# On Eclipse, find references to $OLD (and also to 0.1.0); replace them
-	# with $CURRENT.
+	# README.md, coronata-license.txt, nitida-license.txt: update copyright years 
+	# On Eclipse, find and replace references to $OLD with $CURRENT, especially
+	# on coronata/README.md
 	git diff
 
 	mvn clean package
 	cd coronata/coronata-lib/target
+	rm coronata-lib-$CURRENT.jar
 	mv coronata-lib-$CURRENT-jar-with-dependencies.jar coronata-lib-$CURRENT.jar
 	cd -
 	cd nitida/target
+	rm nitida-$CURRENT.jar
 	mv nitida-$CURRENT-jar-with-dependencies.jar nitida-$CURRENT.jar
 
 	git commit -a -m "Releasing $CURRENT"
