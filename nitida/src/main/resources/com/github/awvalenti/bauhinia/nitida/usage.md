@@ -1,8 +1,7 @@
 # nitida usage
 nitida has been tested on Windows and Linux Mint. I don't have a
 Mac. If you do, you are welcome to help! Try running the application and
-[open an issue](https://github.com/awvalenti/bauhinia/issues/new?title=nitida%20on%20Mac)
-reporting your experience.
+[report your experience](https://github.com/awvalenti/bauhinia/issues/85).
 
 ## Instructions
 
