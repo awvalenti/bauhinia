@@ -28,14 +28,14 @@ Mac. If you do, you are welcome to help! Try running the application and
 
     - If JRE is not installed, install it from your package manager.
       On Ubuntu or derivatives, just open a terminal,
-      run ```apt install openjdk-8-jre``` and follow the Instructions.
+      run ```apt install openjdk-8-jre``` and follow the instructions.
       For other distributions of Linux, please check
       [this website](http://openjdk.java.net/install/).
 
     - Install the appropriate system package as described on the
       *Requirements* section of [this page](http://bluecove.org/bluecove-gpl/).
       On Ubuntu or derivatives, just open a terminal,
-      run ```apt install libbluetooth-dev``` and follow the Instructions.
+      run ```apt install libbluetooth-dev``` and follow the instructions.
 
 2. **Download the executable.** From the
   [releases page](https://github.com/awvalenti/bauhinia/releases),
