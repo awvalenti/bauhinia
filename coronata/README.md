@@ -75,7 +75,8 @@ If errors occur when downloading dependencies, please do the following:
 ### Usage
 To learn how to use coronata, take a look at source code from module
 [```coronata-demos```](coronata-demos/src/main/java/com/github/awvalenti/bauhinia/coronata).
-For a more thorough example, please refer to the [nitida project](../nitida).
+For a more thorough example or to learn how to pair Wii Remote on Windows,
+please refer to the [nitida project](../nitida).
 
 ## Dependencies
 - [awvalenti/wiiusej](https://github.com/awvalenti/wiiusej)
