@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.github.awvalenti.wiiusej</groupId>
 			<artifactId>wiiusej-lib</artifactId>
-			<version>0.14-SNAPSHOT</version>
+			<version>0.14</version>
 		</dependency>
 	</dependencies>
 
