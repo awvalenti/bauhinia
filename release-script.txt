@@ -3,7 +3,7 @@
 	CURRENT=0.14
 
 	cd wiiusej
-	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	# README.md and wiiusej-license.txt: update copyright years
 	git diff
 	mvn clean package
@@ -20,13 +20,15 @@
 		Release title: $CURRENT
 		Attach binaries: wiiusej-lib/target/wiiusej-lib-$CURRENT.jar
 		Publish release
+	git pull
 	# Download and test JAR in a project
 	# Repeat the test using Maven
 
 	NEW=0.15-SNAPSHOT
-	find -name pom.xml | xargs sed -i -e 's/$CURRENT/$NEW/g'
-	git checkout -b $NEW
 	# Now we'll start using branches
+	git checkout -b $NEW
+	find -name pom.xml | xargs sed -i -e "s/$CURRENT/$NEW/g"
+	git diff
 	git commit -a -m "Starting $NEW"
 	git push origin $NEW
 	cd ..
@@ -36,18 +38,18 @@
 	cd bauhinia
 	git checkout $OLD
 
-2. Update references to WiiuseJ
+3. Update references to WiiuseJ
 	OLD=0.14-SNAPSHOT
 	CURRENT=0.14
-	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	git diff
 	git commit -a -m "Referencing wiiusej-lib-$CURRENT"
 
-3. Release coronata and nitida
+4. Release coronata and nitida
 	OLD=0.2.x
 	CURRENT=0.2.0
 
-	find -name pom.xml | xargs sed -i -e 's/$OLD/$CURRENT/g'
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	# README.md, coronata-license.txt, nitida-license: update copyright years 
 	# On Eclipse, find references to $OLD (and also to 0.1.0); replace them
 	# with $CURRENT.
@@ -84,7 +86,7 @@
 
 	NEW=0.3.x
 	git checkout -b $NEW
-	find -name pom.xml | xargs sed -i -e 's/$CURRENT/$NEW/g'
+	find -name pom.xml | xargs sed -i -e "s/$CURRENT/$NEW/g"
 	# Look for other usages
 	git diff
 	mvn clean package
