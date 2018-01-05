@@ -83,7 +83,7 @@
 	
 	git checkout master
 	git merge $CURRENT
-	git commit -a -m 'Merging $CURRENT into master'
+	git commit -a -m "Merge '$CURRENT'"
 	git push origin master
 
 	NEW=0.3.x
