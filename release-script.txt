@@ -1,6 +1,6 @@
 1. Release WiiuseJ
-	OLD=0.14-SNAPSHOT
-	CURRENT=0.14
+	OLD=0.15-SNAPSHOT
+	CURRENT=0.15
 
 	cd wiiusej
 	# README.md and wiiusej-license.txt: update copyright years
@@ -34,20 +34,20 @@
 	cd ..
 	
 2. Go to correct branch of Bauhinia
-	OLD=0.2.x
+	OLD=0.3.x
 	cd bauhinia
 	git checkout $OLD
 
 3. Update references to WiiuseJ
-	OLD=0.14-SNAPSHOT
-	CURRENT=0.14
+	OLD=0.15-SNAPSHOT
+	CURRENT=0.15
 	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	git diff
 	git commit -a -m "Referencing wiiusej-lib-$CURRENT"
 
 4. Release coronata and nitida
-	OLD=0.2.x
-	CURRENT=0.2.0
+	OLD=0.3.x
+	CURRENT=0.3.0
 
 	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
 	# README.md, coronata-license.txt, nitida-license.txt: update copyright years 
@@ -86,7 +86,7 @@
 	git commit -a -m "Merge '$CURRENT'"
 	git push origin master
 
-	NEW=0.3.x
+	NEW=0.4.x
 	git checkout -b $NEW
 	find -name pom.xml | xargs sed -i -e "s/$CURRENT/$NEW/g"
 	# Look for other usages
