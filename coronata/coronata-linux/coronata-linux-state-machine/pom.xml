@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
 		<artifactId>coronata-linux</artifactId>
-		<version>0.2.0</version>
+		<version>0.3.x</version>
 	</parent>
 
 	<artifactId>coronata-linux-state-machine</artifactId>

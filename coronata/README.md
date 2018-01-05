@@ -59,7 +59,7 @@ element, put a released coronata version.
   <dependency>
     <groupId>com.github.awvalenti.bauhinia</groupId>
     <artifactId>coronata-lib</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.x</version>
   </dependency>
 </dependencies>
 ```
