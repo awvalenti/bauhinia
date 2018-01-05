@@ -1,0 +1,98 @@
+1. Release WiiuseJ
+	OLD=0.14-SNAPSHOT
+	CURRENT=0.14
+
+	cd wiiusej
+	# README.md and wiiusej-license.txt: update copyright years
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
+	git diff
+	mvn clean package
+
+	# Will go to master since there were no other branches up to this point
+	git commit -a -m "Releasing $CURRENT"
+	git push origin master
+
+	# Commands below can be replaced by creating tag directly on GitHub
+	# git tag $CURRENT
+	# git push origin $CURRENT
+	https://github.com/awvalenti/wiiusej/releases/new
+		Tag version: $CURRENT
+		Release title: $CURRENT
+		Attach binaries: wiiusej-lib/target/wiiusej-lib-$CURRENT.jar
+		Publish release
+	git pull
+	# Download and test JAR in a project
+	# Repeat the test using Maven
+
+	NEW=0.15-SNAPSHOT
+	# Now we'll start using branches
+	git checkout -b $NEW
+	find -name pom.xml | xargs sed -i -e "s/$CURRENT/$NEW/g"
+	git diff
+	git commit -a -m "Starting $NEW"
+	git push origin $NEW
+	cd ..
+	
+2. Go to correct branch of Bauhinia
+	OLD=0.2.x
+	cd bauhinia
+	git checkout $OLD
+
+3. Update references to WiiuseJ
+	OLD=0.14-SNAPSHOT
+	CURRENT=0.14
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
+	git diff
+	git commit -a -m "Referencing wiiusej-lib-$CURRENT"
+
+4. Release coronata and nitida
+	OLD=0.2.x
+	CURRENT=0.2.0
+
+	find -name pom.xml | xargs sed -i -e "s/$OLD/$CURRENT/g"
+	# README.md, coronata-license.txt, nitida-license.txt: update copyright years 
+	# On Eclipse, find and replace references to $OLD with $CURRENT, especially
+	# on coronata/README.md
+	git diff
+
+	mvn clean package
+	cd coronata/coronata-lib/target
+	rm coronata-lib-$CURRENT.jar
+	mv coronata-lib-$CURRENT-jar-with-dependencies.jar coronata-lib-$CURRENT.jar
+	cd -
+	cd nitida/target
+	rm nitida-$CURRENT.jar
+	mv nitida-$CURRENT-jar-with-dependencies.jar nitida-$CURRENT.jar
+
+	git commit -a -m "Releasing $CURRENT"
+	git push origin $OLD
+	
+	# Commands below can be replaced by creating tag directly on GitHub
+	# git tag $CURRENT
+	# git push origin $CURRENT
+	https://github.com/awvalenti/bauhinia/releases/new
+		Tag version: $CURRENT
+		Release title: $CURRENT
+		Attach binaries:
+			coronata/coronata-lib/target/coronata-lib-$CURRENT.jar
+			nitida/target/nitida-$CURRENT.jar
+		Publish release
+	# Download and test nitida JAR
+	# Download and test coronata-lib JAR
+	# Repeat the test using Maven
+	
+	git checkout master
+	git merge $CURRENT
+	git commit -a -m 'Merging $CURRENT into master'
+	git push origin master
+
+	NEW=0.3.x
+	git checkout -b $NEW
+	find -name pom.xml | xargs sed -i -e "s/$CURRENT/$NEW/g"
+	# Look for other usages
+	git diff
+	mvn clean package
+
+	git commit -a -m "Starting $NEW"
+	git push origin $NEW
+	cd ..

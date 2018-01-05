@@ -3,56 +3,93 @@ package com.github.awvalenti.bauhinia.nitida.model;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import com.github.awvalenti.bauhinia.coronata.CoronataBuilderStep3;
-import com.github.awvalenti.bauhinia.coronata.WiiRemote;
-import com.github.awvalenti.bauhinia.coronata.WiiRemoteButton;
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.CoronataConnectionProcess;
+import com.github.awvalenti.bauhinia.coronata.CoronataBuilder;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemote;
+import com.github.awvalenti.bauhinia.coronata.CoronataWiiRemoteButton;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
 
-public class NitidaModel implements NitidaControllable, CoronataWiiRemoteConnectionObserver,
-		WiiRemoteFullListener {
+public class NitidaModel {
 
 	private final Robot robot;
-	private final KeyMapping mapping;
-	private CoronataConnector connector;
+	private final ButtonMapping mapping;
+	private CoronataConnectionProcess coronata;
+	private CoronataWiiRemote storedWiiRemote;
 
-	public NitidaModel(CoronataBuilderStep3 builder) {
+	public NitidaModel(CoronataBuilder builder) {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {
 			throw new RuntimeException(e);
 		}
-		this.mapping = new KeyMapping();
-		builder.wiiRemoteConnectionObserver(this).buttonListener(this);
+		this.mapping = new ButtonMapping();
+
+		MultipleEventsObserver o = new MultipleEventsObserver();
+
+		builder
+				.onConnection(o)
+				.onDisconnection(o)
+				.onButton(o);
 	}
 
-	public void setConnector(CoronataConnector connector) {
-		this.connector = connector;
+	public void setCoronata(CoronataConnectionProcess coronata) {
+		this.coronata = coronata;
 	}
 
-	@Override
-	public void connect() {
-		connector.run();
+	public void start() {
+		coronata.start();
 	}
 
-	@Override
-	public void wiiRemoteConnected(WiiRemote wiiRemote) {
-		wiiRemote.turnLedOn(0);
+	public void profileChanged(Profile profile) {
+		mapping.setProfile(profile);
 	}
 
-	@Override
-	public void buttonPressed(WiiRemoteButton button) {
-		robot.keyPress(mapping.keycodeFor(button));
+	public void stop() {
+		coronata.cancel();
+		if (storedWiiRemote != null) {
+			storedWiiRemote.setLightedLEDs(CoronataWiiRemote.LED_3);
+			storedWiiRemote.disconnect();
+		}
 	}
 
-	@Override
-	public void buttonReleased(WiiRemoteButton button) {
-		robot.keyRelease(mapping.keycodeFor(button));
-	}
+	private class MultipleEventsObserver implements
+			CoronataConnectionObserver,
+			CoronataDisconnectionObserver,
+			CoronataButtonObserver {
 
-	@Override
-	public void wiiRemoteDisconnected() {
+		@Override
+		public void connected(final CoronataWiiRemote wiiRemote) {
+			wiiRemote.setLightedLEDs(CoronataWiiRemote.LED_0);
+			storedWiiRemote = wiiRemote;
+		}
+
+		@Override
+		public void disconnected() {
+			storedWiiRemote = null;
+
+			for (Integer keycode : mapping.allMappedKeycodes()) {
+				// This avoids keys getting stuck pressed
+				// when controller is disconnected
+				robot.keyRelease(keycode);
+			}
+		}
+
+		@Override
+		public void buttonPressed(CoronataWiiRemoteButton button) {
+			for (int keycode : mapping.keycodesFor(button)) {
+				robot.keyPress(keycode);
+			}
+		}
+
+		@Override
+		public void buttonReleased(CoronataWiiRemoteButton button) {
+			for (int keycode : mapping.keycodesFor(button)) {
+				robot.keyRelease(keycode);
+			}
+		}
+
 	}
 
 }

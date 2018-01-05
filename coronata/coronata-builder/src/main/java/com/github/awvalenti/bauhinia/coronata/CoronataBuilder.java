@@ -1,75 +1,75 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.BlueCoveConnector;
-import com.github.awvalenti.bauhinia.coronata.CoronataConnector;
-import com.github.awvalenti.bauhinia.coronata.WiiuseJConnector;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteButtonListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionStateObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
 import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataWiiRemoteConnectionObserver;
 
-class CoronataBuilder implements CoronataBuilderStep1, CoronataBuilderStep2,
-		CoronataBuilderStep3 {
+public class CoronataBuilder {
 
 	private final CoronataConfig config = new CoronataConfig();
 
-	@Override
-	public CoronataBuilderStep2 synchronous() {
-		config.setSynchronous(true);
+	private CoronataBuilder() {
+	}
+
+	public static CoronataBuilder beginConfig() {
+		return new CoronataBuilder();
+	}
+
+	public CoronataBuilder wiiRemotesExpected(int count) {
+		config.setNumberOfWiiRemotes(count);
 		return this;
 	}
 
-	@Override
-	public CoronataBuilderStep2 asynchronous() {
-		config.setSynchronous(false);
+	public CoronataBuilder timeoutInSeconds(int timeout) {
+		config.setTimeoutInSeconds(timeout);
 		return this;
 	}
 
-	@Override
-	public CoronataBuilderStep3 oneWiiRemote() {
-		config.setWiiRemotesExpected(1);
-		return this;
-	}
-
-	@Override
-	public CoronataBuilderStep3 buttonListener(WiiRemoteButtonListener listener) {
-		config.addButtonListener(new ButtonListenerAdapter(listener));
-		return this;
-	}
-
-	@Override
-	public CoronataBuilderStep3 wiiRemoteConnectionObserver(CoronataWiiRemoteConnectionObserver o) {
-		config.addObserver(new WiiRemoteConnectionObserverAdapter(o));
-		return this;
-	}
-
-	@Override
-	public CoronataBuilderStep3 fullObserver(CoronataFullObserver o) {
+	public CoronataBuilder onButton(CoronataButtonObserver o) {
 		config.addObserver(o);
 		return this;
 	}
 
-	@Override
-	public CoronataBuilderStep3 phaseStateObserver(CoronataPhaseObserver o) {
-		config.addObserver(new PhaseObserverAdapter(o));
+	public CoronataBuilder onConnection(CoronataConnectionObserver o) {
+		config.addObserver(o);
 		return this;
 	}
 
-	@Override
-	public CoronataBuilderStep3 connectionStateObserver(CoronataConnectionStateObserver o) {
-		config.addObserver(new ConnectionStateObserverAdapter(o));
+	public CoronataBuilder onDisconnection(CoronataDisconnectionObserver o) {
+		config.addObserver(o);
 		return this;
 	}
 
-	@Override
-	public CoronataConnector build() {
-		return isWindows() ? new WiiuseJConnector(config) : new BlueCoveConnector(
-				config);
+	public CoronataBuilder
+			onLifecycleEvents(CoronataLifecycleEventsObserver o) {
+		config.addObserver(o);
+		return this;
 	}
 
-	private static boolean isWindows() {
-		return System.getProperty("os.name").toLowerCase().contains("win");
+	public CoronataBuilder onLifecycleState(CoronataLifecycleStateObserver o) {
+		config.addObserver(o);
+		return this;
+	}
+
+	public CoronataBuilder onPhase(CoronataPhaseObserver o) {
+		config.addObserver(o);
+		return this;
+	}
+
+	public CoronataBuilder onError(CoronataErrorObserver o) {
+		config.addObserver(o);
+		return this;
+	}
+
+	public CoronataConnectionProcess endConfig() {
+		boolean isWindows =
+				System.getProperty("os.name").toLowerCase().contains("win");
+		return isWindows ? new CoronataWindows(config) :
+				new CoronataLinux(config);
 	}
 
 }

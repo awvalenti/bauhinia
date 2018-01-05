@@ -1,16 +1,16 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
 
 interface ReadableCoronataConfig {
 
-	WiiRemoteFullListener getWiiRemoteListener();
+	int getNumberOfWiiRemotes();
 
-	int getWiiRemotesExpected();
+	int getTimeoutInSeconds();
 
-	boolean isSynchronous();
+	CoronataButtonObserver getButtonObserver();
 
-	CoronataFullObserver getCoronataObserver();
+	CoronataLifecycleEventsObserver getLifecycleEventsObserver();
 
 }

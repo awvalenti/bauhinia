@@ -8,9 +8,6 @@ including to the programmer.
 For more information on a specific project, please click on one of the headings
 below.
 
-master branch contains latest released version. Development version is located
-on most recent branch.
-
 ## [coronata](coronata)
 A cross-platform and easy to use Wii Remote library.
 

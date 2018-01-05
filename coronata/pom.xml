@@ -6,21 +6,20 @@
 	<parent>
 		<groupId>com.github.awvalenti.bauhinia</groupId>
 		<artifactId>bauhinia</artifactId>
-		<version>0.1.0</version>
+		<version>0.2.0</version>
 	</parent>
 
 	<artifactId>coronata</artifactId>
 	<packaging>pom</packaging>
-	<version>0.1.0</version>
 
 	<modules>
-		<module>coronata-api</module>
+		<module>coronata-interface</module>
 		<module>coronata-builder</module>
 		<module>coronata-common</module>
 		<module>coronata-demos</module>
-		<module>coronata-implementation-bluecove</module>
-		<module>coronata-implementation-wiiusej</module>
 		<module>coronata-lib</module>
+		<module>coronata-linux</module>
+		<module>coronata-windows</module>
 	</modules>
 
 </project>

@@ -1,50 +1,75 @@
 package com.github.awvalenti.bauhinia.coronata;
 
-import com.github.awvalenti.bauhinia.coronata.ReadableCoronataConfig;
-import com.github.awvalenti.bauhinia.coronata.listeners.WiiRemoteFullListener;
-import com.github.awvalenti.bauhinia.coronata.observers.CoronataFullObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleEventsObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataButtonObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataConnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataDisconnectionObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataErrorObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataLifecycleStateObserver;
+import com.github.awvalenti.bauhinia.coronata.observers.CoronataPhaseObserver;
 
 class CoronataConfig implements ReadableCoronataConfig {
 
-	private Boolean synchronous;
-	private Integer wiiRemotesExpected;
-	private CompositeListener compositeListener = new CompositeListener();
-	private CompositeObserver compositeObserver = new CompositeObserver();
+	private final ObserversAggregation observers = new ObserversAggregation();
+	private final EventsMediator mediator = new EventsMediator(observers);
+
+	private int numberOfWiiRemotes = 1;
+	private int timeoutInSeconds = 40;
 
 	@Override
-	public boolean isSynchronous() {
-		return synchronous;
+	public int getNumberOfWiiRemotes() {
+		return numberOfWiiRemotes;
 	}
 
-	public void setSynchronous(boolean synchronous) {
-		this.synchronous = synchronous;
-	}
-
-	@Override
-	public int getWiiRemotesExpected() {
-		return wiiRemotesExpected;
-	}
-
-	public void setWiiRemotesExpected(int wiiRemotesExpected) {
-		this.wiiRemotesExpected = wiiRemotesExpected;
+	public void setNumberOfWiiRemotes(int numberOfWiiRemotes) {
+		this.numberOfWiiRemotes = numberOfWiiRemotes;
 	}
 
 	@Override
-	public WiiRemoteFullListener getWiiRemoteListener() {
-		return compositeListener;
+	public int getTimeoutInSeconds() {
+		return timeoutInSeconds;
 	}
 
-	public void addButtonListener(WiiRemoteFullListener l) {
-		compositeListener.addListener(l);
-	}
-
-	public void addObserver(CoronataFullObserver o) {
-		compositeObserver.add(o);
+	public void setTimeoutInSeconds(int timeoutInSeconds) {
+		this.timeoutInSeconds = timeoutInSeconds;
 	}
 
 	@Override
-	public CoronataFullObserver getCoronataObserver() {
-		return compositeObserver;
+	public CoronataButtonObserver getButtonObserver() {
+		return mediator;
+	}
+
+	@Override
+	public CoronataLifecycleEventsObserver getLifecycleEventsObserver() {
+		return mediator;
+	}
+
+	public void addObserver(CoronataButtonObserver o) {
+		observers.button.add(o);
+	}
+
+	public void addObserver(CoronataConnectionObserver o) {
+		observers.connection.add(o);
+	}
+
+	public void addObserver(CoronataDisconnectionObserver o) {
+		observers.disconnection.add(o);
+	}
+
+	public void addObserver(CoronataLifecycleEventsObserver o) {
+		observers.lifecycleEvents.add(o);
+	}
+
+	public void addObserver(CoronataLifecycleStateObserver o) {
+		observers.lifecycleState.add(o);
+	}
+
+	public void addObserver(CoronataPhaseObserver o) {
+		observers.phase.add(o);
+	}
+
+	public void addObserver(CoronataErrorObserver o) {
+		observers.error.add(o);
 	}
 
 }
