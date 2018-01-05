@@ -5,6 +5,9 @@ allow using the Wii Remote controller on computers, which is done via Bluetooth.
 Bauhinia intends to deliver __clean code__ and __great user experience__,
 including to the programmer.
 
+master branch contains latest released version. Development version is located
+on most recent branch.
+
 For more information on a specific project, please click on one of the headings
 below.
 
